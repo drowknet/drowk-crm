@@ -16,7 +16,8 @@ Primary concerns:
 
 ## Repository rules
 
-This repository is public at foundation time.
+Repository visibility is not a security boundary. Treat repository contents as
+potentially public even when the GitHub repository is private.
 
 Therefore:
 - no tenant PII;
@@ -100,4 +101,5 @@ Record at minimum:
 
 ## Public repo note
 
-Visibility may be changed later, but security controls must not depend on repository privacy.
+Whether the repository is private or public may change over time; security controls
+must never depend on repository privacy.

@@ -1,6 +1,6 @@
 # DCRM-03A — Gmail Observation Boundary
 
-Status: READY FOR CONTRACT / SYNTHETIC IMPLEMENTATION
+Status: PARTIAL SYNTHETIC IMPLEMENTATION — LIVE/BOUNDARY GATES REMAIN
 
 ## Objective
 
@@ -97,3 +97,22 @@ Synthetic tests must prove:
 ## Legacy extraction
 
 See `docs/reference-harvest/pwm-wp03-local-audit-2026-09-26.md`.
+
+
+## Current extraction status
+
+Already present in `connectors/gmail` with synthetic tests:
+- arbitrary-precision decimal History ID ordering;
+- DRAFT precedence over sent/outbound inference;
+- SENT as positive outbound technical evidence;
+- owned From without SENT -> OUTBOUND_UNCONFIRMED;
+- SPAM-neutral relevance semantics;
+- PREPARED/PASS/FAILED cursor advancement gate.
+
+Still required before DCRM-03A can close:
+- a bounded Gmail source-observation contract preserving the authoritative source fields;
+- explicit same-Message-ID replay/deduplication proof at the connector -> observation boundary;
+- controlled expired/invalid-history recovery semantics;
+- explicit relevance/promotion boundary proof with no direct Core mutation.
+
+Live Gmail OAuth/network access remains closed.

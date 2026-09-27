@@ -28,11 +28,12 @@ This index routes humans and agents to the current repository-owned context.
 
 ## Work packages
 
-- [DCRM-01A Core Vertical Slice](work-packages/DCRM-01A-core-vertical-slice.md) — first executable contracts/domain/database slice.
+- [DCRM-01A Core Vertical Slice](work-packages/DCRM-01A-core-vertical-slice.md) — completed executable contracts/domain/database foundation.
+- [DCRM-01B PostgreSQL Persistence](work-packages/DCRM-01B-postgres-persistence.md) — completed tenant-scoped Account/Facility/Observation/Evidence persistence.
 - [DCRM-01C Migration Runner + Runtime Shell](work-packages/DCRM-01C-migration-runtime-shell.md) — completed runtime bootstrap gate after persistence.
-- [DCRM-02A Identity + Membership Context](work-packages/DCRM-02A-identity-membership-context.md) — provider-neutral application auth/tenant boundary before business HTTP.
-- [DCRM-03A Gmail Observation Boundary](work-packages/DCRM-03A-gmail-observation-boundary.md) — extract WP-03 source mechanics without direct Core authority.
-- [DCRM-04A Work Engine Contract Parity](work-packages/DCRM-04A-work-engine-contract-parity.md) — port proven PWM work semantics and golden cases.
+- [DCRM-02A Identity + Membership Context](work-packages/DCRM-02A-identity-membership-context.md) — completed provider-neutral user/tenant authorization boundary before business HTTP.
+- [DCRM-03A Gmail Observation Boundary](work-packages/DCRM-03A-gmail-observation-boundary.md) — partial synthetic extraction; live Gmail remains gated.
+- [DCRM-04A Work Engine Contract Parity](work-packages/DCRM-04A-work-engine-contract-parity.md) — contract extracted; deterministic compiler/golden parity remains pending.
 
 ## Migration
 

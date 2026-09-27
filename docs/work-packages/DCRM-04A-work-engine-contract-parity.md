@@ -1,6 +1,6 @@
 # DCRM-04A — Work Engine Contract Parity
 
-Status: READY FOR PORT / GOLDEN TEST EXTRACTION
+Status: CONTRACT EXTRACTED — COMPILER / GOLDEN PARITY PENDING
 
 ## Objective
 
@@ -54,3 +54,20 @@ Use one writer plus:
 
 Contract/golden extraction can proceed in parallel. Full parity waits until the
 canonical persistence layer is runnable.
+
+
+## Current extraction status
+
+Already preserved in DROWK contracts/schema:
+- WorkState;
+- AttentionClass;
+- AutonomyLevel A0-A5;
+- work key/source/fingerprint/supersession fields;
+- source watermark and policy version.
+
+Still required before DCRM-04A can close:
+- deterministic Work compiler implementation;
+- explicit source-precedence/conflict behavior;
+- PWM WP-02 golden fixture extraction;
+- idempotency/supersession behavioral sensors;
+- proof that deterministic compilation has no JEV/model or Gmail-write path.

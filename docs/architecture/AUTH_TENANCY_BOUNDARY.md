@@ -7,7 +7,7 @@ Status: FOUNDATION DESIGN
 These identities are separate:
 
 ```text
-Tenant != User/Actor != Agent/Service Identity != Session != Run
+Tenant != User != Actor != Agent/Service Identity != Session != Run
 ```
 
 Do not collapse them into one generic user/session field.
@@ -24,7 +24,7 @@ Tenant owns or scopes:
 - lexicon/taxonomy;
 - budgets;
 - provider permissions;
-- users/memberships;
+- tenant memberships and tenant-scoped authorization;
 - Work;
 - audit/access rules.
 
@@ -32,7 +32,9 @@ Initial reference migration may use PWM/Pacific West as a tenant, subject to act
 
 ## User / Actor
 
-A User represents an authenticated human identity.
+A User represents a DROWK-owned human identity. A User may be global across
+multiple tenants; tenant access exists only through an explicit active membership.
+An external auth identity maps to a User but never grants tenant access by itself.
 
 An Actor may be:
 - human user;
