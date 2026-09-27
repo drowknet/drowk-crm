@@ -1,8 +1,24 @@
 # DCRM-03A — Gmail Observation Boundary
 
-Status: ACTIVE IMPLEMENTATION
+Status: CLOSED — MERGED + POST-MERGE CI GREEN
 Parent: `foundation/drowk-crm-00`
 Legacy reference: `docs/reference-harvest/pwm-wp03-local-audit-2026-09-26.md`
+
+## Closure evidence
+
+- PR #6 merged into `foundation/drowk-crm-00`.
+- Feature head: `fd4ed763fa704546d906e3e619e3a2c74a01c0e5`.
+- Merge commit: `24df7cece88048fe7dcbb036343d3943c97d59a8`.
+- Exact-head CI `36338743226`: SUCCESS.
+- Post-merge CI `36341467573`: SUCCESS.
+- `verify`: SUCCESS.
+- `postgres-foundation`: SUCCESS, including Gmail observation persistence boundary.
+- No live Gmail/OAuth, outbound, JEV/model, Apps Script writer or deployment authority was opened.
+
+Non-blocking later gates remain:
+- durable Gmail cursor state must use CAS/serialization;
+- multi-mailbox source identity scope must be revalidated before live ingestion;
+- deterministic noise categories must remain narrow enough to preserve commercial review.
 
 ## Product outcome
 

@@ -1,11 +1,33 @@
 # DCRM-04A — Work Engine Contract Parity
 
-Status: CONTRACT EXTRACTED — COMPILER / GOLDEN PARITY PENDING
+Status: READY FOR IMPLEMENTATION — COMPILER / GOLDEN PARITY PENDING
 
 ## Objective
 
 Port the proven deterministic PWM Work Engine semantics into DROWK TypeScript
 without carrying Sheet/App Script implementation details.
+
+## Product/research guardrails
+
+DCRM-04A remains a deterministic parity package. The 2026-09-27 market/relationship
+research changes the boundaries around Work, but does not authorize a broad
+Relationship Intelligence implementation inside this WP.
+
+Preserve:
+- Work != Activity history;
+- Work != Commitment;
+- Task != Commitment;
+- seller effort != buyer-confirmed progress;
+- observation/coverage gaps fail closed instead of becoming negative facts;
+- no relationship-strength score or inferred trust belongs in deterministic Work compilation.
+
+A future Commitment may cause Work, but this compiler must not fabricate a
+Commitment from ambiguous communication or mark external fulfillment merely because
+an internal WorkItem/Task completed.
+
+If a PWM golden case proves an obligation/follow-up source, preserve its source,
+reason, timing and authority semantics in Work without inventing a richer relationship
+object than the fixture proves.
 
 ## First contract
 
@@ -71,3 +93,13 @@ Still required before DCRM-04A can close:
 - PWM WP-02 golden fixture extraction;
 - idempotency/supersession behavioral sensors;
 - proof that deterministic compilation has no JEV/model or Gmail-write path.
+
+## Post-parity architecture checkpoint
+
+After DCRM-04A is green, re-inspect the executable canonical model before opening
+richer buyer/research UI. The product canon now expects temporal Person, Identity,
+Employment, Relationship, Buyer Role and Commitment semantics, but DCRM-04A must not
+silently broaden itself to implement all of them.
+
+The next package after parity should be chosen from repository state and measured
+dependencies, not from feature-count pressure.

@@ -11,6 +11,7 @@ This index routes humans and agents to the current repository-owned context.
 
 - [Product North Star](product/PRODUCT_NORTH_STAR.md) — owner-approved Revenue & Relationship Operating System ambition and product test for future work.
 - [UX Operating Model](product/UX_OPERATING_MODEL.md) — operator surfaces, navigation, contextual AIsa and progressive-disclosure principles.
+- [Relationship Intelligence Decisions](product/RELATIONSHIP_INTELLIGENCE_DECISIONS.md) — canonical incorporation of the 2026-09-27 market/relationship research into Person/Employment/Relationship/Commitment, coverage and progress semantics.
 
 ## Architecture
 
@@ -38,8 +39,8 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-01C Migration Runner + Runtime Shell](work-packages/DCRM-01C-migration-runtime-shell.md) — completed runtime bootstrap gate after persistence.
 - [DCRM-02A Identity + Membership Context](work-packages/DCRM-02A-identity-membership-context.md) — completed provider-neutral user/tenant authorization boundary before business HTTP.
 - [DCRM-02B Cloudflare Access Alpha Verifier](work-packages/DCRM-02B-cloudflare-access-alpha-verifier.md) — completed alpha authentication adapter; no production deploy.
-- [DCRM-03A Gmail Observation Boundary](work-packages/DCRM-03A-gmail-observation-boundary.md) — next completion gate for observation/replay/recovery/promotion boundaries; live Gmail remains gated.
-- [DCRM-04A Work Engine Contract Parity](work-packages/DCRM-04A-work-engine-contract-parity.md) — contract extracted; deterministic compiler/golden parity remains pending.
+- [DCRM-03A Gmail Observation Boundary](work-packages/DCRM-03A-gmail-observation-boundary.md) — completed/merged with post-merge CI green; live Gmail remains gated.
+- [DCRM-04A Work Engine Contract Parity](work-packages/DCRM-04A-work-engine-contract-parity.md) — next implementation gate; deterministic compiler/golden parity remains pending.
 
 ## Migration
 

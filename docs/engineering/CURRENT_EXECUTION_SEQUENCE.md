@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B/C + DCRM-02A/B GREEN — DCRM-03A ACTIVE
+Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A GREEN — DCRM-04A NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -105,32 +105,44 @@ ChatGPT then:
 - [DONE] PR #5 merged into `foundation/drowk-crm-00`;
 - [DONE] post-merge CI green.
 
-### Active gate — DCRM-03A completion
+### Completed — DCRM-03A Gmail observation boundary
 
-Execute:
-`docs/work-packages/DCRM-03A-gmail-observation-boundary.md`
+- [DONE] PR #6 merged into `foundation/drowk-crm-00`;
+- [DONE] merge commit `24df7cece88048fe7dcbb036343d3943c97d59a8`;
+- [DONE] exact-head CI `36338743226` green;
+- [DONE] post-merge CI `36341467573` green;
+- [DONE] source preservation, replay/conflict, controlled History recovery and
+  candidate-only promotion boundary proven;
+- [CLOSED] live Gmail/OAuth/network access;
+- [CLOSED] Gmail draft/send and Apps Script writer authority;
+- [CLOSED] accepted CRM mutation from the connector.
+
+### Next gate — DCRM-04A Work Engine contract parity
+
+Execute only after the owner/ChatGPT handoff creates or switches to the dedicated
+feature branch:
+
+`docs/work-packages/DCRM-04A-work-engine-contract-parity.md`
 
 Operator outcome:
-- future Inbox/Today/relationship surfaces can consume attributable Gmail
-  observations without treating mailbox state as CRM truth.
+- deterministic Today/Work semantics can consume attributable state without
+  confusing source activity, human/core work, Shadow suggestions or future
+  relationship commitments.
 
-Purpose:
-- preserve the authoritative Gmail source fields;
-- prove replay/deduplication and changed-fingerprint conflict behavior;
-- prove controlled expired-history recovery;
-- prove explicit relevance/promotion candidate boundary;
-- keep live Gmail/OAuth/network access closed.
+Required proof:
+- deterministic compiler;
+- explicit source precedence/conflict behavior;
+- PWM WP-02 synthetic golden parity;
+- idempotency/supersession behavior;
+- no JEV/model path in deterministic compilation;
+- no Gmail write path.
 
-DCRM-04A remains queued immediately after this package so deterministic Work can
-consume trustworthy source/evidence state.
-
-### Parallel extraction status — DCRM-03A / DCRM-04A
-
-DCRM-03A already has a partial synthetic connector implementation; explicit
-source-observation/deduplication/recovery/promotion-boundary proof remains before any live Gmail gate.
-
-DCRM-04A already has the canonical Work contract/state vocabulary; deterministic
-compiler behavior and PWM golden-parity extraction remain pending.
+Research guardrail:
+- DCRM-04A must keep Work distinct from Commitment and relationship facts;
+- seller effort must not be mistaken for buyer-confirmed progress;
+- missing coverage must not become a negative relationship fact;
+- full temporal relationship-memory implementation is a post-parity architecture
+  checkpoint, not scope to smuggle into DCRM-04A.
 
 ### Foundation release gate
 
@@ -150,11 +162,15 @@ No independent legacy feature development is allowed.
 
 Current writer state:
 
-- active implementation branch: `feat/dcrm-03a-gmail-observation-boundary`;
-- once Codex starts DCRM-03A, that feature branch has one active writer: Codex;
+- DCRM-03A feature implementation is closed and merged;
+- no Codex DCRM-04A feature writer is active until the dedicated DCRM-04A branch is
+  created/switched and the owner hands execution to Codex;
+- ChatGPT may update repo-owned planning/canonical docs before that handoff;
+- once Codex starts DCRM-04A, that feature branch has one active writer: Codex;
 - ChatGPT reviews but does not edit the same feature branch while Codex is active;
-- drowk-crm is the active product implementation surface;
-- PWM local files remain preservation/regression reference only unless a new explicit extraction gate is opened.
+- DROWK CRM remains the canonical implementation surface;
+- PWM local files remain preservation/regression reference only unless a new
+  explicit extraction gate is opened.
 
 Do not have Codex and ChatGPT edit the same repository/file surface concurrently.
 

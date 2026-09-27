@@ -56,9 +56,14 @@ The active engineering sequence lives in:
 
 That file, not chat history, tells Codex which work package is currently active.
 
-DCRM-02A and DCRM-02B are closed.
+DCRM-02A, DCRM-02B and DCRM-03A are closed.
 
-The active work package is:
-`docs/work-packages/DCRM-03A-gmail-observation-boundary.md`.
+DCRM-03A merged as `24df7cece88048fe7dcbb036343d3943c97d59a8` and its
+post-merge CI is green. Live Gmail/OAuth/outbound remains separately gated.
 
-Execute it only on `feat/dcrm-03a-gmail-observation-boundary`.
+The next queued work package is:
+`docs/work-packages/DCRM-04A-work-engine-contract-parity.md`.
+
+Do not execute DCRM-04A from foundation. The owner/ChatGPT handoff must first
+create or switch to the dedicated DCRM-04A feature branch. Once Codex starts that
+branch, Codex is the sole writer on its implementation surfaces until review.
