@@ -384,3 +384,229 @@ The platform demonstrated:
 ### DROWK CRM adoption
 
 Patterns are valuable. Concrete stack remains undecided until DCRM-00 architecture selection.
+
+## 19. Durable idempotency ledger
+
+### Source-derived
+
+Migration `0003_assessment_intake_idempotency.sql` implemented an endpoint-scoped durable idempotency claim with:
+- SHA-256 digest of the idempotency key rather than the raw key;
+- normalized request payload;
+- unique canonical object ID;
+- unique event ID;
+- deferred foreign keys that permit claiming before the canonical inserts while preventing a committed orphan claim.
+
+The runtime contract treated identical replay as the same logical operation and material payload conflict under the same key as conflict rather than silent overwrite.
+
+Sources:
+- `packages/database/migrations/0003_assessment_intake_idempotency.sql`
+- `docs/api/domain-api-development.md`
+
+### DROWK CRM adoption
+
+Use this pattern for externally retried high-value writes and action requests where durable exactly-once-like semantics are required.
+
+Do not claim global exactly-once delivery. Preserve the distinction between:
+- request accepted;
+- transaction committed;
+- response delivered;
+- external side effect verified.
+
+Idempotency keys, source fingerprints and provider billing identities solve different problems and should not be collapsed.
+
+## 20. Identity evidence as append/supersede history
+
+### Source-derived
+
+Migration `0004_identity_claims_and_evidence.sql` implemented typed identity evidence with:
+- source object type/ID;
+- canonical entity type;
+- evidence type;
+- raw and normalized values;
+- normalization version;
+- trust state `CLAIMED | VERIFIED | REJECTED`;
+- explicit verification method/time/actor;
+- source namespace/native ID/reference;
+- optional generic Evidence FK;
+- account context for facility-address proof;
+- observation time;
+- state reason;
+- unique `supersedes_id`.
+
+The associated domain contract explicitly prevented weak evidence such as company name, location text or email domain from becoming strong merely because a caller labeled it VERIFIED.
+
+Supported strong proof classes were constrained and contextual. Conflicting independent evidence could coexist. Rejection appended a successor rather than deleting history.
+
+Sources:
+- `packages/database/migrations/0004_identity_claims_and_evidence.sql`
+- `docs/architecture/identity-claims-and-evidence.md`
+
+### DROWK CRM adoption
+
+Promote this from prior art into a strong design candidate for:
+- Account identity;
+- Facility identity;
+- Contact/person identity;
+- employment evidence;
+- email/address/provider-ID evidence;
+- tenant-import reconciliation.
+
+CRM implementation should generalize the entity/evidence vocabulary beyond the HDS Assessment-specific source while preserving trust state, provenance, supersession and context constraints.
+
+## 21. Deterministic entity-match decision history
+
+### Source-derived
+
+Migration `0005_entity_match_decisions.sql` implemented a durable resolver-decision record with:
+- source object;
+- resolution scope;
+- policy version;
+- status;
+- selected entity only for safe matches;
+- deterministic method;
+- bounded reason codes;
+- candidate count;
+- bounded evidence references;
+- SHA-256 fingerprint;
+- actor;
+- `supersedes_id`.
+
+Statuses were:
+- `MATCHED_SAFE`
+- `NO_MATCH`
+- `INSUFFICIENT_STRONG_EVIDENCE`
+- `REVIEW_REQUIRED`
+- `LINK_CONFLICT`
+- `BLOCKED_ACCOUNT_REQUIRED`
+
+The resolver used current corroborated VERIFIED evidence, required Account resolution before Facility resolution, never created entities, never overwrote conflicting links, and bounded candidate/evidence reads. Changed material state appended successor decisions; unchanged replay produced no duplicate decision/event.
+
+A SERIALIZABLE transaction protected one consistent evaluation point; serialization failures were bounded rather than retried indefinitely.
+
+Sources:
+- `packages/database/migrations/0005_entity_match_decisions.sql`
+- `docs/architecture/entity-resolution-v0.1.md`
+
+### DROWK CRM adoption
+
+DROWK CRM should use an analogous typed resolution decision for Gmail participants, imported PWM identities, Apollo/LinkedIn candidates and facility/account crosswalks.
+
+Preserve:
+- explicit unresolved states;
+- policy version;
+- evidence lineage;
+- deterministic fingerprint;
+- supersession;
+- no automatic entity creation from NO_MATCH;
+- no fuzzy/LLM merge authority.
+
+## 22. Signal normalization and temporal truth
+
+### Source-derived
+
+Migration `0006_signal_normalization.sql` and its domain contract added:
+- nullable `observed_at` rather than inventing source time;
+- source families `FIRST_PARTY | RELATIONSHIP | COMPANY_LOCATION | PROCUREMENT | PUBLIC_RESEARCH`;
+- source-native ID and source revision;
+- alternative immutable observation UUID;
+- `effective_at`;
+- `processed_at`;
+- policy version;
+- unique ingestion key;
+- normalized input digest;
+- explicit Signal-to-Evidence join.
+
+Source identity semantics separated namespace/native ID/revision from content digest. Revisions became separate historical rows. Same source identity with changed content conflicted rather than silently mutating history.
+
+Time semantics explicitly distinguished:
+- observed_at = source observation/event time;
+- effective_at = operative time;
+- ingested_at = repository receipt;
+- processed_at = normalization time.
+
+Missing source time remained null.
+
+Lifecycle states were `observed | entity_linked | dismissed | expired`. Terminal state changes were explicit trusted transitions; future expiry was not silently materialized by reads.
+
+Sources:
+- `packages/database/migrations/0006_signal_normalization.sql`
+- `docs/architecture/signal-normalization-v0.1.md`
+
+### DROWK CRM adoption
+
+This is strong prior art for the CRM Signal Ledger.
+
+Add tenant and run lineage, but preserve the central temporal distinctions. Gmail, AIsa and external research observations frequently lack one or more source timestamps; unknown must remain unknown.
+
+## 23. Anticipatory intelligence as immutable hypothesis/snapshot lineage
+
+### Source-derived
+
+Migration `0007_anticipatory_intelligence.sql` implemented versioned:
+- intelligence rules;
+- public-source registry;
+- regulatory evidence metadata;
+- jurisdiction profiles;
+- Need hypotheses;
+- Trend snapshots;
+- applicability assessments;
+- forecast snapshots.
+
+The key transferable mechanics were:
+- immutable rule/source versions;
+- lineage keys;
+- fingerprints;
+- policy versions;
+- closed status vocabularies with explicit abstention/unknown/review states;
+- bounded JSON snapshots of the evidence/rule state known at evaluation time;
+- `supersedes_id` history instead of mutation;
+- identical replay without duplicate material history;
+- changed state appended as successor;
+- atomic event + state writes;
+- explicit distinction between observation, hypothesis, review and forecast.
+
+The domain contract emphasized:
+- Signal != Trend != NeedHypothesis != Opportunity;
+- UNKNOWN != NO;
+- forecast != fact;
+- late-arriving evidence affects later captures only;
+- historical replay must use what was knowable at that capture time;
+- reviewed states cannot be silently overwritten by system reevaluation.
+
+Sources:
+- `packages/database/migrations/0007_anticipatory_intelligence.sql`
+- `docs/architecture/anticipatory-intelligence-v0.1.md`
+
+### DROWK CRM adoption
+
+Do not copy the HDS-specific Need/Regulatory model wholesale.
+
+Do preserve the generic mechanics for future:
+- account readiness;
+- buyer/procurement-route hypotheses;
+- commercial timing hypotheses;
+- trend detection;
+- outcome-settled learning;
+- model/policy evaluation snapshots.
+
+The reusable invariant is temporal, attributable, superseding decision history — not the original vertical vocabulary.
+
+## 24. Applied migration history as protected evidence
+
+### Source-derived
+
+The platform maintained an append-only `applied-migrations.json` ledger with SHA-256 hashes for migrations 0001-0007. Database standing orders prohibited editing, renaming or deleting applied migrations and required forward migrations for repairs.
+
+Sources:
+- `docs/harness/applied-migrations.json`
+- `packages/database/AGENTS.md`
+
+### DROWK CRM adoption
+
+When DROWK CRM begins database implementation:
+- protect applied migration history;
+- use forward-only correction;
+- test migration application from a fresh disposable database;
+- keep live-development verification separate from ordinary offline CI;
+- never auto-remediate a remote/production database from a CI harness.
+
