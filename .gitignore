@@ -1,0 +1,58 @@
+# Secrets / environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+service-account*.json
+secrets/
+.local-secrets/
+
+# Tenant / production data
+data/private/
+data/raw/
+exports/
+takeout/
+linkedin-export/
+crm-export/
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.backup
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Node
+node_modules/
+.next/
+dist/
+build/
+coverage/
+.turbo/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs / temp
+*.log
+tmp/
+temp/
+.cache/
+
+# Cloud/local tooling
+.wrangler/
+.dev.vars
