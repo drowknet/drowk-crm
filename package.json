@@ -7,7 +7,7 @@
     "build": "pnpm -r --if-present build",
     "check": "pnpm -r --if-present check",
     "typecheck": "pnpm build && pnpm -r --if-present typecheck",
-    "test": "pnpm -r --if-present test",
+    "test": "pnpm build && pnpm -r --if-present test",
     "lint": "pnpm -r --if-present lint",
     "verify": "pnpm typecheck && pnpm test"
   },
