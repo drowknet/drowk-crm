@@ -4,9 +4,14 @@
   "private": true,
   "description": "DROWK CRM — Revenue Intelligence & Prospecting Operating System",
   "scripts": {
+    "build": "pnpm -r --if-present build",
     "check": "pnpm -r --if-present check",
     "typecheck": "pnpm -r --if-present typecheck",
     "test": "pnpm -r --if-present test",
-    "lint": "pnpm -r --if-present lint"
+    "lint": "pnpm -r --if-present lint",
+    "verify": "pnpm typecheck && pnpm test"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0"
   }
 }
