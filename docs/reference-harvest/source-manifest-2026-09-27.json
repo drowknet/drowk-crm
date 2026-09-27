@@ -1,5 +1,5 @@
 {
-  "harvest_version": "2026-09-27.2",
+  "harvest_version": "2026-09-27.3",
   "target_repository": "drowknet/drowk-crm",
   "write_boundary": "ONLY_TARGET_REPOSITORY",
   "sources": [
@@ -151,6 +151,49 @@
         "69b4be9d857a7e7438fc5e979147041ae7fee74c",
         "6250d749d2ab182a19f618092e64aa99c7552efa",
         "9e3ac79ad80598e6df1e5d56ef0e5a2937d4b1ea"
+      ],
+      "branch_snapshots": [
+        {
+          "branch": "wp-osci-01-stage0-offline",
+          "state_vs_main_at_harvest": {
+            "ahead_by": 13,
+            "behind_by": 0
+          },
+          "role": "UNMERGED_READ_ONLY_OPEN_SOURCE_BENCHMARK_REFERENCE",
+          "selected_files": [
+            {
+              "path": "docs/exec-plans/wp-osci-01-stage0-offline.md",
+              "blob_sha": "0cd311a823c9069678e9b2ca2c2aac6300f129a1"
+            },
+            {
+              "path": "docs/harness/wp-osci-01-stage0.md",
+              "blob_sha": "0ff65952834f3df56e943f73cb426baa60d9930e"
+            },
+            {
+              "path": "scripts/wp_osci_stage0.py",
+              "blob_sha": "9ed65ad139131fff054dec02745c9c472b7f580b"
+            },
+            {
+              "path": "scripts/wp_osci_stage0_dlt.py",
+              "blob_sha": "3c47600863c737ab31f199a21af501b3d43d2615"
+            },
+            {
+              "path": "tests/test_wp_osci_stage0.py",
+              "blob_sha": "419d673a82a6cde891c893e574eb94159ae96f32"
+            },
+            {
+              "path": "tests/test_wp_osci_stage0_dlt.py",
+              "blob_sha": "2259f7799d94f8645a016d0823c2bba5921f93c3"
+            }
+          ],
+          "measured_dispositions": {
+            "dlt_1_30_0": "PATTERN_ONLY",
+            "splink": "UNASSESSED_NOT_MEASURED_IN_HARVESTED_RESULT",
+            "libpostal": "UNASSESSED_NOT_MEASURED_IN_HARVESTED_RESULT",
+            "overture_maps": "NO_LIVE_READ_STAGE0",
+            "openaddresses": "NO_LIVE_READ_STAGE0"
+          }
+        }
       ]
     },
     {
@@ -193,5 +236,35 @@
       "state_at_harvest": "empty_repository",
       "role": "READ_ONLY_NO_CONTENT_TO_TRANSFER"
     }
-  ]
+  ],
+  "branch_audit": {
+    "drowk_platform": {
+      "relevant_ahead_branches": [
+        {
+          "branch": "wp-osci-01-stage0-offline",
+          "ahead_by": 13,
+          "behind_by": 0,
+          "harvested": true
+        }
+      ],
+      "non_product_ahead_branches": [
+        {
+          "branch": "dependabot/github_actions/actions/checkout-7",
+          "ahead_by": 1,
+          "reason": "dependency maintenance only"
+        },
+        {
+          "branch": "dependabot/github_actions/actions/setup-python-7",
+          "ahead_by": 1,
+          "reason": "dependency maintenance only"
+        }
+      ],
+      "other_inspected_branches": "behind main / no unique ahead content at harvest"
+    },
+    "invoice_builder": {
+      "branch": "feature/3",
+      "ahead_by": 11,
+      "relevance": "renderer/UI/RTK refactor; no unique CRM architecture harvested"
+    }
+  }
 }
