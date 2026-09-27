@@ -2,6 +2,14 @@
 
 This roadmap is architecture-first and preservation-first.
 
+Read this roadmap together with:
+- docs/product/PRODUCT_NORTH_STAR.md;
+- docs/product/UX_OPERATING_MODEL.md.
+
+The roadmap exists to produce a coherent Revenue & Relationship Operating System,
+not an accumulation of infrastructure or disconnected modules. Material work
+packages should name the operator outcome they unlock or protect.
+
 ## DCRM-00 — Foundation and extraction
 - establish repository constitution;
 - audit existing PWM_CRM;

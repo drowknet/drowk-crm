@@ -7,6 +7,11 @@ This index routes humans and agents to the current repository-owned context.
 1. [AGENTS.md](../AGENTS.md) — repository authority, safety and agent rules.
 2. [Security Baseline](security/SECURITY_BASELINE.md) — product/repository security boundary.
 
+## Product
+
+- [Product North Star](product/PRODUCT_NORTH_STAR.md) — owner-approved Revenue & Relationship Operating System ambition and product test for future work.
+- [UX Operating Model](product/UX_OPERATING_MODEL.md) — operator surfaces, navigation, contextual AIsa and progressive-disclosure principles.
+
 ## Architecture
 
 - [System Architecture](architecture/SYSTEM_ARCHITECTURE.md) — canonical product layers and runtime direction.
