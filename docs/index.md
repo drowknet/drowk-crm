@@ -27,6 +27,7 @@ This index routes humans and agents to the current repository-owned context.
 
 - [DCRM-01A Core Vertical Slice](work-packages/DCRM-01A-core-vertical-slice.md) — first executable contracts/domain/database slice.
 - [DCRM-03A Gmail Observation Boundary](work-packages/DCRM-03A-gmail-observation-boundary.md) — extract WP-03 source mechanics without direct Core authority.
+- [DCRM-04A Work Engine Contract Parity](work-packages/DCRM-04A-work-engine-contract-parity.md) — port proven PWM work semantics and golden cases.
 
 ## Migration
 
@@ -55,6 +56,7 @@ These files make DROWK CRM self-contained after broad GitHub access is narrowed:
 - [Open-source pattern transfer](reference-harvest/open-source-patterns-transfer.md)
 - [OSCI Stage 0 transfer](reference-harvest/osci-stage0-transfer.md) — preserved unmerged benchmark findings
 - [PWM WP-03 Local Audit](reference-harvest/pwm-wp03-local-audit-2026-09-26.md) — reconciled legacy draft against the later checkpoint
+- [PWM WP-02 Work Engine Transfer](reference-harvest/pwm-wp02-work-engine-transfer.md) — preserved state, authority, precedence and idempotency semantics
 - [Access revocation handoff](reference-harvest/ACCESS_REVOCATION_HANDOFF.md)
 
 ## Infrastructure
