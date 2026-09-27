@@ -93,13 +93,18 @@ Determines:
 ### 8. Accepted CRM Projection
 Canonical business entities are the current accepted projection over attributable source/evidence history. They are not an excuse to erase prior knowledge or corrections.
 
-Initially:
+Initially / foundationally:
 - Tenant
 - User
 - Account
 - Facility
+- Person
 - Contact
 - Identity
+- Employment
+- Relationship
+- Buyer Role
+- Commitment
 - Conversation
 - Activity
 - Pursuit
@@ -107,6 +112,10 @@ Initially:
 - Task
 - Cadence
 - Work Item
+
+These objects remain semantically distinct even when the UI presents a simpler
+workspace. In particular, Person != Contact != Identity, Commitment != Task/Work,
+and observed relationship activity does not become trust or authority by inference.
 
 ### 9. Work Engine
 Compiles eligible CRM/evidence/signal state into deterministic work.

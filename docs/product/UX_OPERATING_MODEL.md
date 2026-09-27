@@ -60,6 +60,7 @@ Today is the default operational cockpit.
 It should prioritize:
 - Needs You;
 - Replies;
+- overdue or due commitments;
 - Overdue;
 - Ready;
 - Needs Human Review;
@@ -67,6 +68,10 @@ It should prioritize:
 - Waiting;
 - Scheduled;
 - material new perspectives/signals.
+
+When useful, the queue should make clear whether DROWK is waiting on the operator,
+another internal owner, the buyer/counterparty, a date/condition, missing evidence
+or approval. Generic "follow up" should not erase who owes the next move.
 
 Sorting comes from deterministic Work/attention semantics, not from whatever event
 happened most recently.
@@ -114,29 +119,45 @@ Suggested tabs/views:
 The overview should emphasize:
 - why now;
 - relationship state;
-- buyer/procurement coverage;
+- buyer/procurement coverage by account/facility and commercial scope;
 - current Work;
+- open commitments and who owes the next move;
 - material signals;
-- missing evidence;
+- missing evidence and observation coverage;
 - active pursuit/opportunity state.
+
+Procurement context should be able to distinguish who experiences the problem, who
+specifies, who influences, who authorizes, who contracts, vendor-registration or
+portal requirements, facility/region/service scope and the links that remain
+unknown. A graph is optional; the operator question and evidence are primary.
 
 Avoid vanity scores without explainable components.
 
 ## Contacts / Relationships
 
-The Contact surface should show the durable relationship, not just contact fields.
+The Contact/Relationship surface should show the durable person and relationship,
+not just contact fields.
 
-Useful dimensions:
-- verified/candidate identities;
-- current/previous company context;
-- conversation history;
+The experience should preserve:
+- Person continuity across time;
+- verified/candidate/historical Identities;
+- current and previous Employment context;
+- relationship history with attributable evidence;
+- latest activity, reciprocal interaction and meaningful interaction as distinct facts;
 - relationship outcomes;
-- known objections/interests;
-- buyer/procurement role evidence;
-- open Work;
-- recent/new signals.
+- known objections/interests scoped to subject, organization and time;
+- Buyer Role evidence for the relevant commercial context;
+- open Commitments and Work;
+- recent/new signals;
+- observation coverage and permission/restriction state.
 
-A company change should not erase prior relationship context.
+A company change should preserve the person but must not move prior conversations,
+authority, confidential context or permissions into the new organization. It should
+surface both the possible new-company relationship and the coverage gap left behind.
+
+Do not present communication volume as human trust. If relationship dimensions are
+shown, keep recency/reciprocity/continuity/depth/team coverage explainable and keep
+health, readiness, coverage and permission separate.
 
 ## Pipeline
 
@@ -151,6 +172,10 @@ Support saved views such as:
 - Evidence incomplete.
 
 Do not put raw Signals in Opportunity stages.
+
+Pipeline views should distinguish the latest seller effort from the latest
+buyer-confirmed progress. Sending another message must not make a stalled buyer
+process look newly advanced.
 
 Promotion path should remain conceptually:
 

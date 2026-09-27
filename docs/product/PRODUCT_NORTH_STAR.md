@@ -90,6 +90,25 @@ A person may move from discovered evidence to candidate identity to verified con
 to conversation to dormant relationship to new-company signal to renewed pursuit
 without losing attributable history.
 
+Canonical relationship memory must keep these concepts distinct:
+- Person — the durable human subject across time;
+- Identity — a source/channel manifestation, possibly historical or uncertain;
+- Employment — a time-scoped professional context;
+- Contact — an operational CRM representation, not the universal human identity;
+- Relationship — an attributable relationship history whose activity does not prove trust;
+- Buyer Role — authority/context for a specific commercial scope and period;
+- Commitment — a request, promise or agreed next step that is not merely a Task.
+
+A job change must preserve the person while keeping prior conversations, authority,
+permissions and confidential context attached to the organization and period where
+they occurred. Buyer authority in a new employment must be rediscovered rather than
+copied forward.
+
+Relationship state should remain explainable and multidimensional. Significant
+recency, reciprocity, continuity, contextual depth and team coverage may inform the
+operator, but health, readiness/timing, observation coverage and contact permission
+must remain separate axes. DROWK should not present a universal opaque trust score.
+
 ## New Perspectives
 
 The system should proactively surface high-value perspectives instead of requiring
@@ -113,6 +132,24 @@ Every surfaced perspective should explain:
 - autonomy/approval boundary.
 
 No signal automatically becomes an Opportunity.
+
+## Meaningful interaction and commercial progress
+
+The product must distinguish:
+- latest activity;
+- latest reciprocal interaction;
+- latest meaningful interaction or decision;
+- latest buyer-confirmed progress.
+
+Automated outbound must not make a relationship appear stronger or more reciprocal.
+Seller effort must not reset the buyer-progress clock. A missing observation must
+not silently become a negative fact when coverage, permission or identity is
+incomplete.
+
+Commitments should preserve who owes what to whom, the context, the date/condition,
+the evidence of completion and whether the commitment is suggested, confirmed,
+fulfilled, declined or unresolved. Completing an internal Task does not prove that
+a counterparty fulfilled a commitment.
 
 ## Today is a cockpit, not a report
 

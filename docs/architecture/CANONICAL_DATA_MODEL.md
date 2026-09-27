@@ -37,11 +37,23 @@ A physical operating location.
 
 Rule: Account != Facility.
 
+### Person
+Durable human subject across channels, employments and commercial contexts once
+identity policy permits canonical promotion.
+
+A Person may exist without a current employer, active Opportunity or operational
+Contact record. Historical context must remain attributable to the period and
+organization where it occurred.
+
 ### Contact
-Human CRM entity once identity policy permits promotion.
+Operational CRM representation of a Person in a tenant portfolio, commercial
+process or working context.
+
+Contact != Person. Creating or updating a Contact must not create a new human
+identity merely because an email, employer or role changed.
 
 ### Identity
-Provider/source-specific identifiers connected to a Contact or candidate.
+Provider/source-specific manifestation connected to a Person or identity candidate.
 
 Examples:
 - email address;
@@ -49,7 +61,47 @@ Examples:
 - provider person ID;
 - Gmail address identity.
 
-Provider-native identity remains namespaced evidence. Provider ID != canonical entity ID.
+An Identity may be historical, uncertain, shared, recycled or time-bounded.
+Provider-native identity remains namespaced evidence. Provider ID != canonical
+Person/Contact ID.
+
+### Employment
+Time-scoped professional relationship between a Person and an Account/organization,
+with role/title and effective interval when known.
+
+Unknown start/end dates remain unknown. Changing current Employment must not
+reattribute historical Conversation, Activity, Evidence, Buyer Role or permission
+state to a new organization.
+
+### Relationship
+Attributable relationship history between relevant parties, preserving context,
+evidence, time and responsible human interpretation where applicable.
+
+Observed communication may support recency, reciprocity or continuity, but activity
+volume is not proof of trust, permission, health, commercial readiness or willingness
+to introduce.
+
+### BuyerRole
+Time/context-scoped commercial role for a Person in a specific Account, Facility,
+Pursuit, Opportunity or procurement path.
+
+Job title alone does not establish authority. Role state must preserve evidence,
+scope and uncertainty.
+
+### Commitment
+Request, promise or agreed next step with parties, context, responsible side,
+date/condition when known, evidence lineage and state.
+
+Initial semantic states should be able to distinguish equivalents of:
+- SUGGESTED;
+- CONFIRMED;
+- FULFILLED;
+- DECLINED;
+- UNRESOLVED.
+
+Commitment != Task and Commitment != WorkItem. A Task/WorkItem may be compiled to
+act on a Commitment, but completing internal work does not prove counterparty
+fulfillment.
 
 ### Conversation
 Channel-neutral communication container.
@@ -81,6 +133,8 @@ A subject enrolled into a cadence.
 Compiled deterministic next action.
 
 Work compilation must preserve source/evidence freshness and policy version.
+A WorkItem may reference a Commitment, Relationship, Conversation or other source
+state, but it must not silently rewrite those source/business objects.
 
 ## Source and Evidence objects
 
@@ -384,7 +438,13 @@ A current head is a projection over accepted, attributable history; it is not an
 ## Rules
 
 - Raw evidence must never silently overwrite CRM truth.
-- Contact/Account/Facility promotion must preserve evidence lineage.
+- Person/Contact/Account/Facility promotion must preserve evidence lineage.
+- Person != Contact != Identity.
+- Employment changes must not move historical conversations/evidence into a new organization.
+- Relationship activity != trust, permission, readiness or buyer authority.
+- Automated outbound does not by itself establish reciprocity or meaningful interaction.
+- Commitment != Task/WorkItem; internal completion does not prove external fulfillment.
+- Inaccessible/unobserved evidence != evidence of absence.
 - A provider ID alone never becomes canonical identity.
 - Domain match alone never creates an Account/Contact relationship.
 - Fuzzy/LLM identity matches require review unless a future deterministic policy proves a narrowly bounded case safe.

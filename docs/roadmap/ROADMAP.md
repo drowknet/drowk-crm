@@ -48,7 +48,27 @@ packages should name the operator outcome they unlock or protect.
 - port deterministic work compilation;
 - compare against legacy golden snapshots;
 - explain every delta;
-- freshness-aware Work.
+- freshness-aware Work;
+- keep Work distinct from Activity history, Task semantics and bilateral Commitment state;
+- preserve the source/reason/commitment reference that caused work without silently rewriting it.
+
+### Relationship-memory foundation checkpoint
+
+After DCRM-04A parity is proven, inspect whether the executable core now has enough
+temporal relationship memory before richer buyer/research UI proceeds. The minimum
+canonical concepts are Person, Identity, Employment, Relationship, Buyer Role and
+Commitment, with Contact remaining an operational representation.
+
+This checkpoint must preserve:
+- person continuity across employer/channel changes;
+- historical organization context;
+- observation coverage and permission uncertainty;
+- significant interaction distinct from raw activity;
+- Commitment distinct from internal Task/Work;
+- no universal opaque relationship-trust score.
+
+Do not turn this checkpoint into a giant social graph, omnichannel capture project
+or learned-scoring program.
 
 ## DCRM-05 — AIsa Capability Lab
 Read-only evaluation of:
@@ -80,9 +100,11 @@ Measure:
 
 ## DCRM-07 — Buyer + Procurement Graph
 - buyer committee coverage;
-- employment evidence;
-- relationship evidence;
-- procurement/vendor routes;
+- temporal Employment and Buyer Role evidence;
+- relationship evidence and responsible owner;
+- introduction paths with availability/permission distinct from mere connection;
+- procurement/vendor routes by Account/Facility/region/service scope;
+- committee continuity and coverage gaps after job changes;
 - unresolved evidence gaps.
 
 ## DCRM-08 — Signal Fusion
@@ -111,7 +133,12 @@ Measure:
 - signal usefulness;
 - buyer-role performance;
 - cadence/message performance;
-- policy learning inputs.
+- introduction outcomes;
+- commitment fulfillment and unresolved commitments;
+- relationship reactivation outcomes;
+- seller-effort vs buyer-progress measurement;
+- policy learning inputs;
+- no causal claim merely from temporal association.
 
 ## DCRM-12 — Higher autonomy
 Only after evidence supports it:
