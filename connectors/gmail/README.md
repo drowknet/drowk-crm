@@ -21,3 +21,27 @@ Non-negotiable semantics:
 
 Initial execution authority remains read/observe/prepare-oriented until policy and
 approval gates explicitly expand it.
+
+
+## Legacy WP-03 extraction
+
+The local PWM WP-03 draft is a source of tested mechanics, not the target authority model.
+
+Reusable mechanics:
+- decimal History cursor ordering;
+- pagination;
+- replay/deduplication;
+- lock/failure handling;
+- PREPARED/PASS cursor evidence.
+
+Superseded mechanics:
+- direct source-to-Core reconciliation;
+- SPAM as an exclusion decision;
+- owned From as sufficient SENT evidence.
+
+The first DROWK Gmail implementation is observation-only and synthetic. Live Gmail
+and Core promotion are later, separately gated capabilities.
+
+See:
+- `docs/reference-harvest/pwm-wp03-local-audit-2026-09-26.md`
+- `docs/work-packages/DCRM-03A-gmail-observation-boundary.md`
