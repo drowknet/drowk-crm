@@ -1,0 +1,72 @@
+{
+  "harvest_version": "2026-09-27.1",
+  "target_repository": "drowknet/drowk-crm",
+  "write_boundary": "ONLY_TARGET_REPOSITORY",
+  "sources": [
+    {
+      "repository": "drowknet/drowk-platform",
+      "visibility_at_harvest": "private",
+      "observed_main_head": "9e3ac79ad80598e6df1e5d56ef0e5a2937d4b1ea",
+      "role": "READ_ONLY_ENGINEERING_PRIOR_ART",
+      "selected_files": [
+        {"path":"AGENTS.md","blob_sha":"781916cefe505155cfcb21ef24ef1c3cf6809e18"},
+        {"path":"docs/architecture/foundation-v0.1.md","blob_sha":"4455f8d22def398877e211a31f7a29add75b9758"},
+        {"path":"docs/architecture/external-data-governance.md","blob_sha":"9eb5e720debe1c4d25e3786a95d8e9ccb7278be1"},
+        {"path":"docs/architecture/market-authority-observation-boundary.md","blob_sha":"f60a0913e70503705144f88e93a8b93cb27042e9"},
+        {"path":"docs/architecture/external-pattern-harvest-agent-memory-growth.md","blob_sha":"67ec4ae0c138f3a12b63bd9b88569c2883a1948b"},
+        {"path":"docs/architecture/pwm-reality-baseline-data-contract-v0.1.md","blob_sha":"c51338f60753700b95cbcf7938506988e7faee5e"},
+        {"path":"docs/architecture/external-facility-intelligence-fabric.md","blob_sha":"bdb28e9a13a6c4d47a5cbeb844fd3be02843d534"},
+        {"path":"docs/adr/0001-canonical-postgres-domain-api.md","blob_sha":"65b687308e17f663812cf66bcb72dc8afdc0dcfb"},
+        {"path":"docs/adr/0002-deterministic-vs-ai-execution.md","blob_sha":"14c830942e13f589f1ad57198bbcad600c60f3db"},
+        {"path":"docs/adr/0003-agent-runtime-neutrality.md","blob_sha":"5cee03a9ecb2ce0bdba9f17117c77aa9777c378a"},
+        {"path":"docs/adr/0004-artifact-intake-gate.md","blob_sha":"4f4097da279b9abb2491170d48966d547e89f56e"},
+        {"path":"docs/adr/0006-identity-claims-trusted-evidence-boundary.md","blob_sha":"6c90226ee2102b9d250f8d94b4c44b2a41c50667"},
+        {"path":"docs/harness/README.md","blob_sha":"4a83acf4c861e76c184b1d9eb1450b7701ccf798"},
+        {"path":"docs/harness/controls.json","blob_sha":"949ec899573c6bc72f4e136d439edbd5b5996dfb"},
+        {"path":"docs/harness/market-authority-benchmark.md","blob_sha":"1442de443bf5fa3df020d4d9a574259814b31d9d"},
+        {"path":"packages/database/migrations/0001_canonical_core.sql","blob_sha":"ad99e2d3a6c9742bafc8b37bd033b59f9ae09e2d"},
+        {"path":"packages/events/event-envelope.schema.json","blob_sha":"4435b35feb3382dcd1b7319c042defecd6bac587"},
+        {"path":"packages/events/event-types.json","blob_sha":"a2a7f7ae5a4635e0ad81aa5aa8b69a8da5b4a7dd"},
+        {"path":"services/domain-api/pyproject.toml","blob_sha":"dc3ee24d780ca25e97dd926e571215523533121e"},
+        {"path":".github/workflows/ci.yml","blob_sha":"019b6154e6fc413d7e588bc15bb312820d1e79cc"},
+        {"path":".github/workflows/security.yml","blob_sha":"15abd8cd304f69f2c08f541b24504bde0d536c03"},
+        {"path":"SECURITY.md","blob_sha":"77c6c58406fb22c2822cc1eb980c25cb036bac5e"}
+      ],
+      "notable_commits": [
+        "04a47ba79e1efc09bab8ed5ddddb49df402fac88",
+        "31754d0fcf471aa012b8a7d579f1f00527c91612",
+        "410f42bc29405293b6b526c58745a6d59da9ac40",
+        "659caccf4fdbe002b86d1016f70aec16af39acff",
+        "70410b13f87b1a4b66c613767395eb0a854c391a",
+        "69b4be9d857a7e7438fc5e979147041ae7fee74c",
+        "6250d749d2ab182a19f618092e64aa99c7552efa",
+        "9e3ac79ad80598e6df1e5d56ef0e5a2937d4b1ea"
+      ]
+    },
+    {
+      "repository": "drowknet/invoice-builder",
+      "visibility_at_harvest": "public",
+      "observed_main_head": "0821f43d7dd7f901486473ead92944ff0a71ad1c",
+      "role": "READ_ONLY_APPLICATION_PATTERN_REFERENCE",
+      "selected_files": [
+        {"path":"README.md","blob_sha":"6826a0f36e52cb8d27c2ffb8700fa8c8a73e338e"},
+        {"path":"docker-compose.standalone.yml","blob_sha":"64d91d18171e7d89127274163510c9dbc10ac5ea"},
+        {"path":"scripts/nginx.conf.template","blob_sha":"60043179bb50759c7bdf6c23fb8ddcd20c6906ff"},
+        {"path":"src/backend/webserver/session.ts","blob_sha":"b269c90c2ed106e53a9a171c2b381dd15ba36303"},
+        {"path":"src/backend/webserver/database.ts","blob_sha":"d5e0594d05a311e15eef07be4e4717c400d1dc0d"}
+      ],
+      "notable_commits": [
+        "5e6db94130c2a30d12a3770d7da69d652115664e",
+        "d4ad9e97e5bdb962d5b6c88b84b7365932001a0b",
+        "a56431142131ae111adcaf2538ddc42fef374783",
+        "0821f43d7dd7f901486473ead92944ff0a71ad1c"
+      ]
+    },
+    {
+      "repository": "drowknet/hds",
+      "visibility_at_harvest": "public",
+      "state_at_harvest": "empty_repository",
+      "role": "READ_ONLY_NO_CONTENT_TO_TRANSFER"
+    }
+  ]
+}
