@@ -3,7 +3,6 @@ lockfileVersion: '9.0'
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
-  injectWorkspacePackages: true
 
 importers:
 
@@ -45,9 +44,19 @@ importers:
       '@drowk/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@drowk/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@drowk/domain':
         specifier: workspace:*
         version: link:../../packages/domain
+      pg:
+        specifier: ^8.16.0
+        version: 8.23.0
+    devDependencies:
+      '@types/pg':
+        specifier: ^8.15.0
+        version: 8.23.1
 
   services/worker:
     dependencies:

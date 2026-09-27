@@ -64,6 +64,8 @@ jobs:
       PGPASSWORD: drowk_ci_password
       DROWK_TEST_DATABASE_URL: postgresql://drowk:drowk_ci_password@127.0.0.1:5432/drowk_ci
       DROWK_TEST_DISPOSABLE: "1"
+      DATABASE_URL: postgresql://drowk:drowk_ci_password@127.0.0.1:5432/drowk_ci
+      APP_ENV: test
 
     steps:
       - name: Checkout
@@ -73,15 +75,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y postgresql-client
-
-      - name: Apply foundation migration
-        run: psql -v ON_ERROR_STOP=1 -f packages/db/migrations/0001_foundation.sql
-
-      - name: Apply source revision identity migration
-        run: psql -v ON_ERROR_STOP=1 -f packages/db/migrations/0002_source_revision_identity.sql
-
-      - name: Verify tenant isolation
-        run: psql -v ON_ERROR_STOP=1 -f packages/db/test/0001_foundation.integration.sql
 
       - name: Set up pnpm
         uses: pnpm/action-setup@v4
@@ -99,5 +92,20 @@ jobs:
       - name: Build repositories
         run: pnpm build
 
-      - name: Verify repository persistence
+      - name: Plan migrations
+        run: pnpm --filter @drowk/db migrate plan
+
+      - name: Apply migrations through runner
+        run: pnpm --filter @drowk/db migrate apply
+
+      - name: Check migration status
+        run: pnpm --filter @drowk/db migrate status
+
+      - name: Verify tenant isolation
+        run: psql -v ON_ERROR_STOP=1 -f packages/db/test/0001_foundation.integration.sql
+
+      - name: Verify migrations and repository persistence
         run: pnpm --filter @drowk/db test
+
+      - name: Verify runtime readiness
+        run: pnpm --filter @drowk/api test

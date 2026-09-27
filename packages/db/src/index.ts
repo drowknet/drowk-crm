@@ -11,6 +11,8 @@ import type {
   TenantId,
 } from "@drowk/contracts";
 import pg, { type Pool, type PoolClient, type QueryResult, type QueryResultRow } from "pg";
+export { applyMigrations, defaultMigrationsDirectory, MigrationError, migrationStatus } from "./migrations.js";
+export type { MigrationStatus } from "./migrations.js";
 
 type Connection = Pool | PoolClient;
 
