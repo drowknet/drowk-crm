@@ -26,11 +26,14 @@ This roadmap is architecture-first and preservation-first.
 - system health/admin views.
 
 ## DCRM-03 — Gmail evidence connector
-- OAuth connector;
-- history/source watermark;
+- DCRM-03A contract/synthetic extraction may run in parallel with DCRM-01/02;
+- OAuth connector only after the observation boundary is proven;
+- history/source watermark and controlled recovery;
 - observation ledger;
-- commercial relevance gate;
-- identity candidates;
+- SENT/Draft technical evidence;
+- spam-neutral commercial relevance gate;
+- identity/linkage candidates;
+- policy-controlled promotion to accepted CRM projection;
 - no automatic outbound execution.
 
 ## DCRM-04 — Work Engine parity
