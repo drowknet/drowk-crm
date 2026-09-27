@@ -15,20 +15,23 @@ CREATE TABLE accounts (
   name text NOT NULL,
   status text NOT NULL DEFAULT 'ACTIVE',
   recorded_at timestamptz NOT NULL DEFAULT current_timestamp,
-  supersedes_id uuid NULL REFERENCES accounts(id),
-  UNIQUE (tenant_id, id)
+  supersedes_id uuid NULL,
+  UNIQUE (tenant_id, id),
+  FOREIGN KEY (tenant_id, supersedes_id) REFERENCES accounts(tenant_id, id)
 );
 
 CREATE TABLE facilities (
   id uuid PRIMARY KEY,
   tenant_id uuid NOT NULL REFERENCES tenants(id),
-  account_id uuid NULL REFERENCES accounts(id),
+  account_id uuid NULL,
   name text NOT NULL,
   address_text text NULL,
   effective_at timestamptz NULL,
   recorded_at timestamptz NOT NULL DEFAULT current_timestamp,
-  supersedes_id uuid NULL REFERENCES facilities(id),
-  UNIQUE (tenant_id, id)
+  supersedes_id uuid NULL,
+  UNIQUE (tenant_id, id),
+  FOREIGN KEY (tenant_id, account_id) REFERENCES accounts(tenant_id, id),
+  FOREIGN KEY (tenant_id, supersedes_id) REFERENCES facilities(tenant_id, id)
 );
 
 CREATE TABLE source_observations (
@@ -64,7 +67,7 @@ CREATE TABLE evidence (
   tenant_id uuid NOT NULL REFERENCES tenants(id),
   run_id uuid NOT NULL,
   correlation_id uuid NOT NULL,
-  observation_id uuid NOT NULL REFERENCES source_observations(id),
+  observation_id uuid NOT NULL,
   subject_entity_type text NOT NULL,
   subject_entity_id uuid NULL,
   candidate_key text NULL,
@@ -77,14 +80,16 @@ CREATE TABLE evidence (
   recorded_at timestamptz NOT NULL DEFAULT current_timestamp,
   expires_at timestamptz NULL,
   rights_class text NULL,
-  supersedes_id uuid NULL REFERENCES evidence(id),
-  UNIQUE (tenant_id, id)
+  supersedes_id uuid NULL,
+  UNIQUE (tenant_id, id),
+  FOREIGN KEY (tenant_id, observation_id) REFERENCES source_observations(tenant_id, id),
+  FOREIGN KEY (tenant_id, supersedes_id) REFERENCES evidence(tenant_id, id)
 );
 
 CREATE TABLE identity_evidence (
   id uuid PRIMARY KEY,
   tenant_id uuid NOT NULL REFERENCES tenants(id),
-  evidence_id uuid NOT NULL REFERENCES evidence(id),
+  evidence_id uuid NOT NULL,
   entity_type text NOT NULL,
   evidence_type text NOT NULL,
   raw_value text NOT NULL,
@@ -95,8 +100,10 @@ CREATE TABLE identity_evidence (
   verified_at timestamptz NULL,
   verified_by uuid NULL,
   recorded_at timestamptz NOT NULL DEFAULT current_timestamp,
-  supersedes_id uuid NULL REFERENCES identity_evidence(id),
-  UNIQUE (tenant_id, id)
+  supersedes_id uuid NULL,
+  UNIQUE (tenant_id, id),
+  FOREIGN KEY (tenant_id, evidence_id) REFERENCES evidence(tenant_id, id),
+  FOREIGN KEY (tenant_id, supersedes_id) REFERENCES identity_evidence(tenant_id, id)
 );
 
 CREATE TABLE entity_match_decisions (
@@ -124,13 +131,14 @@ CREATE TABLE entity_match_decisions (
   policy_version text NOT NULL,
   decided_by uuid NULL,
   recorded_at timestamptz NOT NULL DEFAULT current_timestamp,
-  supersedes_id uuid NULL REFERENCES entity_match_decisions(id),
+  supersedes_id uuid NULL,
   CHECK (
     (status = 'MATCHED_SAFE' AND selected_entity_id IS NOT NULL)
     OR
     (status <> 'MATCHED_SAFE' AND selected_entity_id IS NULL)
   ),
-  UNIQUE (tenant_id, id)
+  UNIQUE (tenant_id, id),
+  FOREIGN KEY (tenant_id, supersedes_id) REFERENCES entity_match_decisions(tenant_id, id)
 );
 
 CREATE TABLE research_runs (
@@ -242,14 +250,15 @@ CREATE TABLE outcomes (
   tenant_id uuid NOT NULL REFERENCES tenants(id),
   run_id uuid NOT NULL,
   correlation_id uuid NOT NULL,
-  action_attempt_id uuid NULL REFERENCES action_attempts(id),
+  action_attempt_id uuid NULL,
   kind text NOT NULL,
   state text NOT NULL CHECK (state IN ('PROVISIONAL','CONFIRMED','RETRACTED')),
   observed_at timestamptz NOT NULL,
   recorded_at timestamptz NOT NULL DEFAULT current_timestamp,
   evidence_ids jsonb NOT NULL DEFAULT '[]'::jsonb,
   attribution_notes text NULL,
-  UNIQUE (tenant_id, id)
+  UNIQUE (tenant_id, id),
+  FOREIGN KEY (tenant_id, action_attempt_id) REFERENCES action_attempts(tenant_id, id)
 );
 
 CREATE TABLE idempotency_claims (
