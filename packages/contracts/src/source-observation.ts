@@ -20,4 +20,5 @@ export interface SourceObservation extends TenantScoped, RunScoped {
   adapterVersion: string;
   fingerprint: Sha256Digest;
   rawArtifactRef: string | null;
+  sourceMetadata: Record<string, unknown>;
 }
