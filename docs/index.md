@@ -22,6 +22,7 @@ This index routes humans and agents to the current repository-owned context.
 ## Engineering execution
 
 - [Codex Orchestration](engineering/CODEX_ORCHESTRATION.md) — scoped AGENTS, subagent workcells and one-writer discipline.
+- [Current Execution Sequence](engineering/CURRENT_EXECUTION_SEQUENCE.md) — active PWM -> DROWK bridge and next implementation gate.
 
 ## Work packages
 
