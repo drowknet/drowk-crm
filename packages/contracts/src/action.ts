@@ -1,12 +1,12 @@
 import type {
   ActionAttemptId,
-  Approval,
   CorrelationId,
   IsoDateTime,
   RunId,
   Sha256Digest,
   TenantScoped,
-} from "./index.js";
+} from "./ids.js";
+import type { Approval } from "./policy.js";
 
 export type ActionAttemptState =
   | "PREPARED"
