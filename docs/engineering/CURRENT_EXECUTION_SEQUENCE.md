@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B GREEN — DCRM-01C NEXT
+Status: DCRM-01A/B/C GREEN — DCRM-02A NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -77,17 +77,28 @@ ChatGPT then:
 - [DONE] PR #2 merged into `foundation/drowk-crm-00`;
 - [DONE] post-merge CI green.
 
-### Next gate — DCRM-01C
+### Completed — DCRM-01C
+
+- [DONE] deterministic forward-only migration runner;
+- [DONE] checksum ledger and advisory-lock protection;
+- [DONE] plan/status/apply commands;
+- [DONE] minimal `/health` and `/ready` runtime shell;
+- [DONE] disposable PostgreSQL runtime sensors;
+- [DONE] PR #3 merged into `foundation/drowk-crm-00`;
+- [DONE] post-merge CI green.
+
+### Next gate — DCRM-02A
 
 Prepare and execute:
-`docs/work-packages/DCRM-01C-migration-runtime-shell.md`
+`docs/work-packages/DCRM-02A-identity-membership-context.md`
 
 Purpose:
-- deterministic forward-only migration runner;
-- migration checksum/locking proof;
-- minimal `/health` and `/ready` runtime shell;
-- no business mutation HTTP yet;
-- keep Gmail network/OAuth disabled.
+- provider-neutral external principal boundary;
+- DROWK user + tenant membership persistence;
+- explicit tenant selection with membership validation;
+- protected read-only `GET /operator/context` proof endpoint;
+- no CRM business records exposed yet;
+- no production auth vendor selected yet.
 
 ### Step 4 — DCRM-03A / DCRM-04A extraction in parallel only when coupled
 
@@ -100,9 +111,9 @@ No independent legacy feature development is allowed.
 
 Current writer state:
 
-- no Codex feature branch is active until the owner creates/switches the DCRM-01C branch;
+- no Codex feature branch is active until the owner creates/switches the DCRM-02A branch;
 - ChatGPT may update foundation planning/docs before that branch is handed to Codex;
-- once Codex starts DCRM-01C, that feature branch has one active writer: Codex;
+- once Codex starts DCRM-02A, that feature branch has one active writer: Codex;
 - drowk-crm is the active product implementation surface;
 - PWM local files remain preservation/regression reference only unless a new explicit extraction gate is opened.
 
