@@ -40,6 +40,21 @@ Preserved locally:
 Detailed source paths and blob SHAs are pinned in:
 `source-manifest-2026-09-27.json`.
 
+### Relevant unmerged branch captured from drowknet/drowk-platform
+
+Branch `wp-osci-01-stage0-offline` was 13 commits ahead of main at harvest and contained a synthetic open-source commercial-intelligence benchmark.
+
+Preserved conclusions include:
+- dlt 1.30.0 measured as PATTERN_ONLY for the tested acquisition workload;
+- same-run duplicate semantics remained a gap in the tested dlt configuration;
+- Splink and libpostal remained unmeasured challengers rather than adopted/rejected components;
+- Overture Maps/OpenAddresses remained source/rights candidates without Stage-0 live reads;
+- deterministic routing gated rights/availability before authority/freshness/information-gain/latency/cost.
+
+See `docs/reference-harvest/osci-stage0-transfer.md`.
+
+Branch audit also found only dependency-maintenance branches ahead of main in the platform, and an invoice-builder feature branch limited to renderer/UI refactoring.
+
 ### From drowknet/invoice-builder
 Preserved locally:
 - explicit data ownership/exportability lesson;
