@@ -1,6 +1,6 @@
 # DCRM-01A — Core Vertical Slice
 
-Status: IN PROGRESS — POSTGRESQL FOUNDATION GREEN / REPOSITORY LAYER NEXT
+Status: GREEN / CLOSED
 
 ## Objective
 
@@ -78,5 +78,15 @@ GitHub Actions run after activating the PostgreSQL sensor completed successfully
 This proves the initial migration is executable on PostgreSQL and that these
 relational tenant boundaries are enforced by the schema.
 
-Next implementation slice:
-`Account -> Facility -> SourceObservation -> Evidence` persistence/repository layer.
+Repository persistence slice completed and merged through PR #2.
+
+Verified after merge:
+- typed tenant-scoped repositories for Account, Facility, SourceObservation and Evidence;
+- transaction rollback behavior;
+- source identity/revision idempotency;
+- PostgreSQL 16 migration 0002 preserving NULL vs empty source revision;
+- repository integration tests in disposable PostgreSQL;
+- post-merge CI success at merge commit `f3d005c9029bcb5f7dea0cf81c374ebd5a2c4b15`.
+
+Next work package:
+`docs/work-packages/DCRM-01C-migration-runtime-shell.md`.
