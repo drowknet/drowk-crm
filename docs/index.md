@@ -42,6 +42,7 @@ These files make DROWK CRM self-contained after broad GitHub access is narrowed:
 - [DROWK Platform transfer](reference-harvest/drowk-platform-transfer.md)
 - [Invoice Builder transfer](reference-harvest/invoice-builder-transfer.md)
 - [Open-source pattern transfer](reference-harvest/open-source-patterns-transfer.md)
+- [OSCI Stage 0 transfer](reference-harvest/osci-stage0-transfer.md) — preserved unmerged benchmark findings
 - [Access revocation handoff](reference-harvest/ACCESS_REVOCATION_HANDOFF.md)
 
 ## Infrastructure
