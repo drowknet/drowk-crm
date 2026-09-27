@@ -17,6 +17,11 @@ This index routes humans and agents to the current repository-owned context.
 - [Memory / Agent / Trace Model](architecture/MEMORY_AGENT_TRACE_MODEL.md) — memory classes, trace and durable work.
 - [Auth & Tenancy Boundary](architecture/AUTH_TENANCY_BOUNDARY.md) — user/tenant/session/agent identity separation.
 - [DROWK Domain Topology](architecture/DROWK_DOMAIN_TOPOLOGY.md) — drowk.com vs drowk.net vs product/vertical domains.
+- [Repository Structure](architecture/REPOSITORY_STRUCTURE.md) — executable monorepo boundaries and dependency direction.
+
+## Engineering execution
+
+- [Codex Orchestration](engineering/CODEX_ORCHESTRATION.md) — scoped AGENTS, subagent workcells and one-writer discipline.
 
 ## Migration
 
@@ -32,6 +37,7 @@ This index routes humans and agents to the current repository-owned context.
 - [ADR-0002](adr/0002-evidence-before-truth.md) — Evidence before CRM Truth.
 - [ADR-0003](adr/0003-proof-carrying-engineering.md) — model output requires verification evidence.
 - [ADR-0004](adr/0004-provider-neutral-intelligence.md) — provider-neutral external intelligence.
+- [ADR-0005](adr/0005-point-in-time-knowledge-and-action-reconciliation.md) — point-in-time knowledge and uncertain external actions.
 
 ## Cross-repository harvest
 
