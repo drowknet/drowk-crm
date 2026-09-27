@@ -3,6 +3,7 @@ export type Brand<T, Name extends string> = T & {
 };
 
 export type TenantId = Brand<string, "TenantId">;
+export type UserId = Brand<string, "UserId">;
 export type ActorId = Brand<string, "ActorId">;
 export type EntityId = Brand<string, "EntityId">;
 export type AccountId = Brand<string, "AccountId">;

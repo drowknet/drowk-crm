@@ -1,11 +1,4 @@
-import type { ActorId, CorrelationId, RunId, TenantId } from "@drowk/contracts";
-
-export interface RequestContext {
-  tenantId: TenantId;
-  actorId: ActorId;
-  runId: RunId;
-  correlationId: CorrelationId;
-}
+export type { RequestContext } from "@drowk/contracts";
 
 export interface ApiHealth {
   service: "drowk-api";
