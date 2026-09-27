@@ -153,3 +153,43 @@ Before direct third-party code/runtime adoption:
 7. obtain explicit promotion/adoption decision.
 
 Patterns can be learned from without copying code.
+
+## Measured / scoped challengers from WP-OSCI-01 Stage 0
+
+The unmerged source branch `wp-osci-01-stage0-offline` contained a synthetic offline benchmark specifically relevant to CRM intelligence infrastructure.
+
+### dlt
+Measured source disposition: **PATTERN_ONLY** for the tested acquisition workload.
+
+Useful patterns:
+- cross-run incremental state;
+- replay suppression across runs.
+
+Measured gap in the tested configuration:
+- same-run duplicate `(source_id, revision)` suppression did not match the DROWK thin baseline.
+
+Do not adopt without a new CRM-specific measured advantage.
+
+### Splink
+Role considered: probabilistic/fuzzy identity candidate ranking for review.
+
+Harvested state: **UNASSESSED as a measured challenger**.
+
+It must never grant automatic canonical identity.
+
+### libpostal
+Role considered: address parsing/expansion.
+
+Harvested state: **UNASSESSED as a measured challenger**.
+
+Parsing/normalization does not establish Facility identity.
+
+### Overture Maps / OpenAddresses
+Role considered: open geospatial/address evidence.
+
+Harvested Stage 0 state: rights/provenance/source-family evaluation only; no live public-source validation.
+
+Revalidate current licenses, coverage and access before any future use.
+
+See [OSCI Stage 0 transfer](osci-stage0-transfer.md) for the complete preserved result.
+
