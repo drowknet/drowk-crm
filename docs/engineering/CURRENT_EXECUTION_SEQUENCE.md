@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: ACTIVE
+Status: DCRM-00B CLOSED — DCRM-01A ACTIVE
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -25,10 +25,12 @@ new executable product
 The local PWM repository is not a second product branch. It exists to preserve,
 audit and extract proven behavior into DROWK CRM.
 
-## Current gate: DCRM-00B — PWM extraction bridge
+## Closed gate: DCRM-00B — PWM extraction bridge
 
-Before adding more runtime/framework/database implementation to DROWK CRM, close
-the current WP-03 source ambiguity locally and return its verified result.
+The local WP-03 source ambiguity is closed. See
+`docs/engineering/DCRM-00B_CLOSURE.md`.
+
+The canonical stream has resumed in DROWK CRM.
 
 ### Step 1 — Local PWM alignment
 
@@ -64,9 +66,9 @@ ChatGPT then:
 - decides whether the PWM local patch should be committed as preservation history;
 - closes DCRM-00B when source and target semantics are aligned.
 
-### Step 3 — Resume DCRM-01A implementation
+### Current gate — DCRM-01A implementation
 
-Only after Step 2 is reconciled:
+DCRM-00B is reconciled. Proceed with:
 
 - run the foundation migration against disposable PostgreSQL in CI;
 - add the smallest migration runner;
@@ -84,12 +86,12 @@ No independent legacy feature development is allowed.
 
 ## Writer ownership
 
-During the current gate:
+During DCRM-01A:
 
-- PWM local files: Codex is the only writer.
-- drowk-crm branch: ChatGPT is the only writer.
-- owner transports verified outputs between the two.
-- Codex does not need GitHub access for this gate.
+- drowk-crm branch is the active product implementation surface;
+- PWM local files are preservation/regression reference only unless a new explicit extraction gate is opened;
+- do not develop new product features in PWM_CRM;
+- Codex does not need GitHub access until a later implementation gate explicitly gives it a DROWK checkout.
 
 Do not have Codex and ChatGPT edit the same repository/file surface concurrently.
 
