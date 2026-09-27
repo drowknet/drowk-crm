@@ -13,7 +13,8 @@
     "@drowk/contracts": "workspace:*",
     "@drowk/domain": "workspace:*",
     "@drowk/db": "workspace:*",
-    "pg": "^8.16.0"
+    "pg": "^8.16.0",
+    "jose": "6.1.0"
   },
   "devDependencies": {
     "@types/pg": "^8.15.0"

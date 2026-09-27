@@ -2,22 +2,25 @@ import { createServer, type Server } from "node:http";
 import pg from "pg";
 import { migrationStatus, PostgresIdentityRepository } from "@drowk/db";
 import { health } from "./index.js";
-import { authorizeRequest, denyAllVerifier, type AuthorizationDependencies, type PrincipalVerifier } from "./authorization.js";
+import { authorizeRequest, type AuthorizationDependencies, type PrincipalVerifier } from "./authorization.js";
+import { configuredVerifier, readAccessConfig, type AccessConfig } from "./cloudflare-access.js";
 
 export interface RuntimeConfig {
   databaseUrl: string;
   environment: string;
   host: string;
   port: number;
+  access?: AccessConfig;
 }
 
 export function readRuntimeConfig(env: NodeJS.ProcessEnv): RuntimeConfig {
   if (!env.DATABASE_URL || !env.APP_ENV?.trim()) throw new Error("DATABASE_URL and APP_ENV are required");
   const port = env.PORT ?? "8000";
   if (!/^\d+$/.test(port) || Number(port) < 1 || Number(port) > 65535) throw new Error("Invalid PORT");
+  const access = readAccessConfig(env);
   return {
     databaseUrl: env.DATABASE_URL, environment: env.APP_ENV,
-    host: env.HOST ?? "127.0.0.1", port: Number(port),
+    host: env.HOST ?? "127.0.0.1", port: Number(port), ...(access ? { access } : {}),
   };
 }
 
@@ -49,7 +52,7 @@ export function createProbeServer(isReady: () => Promise<boolean>, authorization
 }
 
 /** Startup does not connect to PostgreSQL or apply migrations. */
-export function createRuntime(config: RuntimeConfig, verifier: PrincipalVerifier = denyAllVerifier): { server: Server; close: () => Promise<void> } {
+export function createRuntime(config: RuntimeConfig, verifier: PrincipalVerifier = configuredVerifier(config.access)): { server: Server; close: () => Promise<void> } {
   const pool = new pg.Pool({
     connectionString: config.databaseUrl,
     max: 2,

@@ -37,8 +37,8 @@ also checks pending/current/drifted readiness against a real database.
 ## DCRM-02A identity boundary
 
 `createRuntime(config, verifier)` accepts an injected `PrincipalVerifier`; the
-default denies every protected request. No production verifier, session, or auth
-vendor is configured. A verifier must authenticate credentials before returning
+default denies every protected request unless Access is explicitly configured
+as described below. A verifier must authenticate credentials before returning
 an issuer + subject pair. Asserted email/display name never establish identity.
 
 The caller must send exactly one `X-Drowk-Tenant-Id` UUID header. The application
@@ -56,3 +56,30 @@ repository failure. Health/readiness bypass the verifier.
 Compatibility: `RequestContext` now lives in `@drowk/contracts` and remains
 re-exported from the API index. Consumers constructing it must provide the new
 required `userId`; `ActorId` remains a separate persisted identity.
+
+## DCRM-02B Cloudflare Access adapter
+
+Set `AUTH_PROVIDER=cloudflare-access`, `CLOUDFLARE_ACCESS_ISSUER` to the exact
+HTTPS team origin (for example `https://synthetic.cloudflareaccess.com`, no trailing
+slash), and `CLOUDFLARE_ACCESS_AUDIENCE` to the application's AUD. Public keys are
+loaded from the configured issuer's `/cdn-cgi/access/certs` endpoint using jose's
+cached remote JWKS resolver with a three-second fetch timeout. No management API
+or secret is required. Token-provided key URLs are never used.
+
+Unset `AUTH_PROVIDER` or `AUTH_PROVIDER=none` denies all protected requests.
+Unknown modes, partial configuration and Access settings without explicit provider
+selection fail startup. Health/readiness bypass authentication; readiness does not
+test JWKS availability. Key-fetch or JWT verification failures return generic 401.
+
+Exactly one `Cf-Access-Jwt-Assertion` header is required. The adapter checks RS256,
+signature, exact issuer, application audience, required expiry and subject,
+not-before when present, and `type=app` when supplied. Cookies and bearer tokens
+are not alternative inputs. Email/name are optional structural metadata; groups,
+roles and organizations confer no authority. Existing issuer+subject bindings and
+ACTIVE DROWK memberships remain mandatory. No DROWK session cookie is issued.
+
+Synthetic tests use generated RSA keys and local JWKS; they need no Cloudflare
+network access. The disposable PostgreSQL sensor proves changed subjects do not
+rebind or provision identities and membership revocation still denies access.
+There are no migrations or contract changes. Roll back by removing Access settings
+and selecting `AUTH_PROVIDER=none`, or reverting this adapter change.
