@@ -36,3 +36,44 @@ jobs:
 
       - name: Verify
         run: pnpm verify
+
+  postgres-foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: drowk_ci
+          POSTGRES_USER: drowk
+          POSTGRES_PASSWORD: drowk_ci_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U drowk -d drowk_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGDATABASE: drowk_ci
+      PGUSER: drowk
+      PGPASSWORD: drowk_ci_password
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Apply foundation migration
+        run: psql -v ON_ERROR_STOP=1 -f packages/db/migrations/0001_foundation.sql
+
+      - name: Verify tenant isolation
+        run: psql -v ON_ERROR_STOP=1 -f packages/db/test/0001_foundation.integration.sql
