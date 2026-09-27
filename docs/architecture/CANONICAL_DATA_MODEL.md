@@ -4,6 +4,15 @@ Status: DESIGN INPUT, not final database schema.
 
 This model intentionally combines PWM_CRM lessons with transferable patterns harvested from earlier DROWK engineering. Names and relationships remain subject to DCRM-00 contract review before database implementation.
 
+## Point-in-time knowledge
+
+Material evidence and derived state should distinguish, where applicable:
+- `effective_at` — when the statement applied in the source world, if known;
+- `recorded_at` — when DROWK learned or recorded the statement;
+- `retrieved_at` — when DROWK retrieved the source.
+
+Unknown source time remains unknown. Historical evaluation must not use evidence whose `recorded_at` is later than the decision being replayed.
+
 ## Core truth objects
 
 ### Tenant
@@ -239,6 +248,30 @@ Human approval bound to exact action context.
 
 Future high-impact approvals should bind to actor, tenant, action, target, payload/body hash, object/thread, policy snapshot, expiration and single-use execution context.
 
+### ActionAttempt
+
+Durable record of one bounded external execution attempt.
+
+Candidate semantics:
+- exact action and target;
+- payload/body digest;
+- approval reference where required;
+- idempotency digest;
+- provider/external receipt reference;
+- attempted_at;
+- state;
+- reconciliation timestamp/reason.
+
+Initial state vocabulary should support:
+- PREPARED
+- DISPATCHING
+- ACCEPTED
+- FAILED
+- UNKNOWN
+- RECONCILED
+
+A crash, timeout or ambiguous provider response may produce UNKNOWN. UNKNOWN never authorizes a blind retry. Reconciliation or human review may be required.
+
 ### Outcome
 Observed result of a commercial or system action.
 
@@ -346,7 +379,7 @@ Where applicable:
 
 When a material derived decision, evidence state, hypothesis or policy-evaluated snapshot changes, prefer append/supersede history over silent rewrite where auditability matters.
 
-A current head is a projection over history; history remains attributable.
+A current head is a projection over accepted, attributable history; it is not an immutable statement of eternal truth. History remains attributable.
 
 ## Rules
 
