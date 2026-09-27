@@ -107,9 +107,14 @@ test("SourceObservation round trip and duplicate source identity", async () => {
   );
 
   const duplicate = await repositories.appendObservation(tenantA, {
-    ...input, id: randomUUID(), fingerprint: "sha256:changed-candidate",
+    ...input, id: randomUUID(),
   });
   assert.deepEqual(duplicate, { status: "already_exists", observation: expected });
+  const changed = await repositories.appendObservation(tenantA, {
+    ...input, id: randomUUID(), fingerprint: "sha256:changed-candidate",
+  });
+  assert.deepEqual(changed, { status: "fingerprint_conflict", observation: expected });
+  assert.deepEqual(await repositories.getObservation(tenantA, input.id), expected);
   const count = await pool.query(
     `SELECT count(*)::int AS count FROM source_observations
      WHERE tenant_id = $1 AND source_system = $2 AND source_native_id = $3`,
@@ -133,6 +138,15 @@ test("SourceObservation round trip and duplicate source identity", async () => {
   });
   assert.equal(revised.status, "inserted");
   assert.equal(revised.observation.sourceRevision, "revision-2");
+  assert.deepEqual(await repositories.appendObservation(tenantA, {
+    ...input, id: randomUUID(), sourceRevision: "revision-2",
+    fingerprint: "sha256:revision-2-changed",
+  }), { status: "fingerprint_conflict", observation: revised.observation });
+  assert.equal((await pool.query(
+    `SELECT count(*)::int AS count FROM source_observations
+     WHERE tenant_id = $1 AND source_system = $2 AND source_native_id = $3`,
+    [tenantA, input.sourceSystem, input.sourceNativeId],
+  )).rows[0].count, 3);
   assert.deepEqual(await repositories.appendObservation(tenantA, {
     ...input, sourceNativeId: randomUUID(),
   }), { status: "id_conflict" });

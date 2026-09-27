@@ -13,6 +13,14 @@ export type CommercialRelevance =
 
 export type GmailSyncAuditState = "PREPARED" | "PASS" | "FAILED";
 
+export type GmailNoiseCategory = "AUTOMATED_TECHNICAL" | "SYSTEM_NOTIFICATION";
+export type LinkageCandidateState = "UNRESOLVED" | "REVIEW" | "CANDIDATE";
+export type PromotionPolicyState = "BLOCK" | "REVIEW" | "ALLOW_CANDIDATE";
+export type PromotionCandidateDecision =
+  | { state: "BLOCKED"; reason: "DRAFT" | "POLICY" | "DETERMINISTIC_NOISE" }
+  | { state: "REVIEW"; reason: "RELEVANCE" | "LINKAGE" | "POLICY" }
+  | { state: "ELIGIBLE_CANDIDATE" };
+
 export interface GmailMessageSource {
   messageId: string;
   threadId: string;
@@ -70,6 +78,28 @@ export function spamDoesNotDecideRelevance(
   return "UNKNOWN";
 }
 
+/** Only an independently established deterministic noise category can exclude a message. */
+export function deterministicRelevance(
+  noiseCategory: GmailNoiseCategory | null,
+): CommercialRelevance {
+  return noiseCategory === null ? "REVIEW" : "NOT_RELEVANT";
+}
+
+export function evaluatePromotionCandidate(
+  direction: GmailTechnicalDirection,
+  relevance: CommercialRelevance,
+  linkage: LinkageCandidateState,
+  policy: PromotionPolicyState,
+): PromotionCandidateDecision {
+  if (direction === "DRAFT") return { state: "BLOCKED", reason: "DRAFT" };
+  if (policy === "BLOCK") return { state: "BLOCKED", reason: "POLICY" };
+  if (relevance === "NOT_RELEVANT") return { state: "BLOCKED", reason: "DETERMINISTIC_NOISE" };
+  if (relevance !== "RELEVANT") return { state: "REVIEW", reason: "RELEVANCE" };
+  if (linkage !== "CANDIDATE") return { state: "REVIEW", reason: "LINKAGE" };
+  if (policy !== "ALLOW_CANDIDATE") return { state: "REVIEW", reason: "POLICY" };
+  return { state: "ELIGIBLE_CANDIDATE" };
+}
+
 export function mayEnterPromotionEvaluation(
   direction: GmailTechnicalDirection,
 ): boolean {
@@ -79,3 +109,6 @@ export function mayEnterPromotionEvaluation(
 export function canAdvanceCursor(checkpoint: GmailSyncCheckpoint): boolean {
   return checkpoint.state === "PASS" && checkpoint.cursorAfter !== null;
 }
+
+export * from "./observation.js";
+export * from "./history.js";

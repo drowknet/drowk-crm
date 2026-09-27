@@ -180,6 +180,7 @@ function evidenceFrom(row: EvidenceRow): Evidence {
 export type AppendObservationResult =
   | { status: "inserted"; observation: SourceObservation }
   | { status: "already_exists"; observation: SourceObservation }
+  | { status: "fingerprint_conflict"; observation: SourceObservation }
   | { status: "id_conflict" };
 
 /** Every repository method receives tenant scope; callers must authorize it separately. */
@@ -253,9 +254,14 @@ export class PostgresRepositories {
     const existing = await this.findObservationBySourceIdentity(
       tenantId, observation.sourceSystem, observation.sourceNativeId, observation.sourceRevision,
     );
-    return existing
+    if (!existing) return { status: "id_conflict" };
+    const existingId = await this.getObservation(tenantId, observation.id);
+    if (existingId && existingId.id !== existing.id) {
+      return { status: "id_conflict" };
+    }
+    return existing.fingerprint === observation.fingerprint
       ? { status: "already_exists", observation: existing }
-      : { status: "id_conflict" };
+      : { status: "fingerprint_conflict", observation: existing };
   }
 
   async getObservation(tenantId: TenantId, observationId: ObservationId): Promise<SourceObservation | null> {
