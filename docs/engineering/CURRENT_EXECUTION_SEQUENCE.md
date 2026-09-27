@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-00B CLOSED — DCRM-01A ACTIVE
+Status: DCRM-01A/B GREEN — DCRM-01C NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -66,17 +66,27 @@ ChatGPT then:
 - decides whether the PWM local patch should be committed as preservation history;
 - closes DCRM-00B when source and target semantics are aligned.
 
-### Current gate — DCRM-01A implementation
+### Completed — DCRM-01A / DCRM-01B
 
-DCRM-00B is reconciled. Proceed with:
-
-- [DONE] run the foundation migration against disposable PostgreSQL in CI;
-- [DONE] add executable PostgreSQL migration sensor;
-- [DONE] add initial relational tenant-isolation integration tests;
-- [ACTIVE] implement `docs/work-packages/DCRM-01B-postgres-persistence.md` on
-  `feat/dcrm-01a-persistence`;
-- active vertical slice:
+- [DONE] foundation migrations execute on disposable PostgreSQL;
+- [DONE] relational tenant-isolation sensors;
+- [DONE] typed PostgreSQL repositories for:
   Account -> Facility -> SourceObservation -> Evidence;
+- [DONE] transaction rollback sensor;
+- [DONE] source identity/revision idempotency semantics;
+- [DONE] PR #2 merged into `foundation/drowk-crm-00`;
+- [DONE] post-merge CI green.
+
+### Next gate — DCRM-01C
+
+Prepare and execute:
+`docs/work-packages/DCRM-01C-migration-runtime-shell.md`
+
+Purpose:
+- deterministic forward-only migration runner;
+- migration checksum/locking proof;
+- minimal `/health` and `/ready` runtime shell;
+- no business mutation HTTP yet;
 - keep Gmail network/OAuth disabled.
 
 ### Step 4 — DCRM-03A / DCRM-04A extraction in parallel only when coupled
@@ -88,13 +98,13 @@ No independent legacy feature development is allowed.
 
 ## Writer ownership
 
-During DCRM-01A / DCRM-01B:
+Current writer state:
 
-- `feat/dcrm-01a-persistence` has one active writer: Codex;
-- ChatGPT reviews this feature branch but does not edit its implementation files while Codex is active;
+- no Codex feature branch is active until the owner creates/switches the DCRM-01C branch;
+- ChatGPT may update foundation planning/docs before that branch is handed to Codex;
+- once Codex starts DCRM-01C, that feature branch has one active writer: Codex;
 - drowk-crm is the active product implementation surface;
-- PWM local files are preservation/regression reference only unless a new explicit extraction gate is opened;
-- do not develop new product features in PWM_CRM.
+- PWM local files remain preservation/regression reference only unless a new explicit extraction gate is opened.
 
 Do not have Codex and ChatGPT edit the same repository/file surface concurrently.
 
