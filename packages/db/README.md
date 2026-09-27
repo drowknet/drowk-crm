@@ -18,8 +18,9 @@ Expected responsibilities:
 operation takes `tenantId` explicitly. The caller must authorize that tenant
 scope before calling a repository method. Missing tenant-scoped reads return
 `null`; PostgreSQL rejects cross-tenant parent links. SourceObservation append
-returns `inserted`, `already_exists` for the same source identity/revision, or
-`id_conflict` for an unrelated UUID collision. Other duplicate inserts raise
+returns `inserted`, `already_exists` for the same source identity/revision and
+fingerprint, `fingerprint_conflict` for changed source state at the same revision,
+or `id_conflict` for an unrelated UUID collision. Other duplicate inserts raise
 the PostgreSQL uniqueness error without overwriting the stored row.
 
 `withTransaction(pool, async (repositories) => ...)` uses one client and rolls

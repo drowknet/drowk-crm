@@ -107,5 +107,8 @@ jobs:
       - name: Verify migrations and repository persistence
         run: pnpm --filter @drowk/db test
 
+      - name: Verify Gmail observation persistence boundary
+        run: node --test connectors/gmail/test/persistence.integration.test.mjs
+
       - name: Verify runtime readiness
         run: pnpm --filter @drowk/api test
