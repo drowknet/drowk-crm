@@ -1,6 +1,6 @@
 # DCRM-01A — Core Vertical Slice
 
-Status: IN PROGRESS — POSTGRESQL EXECUTION SENSOR ACTIVE
+Status: IN PROGRESS — POSTGRESQL FOUNDATION GREEN / REPOSITORY LAYER NEXT
 
 ## Objective
 
@@ -61,3 +61,22 @@ Subagents should report findings rather than editing the writer's files concurre
 After this slice is green, choose the smallest HTTP/runtime shell and PostgreSQL
 migration runner needed to expose one real application use case. pg-boss vs DBOS,
 auth provider and UI acceleration remain parallel bounded benchmarks, not blockers.
+
+
+## Verified evidence
+
+GitHub Actions run after activating the PostgreSQL sensor completed successfully:
+
+- workspace verify job: PASS;
+- disposable PostgreSQL 16 migration apply: PASS;
+- tenant-isolation SQL sensor: PASS;
+- tested cross-tenant rejection for:
+  - Facility -> Account;
+  - Evidence -> SourceObservation;
+  - ActionAttempt -> Approval.
+
+This proves the initial migration is executable on PostgreSQL and that these
+relational tenant boundaries are enforced by the schema.
+
+Next implementation slice:
+`Account -> Facility -> SourceObservation -> Evidence` persistence/repository layer.
