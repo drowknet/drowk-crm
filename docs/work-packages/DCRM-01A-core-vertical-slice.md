@@ -1,6 +1,6 @@
 # DCRM-01A — Core Vertical Slice
 
-Status: READY FOR IMPLEMENTATION / REVIEW
+Status: IN PROGRESS — POSTGRESQL EXECUTION SENSOR ACTIVE
 
 ## Objective
 
@@ -43,7 +43,8 @@ web/auth/workflow frameworks prematurely.
 3. Database review proves tenant-owned foreign keys cannot cross tenant boundaries
    where relational targets are known.
 4. Migration applies to a disposable PostgreSQL instance and rolls forward cleanly.
-5. No secrets or production data enter fixtures.
+5. Cross-tenant relational links are rejected in disposable PostgreSQL integration tests.
+6. No secrets or production data enter fixtures.
 
 ## Codex workcell
 
