@@ -56,9 +56,10 @@ The active engineering sequence lives in:
 
 That file, not chat history, tells Codex which work package is currently active.
 
-DCRM-02A is closed.
+DCRM-02A and DCRM-02B are closed.
 
-The active work package is:
-`docs/work-packages/DCRM-02B-cloudflare-access-alpha-verifier.md`.
+The next queued work package is:
+`docs/work-packages/DCRM-03A-gmail-observation-boundary.md`.
 
-Execute it only on `feat/dcrm-02b-cloudflare-access`.
+Do not execute it from foundation. The owner must first switch/create the dedicated
+DCRM-03A feature branch.

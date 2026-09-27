@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B/C + DCRM-02A GREEN — DCRM-02B ACTIVE
+Status: DCRM-01A/B/C + DCRM-02A/B GREEN — DCRM-03A NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -96,23 +96,33 @@ ChatGPT then:
 - [DONE] PR #4 merged into `foundation/drowk-crm-00`;
 - [DONE] post-merge CI green.
 
-### Active gate — DCRM-02B
+### Completed — DCRM-02B
 
-Research revalidation is recorded in:
-`docs/research/AUTH_SESSION_REVALIDATION_2026-09-27.md`
+- [DONE] Cloudflare Access alpha verifier behind provider-neutral PrincipalVerifier;
+- [DONE] exact issuer+subject remains DROWK identity key;
+- [DONE] ACTIVE DROWK tenant membership remains mandatory;
+- [DONE] fail-closed/no-provider behavior preserved;
+- [DONE] PR #5 merged into `foundation/drowk-crm-00`;
+- [DONE] post-merge CI green.
 
-Decision:
-`docs/adr/0006-cloudflare-access-alpha-auth-boundary.md`
+### Next gate — DCRM-03A completion
 
-Prepare and execute:
-`docs/work-packages/DCRM-02B-cloudflare-access-alpha-verifier.md`
+Execute:
+`docs/work-packages/DCRM-03A-gmail-observation-boundary.md`
+
+Operator outcome:
+- future Inbox/Today/relationship surfaces can consume attributable Gmail
+  observations without treating mailbox state as CRM truth.
 
 Purpose:
-- verify Cloudflare Access application JWTs behind PrincipalVerifier;
-- preserve DROWK issuer+subject identity mapping and tenant membership authority;
-- keep email/groups/provider organization metadata non-authoritative;
-- no Cloudflare remote configuration or deployment;
-- no application-issued browser session yet.
+- preserve the authoritative Gmail source fields;
+- prove replay/deduplication and changed-fingerprint conflict behavior;
+- prove controlled expired-history recovery;
+- prove explicit relevance/promotion candidate boundary;
+- keep live Gmail/OAuth/network access closed.
+
+DCRM-04A remains queued immediately after this package so deterministic Work can
+consume trustworthy source/evidence state.
 
 ### Parallel extraction status — DCRM-03A / DCRM-04A
 
@@ -140,9 +150,11 @@ No independent legacy feature development is allowed.
 
 Current writer state:
 
-- active implementation branch: `feat/dcrm-02b-cloudflare-access`;
-- once Codex starts DCRM-02B, that feature branch has one active writer: Codex;
-- ChatGPT reviews but does not edit this feature branch while Codex is active;
+- no Codex feature writer is active until the owner switches to the dedicated
+  DCRM-03A feature branch;
+- ChatGPT may prepare/synchronize DCRM-03A planning before that handoff;
+- once Codex starts DCRM-03A, that feature branch has one active writer: Codex;
+- ChatGPT reviews but does not edit the same feature branch while Codex is active;
 - drowk-crm is the active product implementation surface;
 - PWM local files remain preservation/regression reference only unless a new explicit extraction gate is opened.
 

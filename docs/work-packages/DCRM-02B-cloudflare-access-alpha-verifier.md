@@ -1,6 +1,6 @@
 # DCRM-02B — Cloudflare Access Alpha Verifier
 
-Status: READY FOR IMPLEMENTATION
+Status: GREEN / CLOSED
 Parent: `foundation/drowk-crm-00`
 Decision: `docs/adr/0006-cloudflare-access-alpha-auth-boundary.md`
 
@@ -131,3 +131,34 @@ Codex must:
 - commit and push;
 - report branch, final SHA, files changed, tests/sensors, CI and unresolved findings;
 - do not merge or deploy.
+
+
+## Closure evidence
+
+DCRM-02B closed on 2026-09-27.
+
+Implementation PR:
+- PR #5 `DCRM-02B: Cloudflare Access alpha verifier`;
+- final feature head `a607b45f90ed4cd8d5aef431fb75743f02cef212`;
+- merge commit `b0c54bc7a46c1d5bb78ccaed4f652ee8ea78f6aa`.
+
+Verified behavior:
+- Cloudflare Access JWT verification remains behind the provider-neutral
+  `PrincipalVerifier`;
+- RS256/signature/issuer/audience/expiry/subject/not-before checks fail closed;
+- exactly one `Cf-Access-Jwt-Assertion` header is accepted;
+- email/name remain metadata and provider groups/roles/organization claims confer
+  no DROWK authority;
+- unknown/changed subjects cannot provision or rebind DROWK identity;
+- ACTIVE DROWK tenant membership remains mandatory;
+- no-provider mode denies protected requests;
+- health/readiness remain outside application authentication;
+- no Cloudflare control-plane mutation, deploy, Gmail or business mutation route
+  entered scope.
+
+Post-merge GitHub Actions at the merge commit:
+- push run `36337160202`: SUCCESS;
+- pull-request run `36337162496`: SUCCESS.
+
+No live Cloudflare application/policy configuration or production deployment was
+performed.
