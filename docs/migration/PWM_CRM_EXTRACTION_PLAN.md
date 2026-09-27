@@ -82,6 +82,24 @@ Create golden tests that reproduce known good behavior before replacing implemen
 ### Phase D — Evidence-first Gmail connector
 Port Gmail synchronization as a source/evidence connector before Core promotion.
 
+The 2026-09-26 PWM checkpoint is authoritative over the older direct Gmail-to-Core WP-03 draft where they conflict.
+
+Preserve/adapt from the local WP-03 draft:
+- decimal History cursor comparison;
+- complete pagination;
+- duplicate/replay collapse;
+- source-key uniqueness;
+- single-run lock/failure handling;
+- PREPARED/PASS cursor audit;
+- controlled cursor recovery.
+
+Do not port unchanged:
+- direct Gmail -> Conversation/Activity writes;
+- SPAM exclusion as a relevance rule;
+- From=owned identity as proof of SENT.
+
+See `docs/reference-harvest/pwm-wp03-local-audit-2026-09-26.md`.
+
 ### Phase E — CRM truth migration
 Migrate canonical entities preserving source IDs and lineage.
 
