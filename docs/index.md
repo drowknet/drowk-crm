@@ -23,6 +23,10 @@ This index routes humans and agents to the current repository-owned context.
 
 - [Codex Orchestration](engineering/CODEX_ORCHESTRATION.md) — scoped AGENTS, subagent workcells and one-writer discipline.
 
+## Work packages
+
+- [DCRM-01A Core Vertical Slice](work-packages/DCRM-01A-core-vertical-slice.md) — first executable contracts/domain/database slice.
+
 ## Migration
 
 - [PWM_CRM Extraction Plan](migration/PWM_CRM_EXTRACTION_PLAN.md) — preservation-first extraction from D: source system.
