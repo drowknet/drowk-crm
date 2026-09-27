@@ -70,11 +70,11 @@ ChatGPT then:
 
 DCRM-00B is reconciled. Proceed with:
 
-- run the foundation migration against disposable PostgreSQL in CI;
-- add the smallest migration runner;
-- implement repository/persistence layer for:
+- [DONE] run the foundation migration against disposable PostgreSQL in CI;
+- [DONE] add executable PostgreSQL migration sensor;
+- [DONE] add initial relational tenant-isolation integration tests;
+- [NEXT] implement repository/persistence layer for:
   Account -> Facility -> SourceObservation -> Evidence;
-- add tenant-isolation integration tests;
 - keep Gmail network/OAuth disabled.
 
 ### Step 4 — DCRM-03A / DCRM-04A extraction in parallel only when coupled
