@@ -25,9 +25,33 @@ The product is intentionally provider-independent. Gmail, AIsa, LinkedIn, Apollo
 
 ## Status
 
-Foundation / architecture extraction phase.
+**DCRM-00 — Foundation / architecture extraction.**
 
-No production integrations or customer data are stored in this public repository.
+The repository is intentionally architecture-first. Runtime/framework choices remain open until preservation and extraction contracts are complete.
+
+Start with:
+- [Knowledge Index](docs/index.md)
+- [System Architecture](docs/architecture/SYSTEM_ARCHITECTURE.md)
+- [Canonical Data Model](docs/architecture/CANONICAL_DATA_MODEL.md)
+- [Roadmap](docs/roadmap/ROADMAP.md)
+- [PWM_CRM Extraction Plan](docs/migration/PWM_CRM_EXTRACTION_PLAN.md)
+- [Cross-Repository Reference Harvest](docs/reference-harvest/README.md)
+
+## Canonical engineering home
+
+`drowknet/drowk-crm` is the only authorized implementation repository for DROWK CRM.
+
+Other DROWK repositories may inform design but are not implementation targets or runtime dependencies.
+
+## Infrastructure direction
+
+- `drowk.com` — DROWK brand/corporate identity.
+- `drowk.net` — DROWK systems namespace.
+- `crm.drowk.net` — approved production namespace direction for DROWK CRM.
+- GitHub — engineering/version canon.
+- PostgreSQL — intended canonical business datastore, pending DCRM-00 stack confirmation.
+- Cloudflare — intended edge/deployment/access layer; no CRM application has been deployed yet.
+- Apps Script/Gmail — migration/source connector, not long-term system of record.
 
 ## Safety
 
@@ -35,5 +59,4 @@ No production integrations or customer data are stored in this public repository
 - High-impact actions require explicit policy authority and, by default, human approval.
 - AI models may research, extract, classify, summarize, draft, and recommend; they do not own business truth or execution authority.
 - Source provenance, freshness, idempotency, and auditability are first-class requirements.
-
-See the foundation PR for architecture, migration, security, and roadmap documents.
+- Model output is not verified output.
