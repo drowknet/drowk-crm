@@ -61,6 +61,7 @@ CREATE TABLE source_observations (
   adapter_version text NOT NULL,
   fingerprint text NOT NULL,
   raw_artifact_ref text NULL,
+  source_metadata jsonb NOT NULL DEFAULT '{}'::jsonb,
   UNIQUE (tenant_id, id)
 );
 
@@ -70,6 +71,40 @@ CREATE UNIQUE INDEX source_observations_source_revision_uq
     source_system,
     source_native_id,
     COALESCE(source_revision, '')
+  );
+
+CREATE TABLE connector_sync_state (
+  tenant_id uuid NOT NULL REFERENCES tenants(id),
+  connector_ref text NOT NULL,
+  mailbox_ref text NOT NULL,
+  committed_cursor text NULL,
+  updated_at timestamptz NOT NULL DEFAULT current_timestamp,
+  PRIMARY KEY (tenant_id, connector_ref, mailbox_ref)
+);
+
+CREATE TABLE connector_sync_checkpoints (
+  id uuid PRIMARY KEY,
+  tenant_id uuid NOT NULL REFERENCES tenants(id),
+  run_id uuid NOT NULL,
+  correlation_id uuid NOT NULL,
+  connector_ref text NOT NULL,
+  mailbox_ref text NOT NULL,
+  cursor_before text NULL,
+  cursor_after text NULL,
+  state text NOT NULL CHECK (state IN ('PREPARED','PASS','FAILED')),
+  reason text NULL,
+  source_count integer NULL CHECK (source_count IS NULL OR source_count >= 0),
+  recorded_at timestamptz NOT NULL DEFAULT current_timestamp,
+  completed_at timestamptz NULL,
+  UNIQUE (tenant_id, id)
+);
+
+CREATE INDEX connector_sync_checkpoints_lookup_idx
+  ON connector_sync_checkpoints (
+    tenant_id,
+    connector_ref,
+    mailbox_ref,
+    recorded_at DESC
   );
 
 CREATE TABLE evidence (
