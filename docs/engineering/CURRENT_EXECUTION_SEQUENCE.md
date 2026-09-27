@@ -73,7 +73,9 @@ DCRM-00B is reconciled. Proceed with:
 - [DONE] run the foundation migration against disposable PostgreSQL in CI;
 - [DONE] add executable PostgreSQL migration sensor;
 - [DONE] add initial relational tenant-isolation integration tests;
-- [NEXT] implement repository/persistence layer for:
+- [ACTIVE] implement `docs/work-packages/DCRM-01B-postgres-persistence.md` on
+  `feat/dcrm-01a-persistence`;
+- active vertical slice:
   Account -> Facility -> SourceObservation -> Evidence;
 - keep Gmail network/OAuth disabled.
 
@@ -86,12 +88,13 @@ No independent legacy feature development is allowed.
 
 ## Writer ownership
 
-During DCRM-01A:
+During DCRM-01A / DCRM-01B:
 
-- drowk-crm branch is the active product implementation surface;
+- `feat/dcrm-01a-persistence` has one active writer: Codex;
+- ChatGPT reviews this feature branch but does not edit its implementation files while Codex is active;
+- drowk-crm is the active product implementation surface;
 - PWM local files are preservation/regression reference only unless a new explicit extraction gate is opened;
-- do not develop new product features in PWM_CRM;
-- Codex does not need GitHub access until a later implementation gate explicitly gives it a DROWK checkout.
+- do not develop new product features in PWM_CRM.
 
 Do not have Codex and ChatGPT edit the same repository/file surface concurrently.
 

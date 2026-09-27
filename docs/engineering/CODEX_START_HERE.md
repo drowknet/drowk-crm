@@ -55,3 +55,6 @@ The active engineering sequence lives in:
 `docs/engineering/CURRENT_EXECUTION_SEQUENCE.md`.
 
 That file, not chat history, tells Codex which work package is currently active.
+
+For the current feature branch, the active work package is expected to resolve to:
+`docs/work-packages/DCRM-01B-postgres-persistence.md`.
