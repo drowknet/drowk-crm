@@ -1,6 +1,6 @@
 # DCRM-03A — Gmail Observation Boundary
 
-Status: READY FOR COMPLETION
+Status: ACTIVE IMPLEMENTATION
 Parent: `foundation/drowk-crm-00`
 Legacy reference: `docs/reference-harvest/pwm-wp03-local-audit-2026-09-26.md`
 
