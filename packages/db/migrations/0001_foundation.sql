@@ -255,17 +255,53 @@ CREATE TABLE work_items (
   tenant_id uuid NOT NULL REFERENCES tenants(id),
   run_id uuid NOT NULL,
   correlation_id uuid NOT NULL,
+  work_key text NOT NULL,
   subject_id uuid NOT NULL,
   kind text NOT NULL,
-  status text NOT NULL CHECK (
-    status IN ('READY','BLOCKED','IN_PROGRESS','DONE','CANCELLED')
+  source_type text NOT NULL,
+  source_refs jsonb NOT NULL DEFAULT '[]'::jsonb,
+  source_version text NULL,
+  next_action text NOT NULL,
+  following_actions jsonb NOT NULL DEFAULT '[]'::jsonb,
+  owner_ref text NULL,
+  priority text NOT NULL CHECK (priority IN ('CRITICAL','HIGH','MEDIUM','LOW')),
+  due_at timestamptz NULL,
+  waiting_on text NOT NULL CHECK (
+    waiting_on IN ('OWNER','CUSTOMER','THIRD_PARTY','DATE','NONE')
+  ),
+  work_state text NOT NULL CHECK (
+    work_state IN (
+      'NEEDS_ACTION','REVIEW','WAITING','SCHEDULED','BLOCKED',
+      'NO_ACTION','DONE','CANCELLED','SUPERSEDED'
+    )
+  ),
+  attention_class text NOT NULL CHECK (
+    attention_class IN (
+      'HARD_STOP_REVIEW','OVERDUE','DUE_TODAY','NEEDS_HUMAN_REVIEW',
+      'READY_HIGH','READY_NORMAL','BLOCKED_NEEDS_OWNER','WAITING',
+      'SCHEDULED','NO_ACTION'
+    )
   ),
   reason_codes jsonb NOT NULL DEFAULT '[]'::jsonb,
+  blocker text NULL,
+  evidence_needed text NULL,
+  autonomy_level text NOT NULL CHECK (
+    autonomy_level IN (
+      'A0_OBSERVE','A1_SUGGEST','A2_PREPARE',
+      'A3_CONFIRMED_EXECUTE','A4_POLICY_AUTO','A5_NEVER_AUTO'
+    )
+  ),
+  approval_required boolean NOT NULL,
+  human_review_required boolean NOT NULL,
   policy_version text NOT NULL,
   source_watermark text NULL,
+  supersedes_work_item_id uuid NULL,
+  fingerprint text NOT NULL,
   available_at timestamptz NOT NULL,
   recorded_at timestamptz NOT NULL DEFAULT current_timestamp,
-  UNIQUE (tenant_id, id)
+  UNIQUE (tenant_id, id),
+  UNIQUE (tenant_id, work_key),
+  FOREIGN KEY (tenant_id, supersedes_work_item_id) REFERENCES work_items(tenant_id, id)
 );
 
 CREATE TABLE approvals (
@@ -364,7 +400,7 @@ CREATE INDEX provider_runs_tenant_capability_idx
   ON provider_runs (tenant_id, capability, recorded_at DESC);
 
 CREATE INDEX work_items_tenant_status_idx
-  ON work_items (tenant_id, status, available_at);
+  ON work_items (tenant_id, work_state, available_at);
 
 CREATE INDEX action_attempts_tenant_state_idx
   ON action_attempts (tenant_id, state, attempted_at DESC);
