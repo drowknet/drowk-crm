@@ -1,7 +1,8 @@
 import { createServer, type Server } from "node:http";
 import pg from "pg";
-import { migrationStatus } from "@drowk/db";
+import { migrationStatus, PostgresIdentityRepository } from "@drowk/db";
 import { health } from "./index.js";
+import { authorizeRequest, denyAllVerifier, type AuthorizationDependencies, type PrincipalVerifier } from "./authorization.js";
 
 export interface RuntimeConfig {
   databaseUrl: string;
@@ -21,7 +22,7 @@ export function readRuntimeConfig(env: NodeJS.ProcessEnv): RuntimeConfig {
 }
 
 /** Small replaceable HTTP boundary; readiness dependencies are injected for testing. */
-export function createProbeServer(isReady: () => Promise<boolean>): Server {
+export function createProbeServer(isReady: () => Promise<boolean>, authorization?: AuthorizationDependencies): Server {
   return createServer((request, response) => {
     const reply = (code: number, body: object) => {
       response.writeHead(code, { "Content-Type": "application/json", "Cache-Control": "no-store" });
@@ -35,6 +36,12 @@ export function createProbeServer(isReady: () => Promise<boolean>): Server {
         try { ready = await isReady(); } catch { /* Public probes never include internal errors. */ }
         reply(ready ? 200 : 503, { service: "drowk-api", status: ready ? "ready" : "not_ready" });
       })();
+    } else if (request.method === "GET" && request.url === "/operator/context") {
+      void (async () => {
+        if (!authorization) { reply(401, { status: "unauthenticated" }); return; }
+        const result = await authorizeRequest(request, authorization);
+        reply(result.status, result.status === 200 ? result.context : { status: result.error });
+      })();
     } else {
       reply(404, { status: "not_found" });
     }
@@ -42,7 +49,7 @@ export function createProbeServer(isReady: () => Promise<boolean>): Server {
 }
 
 /** Startup does not connect to PostgreSQL or apply migrations. */
-export function createRuntime(config: RuntimeConfig): { server: Server; close: () => Promise<void> } {
+export function createRuntime(config: RuntimeConfig, verifier: PrincipalVerifier = denyAllVerifier): { server: Server; close: () => Promise<void> } {
   const pool = new pg.Pool({
     connectionString: config.databaseUrl,
     max: 2,
@@ -52,7 +59,9 @@ export function createRuntime(config: RuntimeConfig): { server: Server; close: (
     idleTimeoutMillis: 10000,
   });
   pool.on("error", () => { /* A subsequent readiness check reports a generic failure. */ });
-  const server = createProbeServer(async () => (await migrationStatus(pool)).current);
+  const server = createProbeServer(async () => (await migrationStatus(pool)).current, {
+    verifier, identities: new PostgresIdentityRepository(pool),
+  });
   return {
     server,
     close: async () => {

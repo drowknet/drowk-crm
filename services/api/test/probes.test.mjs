@@ -43,6 +43,10 @@ test("runtime stays live and fails readiness within a bounded time when DB never
   const base = await listen(runtime.server);
   t.after(runtime.close);
   assert.equal((await fetch(`${base}/health`)).status, 200);
+  const protectedResponse = await fetch(`${base}/operator/context`);
+  assert.equal(protectedResponse.status, 401);
+  assert.deepEqual(await protectedResponse.json(), { status: "unauthenticated" });
+  assert.equal(sockets.size, 0, "default verifier must deny before accessing PostgreSQL");
   const ready = await fetch(`${base}/ready`, { signal: AbortSignal.timeout(5000) });
   assert.equal(ready.status, 503);
   assert.deepEqual(await ready.json(), { service: "drowk-api", status: "not_ready" });

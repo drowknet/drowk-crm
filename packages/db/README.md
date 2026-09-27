@@ -77,3 +77,22 @@ Rules:
 - current projections must not destroy attributable history;
 - migrations must be reviewable and testable;
 - tenant isolation requires both application authorization and database defense.
+
+## Identity and membership
+
+Migration `0003_identity_membership.sql` adds global `users` and `auth_identities`
+plus tenant-scoped `tenant_memberships`. It creates no users or tenant data and
+does not modify earlier migrations. `PostgresIdentityRepository` accepts a pool
+or transaction client. Users receive application-generated user and actor UUIDs.
+The unique external identity key is `(issuer, subject)`; duplicate binds raise a
+uniqueness error without overwriting even when email metadata matches.
+
+Membership create/read/revoke/active resolution all require tenant + user. Creation
+and the first revocation retain actor, run, correlation and policy attribution.
+Repeated revocation preserves its first timestamp and audit; reactivation is not
+supported in this slice. Provisioning methods are internal persistence operations,
+not HTTP capabilities; callers must separately authorize any use.
+
+Rollback path: revert the application slice to disable the protected route and
+leave the additive tables and historical records intact. Applied migrations are
+never edited or reversed; any schema correction requires a new forward migration.

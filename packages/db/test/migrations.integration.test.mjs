@@ -21,6 +21,7 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
   assert.equal(plan.current, false);
   assert.deepEqual(plan.migrations.map(m => [m.filename, m.state]), [
     ["0001_foundation.sql", "pending"], ["0002_source_revision_identity.sql", "pending"],
+    ["0003_identity_membership.sql", "pending"],
   ]);
   assert.deepEqual((await pool.query(
     "SELECT to_regclass('public.drowk_schema_migrations') AS ledger, to_regclass('public.tenants') AS tenants",
@@ -36,7 +37,7 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
       checksum: createHash("sha256").update(await readFile(join(defaultMigrationsDirectory, file.filename))).digest("hex"),
     });
   }
-  assert.equal(rows.length, 2);
+  assert.equal(rows.length, 3);
 });
 
 pgTest("checksum drift, missing migrations, and non-prefix ledger history fail closed", async t => {
