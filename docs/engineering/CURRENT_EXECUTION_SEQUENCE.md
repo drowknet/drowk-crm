@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B/C + DCRM-02A GREEN — DCRM-02B NEXT
+Status: DCRM-01A/B/C + DCRM-02A GREEN — DCRM-02B ACTIVE
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -96,7 +96,7 @@ ChatGPT then:
 - [DONE] PR #4 merged into `foundation/drowk-crm-00`;
 - [DONE] post-merge CI green.
 
-### Next gate — DCRM-02B
+### Active gate — DCRM-02B
 
 Research revalidation is recorded in:
 `docs/research/AUTH_SESSION_REVALIDATION_2026-09-27.md`
@@ -140,9 +140,9 @@ No independent legacy feature development is allowed.
 
 Current writer state:
 
-- no Codex implementation branch is active until the owner switches to the dedicated DCRM-02B feature branch;
-- ChatGPT may update foundation planning/docs before DCRM-02B is handed to Codex;
+- active implementation branch: `feat/dcrm-02b-cloudflare-access`;
 - once Codex starts DCRM-02B, that feature branch has one active writer: Codex;
+- ChatGPT reviews but does not edit this feature branch while Codex is active;
 - drowk-crm is the active product implementation surface;
 - PWM local files remain preservation/regression reference only unless a new explicit extraction gate is opened.
 

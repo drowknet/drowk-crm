@@ -58,8 +58,7 @@ That file, not chat history, tells Codex which work package is currently active.
 
 DCRM-02A is closed.
 
-The next queued work package is:
+The active work package is:
 `docs/work-packages/DCRM-02B-cloudflare-access-alpha-verifier.md`.
 
-Do not execute it from foundation. The owner must first create/switch to the
-dedicated DCRM-02B feature branch.
+Execute it only on `feat/dcrm-02b-cloudflare-access`.
