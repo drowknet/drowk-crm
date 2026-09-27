@@ -87,3 +87,23 @@ Source capture and Core promotion are separate operations with separate authorit
 
 Do not rewrite or delete the old local draft while extracting it. Preserve it as
 legacy implementation evidence until DROWK parity/golden tests exist.
+
+
+## Post-alignment local verification
+
+The owner later returned the completed Codex local handoff:
+
+- syntax 4/4 PASS;
+- current WP-02 harness 67/67 PASS;
+- revised WP-03 extraction regression 25/25 PASS;
+- namespace collisions: 0;
+- legacy 150/150 retained as evidence for the superseded direct-Core contract;
+- no live writer execution;
+- no commit during the alignment gate.
+
+One older baseline profile still expects Decision Layer A1.1 while the checkout
+uses A1.2. That historical profile mismatch remains explicit and non-blocking for
+the DROWK extraction decision.
+
+DCRM-00B closure is recorded in
+`docs/engineering/DCRM-00B_CLOSURE.md`.
