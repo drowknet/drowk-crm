@@ -1,0 +1,58 @@
+# DROWK CRM Knowledge Index
+
+This index routes humans and agents to the current repository-owned context.
+
+## Standing orders
+
+1. [AGENTS.md](../AGENTS.md) — repository authority, safety and agent rules.
+2. [Security Baseline](security/SECURITY_BASELINE.md) — product/repository security boundary.
+
+## Architecture
+
+- [System Architecture](architecture/SYSTEM_ARCHITECTURE.md) — canonical product layers and runtime direction.
+- [Canonical Data Model](architecture/CANONICAL_DATA_MODEL.md) — draft domain/evidence/control objects.
+- [Capability Model](architecture/CAPABILITY_MODEL.md) — provider-neutral capabilities and AIsa boundary.
+- [Provider Evaluation Protocol](architecture/PROVIDER_EVALUATION_PROTOCOL.md) — workload-specific provider evaluation.
+- [Engineering Harness Model](architecture/ENGINEERING_HARNESS_MODEL.md) — Guides, Sensors, gates and proof-carrying work.
+- [Memory / Agent / Trace Model](architecture/MEMORY_AGENT_TRACE_MODEL.md) — memory classes, trace and durable work.
+- [Auth & Tenancy Boundary](architecture/AUTH_TENANCY_BOUNDARY.md) — user/tenant/session/agent identity separation.
+- [DROWK Domain Topology](architecture/DROWK_DOMAIN_TOPOLOGY.md) — drowk.com vs drowk.net vs product/vertical domains.
+
+## Migration
+
+- [PWM_CRM Extraction Plan](migration/PWM_CRM_EXTRACTION_PLAN.md) — preservation-first extraction from D: source system.
+
+## Roadmap
+
+- [DROWK CRM Roadmap](roadmap/ROADMAP.md) — DCRM-00 through higher autonomy.
+
+## ADRs
+
+- [ADR-0001](adr/0001-standalone-product-repository.md) — standalone CRM repository.
+- [ADR-0002](adr/0002-evidence-before-truth.md) — Evidence before CRM Truth.
+- [ADR-0003](adr/0003-proof-carrying-engineering.md) — model output requires verification evidence.
+- [ADR-0004](adr/0004-provider-neutral-intelligence.md) — provider-neutral external intelligence.
+
+## Cross-repository harvest
+
+These files make DROWK CRM self-contained after broad GitHub access is narrowed:
+
+- [Harvest overview](reference-harvest/README.md)
+- [Pinned source manifest](reference-harvest/source-manifest-2026-09-27.json)
+- [DROWK Platform transfer](reference-harvest/drowk-platform-transfer.md)
+- [Invoice Builder transfer](reference-harvest/invoice-builder-transfer.md)
+- [Open-source pattern transfer](reference-harvest/open-source-patterns-transfer.md)
+- [Access revocation handoff](reference-harvest/ACCESS_REVOCATION_HANDOFF.md)
+
+## Infrastructure
+
+- [Infrastructure direction](../infra/README.md)
+- [Cloudflare checkpoint](../infra/CLOUDFLARE_CHECKPOINT.md)
+
+## Status rule
+
+Repository documents own DROWK CRM engineering consequences.
+
+External/current provider behavior, pricing, API availability, security advisories and product documentation are time-sensitive and must be revalidated when used.
+
+PWM_CRM live implementation/runtime evidence remains on the owner-controlled D: workspace and is not silently replaced by this documentation.
