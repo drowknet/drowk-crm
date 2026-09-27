@@ -29,6 +29,7 @@ This index routes humans and agents to the current repository-owned context.
 ## Work packages
 
 - [DCRM-01A Core Vertical Slice](work-packages/DCRM-01A-core-vertical-slice.md) — first executable contracts/domain/database slice.
+- [DCRM-01C Migration Runner + Runtime Shell](work-packages/DCRM-01C-migration-runtime-shell.md) — next runtime bootstrap gate after persistence.
 - [DCRM-03A Gmail Observation Boundary](work-packages/DCRM-03A-gmail-observation-boundary.md) — extract WP-03 source mechanics without direct Core authority.
 - [DCRM-04A Work Engine Contract Parity](work-packages/DCRM-04A-work-engine-contract-parity.md) — port proven PWM work semantics and golden cases.
 
