@@ -26,6 +26,7 @@ This index routes humans and agents to the current repository-owned context.
 ## Work packages
 
 - [DCRM-01A Core Vertical Slice](work-packages/DCRM-01A-core-vertical-slice.md) — first executable contracts/domain/database slice.
+- [DCRM-03A Gmail Observation Boundary](work-packages/DCRM-03A-gmail-observation-boundary.md) — extract WP-03 source mechanics without direct Core authority.
 
 ## Migration
 
@@ -53,6 +54,7 @@ These files make DROWK CRM self-contained after broad GitHub access is narrowed:
 - [Invoice Builder transfer](reference-harvest/invoice-builder-transfer.md)
 - [Open-source pattern transfer](reference-harvest/open-source-patterns-transfer.md)
 - [OSCI Stage 0 transfer](reference-harvest/osci-stage0-transfer.md) — preserved unmerged benchmark findings
+- [PWM WP-03 Local Audit](reference-harvest/pwm-wp03-local-audit-2026-09-26.md) — reconciled legacy draft against the later checkpoint
 - [Access revocation handoff](reference-harvest/ACCESS_REVOCATION_HANDOFF.md)
 
 ## Infrastructure
