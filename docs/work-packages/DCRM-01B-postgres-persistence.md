@@ -1,6 +1,6 @@
 # DCRM-01B — PostgreSQL Persistence Vertical Slice
 
-Status: READY FOR CODEX IMPLEMENTATION
+Status: GREEN / CLOSED
 Branch: `feat/dcrm-01a-persistence`
 Parent: `foundation/drowk-crm-00`
 
@@ -166,3 +166,17 @@ Before asking for review, Codex must:
 - report unresolved findings or deviations;
 - do not merge the PR;
 - do not deploy anything.
+
+
+## Closure evidence
+
+Merged through PR #2 into `foundation/drowk-crm-00`.
+
+Verified:
+- typed tenant-scoped PostgreSQL repositories for Account, Facility, SourceObservation and Evidence;
+- transaction rollback behavior;
+- source identity/revision idempotency with NULL-vs-empty revision preservation;
+- disposable PostgreSQL integration sensors;
+- post-merge CI green.
+
+The implementation remains the persistence foundation used by later runtime/auth slices.

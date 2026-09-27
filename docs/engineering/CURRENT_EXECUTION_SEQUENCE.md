@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B/C GREEN — DCRM-02A NEXT
+Status: DCRM-01A/B/C + DCRM-02A GREEN — DCRM-02B DESIGN GATE NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -87,20 +87,46 @@ ChatGPT then:
 - [DONE] PR #3 merged into `foundation/drowk-crm-00`;
 - [DONE] post-merge CI green.
 
-### Next gate — DCRM-02A
+### Completed — DCRM-02A
 
-Prepare and execute:
-`docs/work-packages/DCRM-02A-identity-membership-context.md`
+- [DONE] provider-neutral external principal boundary;
+- [DONE] DROWK user + tenant membership persistence;
+- [DONE] explicit tenant selection with membership validation;
+- [DONE] protected read-only `GET /operator/context` proof endpoint;
+- [DONE] PR #4 merged into `foundation/drowk-crm-00`;
+- [DONE] post-merge CI green.
 
-Purpose:
-- provider-neutral external principal boundary;
-- DROWK user + tenant membership persistence;
-- explicit tenant selection with membership validation;
-- protected read-only `GET /operator/context` proof endpoint;
-- no CRM business records exposed yet;
-- no production auth vendor selected yet.
+### Next design gate — DCRM-02B
 
-### Step 4 — DCRM-03A / DCRM-04A extraction in parallel only when coupled
+No Codex implementation work package is active yet.
+
+Before implementation, revalidate current production-auth/session options and define:
+- production verifier/provider boundary;
+- secure browser session lifecycle;
+- tenant/user/session binding;
+- CSRF, expiry, rotation and revocation behavior;
+- recovery/owner-access requirements;
+- the smallest alpha operator shell that preserves application-level authorization.
+
+Do not select a provider from stale repository assumptions. Current provider behavior,
+security capabilities and deployment constraints require fresh research.
+
+### Parallel extraction status — DCRM-03A / DCRM-04A
+
+DCRM-03A already has a partial synthetic connector implementation; explicit
+source-observation/deduplication/recovery/promotion-boundary proof remains before any live Gmail gate.
+
+DCRM-04A already has the canonical Work contract/state vocabulary; deterministic
+compiler behavior and PWM golden-parity extraction remain pending.
+
+### Foundation release gate
+
+PR #1 (`foundation/drowk-crm-00` -> `main`) remains intentionally draft and unmerged.
+It has accumulated multiple work packages. Before any production deployment or live
+provider connector, perform a dedicated foundation-to-main release review and obtain
+an explicit owner merge gate.
+
+### Coupling rule for DCRM-03A / DCRM-04A
 
 After DCRM-00B closes, Gmail and Work Engine extraction may proceed in parallel
 only if each produces artifacts consumed by the same DROWK contracts/tests.
@@ -111,9 +137,9 @@ No independent legacy feature development is allowed.
 
 Current writer state:
 
-- no Codex feature branch is active until the owner creates/switches the DCRM-02A branch;
-- ChatGPT may update foundation planning/docs before that branch is handed to Codex;
-- once Codex starts DCRM-02A, that feature branch has one active writer: Codex;
+- no Codex implementation branch is active now;
+- ChatGPT owns architecture/research/spec work for the DCRM-02B design gate;
+- do not start Codex implementation until a new work package and dedicated feature branch are explicitly named;
 - drowk-crm is the active product implementation surface;
 - PWM local files remain preservation/regression reference only unless a new explicit extraction gate is opened.
 

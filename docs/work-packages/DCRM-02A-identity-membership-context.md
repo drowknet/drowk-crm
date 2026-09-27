@@ -1,6 +1,6 @@
 # DCRM-02A — Identity, Membership, and Authorization Context
 
-Status: READY FOR IMPLEMENTATION
+Status: GREEN / CLOSED
 Parent: `foundation/drowk-crm-00`
 
 ## Objective
@@ -135,3 +135,22 @@ Codex must:
 - commit and push;
 - report branch, commit SHA, files changed, tests/sensors, and unresolved findings;
 - do not merge or deploy.
+
+
+## Closure evidence
+
+Merged through PR #4 into `foundation/drowk-crm-00`.
+
+Verified:
+- provider-neutral issuer + subject identity mapping;
+- DROWK UserId distinct from ActorId/TenantId/RunId/CorrelationId;
+- global DROWK user/auth identity plus tenant-owned ACTIVE/REVOKED membership boundary;
+- explicit tenant selection with active-membership validation;
+- read-only `GET /operator/context` proof endpoint;
+- generic fail-closed auth/repository errors;
+- no implicit provisioning, production auth vendor, browser session, CRM business HTTP exposure, Gmail or deployment;
+- branch CI run `36331854756` green;
+- post-merge CI run `36332360699` green at merge commit
+  `86f12ef27b294ca583d90c293961ca2fb884e662`.
+
+Production auth/session provider selection remains a later DCRM-02 gate.
