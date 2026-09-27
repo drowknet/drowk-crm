@@ -90,8 +90,10 @@ Determines:
 - cost/budget ceilings;
 - autonomy class.
 
-### 8. CRM Truth
-Canonical business entities, initially:
+### 8. Accepted CRM Projection
+Canonical business entities are the current accepted projection over attributable source/evidence history. They are not an excuse to erase prior knowledge or corrections.
+
+Initially:
 - Tenant
 - User
 - Account
@@ -122,6 +124,8 @@ Examples:
 - call provider write endpoint.
 
 Read capability and write capability are separate permissions.
+
+Every external side effect should produce an ActionAttempt. If success/failure cannot be proven after timeout, crash or ambiguous provider response, the attempt enters UNKNOWN and must be reconciled rather than blindly retried.
 
 ### 11. Outcome Intelligence
 Every material action should produce an outcome record so policy, messaging, timing and signal usefulness can be evaluated over time.
