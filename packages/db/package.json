@@ -1,0 +1,6 @@
+{
+  "name": "@drowk/db",
+  "version": "0.0.0",
+  "private": true,
+  "description": "PostgreSQL schema and persistence boundary for DROWK CRM"
+}
