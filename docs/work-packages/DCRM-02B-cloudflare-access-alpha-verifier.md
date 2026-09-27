@@ -126,7 +126,8 @@ Codex must:
 - run workspace verify plus all available synthetic/PostgreSQL sensors;
 - use GitHub Actions as the authoritative clean-install/integration sensor when the
   local Windows/exFAT environment cannot reproduce it;
-- do not repair Docker/Windows/node_modules as part of this WP;
+- do not use Docker, Docker Desktop, WSL or local containers for this WP;
+- do not repair Docker/Windows/node_modules/Corepack/WMIC/filesystem permissions as part of this WP;
 - commit and push;
 - report branch, final SHA, files changed, tests/sensors, CI and unresolved findings;
 - do not merge or deploy.
