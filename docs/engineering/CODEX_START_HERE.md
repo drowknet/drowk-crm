@@ -56,5 +56,8 @@ The active engineering sequence lives in:
 
 That file, not chat history, tells Codex which work package is currently active.
 
-For the current feature branch, the active work package is expected to resolve to:
-`docs/work-packages/DCRM-01B-postgres-persistence.md`.
+The next queued work package is:
+`docs/work-packages/DCRM-01C-migration-runtime-shell.md`.
+
+Do not execute it from foundation. The owner must first create/switch to the
+dedicated DCRM-01C feature branch.
