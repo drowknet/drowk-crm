@@ -58,8 +58,8 @@ That file, not chat history, tells Codex which work package is currently active.
 
 DCRM-02A is closed.
 
-There is currently **no active Codex implementation work package**.
+The next queued work package is:
+`docs/work-packages/DCRM-02B-cloudflare-access-alpha-verifier.md`.
 
-The next repository gate is DCRM-02B design/research. Do not infer or implement it
-from chat history or roadmap shorthand. Wait until `CURRENT_EXECUTION_SEQUENCE.md`
-names a concrete work package and dedicated feature branch.
+Do not execute it from foundation. The owner must first create/switch to the
+dedicated DCRM-02B feature branch.

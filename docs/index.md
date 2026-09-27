@@ -32,6 +32,7 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-01B PostgreSQL Persistence](work-packages/DCRM-01B-postgres-persistence.md) — completed tenant-scoped Account/Facility/Observation/Evidence persistence.
 - [DCRM-01C Migration Runner + Runtime Shell](work-packages/DCRM-01C-migration-runtime-shell.md) — completed runtime bootstrap gate after persistence.
 - [DCRM-02A Identity + Membership Context](work-packages/DCRM-02A-identity-membership-context.md) — completed provider-neutral user/tenant authorization boundary before business HTTP.
+- [DCRM-02B Cloudflare Access Alpha Verifier](work-packages/DCRM-02B-cloudflare-access-alpha-verifier.md) — next external-authentication adapter gate; no deploy.
 - [DCRM-03A Gmail Observation Boundary](work-packages/DCRM-03A-gmail-observation-boundary.md) — partial synthetic extraction; live Gmail remains gated.
 - [DCRM-04A Work Engine Contract Parity](work-packages/DCRM-04A-work-engine-contract-parity.md) — contract extracted; deterministic compiler/golden parity remains pending.
 
@@ -50,6 +51,11 @@ This index routes humans and agents to the current repository-owned context.
 - [ADR-0003](adr/0003-proof-carrying-engineering.md) — model output requires verification evidence.
 - [ADR-0004](adr/0004-provider-neutral-intelligence.md) — provider-neutral external intelligence.
 - [ADR-0005](adr/0005-point-in-time-knowledge-and-action-reconciliation.md) — point-in-time knowledge and uncertain external actions.
+- [ADR-0006](adr/0006-cloudflare-access-alpha-auth-boundary.md) — Cloudflare Access authenticates alpha users; DROWK remains tenant authority.
+
+## Current research
+
+- [Auth / Session Provider Revalidation — 2026-09-27](research/AUTH_SESSION_REVALIDATION_2026-09-27.md) — current official-source comparison and DCRM-02B alpha decision input.
 
 ## Cross-repository harvest
 

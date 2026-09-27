@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B/C + DCRM-02A GREEN — DCRM-02B DESIGN GATE NEXT
+Status: DCRM-01A/B/C + DCRM-02A GREEN — DCRM-02B NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -96,20 +96,23 @@ ChatGPT then:
 - [DONE] PR #4 merged into `foundation/drowk-crm-00`;
 - [DONE] post-merge CI green.
 
-### Next design gate — DCRM-02B
+### Next gate — DCRM-02B
 
-No Codex implementation work package is active yet.
+Research revalidation is recorded in:
+`docs/research/AUTH_SESSION_REVALIDATION_2026-09-27.md`
 
-Before implementation, revalidate current production-auth/session options and define:
-- production verifier/provider boundary;
-- secure browser session lifecycle;
-- tenant/user/session binding;
-- CSRF, expiry, rotation and revocation behavior;
-- recovery/owner-access requirements;
-- the smallest alpha operator shell that preserves application-level authorization.
+Decision:
+`docs/adr/0006-cloudflare-access-alpha-auth-boundary.md`
 
-Do not select a provider from stale repository assumptions. Current provider behavior,
-security capabilities and deployment constraints require fresh research.
+Prepare and execute:
+`docs/work-packages/DCRM-02B-cloudflare-access-alpha-verifier.md`
+
+Purpose:
+- verify Cloudflare Access application JWTs behind PrincipalVerifier;
+- preserve DROWK issuer+subject identity mapping and tenant membership authority;
+- keep email/groups/provider organization metadata non-authoritative;
+- no Cloudflare remote configuration or deployment;
+- no application-issued browser session yet.
 
 ### Parallel extraction status — DCRM-03A / DCRM-04A
 
@@ -137,9 +140,9 @@ No independent legacy feature development is allowed.
 
 Current writer state:
 
-- no Codex implementation branch is active now;
-- ChatGPT owns architecture/research/spec work for the DCRM-02B design gate;
-- do not start Codex implementation until a new work package and dedicated feature branch are explicitly named;
+- no Codex implementation branch is active until the owner switches to the dedicated DCRM-02B feature branch;
+- ChatGPT may update foundation planning/docs before DCRM-02B is handed to Codex;
+- once Codex starts DCRM-02B, that feature branch has one active writer: Codex;
 - drowk-crm is the active product implementation surface;
 - PWM local files remain preservation/regression reference only unless a new explicit extraction gate is opened.
 
