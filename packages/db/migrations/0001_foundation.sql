@@ -20,6 +20,16 @@ CREATE TABLE accounts (
   FOREIGN KEY (tenant_id, supersedes_id) REFERENCES accounts(tenant_id, id)
 );
 
+CREATE TABLE contacts (
+  id uuid PRIMARY KEY,
+  tenant_id uuid NOT NULL REFERENCES tenants(id),
+  display_name text NOT NULL,
+  recorded_at timestamptz NOT NULL DEFAULT current_timestamp,
+  supersedes_id uuid NULL,
+  UNIQUE (tenant_id, id),
+  FOREIGN KEY (tenant_id, supersedes_id) REFERENCES contacts(tenant_id, id)
+);
+
 CREATE TABLE facilities (
   id uuid PRIMARY KEY,
   tenant_id uuid NOT NULL REFERENCES tenants(id),
@@ -223,6 +233,23 @@ CREATE TABLE work_items (
   UNIQUE (tenant_id, id)
 );
 
+CREATE TABLE approvals (
+  id uuid PRIMARY KEY,
+  tenant_id uuid NOT NULL REFERENCES tenants(id),
+  actor_id uuid NOT NULL,
+  action text NOT NULL,
+  target_ref text NOT NULL,
+  payload_digest text NOT NULL,
+  policy_version text NOT NULL,
+  status text NOT NULL CHECK (
+    status IN ('PENDING','APPROVED','REJECTED','EXPIRED','CONSUMED')
+  ),
+  expires_at timestamptz NOT NULL,
+  recorded_at timestamptz NOT NULL DEFAULT current_timestamp,
+  consumed_at timestamptz NULL,
+  UNIQUE (tenant_id, id)
+);
+
 CREATE TABLE action_attempts (
   id uuid PRIMARY KEY,
   tenant_id uuid NOT NULL REFERENCES tenants(id),
@@ -242,7 +269,8 @@ CREATE TABLE action_attempts (
   reconciled_at timestamptz NULL,
   recorded_at timestamptz NOT NULL DEFAULT current_timestamp,
   UNIQUE (tenant_id, id),
-  UNIQUE (tenant_id, action, idempotency_digest)
+  UNIQUE (tenant_id, action, idempotency_digest),
+  FOREIGN KEY (tenant_id, approval_id) REFERENCES approvals(tenant_id, id)
 );
 
 CREATE TABLE outcomes (
