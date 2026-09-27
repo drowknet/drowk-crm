@@ -2,6 +2,57 @@
 
 This repository is the canonical engineering source for DROWK CRM.
 
+## Repository authority boundary — HARD RULE
+
+The only repository authorized for write operations in this project is:
+
+`drowknet/drowk-crm`
+
+All other DROWK repositories are READ-ONLY reference sources. They may be inspected only to collect ideas, contracts, conventions, patterns, or technical context needed by DROWK CRM.
+
+Do not:
+- create commits in other repositories;
+- open or modify pull requests in other repositories;
+- create or edit issues in other repositories;
+- change repository settings, workflows, branches, secrets, deployments, or permissions outside `drowknet/drowk-crm`;
+- treat another DROWK repository as an implementation target for CRM work.
+
+## PWM_CRM source boundary — HARD RULE
+
+The existing PWM_CRM lives on the owner's portable D: workspace and is a source/reference system during extraction.
+
+Canonical local path:
+
+`D:\Workspace\Projects\PWM\PWM_CRM`
+
+Treat PWM_CRM as READ-ONLY unless the owner explicitly authorizes a specific write in a separate gate.
+
+Do not:
+- delete, move, rewrite, reset, clean, or reorganize PWM_CRM;
+- run destructive Git commands there;
+- run Apps Script writer functions;
+- run `clasp push`;
+- modify Gmail, Sheets, auth, OAuth scopes, or remote Apps Script state;
+- copy raw tenant/prospect/customer data from PWM_CRM into this public repository.
+
+PWM_CRM information may be inspected to extract:
+- domain contracts;
+- architecture;
+- schemas;
+- policies;
+- tests;
+- regression cases;
+- source/evidence semantics;
+- migration requirements.
+
+Any extracted examples committed here must be synthetic, generalized, or redacted.
+
+## Machine / environment rule for PWM_CRM
+
+PWM_CRM may be accessed from more than one Windows machine using the same portable D: drive. Machine-local auth, safe.directory, clasp sessions, Codex sessions, runtimes, and caches must never be assumed portable.
+
+When a future task depends on live PWM_CRM state, verify machine, user, path, Git state, and action risk before proceeding.
+
 ## Mission
 
 Build a provider-independent Revenue Intelligence & Prospecting Operating System that preserves source facts, separates evidence from business truth, keeps execution authority deterministic and auditable, and supports human-governed AI assistance.
