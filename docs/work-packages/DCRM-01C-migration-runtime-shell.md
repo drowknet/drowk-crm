@@ -1,6 +1,6 @@
 # DCRM-01C — Migration Runner and Runtime Readiness Shell
 
-Status: READY FOR IMPLEMENTATION
+Status: GREEN / CLOSED
 Parent: `foundation/drowk-crm-00`
 
 ## Objective
@@ -90,3 +90,23 @@ Codex must:
 - commit and push;
 - report branch + commit SHA + test results;
 - do not merge or deploy.
+
+
+## Closure evidence
+
+Merged through PR #3 into `foundation/drowk-crm-00`.
+
+Verified:
+- deterministic plan/status/apply migration runner;
+- filename/version/SHA-256 migration ledger;
+- advisory-lock concurrency protection;
+- fail-closed checksum/history behavior;
+- atomic failed-migration rollback without ledger advancement;
+- minimal Node 22 `/health` and `/ready` runtime shell;
+- generic non-leaking readiness failures;
+- disposable PostgreSQL integration sensors;
+- post-merge CI success at merge commit
+  `9a2ba52ca640c8a94cc37b3df376ea26d7ff8db0`.
+
+Next work package:
+`docs/work-packages/DCRM-02A-identity-membership-context.md`.
