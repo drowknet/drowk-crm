@@ -23,6 +23,7 @@ This index routes humans and agents to the current repository-owned context.
 
 - [Codex Orchestration](engineering/CODEX_ORCHESTRATION.md) — scoped AGENTS, subagent workcells and one-writer discipline.
 - [Current Execution Sequence](engineering/CURRENT_EXECUTION_SEQUENCE.md) — active PWM -> DROWK bridge and next implementation gate.
+- [DCRM-00B Closure](engineering/DCRM-00B_CLOSURE.md) — verified closure of the local PWM WP-03 extraction bridge.
 
 ## Work packages
 
