@@ -57,7 +57,7 @@ The active engineering sequence lives in:
 That file, not chat history, tells Codex which work package is currently active.
 
 The next queued work package is:
-`docs/work-packages/DCRM-01C-migration-runtime-shell.md`.
+`docs/work-packages/DCRM-02A-identity-membership-context.md`.
 
 Do not execute it from foundation. The owner must first create/switch to the
-dedicated DCRM-01C feature branch.
+dedicated DCRM-02A feature branch.
