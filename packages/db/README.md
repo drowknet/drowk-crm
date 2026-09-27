@@ -25,12 +25,51 @@ the PostgreSQL uniqueness error without overwriting the stored row.
 `withTransaction(pool, async (repositories) => ...)` uses one client and rolls
 back on failure. Keep external provider effects outside the callback.
 
-For the integration sensor, apply `0001_foundation.sql` then
-`0002_source_revision_identity.sql` to disposable PostgreSQL 16, set
+For the integration sensor, use the migration runner below on disposable PostgreSQL 16, set
 `DROWK_TEST_DATABASE_URL` to a database ending in `_test` or `_ci`, set
 `DROWK_TEST_DISPOSABLE=1`, and run `pnpm --filter @drowk/db test`. The sensor
 inserts synthetic rows and requires a disposable database. Without the URL,
 the integration test is skipped during ordinary workspace verification.
+
+## Migration runner
+
+Build the workspace with `pnpm build`, then set `APP_ENV` and `DATABASE_URL`
+for the intended database. Available commands:
+
+```text
+pnpm --filter @drowk/db migrate plan
+pnpm --filter @drowk/db migrate status
+pnpm --filter @drowk/db migrate apply
+```
+
+`plan` and `status` are read-only and return the same JSON report, including
+`current` and each migration's applied/pending state. Pending migrations do not
+make those commands exit unsuccessfully. Invalid history, checksum drift, lock
+contention, and database failures exit nonzero. `apply` reports applied filenames;
+repeating it on a current database returns an empty list.
+
+Files use `NNNN_name.sql` names with unique four-digit versions and execute in
+lexical order. The global `public.drowk_schema_migrations` ledger records filename,
+version, raw file SHA-256, and application time. Package the SQL directory alongside
+`dist`; deploy identical file bytes. Git attributes keep SQL checkouts at LF.
+Missing files, changed checksums, and history that is not a prefix of the files
+are rejected. Existing manually migrated databases are not silently adopted.
+
+One checked-out PostgreSQL session holds an advisory lock for the entire apply.
+Read-only status uses a shared lock and refuses to report current during an apply.
+Each migration and its ledger entry commit atomically; earlier successful migrations
+remain recorded if a later migration fails. The existing `0002` transaction wrapper
+is removed only in memory. Other transaction control is rejected so SQL cannot
+commit ahead of its ledger entry. No applied SQL file is rewritten.
+
+There is no rollback command. Recovery uses a corrected unapplied migration or a
+new forward migration after inspecting the failure. If a commit response is lost,
+inspect the ledger before retrying; it remains the durable record of application.
+
+The additional integration sensors create temporary databases under the guarded
+disposable test server and remove only those generated databases. The test user
+therefore needs database creation rights. They prove exact ledger checksums,
+idempotence, lock contention, drift rejection, and rollback of failed wrapped DDL.
 
 Rules:
 - PostgreSQL is canonical storage infrastructure, not the domain layer;
