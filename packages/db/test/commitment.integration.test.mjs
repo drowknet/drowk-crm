@@ -286,4 +286,89 @@ pgTest("DCRM-04D commitment promotion, history and authority goldens", async t =
     assert.deepEqual(await repo.listForAccount(tenantB, oldAccount), []);
     assert.deepEqual(await repo.listForPerson(tenantB, person.id), []);
   });
+
+  await t.test("04E blocker: only a current resolved participant authorizes a new Commitment", async () => {
+    async function safePerson() {
+      const person = await people.createPerson(tenantA,
+        { id: randomUUID(), displayName: null, recordedAt: now, supersedesId: null });
+      const matchId = randomUUID();
+      await pool.query(`INSERT INTO entity_match_decisions
+        (id,tenant_id,run_id,correlation_id,subject_key,resolution_scope,status,
+         selected_entity_id,candidate_count,fingerprint,policy_version)
+        VALUES ($1,$2,$3,$4,'synthetic','PERSON','MATCHED_SAFE',$5,1,'test','test-v1')`,
+      [matchId, tenantA, randomUUID(), randomUUID(), person.id]);
+      const identity = await people.createIdentity(tenantA, {
+        id: randomUUID(), personId: person.id, kind: "EMAIL", namespace: "synthetic:mail",
+        normalizedValue: `${randomUUID()}@example.invalid`, temporalState: "CURRENT",
+        effectiveFrom: null, effectiveTo: null, matchDecisionId: matchId,
+        recordedAt: now, supersedesId: null,
+      });
+      return { person, identity };
+    }
+    const source = await acceptedActivity();
+    const decision = await policy(tenantA, source.activity.id, "ACCEPT_COMMITMENT");
+    const a = await safePerson(), b = await safePerson();
+    const participantA = await interactions.appendParticipant(tenantA, source.activity.id, {
+      id: randomUUID(), role: "FROM", personId: a.person.id, identityId: a.identity.id,
+      sourceParticipantNamespace: "synthetic:mailbox",
+      sourceParticipantRef: "sender@example.invalid", recordedAt: now, supersedesId: null,
+    });
+    const historicalA = commitment(source.activity.id, [source.evidenceId], decision,
+      { counterpartyPersonId: a.person.id });
+    assert.equal((await repo.promoteCommitment(tenantA, historicalA)).status, "inserted");
+    await assert.rejects(interactions.appendParticipant(tenantA, source.activity.id, {
+      ...participantA, id: randomUUID(), personId: b.person.id,
+      supersedesId: participantA.id,
+    }), { code: "23503" });
+    await assert.rejects(interactions.appendParticipant(tenantA, source.activity.id, {
+      ...participantA, id: randomUUID(), personId: b.person.id,
+      identityId: null, supersedesId: participantA.id,
+    }), { code: "PARTICIPANT_LINKAGE_AUTHORITY_REQUIRED" });
+    const participantB = await interactions.appendParticipant(tenantA, source.activity.id, {
+      ...participantA, id: randomUUID(), personId: b.person.id,
+      identityId: b.identity.id, supersedesId: participantA.id,
+    });
+    await assert.rejects(repo.promoteCommitment(tenantA,
+      commitment(source.activity.id, [source.evidenceId], decision,
+        { counterpartyPersonId: a.person.id })), { code: "COUNTERPARTY_NOT_RESOLVED" });
+    await assert.rejects(pool.query(`INSERT INTO commitments
+      (id,tenant_id,commitment_key,kind,state,statement,source_activity_id,
+       source_observation_id,account_id,facility_id,counterparty_person_id,
+       counterparty_participant_id,counterparty_identity_id,owed_by,due_date,
+       condition_text,recorded_at,promotion_policy_decision_id,evidence_count,
+       accepted_payload_digest,supersedes_id)
+      SELECT $1,tenant_id,$2,kind,state,statement,source_activity_id,
+       source_observation_id,account_id,facility_id,counterparty_person_id,
+       counterparty_participant_id,counterparty_identity_id,owed_by,due_date,
+       condition_text,recorded_at,promotion_policy_decision_id,evidence_count,
+       accepted_payload_digest,supersedes_id
+      FROM commitments WHERE tenant_id=$3 AND id=$4`,
+    [randomUUID(), `synthetic:${randomUUID()}`, tenantA, historicalA.id]), { code: "P0001" });
+    const linkedB = commitment(source.activity.id, [source.evidenceId], decision,
+      { counterpartyPersonId: b.person.id });
+    assert.equal((await repo.promoteCommitment(tenantA, linkedB)).status, "inserted");
+    assert.deepEqual(await repo.getCommitment(tenantA, historicalA.id),
+      { ...historicalA, tenantId: tenantA });
+    assert.equal((await repo.promoteCommitment(tenantA,
+      { ...historicalA, id: randomUUID() })).status, "already_exists");
+    const unresolved = await interactions.appendParticipant(tenantA, source.activity.id, {
+      ...participantB, id: randomUUID(), personId: null, identityId: null,
+      supersedesId: participantB.id,
+    });
+    assert.equal(unresolved.personId, null);
+    assert.deepEqual((await interactions.listCurrentParticipantsForActivity(tenantA,
+      source.activity.id)).map(p => p.id), [unresolved.id]);
+    await assert.rejects(repo.promoteCommitment(tenantA,
+      commitment(source.activity.id, [source.evidenceId], decision,
+        { counterpartyPersonId: b.person.id })), { code: "COUNTERPARTY_NOT_RESOLVED" });
+    assert.deepEqual(await repo.getCommitment(tenantA, historicalA.id),
+      { ...historicalA, tenantId: tenantA });
+    assert.deepEqual(await repo.getCommitment(tenantA, linkedB.id),
+      { ...linkedB, tenantId: tenantA });
+    const other = await acceptedActivity(tenantB);
+    const otherDecision = await policy(tenantB, other.activity.id, "ACCEPT_COMMITMENT");
+    await assert.rejects(repo.promoteCommitment(tenantB,
+      commitment(other.activity.id, [other.evidenceId], otherDecision,
+        { counterpartyPersonId: a.person.id })), { code: "COUNTERPARTY_NOT_RESOLVED" });
+  });
 });

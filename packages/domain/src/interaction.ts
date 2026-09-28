@@ -1,5 +1,5 @@
 import type {
-  ActivityParticipant, Evidence, Identity, ObservationId, PolicyDecision,
+  ActivityParticipant, Conversation, Evidence, Identity, ObservationId, PolicyDecision,
 } from "@drowk/contracts";
 
 /** A raw thread ref never becomes a cross-provider Conversation key. */
@@ -7,6 +7,68 @@ export function namespacedConversationRef(namespace: string | null, ref: string 
   if (namespace === null && ref === null) return null;
   if (!namespace?.trim() || !ref?.trim()) throw new Error("SOURCE_CONVERSATION_REF_NOT_NAMESPACED");
   return JSON.stringify([namespace, ref]);
+}
+
+type SourceConversationContext = Pick<Conversation, "channel" | "sourceNamespace"
+  | "sourceConversationRef" | "accountId" | "facilityId" | "supersedesId">;
+
+/** Channel and namespace are part of source identity; accepted context is immutable. */
+export function sourceConversationReplay(previous: SourceConversationContext,
+  incoming: SourceConversationContext): "different_source" | "same_context" | "context_conflict" {
+  const previousRef = namespacedConversationRef(previous.sourceNamespace,
+    previous.sourceConversationRef);
+  const incomingRef = namespacedConversationRef(incoming.sourceNamespace,
+    incoming.sourceConversationRef);
+  if (previousRef === null || incomingRef === null) return "different_source";
+  if (previous.channel !== incoming.channel
+    || previousRef !== incomingRef) {
+    return "different_source";
+  }
+  return previous.accountId === incoming.accountId
+    && previous.facilityId === incoming.facilityId
+    && previous.supersedesId === incoming.supersedesId
+    ? "same_context" : "context_conflict";
+}
+
+/** Corrections retain source subject and role; Person authority is checked separately. */
+export function participantCorrectionPreservesLineage(
+  previous: Pick<ActivityParticipant, "tenantId" | "activityId" | "role"
+    | "sourceParticipantNamespace" | "sourceParticipantRef">,
+  successor: Pick<ActivityParticipant, "tenantId" | "activityId" | "role"
+    | "sourceParticipantNamespace" | "sourceParticipantRef">,
+): boolean {
+  return previous.tenantId === successor.tenantId
+    && previous.activityId === successor.activityId
+    && previous.role === successor.role
+    && previous.sourceParticipantNamespace === successor.sourceParticipantNamespace
+    && previous.sourceParticipantRef === successor.sourceParticipantRef;
+}
+
+/** Each chain has one head; branching history is invalid. */
+export function currentParticipantHeads(
+  history: readonly Pick<ActivityParticipant, "id" | "supersedesId">[],
+): typeof history {
+  const ids = new Set(history.map(item => item.id));
+  if (ids.size !== history.length) throw new Error("PARTICIPANT_HISTORY_DUPLICATE_ID");
+  const superseded = new Set<string>();
+  for (const item of history) {
+    if (item.supersedesId === null) continue;
+    if (!ids.has(item.supersedesId) || superseded.has(item.supersedesId)) {
+      throw new Error("PARTICIPANT_HISTORY_INVALID_SUCCESSOR");
+    }
+    superseded.add(item.supersedesId);
+  }
+  const byId = new Map(history.map(item => [item.id, item]));
+  for (const item of history) {
+    const seen = new Set<string>();
+    let cursor: typeof item | undefined = item;
+    while (cursor !== undefined && cursor.supersedesId !== null) {
+      if (seen.has(cursor.id)) throw new Error("PARTICIPANT_HISTORY_CYCLE");
+      seen.add(cursor.id);
+      cursor = byId.get(cursor.supersedesId);
+    }
+  }
+  return history.filter(item => !superseded.has(item.id));
 }
 
 /** An ALLOW for another subject/action cannot promote this observation. */
