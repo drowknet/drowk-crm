@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A GREEN — POST-PARITY RELATIONSHIP-MEMORY CHECKPOINT
+Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A GREEN — DCRM-04B NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -151,14 +151,30 @@ Not yet executable as canonical objects:
 - Commitment.
 
 The minimum next dependency is durable human continuity: Person + canonical Identity
-+ temporal Employment, including explicit Contact -> Person linkage. This is the
-smallest foundation required before richer relationship/buyer semantics can be
-implemented safely.
++ temporal Employment, including explicit Contact -> Person linkage.
 
-Do not open a broad relationship graph, omnichannel capture, trust scoring or
-Commitment/BuyerRole implementation inside this checkpoint. The next implementation
-WP must be selected explicitly from this evidence before Codex receives a new writer
-handoff.
+### Next gate — DCRM-04B Durable Human Continuity Foundation
+
+Selected from the completed post-parity checkpoint:
+
+`docs/work-packages/DCRM-04B-durable-human-continuity-foundation.md`
+
+Operator/product outcome:
+- one durable Person can survive Contact, identity and employer changes without
+  historical reattribution or unsafe automatic linking.
+
+Required proof:
+- tenant-scoped Person / Identity / Employment contracts and persistence;
+- explicit Contact -> Person linkage;
+- MATCHED_SAFE-only canonical identity/link promotion;
+- unknown temporal boundaries preserved;
+- job-change history preserved across Accounts;
+- cross-tenant and ambiguous links fail closed;
+- no Relationship/BuyerRole/Commitment scope smuggling;
+- no Gmail/live-provider/write/autonomy expansion.
+
+Do not execute DCRM-04B from foundation. A dedicated feature branch and explicit
+owner/ChatGPT handoff are required before Codex becomes the implementation writer.
 
 See:
 `docs/architecture/RELATIONSHIP_MEMORY_EXECUTABLE_GAP_2026-09-28.md`.
@@ -182,9 +198,9 @@ No independent legacy feature development is allowed.
 Current writer state:
 
 - DCRM-03A and DCRM-04A feature implementations are closed and merged;
-- no Codex implementation writer is active during the post-parity architecture checkpoint;
-- ChatGPT may inspect/update repo-owned planning and canonical docs during this checkpoint;
-- the next implementation WP requires an explicit owner/ChatGPT handoff and a dedicated feature branch;
+- DCRM-04B is selected as the next implementation WP but no Codex writer is active yet;
+- ChatGPT may update repo-owned planning/canonical docs before DCRM-04B handoff;
+- DCRM-04B requires an explicit owner/ChatGPT handoff and a dedicated feature branch;
 - once Codex starts that future branch, Codex is the sole writer on its implementation surfaces;
 - DROWK CRM remains the canonical implementation surface;
 - PWM local files remain preservation/regression reference only unless a new

@@ -43,6 +43,7 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-02B Cloudflare Access Alpha Verifier](work-packages/DCRM-02B-cloudflare-access-alpha-verifier.md) — completed alpha authentication adapter; no production deploy.
 - [DCRM-03A Gmail Observation Boundary](work-packages/DCRM-03A-gmail-observation-boundary.md) — completed/merged with post-merge CI green; live Gmail remains gated.
 - [DCRM-04A Work Engine Contract Parity](work-packages/DCRM-04A-work-engine-contract-parity.md) — completed/merged with exact-head and post-merge CI green.
+- [DCRM-04B Durable Human Continuity Foundation](work-packages/DCRM-04B-durable-human-continuity-foundation.md) — next selected implementation gate for Person, canonical Identity, temporal Employment and explicit Contact→Person linkage.
 
 ## Migration
 

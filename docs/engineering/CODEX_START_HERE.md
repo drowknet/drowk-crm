@@ -61,8 +61,11 @@ DCRM-02A, DCRM-02B, DCRM-03A and DCRM-04A are closed.
 DCRM-04A merged as `79594c5377d779685466c591aab8c0f5200cca12` and its
 post-merge CI is green. Live Gmail/OAuth/outbound remains separately gated.
 
-There is currently **no active Codex implementation work package**.
+The post-DCRM-04A relationship-memory checkpoint is complete.
 
-The repository is in the post-DCRM-04A relationship-memory architecture checkpoint.
-Do not invent or start a new WP from chat history. Wait for an explicit owner/ChatGPT
-handoff that names the next repo-owned work package and dedicated feature branch.
+The next queued work package is:
+`docs/work-packages/DCRM-04B-durable-human-continuity-foundation.md`.
+
+Do not execute DCRM-04B from foundation. Wait for the explicit owner/ChatGPT handoff
+that creates or switches to its dedicated feature branch. Once that handoff occurs,
+Codex is the sole writer on the DCRM-04B implementation surfaces until review.

@@ -70,6 +70,12 @@ This checkpoint must preserve:
 Do not turn this checkpoint into a giant social graph, omnichannel capture project
 or learned-scoring program.
 
+Selected first implementation slice after the checkpoint:
+- **DCRM-04B — Durable Human Continuity Foundation**: Person + canonical Identity +
+  temporal Employment + explicit Contact -> Person linkage.
+- Relationship, Buyer Role and Commitment remain later explicit packages built on
+  that foundation; DCRM-04B must not absorb them.
+
 ## DCRM-05 — AIsa Capability Lab
 Read-only evaluation of:
 - Apollo
