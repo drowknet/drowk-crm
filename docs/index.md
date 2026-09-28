@@ -15,6 +15,8 @@ This index routes humans and agents to the current repository-owned context.
 
 ## Architecture
 
+- [Relationship-memory executable gap — 2026-09-28](architecture/RELATIONSHIP_MEMORY_EXECUTABLE_GAP_2026-09-28.md) — post-DCRM-04A inspection of what the executable core has versus the canonical Person/Identity/Employment/Relationship/BuyerRole/Commitment model.
+
 - [System Architecture](architecture/SYSTEM_ARCHITECTURE.md) — canonical product layers and runtime direction.
 - [Canonical Data Model](architecture/CANONICAL_DATA_MODEL.md) — draft domain/evidence/control objects.
 - [Capability Model](architecture/CAPABILITY_MODEL.md) — provider-neutral capabilities and AIsa boundary.
@@ -40,7 +42,7 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-02A Identity + Membership Context](work-packages/DCRM-02A-identity-membership-context.md) — completed provider-neutral user/tenant authorization boundary before business HTTP.
 - [DCRM-02B Cloudflare Access Alpha Verifier](work-packages/DCRM-02B-cloudflare-access-alpha-verifier.md) — completed alpha authentication adapter; no production deploy.
 - [DCRM-03A Gmail Observation Boundary](work-packages/DCRM-03A-gmail-observation-boundary.md) — completed/merged with post-merge CI green; live Gmail remains gated.
-- [DCRM-04A Work Engine Contract Parity](work-packages/DCRM-04A-work-engine-contract-parity.md) — next implementation gate; deterministic compiler/golden parity remains pending.
+- [DCRM-04A Work Engine Contract Parity](work-packages/DCRM-04A-work-engine-contract-parity.md) — completed/merged with exact-head and post-merge CI green.
 
 ## Migration
 

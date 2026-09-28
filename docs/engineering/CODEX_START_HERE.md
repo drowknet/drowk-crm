@@ -56,14 +56,13 @@ The active engineering sequence lives in:
 
 That file, not chat history, tells Codex which work package is currently active.
 
-DCRM-02A, DCRM-02B and DCRM-03A are closed.
+DCRM-02A, DCRM-02B, DCRM-03A and DCRM-04A are closed.
 
-DCRM-03A merged as `24df7cece88048fe7dcbb036343d3943c97d59a8` and its
+DCRM-04A merged as `79594c5377d779685466c591aab8c0f5200cca12` and its
 post-merge CI is green. Live Gmail/OAuth/outbound remains separately gated.
 
-The next queued work package is:
-`docs/work-packages/DCRM-04A-work-engine-contract-parity.md`.
+There is currently **no active Codex implementation work package**.
 
-Do not execute DCRM-04A from foundation. The owner/ChatGPT handoff must first
-create or switch to the dedicated DCRM-04A feature branch. Once Codex starts that
-branch, Codex is the sole writer on its implementation surfaces until review.
+The repository is in the post-DCRM-04A relationship-memory architecture checkpoint.
+Do not invent or start a new WP from chat history. Wait for an explicit owner/ChatGPT
+handoff that names the next repo-owned work package and dedicated feature branch.

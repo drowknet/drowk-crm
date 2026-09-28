@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A GREEN — DCRM-04A NEXT
+Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A GREEN — POST-PARITY RELATIONSHIP-MEMORY CHECKPOINT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -117,32 +117,51 @@ ChatGPT then:
 - [CLOSED] Gmail draft/send and Apps Script writer authority;
 - [CLOSED] accepted CRM mutation from the connector.
 
-### Next gate — DCRM-04A Work Engine contract parity
+### Completed — DCRM-04A Work Engine contract parity
 
-Execute only after the owner/ChatGPT handoff creates or switches to the dedicated
-feature branch:
+- [DONE] PR #8 merged into `foundation/drowk-crm-00`;
+- [DONE] feature head `966764fbc802459895c8c7eb15236aeaf851ce46`;
+- [DONE] merge commit `79594c5377d779685466c591aab8c0f5200cca12`;
+- [DONE] exact-head CI `36363387085` green;
+- [DONE] post-merge CI `36364058535` green;
+- [DONE] deterministic compiler, source precedence/conflicts, PWM WP-02 goldens,
+  idempotency/supersession and authority sensors proven;
+- [DONE] date-only `dueDate` preserves policy calendar dates without invented
+  midnight timestamps;
+- [CLOSED] JEV/model and Gmail writer paths inside deterministic compilation;
+- [DEFERRED] durable/atomic Work persistence writer remains a later explicit gate.
 
-`docs/work-packages/DCRM-04A-work-engine-contract-parity.md`
+### Current checkpoint — executable relationship-memory gap
 
-Operator outcome:
-- deterministic Today/Work semantics can consume attributable state without
-  confusing source activity, human/core work, Shadow suggestions or future
-  relationship commitments.
+Repository inspection after DCRM-04A closure shows the product canon is ahead of
+the executable relationship model.
 
-Required proof:
-- deterministic compiler;
-- explicit source precedence/conflict behavior;
-- PWM WP-02 synthetic golden parity;
-- idempotency/supersession behavior;
-- no JEV/model path in deterministic compilation;
-- no Gmail write path.
+Executable today:
+- Account and Facility;
+- a minimal Contact;
+- Evidence / IdentityEvidence / EntityMatchDecision;
+- deterministic Work.
 
-Research guardrail:
-- DCRM-04A must keep Work distinct from Commitment and relationship facts;
-- seller effort must not be mistaken for buyer-confirmed progress;
-- missing coverage must not become a negative relationship fact;
-- full temporal relationship-memory implementation is a post-parity architecture
-  checkpoint, not scope to smuggle into DCRM-04A.
+Not yet executable as canonical objects:
+- Person;
+- canonical Identity;
+- Employment;
+- Relationship;
+- Buyer Role;
+- Commitment.
+
+The minimum next dependency is durable human continuity: Person + canonical Identity
++ temporal Employment, including explicit Contact -> Person linkage. This is the
+smallest foundation required before richer relationship/buyer semantics can be
+implemented safely.
+
+Do not open a broad relationship graph, omnichannel capture, trust scoring or
+Commitment/BuyerRole implementation inside this checkpoint. The next implementation
+WP must be selected explicitly from this evidence before Codex receives a new writer
+handoff.
+
+See:
+`docs/architecture/RELATIONSHIP_MEMORY_EXECUTABLE_GAP_2026-09-28.md`.
 
 ### Foundation release gate
 
@@ -162,12 +181,11 @@ No independent legacy feature development is allowed.
 
 Current writer state:
 
-- DCRM-03A feature implementation is closed and merged;
-- no Codex DCRM-04A feature writer is active until the dedicated DCRM-04A branch is
-  created/switched and the owner hands execution to Codex;
-- ChatGPT may update repo-owned planning/canonical docs before that handoff;
-- once Codex starts DCRM-04A, that feature branch has one active writer: Codex;
-- ChatGPT reviews but does not edit the same feature branch while Codex is active;
+- DCRM-03A and DCRM-04A feature implementations are closed and merged;
+- no Codex implementation writer is active during the post-parity architecture checkpoint;
+- ChatGPT may inspect/update repo-owned planning and canonical docs during this checkpoint;
+- the next implementation WP requires an explicit owner/ChatGPT handoff and a dedicated feature branch;
+- once Codex starts that future branch, Codex is the sole writer on its implementation surfaces;
 - DROWK CRM remains the canonical implementation surface;
 - PWM local files remain preservation/regression reference only unless a new
   explicit extraction gate is opened.

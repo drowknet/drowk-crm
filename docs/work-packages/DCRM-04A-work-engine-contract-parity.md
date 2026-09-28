@@ -1,6 +1,21 @@
 # DCRM-04A — Work Engine Contract Parity
 
-Status: READY FOR IMPLEMENTATION — COMPILER / GOLDEN PARITY PENDING
+Status: CLOSED — MERGED + POST-MERGE CI GREEN
+
+## Closure evidence
+
+- PR #8 merged into `foundation/drowk-crm-00`.
+- Feature head: `966764fbc802459895c8c7eb15236aeaf851ce46`.
+- Merge commit: `79594c5377d779685466c591aab8c0f5200cca12`.
+- Exact-head CI `36363387085`: SUCCESS.
+- Post-merge push CI `36364058535`: SUCCESS.
+- Foundation/PR validation CI `36364061427`: SUCCESS.
+- `verify`: SUCCESS.
+- `postgres-foundation`: SUCCESS.
+- No live Gmail/OAuth, outbound, JEV/model execution, Apps Script writer, deployment or higher-autonomy authority was opened.
+
+Non-blocking later gate:
+- `reconcileWork` is intentionally pure; a durable Work persistence writer must preserve atomic reconciliation and attributable history before any real writer is enabled.
 
 ## Objective
 

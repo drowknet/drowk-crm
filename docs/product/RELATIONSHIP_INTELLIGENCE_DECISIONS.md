@@ -109,11 +109,16 @@ before evidence supports it.
 
 ## Consequence for the current engineering sequence
 
-DCRM-03A is closed. DCRM-04A remains the next implementation gate and stays focused
-on deterministic Work Engine parity. It must preserve the semantic boundary around
-Commitment, relationship facts, coverage and buyer progress without implementing
-the entire relationship-memory model.
+DCRM-03A and DCRM-04A are closed with post-merge CI green.
 
-After DCRM-04A parity is green, inspect executable dependencies and open the
-smallest relationship-memory foundation package needed before richer
-buyer/procurement, research and relationship UX.
+The post-parity executable inspection confirms the product canon is ahead of the
+runtime relationship model. Account/Facility, minimal Contact, Evidence,
+IdentityEvidence/EntityMatchDecision and Work exist; canonical Person, Identity,
+Employment, Relationship, Buyer Role and Commitment do not yet exist as executable
+objects.
+
+The smallest next dependency is durable human continuity: Person + canonical
+Identity + temporal Employment, including explicit Contact -> Person linkage.
+Relationship, Buyer Role and Commitment remain required product concepts, but they
+should build on that foundation rather than be scope-smuggled into one giant graph
+package.
