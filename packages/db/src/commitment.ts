@@ -129,13 +129,27 @@ export class PostgresCommitmentRepository {
       if (evidence.rows.length !== value.evidenceIds.length) {
         throw new CommitmentPromotionError("ATTRIBUTABLE_EVIDENCE_MISSING");
       }
+      // Replay of accepted history remains stable after its participant is corrected.
+      const replay = await query<CommitmentRow>(client,
+        `SELECT * FROM commitments WHERE tenant_id=$1 AND commitment_key=$2`,
+        [tenantId, value.commitmentKey]);
+      if (replay.rows[0]) {
+        const existing = await this.fromRow(client, replay.rows[0]);
+        await client.query("COMMIT");
+        return replay.rows[0].accepted_payload_digest === payloadDigest(value)
+          ? { status: "already_exists", commitment: existing }
+          : { status: "source_conflict", commitment: existing };
+      }
       let participantId: string | null = null;
       let identityId: string | null = null;
       if (value.counterpartyPersonId !== null) {
         const participant = await query<QueryResultRow & { id: string; identity_id: string }>(client,
-          `SELECT id,identity_id FROM activity_participants
-           WHERE tenant_id=$1 AND activity_id=$2 AND person_id=$3 AND identity_id IS NOT NULL
-           ORDER BY recorded_at,id LIMIT 1`,
+          `SELECT p.id,p.identity_id FROM activity_participants p
+           WHERE p.tenant_id=$1 AND p.activity_id=$2 AND p.person_id=$3
+             AND p.identity_id IS NOT NULL
+             AND NOT EXISTS (SELECT 1 FROM activity_participants successor
+               WHERE successor.tenant_id=p.tenant_id AND successor.supersedes_id=p.id)
+           ORDER BY p.recorded_at,p.id LIMIT 1`,
           [tenantId, value.sourceActivityId, value.counterpartyPersonId]);
         if (!participant.rows[0]) throw new CommitmentPromotionError("COUNTERPARTY_NOT_RESOLVED");
         participantId = participant.rows[0].id;
