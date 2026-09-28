@@ -33,7 +33,7 @@ export interface Activity extends TenantScoped {
 
 export type ActivityParticipantRole = "FROM" | "TO" | "CC" | "PARTICIPANT" | "OWNER" | "UNKNOWN";
 
-/** A source participant may remain unresolved without creating a Person. */
+/** A source participant may remain unresolved. Corrections append a successor; null marks a root. */
 export interface ActivityParticipant extends TenantScoped {
   id: ActivityParticipantId;
   activityId: ActivityId;
@@ -43,4 +43,5 @@ export interface ActivityParticipant extends TenantScoped {
   sourceParticipantNamespace: string | null;
   sourceParticipantRef: string | null;
   recordedAt: IsoDateTime;
+  supersedesId: ActivityParticipantId | null;
 }

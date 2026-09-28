@@ -25,7 +25,7 @@ type ParticipantRow = QueryResultRow & {
   role: ActivityParticipant["role"]; person_id: ActivityParticipant["personId"];
   identity_id: ActivityParticipant["identityId"];
   source_participant_namespace: string | null; source_participant_ref: string | null;
-  recorded_at: string;
+  recorded_at: string; supersedes_id: ActivityParticipantId | null;
 };
 
 const timestampTypes = {
@@ -62,6 +62,7 @@ const participantFrom = (row: ParticipantRow): ActivityParticipant => ({
   role: row.role, personId: row.person_id, identityId: row.identity_id,
   sourceParticipantNamespace: row.source_participant_namespace,
   sourceParticipantRef: row.source_participant_ref, recordedAt: iso(row.recorded_at),
+  supersedesId: row.supersedes_id,
 });
 
 export class InteractionPromotionError extends Error {
@@ -72,6 +73,9 @@ type ParticipantInput = Omit<ActivityParticipant, "tenantId" | "activityId">;
 export type AcceptedActivityResult =
   | { status: "inserted" | "already_exists"; activity: Activity; participants: ActivityParticipant[] }
   | { status: "source_conflict"; activity: Activity };
+export type SourceConversationResult =
+  | { status: "inserted" | "already_exists"; conversation: Conversation }
+  | { status: "source_conflict"; conversation: Conversation };
 
 function participantSemantics(participants: readonly (ParticipantInput | ActivityParticipant)[]): string[] {
   return participants.map(p => JSON.stringify([
@@ -108,6 +112,36 @@ export class PostgresInteractionRepository {
         conversation.facilityId, conversation.sourceNamespace,
         conversation.sourceConversationRef, conversation.recordedAt, conversation.supersedesId]);
     return conversationFrom(result.rows[0]!);
+  }
+
+  /** A source identity claims one immutable Conversation within its tenant and channel. */
+  async claimSourceConversation(tenantId: TenantId,
+    conversation: Omit<Conversation, "tenantId">): Promise<SourceConversationResult> {
+    if (!conversation.sourceNamespace?.trim() || !conversation.sourceConversationRef?.trim()) {
+      throw new InteractionPromotionError("SOURCE_CONVERSATION_IDENTITY_REQUIRED");
+    }
+    const inserted = await query<ConversationRow>(this.pool,
+      `INSERT INTO conversations
+        (id,tenant_id,channel,account_id,facility_id,source_namespace,
+         source_conversation_ref,recorded_at,supersedes_id)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+       ON CONFLICT DO NOTHING RETURNING *`,
+      [conversation.id, tenantId, conversation.channel, conversation.accountId,
+        conversation.facilityId, conversation.sourceNamespace,
+        conversation.sourceConversationRef, conversation.recordedAt, conversation.supersedesId]);
+    if (inserted.rows[0]) return { status: "inserted", conversation: conversationFrom(inserted.rows[0]) };
+    const prior = await query<ConversationRow>(this.pool,
+      `SELECT * FROM conversations WHERE tenant_id=$1 AND channel=$2
+       AND source_namespace=$3 AND source_conversation_ref=$4`,
+      [tenantId, conversation.channel, conversation.sourceNamespace,
+        conversation.sourceConversationRef]);
+    if (!prior.rows[0]) throw new InteractionPromotionError("CONVERSATION_ID_CONFLICT");
+    const existing = conversationFrom(prior.rows[0]);
+    return existing.accountId === conversation.accountId
+      && existing.facilityId === conversation.facilityId
+      && existing.supersedesId === conversation.supersedesId
+      ? { status: "already_exists", conversation: existing }
+      : { status: "source_conflict", conversation: existing };
   }
 
   async getConversation(tenantId: TenantId, conversationId: ConversationId): Promise<Conversation | null> {
@@ -162,17 +196,28 @@ export class PostgresInteractionRepository {
     return this.readParticipants(this.pool, tenantId, activityId);
   }
 
+  async listCurrentParticipantsForActivity(tenantId: TenantId,
+    activityId: ActivityId): Promise<ActivityParticipant[]> {
+    const result = await query<ParticipantRow>(this.pool,
+      `SELECT p.* FROM activity_participants p
+       WHERE p.tenant_id=$1 AND p.activity_id=$2
+       AND NOT EXISTS (SELECT 1 FROM activity_participants successor
+         WHERE successor.tenant_id=p.tenant_id AND successor.supersedes_id=p.id)
+       ORDER BY p.recorded_at,p.id`, [tenantId, activityId]);
+    return result.rows.map(participantFrom);
+  }
+
   async appendParticipant(tenantId: TenantId, activityId: ActivityId,
     participant: ParticipantInput): Promise<ActivityParticipant> {
     requireParticipantAuthority(participant);
     const result = await query<ParticipantRow>(this.pool,
       `INSERT INTO activity_participants
         (id,tenant_id,activity_id,role,person_id,identity_id,
-         source_participant_namespace,source_participant_ref,recorded_at)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *`,
+         source_participant_namespace,source_participant_ref,recorded_at,supersedes_id)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`,
       [participant.id, tenantId, activityId, participant.role, participant.personId,
         participant.identityId, participant.sourceParticipantNamespace,
-        participant.sourceParticipantRef, participant.recordedAt]);
+        participant.sourceParticipantRef, participant.recordedAt, participant.supersedesId]);
     return participantFrom(result.rows[0]!);
   }
 
@@ -185,6 +230,9 @@ export class PostgresInteractionRepository {
     }
     if (new Set(participants.map(p => p.id)).size !== participants.length) {
       throw new InteractionPromotionError("PARTICIPANT_ID_DUPLICATED");
+    }
+    if (participants.some(p => p.supersedesId != null)) {
+      throw new InteractionPromotionError("PARTICIPANT_CORRECTION_REQUIRES_ACCEPTED_ACTIVITY");
     }
     participants.forEach(requireParticipantAuthority);
     const client = await this.pool.connect();

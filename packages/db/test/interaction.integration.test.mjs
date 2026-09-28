@@ -23,7 +23,7 @@ if (!url) {
   const now = "2026-09-28T12:34:56.000Z";
   const conversation = (extra = {}) => ({
     id: randomUUID(), channel: "EMAIL", accountId: null, facilityId: null,
-    sourceNamespace: "synthetic:mailbox-a", sourceConversationRef: "thread-1",
+    sourceNamespace: "synthetic:mailbox-a", sourceConversationRef: randomUUID(),
     recordedAt: now, supersedesId: null, ...extra,
   });
   const activity = (conversationId, sourceObservationId, evidenceIds,
@@ -35,12 +35,36 @@ if (!url) {
   const participant = (extra = {}) => ({
     id: randomUUID(), role: "FROM", personId: null, identityId: null,
     sourceParticipantNamespace: "synthetic:mailbox-a",
-    sourceParticipantRef: "sender@example.invalid", recordedAt: now, ...extra,
+    sourceParticipantRef: "sender@example.invalid", recordedAt: now,
+    supersedesId: null, ...extra,
   });
   async function createAccount(tenantId, name) {
     const id = randomUUID();
     await pool.query(`INSERT INTO accounts (id,tenant_id,name) VALUES ($1,$2,$3)`, [id, tenantId, name]);
     return id;
+  }
+  async function createFacility(tenantId, accountId) {
+    const id = randomUUID();
+    await pool.query(`INSERT INTO facilities (id,tenant_id,account_id,name)
+      VALUES ($1,$2,$3,'Synthetic facility')`, [id, tenantId, accountId]);
+    return id;
+  }
+  async function resolvedIdentity(tenantId) {
+    const person = await people.createPerson(tenantId,
+      { id: randomUUID(), displayName: null, recordedAt: now, supersedesId: null });
+    const matchId = randomUUID();
+    await pool.query(`INSERT INTO entity_match_decisions
+      (id,tenant_id,run_id,correlation_id,subject_key,resolution_scope,status,
+       selected_entity_id,candidate_count,fingerprint,policy_version)
+      VALUES ($1,$2,$3,$4,'synthetic-correction','PERSON','MATCHED_SAFE',$5,1,'test','test-v1')`,
+    [matchId, tenantId, randomUUID(), randomUUID(), person.id]);
+    const identity = await people.createIdentity(tenantId, {
+      id: randomUUID(), personId: person.id, kind: "EMAIL", namespace: "synthetic:mail",
+      normalizedValue: `${randomUUID()}@example.invalid`, temporalState: "CURRENT",
+      effectiveFrom: null, effectiveTo: null, matchDecisionId: matchId,
+      recordedAt: now, supersedesId: null,
+    });
+    return { person, identity };
   }
   async function source(tenantId, nativeId = randomUUID(), revision = null,
     sourceNamespace = null) {
@@ -93,9 +117,10 @@ if (!url) {
   after(async () => { await pool.end(); });
 
   test("goldens 1-2: namespace is required and raw thread IDs may coexist", async () => {
-    const a = await repo.createConversation(tenantA, conversation());
+    const a = await repo.createConversation(tenantA,
+      conversation({ sourceConversationRef: "thread-1" }));
     const b = await repo.createConversation(tenantA,
-      conversation({ sourceNamespace: "synthetic:mailbox-b" }));
+      conversation({ sourceNamespace: "synthetic:mailbox-b", sourceConversationRef: "thread-1" }));
     assert.notEqual(a.id, b.id);
     assert.equal(a.sourceConversationRef, b.sourceConversationRef);
     assert.notEqual(a.sourceNamespace, b.sourceNamespace);
@@ -104,6 +129,117 @@ if (!url) {
       conversation({ sourceNamespace: null })), { code: "23514" });
     await assert.rejects(repo.createConversation(tenantA,
       conversation({ sourceConversationRef: null })), { code: "23514" });
+  });
+
+  test("04E goldens 1-8: source Conversation claim is scoped, idempotent and immutable", async () => {
+    const accountA = await createAccount(tenantA, "Conversation account A");
+    const accountB = await createAccount(tenantA, "Conversation account B");
+    const facilityA = await createFacility(tenantA, accountA);
+    const facilityB = await createFacility(tenantA, accountB);
+    const sourceRef = randomUUID();
+    const original = conversation({ accountId: accountA, facilityId: facilityA,
+      sourceConversationRef: sourceRef });
+    const first = await repo.claimSourceConversation(tenantA, original);
+    assert.equal(first.status, "inserted");
+    const replay = await repo.claimSourceConversation(tenantA,
+      { ...original, id: randomUUID(), recordedAt: "2026-09-29T00:00:00.000Z" });
+    assert.equal(replay.status, "already_exists");
+    assert.deepEqual(replay.conversation, first.conversation);
+    assert.equal((await pool.query(`SELECT count(*)::int AS n FROM conversations
+      WHERE tenant_id=$1 AND channel=$2 AND source_namespace=$3
+      AND source_conversation_ref=$4`,
+    [tenantA, original.channel, original.sourceNamespace, sourceRef])).rows[0].n, 1);
+    assert.equal((await repo.claimSourceConversation(tenantA,
+      { ...original, id: randomUUID(), sourceNamespace: "synthetic:mailbox-b" })).status,
+    "inserted");
+    assert.equal((await repo.claimSourceConversation(tenantA,
+      { ...original, id: randomUUID(), channel: "CHAT" })).status, "inserted");
+    assert.equal((await repo.claimSourceConversation(tenantA,
+      { ...original, id: randomUUID(), accountId: accountB })).status,
+    "source_conflict");
+    assert.equal((await repo.claimSourceConversation(tenantA,
+      { ...original, id: randomUUID(), facilityId: facilityB })).status,
+    "source_conflict");
+    await assert.rejects(repo.claimSourceConversation(tenantA,
+      { ...original, sourceConversationRef: null }),
+    { code: "SOURCE_CONVERSATION_IDENTITY_REQUIRED" });
+    await assert.rejects(pool.query(`INSERT INTO conversations
+      (id,tenant_id,channel,account_id,facility_id,source_namespace,
+       source_conversation_ref,recorded_at)
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
+    [randomUUID(), tenantA, original.channel, original.accountId, original.facilityId,
+      original.sourceNamespace, sourceRef, now]), { code: "23505" });
+    const manual = conversation({ sourceNamespace: null, sourceConversationRef: null });
+    const manualA = await repo.createConversation(tenantA, manual);
+    const manualB = await repo.createConversation(tenantA,
+      { ...manual, id: randomUUID() });
+    assert.notEqual(manualA.id, manualB.id);
+    assert.equal((await repo.claimSourceConversation(tenantB,
+      { ...original, id: randomUUID(), accountId: null, facilityId: null })).status,
+    "inserted");
+  });
+
+  test("04E goldens 9-20: participant correction is append-only and tenant/activity bound", async () => {
+    const tenantLocal = randomUUID();
+    await pool.query(`INSERT INTO tenants (id,slug,name) VALUES ($1,$2,'Synthetic correction')`,
+      [tenantLocal, `test-${tenantLocal}`]);
+    const { c, o, e, d } = await context(tenantLocal);
+    const root = participant();
+    const accepted = await repo.promoteAcceptedActivity(tenantLocal,
+      activity(c.id, o, [e], d), [root]);
+    assert.equal(accepted.status, "inserted");
+    const firstIdentity = await resolvedIdentity(tenantLocal);
+    const secondIdentity = await resolvedIdentity(tenantLocal);
+    const resolved = await repo.appendParticipant(tenantLocal, accepted.activity.id,
+      participant({ supersedesId: root.id, personId: firstIdentity.person.id,
+        identityId: firstIdentity.identity.id }));
+    assert.equal(resolved.supersedesId, root.id);
+    assert.equal(resolved.personId, firstIdentity.person.id);
+    assert.deepEqual((await repo.listCurrentParticipantsForActivity(tenantLocal,
+      accepted.activity.id)).map(p => p.id), [resolved.id]);
+    const corrected = await repo.appendParticipant(tenantLocal, accepted.activity.id,
+      participant({ supersedesId: resolved.id, personId: secondIdentity.person.id,
+        identityId: secondIdentity.identity.id }));
+    assert.equal(corrected.personId, secondIdentity.person.id);
+    const retracted = await repo.appendParticipant(tenantLocal, accepted.activity.id,
+      participant({ supersedesId: corrected.id }));
+    assert.equal(retracted.personId, null);
+    assert.equal(retracted.identityId, null);
+    assert.equal(retracted.sourceParticipantRef, root.sourceParticipantRef);
+    assert.deepEqual((await repo.listParticipantsForActivity(tenantLocal,
+      accepted.activity.id)).map(p => p.id),
+    [root.id, resolved.id, corrected.id, retracted.id].sort((a, b) => a.localeCompare(b)));
+    assert.deepEqual((await repo.listCurrentParticipantsForActivity(tenantLocal,
+      accepted.activity.id)).map(p => p.id), [retracted.id]);
+    await assert.rejects(pool.query(`UPDATE activity_participants SET person_id=NULL
+      WHERE tenant_id=$1 AND id=$2`, [tenantLocal, resolved.id]), { code: "P0001" });
+    await assert.rejects(repo.appendParticipant(tenantLocal, accepted.activity.id,
+      participant({ supersedesId: root.id })), { code: "23505" });
+    await assert.rejects(repo.appendParticipant(tenantLocal, accepted.activity.id,
+      participant({ supersedesId: retracted.id, personId: firstIdentity.person.id })),
+    { code: "PARTICIPANT_LINKAGE_AUTHORITY_REQUIRED" });
+    await assert.rejects(repo.appendParticipant(tenantLocal, accepted.activity.id,
+      participant({ supersedesId: retracted.id, role: "TO" })), { code: "P0001" });
+    await assert.rejects(repo.appendParticipant(tenantLocal, accepted.activity.id,
+      participant({ supersedesId: retracted.id,
+        sourceParticipantRef: "other@example.invalid" })), { code: "P0001" });
+    await assert.rejects(repo.appendParticipant(tenantLocal, accepted.activity.id,
+      participant({ supersedesId: retracted.id,
+        sourceParticipantNamespace: "synthetic:other" })), { code: "P0001" });
+    const other = await context(tenantLocal);
+    const otherActivity = await repo.promoteAcceptedActivity(tenantLocal,
+      activity(other.c.id, other.o, [other.e], other.d), []);
+    await assert.rejects(repo.appendParticipant(tenantLocal, otherActivity.activity.id,
+      participant({ supersedesId: retracted.id })), { code: "23503" });
+    const cross = await context(tenantB);
+    const crossActivity = await repo.promoteAcceptedActivity(tenantB,
+      activity(cross.c.id, cross.o, [cross.e], cross.d), []);
+    await assert.rejects(repo.appendParticipant(tenantB, crossActivity.activity.id,
+      participant({ supersedesId: retracted.id })), { code: "23503" });
+    assert.equal((await repo.listParticipantsForActivity(tenantLocal,
+      accepted.activity.id)).find(p => p.id === root.id).personId, null);
+    assert.deepEqual(await repo.listCurrentParticipantsForActivity(tenantB,
+      accepted.activity.id), []);
   });
 
   test("same raw message ID in distinct source namespaces may promote independently", async () => {
