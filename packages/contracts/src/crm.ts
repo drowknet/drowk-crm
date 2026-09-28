@@ -3,6 +3,7 @@ import type {
   ContactId,
   FacilityId,
   IsoDateTime,
+  PersonId,
   TenantId,
   TenantScoped,
 } from "./ids.js";
@@ -37,6 +38,8 @@ export interface Facility extends TenantScoped {
 export interface Contact extends TenantScoped {
   id: ContactId;
   displayName: string;
+  personId: PersonId | null;
+  personMatchDecisionId: string | null;
   recordedAt: IsoDateTime;
   supersedesId: ContactId | null;
 }
