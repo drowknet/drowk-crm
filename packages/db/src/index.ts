@@ -16,6 +16,8 @@ export type { MigrationStatus } from "./migrations.js";
 export { PostgresIdentityRepository } from "./auth.js";
 export { PostgresHumanContinuityRepository } from "./human-continuity.js";
 export type { ContactLinkResult } from "./human-continuity.js";
+export { PostgresInteractionRepository, InteractionPromotionError } from "./interaction.js";
+export type { AcceptedActivityResult } from "./interaction.js";
 
 type Connection = Pool | PoolClient;
 
@@ -154,6 +156,11 @@ function observationFrom(row: ObservationRow): SourceObservation {
   };
 }
 
+function observationNamespace(observation: Pick<SourceObservation, "sourceSystem" | "sourceMetadata">): string {
+  const candidate = observation.sourceMetadata.sourceNamespace;
+  return typeof candidate === "string" && candidate.trim() ? candidate.trim() : observation.sourceSystem;
+}
+
 function evidenceFrom(row: EvidenceRow): Evidence {
   return {
     id: row.id,
@@ -241,20 +248,24 @@ export class PostgresRepositories {
       `INSERT INTO source_observations
          (id, tenant_id, run_id, correlation_id, source_system, source_native_id,
           source_revision, observed_at, effective_at, retrieved_at, ingested_at, recorded_at,
-          source_watermark, adapter_version, fingerprint, raw_artifact_ref, source_metadata)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17::jsonb)
+          source_watermark, adapter_version, fingerprint, raw_artifact_ref,
+          source_metadata, source_namespace_override)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17::jsonb, $18)
        ON CONFLICT DO NOTHING RETURNING *`,
       [observation.id, tenantId, observation.runId, observation.correlationId,
         observation.sourceSystem, observation.sourceNativeId, observation.sourceRevision,
         observation.observedAt, observation.effectiveAt, observation.retrievedAt,
         observation.ingestedAt, observation.recordedAt, observation.sourceWatermark,
         observation.adapterVersion, observation.fingerprint, observation.rawArtifactRef,
-        JSON.stringify(observation.sourceMetadata)],
+        JSON.stringify(observation.sourceMetadata),
+        observationNamespace(observation) === observation.sourceSystem
+          ? null : observationNamespace(observation)],
     );
     if (result.rows[0]) return { status: "inserted", observation: observationFrom(result.rows[0]) };
 
     const existing = await this.findObservationBySourceIdentity(
       tenantId, observation.sourceSystem, observation.sourceNativeId, observation.sourceRevision,
+      observationNamespace(observation),
     );
     if (!existing) return { status: "id_conflict" };
     const existingId = await this.getObservation(tenantId, observation.id);
@@ -279,12 +290,14 @@ export class PostgresRepositories {
     sourceSystem: string,
     sourceNativeId: string,
     sourceRevision: string | null,
+    sourceNamespace = sourceSystem,
   ): Promise<SourceObservation | null> {
     const result = await query<ObservationRow>(this.connection,
       `SELECT * FROM source_observations
        WHERE tenant_id = $1 AND source_system = $2 AND source_native_id = $3
-         AND source_revision IS NOT DISTINCT FROM $4::text`,
-      [tenantId, sourceSystem, sourceNativeId, sourceRevision],
+         AND source_revision IS NOT DISTINCT FROM $4::text
+         AND source_namespace = $5`,
+      [tenantId, sourceSystem, sourceNativeId, sourceRevision, sourceNamespace],
     );
     return result.rows[0] ? observationFrom(result.rows[0]) : null;
   }

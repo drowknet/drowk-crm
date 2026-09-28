@@ -91,6 +91,28 @@ People from Contacts or provider data. Callers authorize tenant scope separately
 Stopping new repository calls leaves additive schema and history intact; a
 schema correction requires a later forward migration.
 
+Migration `0006_accepted_interactions.sql` adds tenant-scoped conversations,
+activities, evidence links and participants. The exact SourceObservation is
+mandatory. Evidence must belong to that observation; the PolicyDecision must
+name it as subject and have action `ACCEPT_INTERACTION`, `ALLOW` disposition and
+complete evidence. Composite FKs and a deferred evidence-presence constraint
+also guard direct SQL writes. Source namespace scopes native IDs; a second
+revision of an already accepted native source fails closed. Accepted interaction
+and Conversation context is immutable; a later correction needs a new
+attributable record and a forward migration if the schema must change.
+
+`PostgresInteractionRepository.promoteAcceptedActivity` inserts Activity,
+Evidence links and supplied participants in one transaction. Identical replay
+returns the original Activity; changed payload or source revision returns
+`source_conflict`. Participant refs do not create Person or Identity records.
+The caller must authorize tenant scope and supplied deterministic linkage.
+The Gmail candidate mapper adds a provider-neutral `sourceNamespace` to its
+existing source metadata using connector and mailbox refs. Migration `0006`
+stores that namespace separately from immutable source metadata. It backfills
+older Gmail rows from their recorded connector/mailbox refs and falls back to
+`source_system` for other legacy observations. The source-revision uniqueness
+index then uses the namespace. The connector still has no accepted CRM writer.
+
 Rules:
 - PostgreSQL is canonical storage infrastructure, not the domain layer;
 - provider-native IDs never become canonical identity by database convenience;

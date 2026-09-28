@@ -65,6 +65,7 @@ export function toSourceObservation(
     fingerprint: gmailSourceFingerprint(input),
     rawArtifactRef: input.rawArtifactRef,
     sourceMetadata: {
+      sourceNamespace: `gmail:${Buffer.byteLength(input.connectorRef, "utf8")}:${input.connectorRef}:${Buffer.byteLength(input.mailboxRef, "utf8")}:${input.mailboxRef}`,
       gmail: {
         messageId: input.messageId,
         threadId: input.threadId,

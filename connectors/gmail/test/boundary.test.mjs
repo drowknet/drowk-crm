@@ -46,6 +46,8 @@ test("authoritative Gmail fields survive observation mapping without derived sta
   const observation = toSourceObservation(source, lineage);
   assert.equal(observation.sourceSystem, "gmail");
   assert.equal(observation.sourceNativeId, source.messageId);
+  assert.equal(observation.sourceMetadata.sourceNamespace,
+    `gmail:${Buffer.byteLength(source.connectorRef, "utf8")}:${source.connectorRef}:${Buffer.byteLength(source.mailboxRef, "utf8")}:${source.mailboxRef}`);
   assert.equal(observation.sourceRevision, null);
   assert.equal(observation.sourceWatermark, source.sourceWatermark);
   assert.equal(observation.observedAt, source.messageDate);
