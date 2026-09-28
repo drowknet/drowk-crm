@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { after, before, test } from "node:test";
 import pg from "pg";
-import { PostgresHumanContinuityRepository, PostgresInteractionRepository } from "../dist/index.js";
+import {
+  PostgresHumanContinuityRepository, PostgresInteractionRepository, PostgresRepositories,
+} from "../dist/index.js";
 
 const url = process.env.DROWK_TEST_DATABASE_URL;
 if (!url) {
@@ -14,6 +16,7 @@ if (!url) {
   }
   const pool = new pg.Pool({ connectionString: url });
   const repo = new PostgresInteractionRepository(pool);
+  const sources = new PostgresRepositories(pool);
   const people = new PostgresHumanContinuityRepository(pool);
   const tenantA = randomUUID();
   const tenantB = randomUUID();
@@ -42,12 +45,15 @@ if (!url) {
   async function source(tenantId, nativeId = randomUUID(), revision = null,
     sourceNamespace = null) {
     const id = randomUUID();
-    await pool.query(`INSERT INTO source_observations
-      (id,tenant_id,run_id,correlation_id,source_system,source_native_id,source_revision,
-       retrieved_at,ingested_at,recorded_at,adapter_version,fingerprint,source_metadata)
-      VALUES ($1,$2,$3,$4,'SYNTHETIC',$5,$6,$7,$7,$7,'test-v1',$8,$9::jsonb)`,
-    [id, tenantId, randomUUID(), randomUUID(), nativeId, revision, now,
-      `sha256:${randomUUID()}`, JSON.stringify(sourceNamespace ? { sourceNamespace } : {})]);
+    const result = await sources.appendObservation(tenantId, {
+      id, runId: randomUUID(), correlationId: randomUUID(),
+      sourceSystem: "SYNTHETIC", sourceNativeId: nativeId, sourceRevision: revision,
+      observedAt: null, effectiveAt: null, retrievedAt: now, ingestedAt: now,
+      recordedAt: now, sourceWatermark: null, adapterVersion: "test-v1",
+      fingerprint: `sha256:${randomUUID()}`, rawArtifactRef: null,
+      sourceMetadata: sourceNamespace ? { sourceNamespace } : {},
+    });
+    assert.equal(result.status, "inserted");
     return id;
   }
   async function evidence(tenantId, observationId) {
@@ -110,6 +116,10 @@ if (!url) {
       conversation({ sourceNamespace: namespaceB }));
     const oA = await source(tenantA, nativeId, null, namespaceA);
     const oB = await source(tenantA, nativeId, null, namespaceB);
+    const namespaces = (await pool.query(`SELECT source_namespace FROM source_observations
+      WHERE tenant_id=$1 AND id=ANY($2::uuid[])`, [tenantA, [oA, oB]])).rows
+      .map(row => row.source_namespace);
+    assert.deepEqual(new Set(namespaces), new Set([namespaceA, namespaceB]));
     const eA = await evidence(tenantA, oA);
     const eB = await evidence(tenantA, oB);
     const dA = await policy(tenantA, oA);
