@@ -176,3 +176,22 @@ ActivityParticipant correction/retraction with deterministic current projection.
 This avoids pushing duplicate-conversation reconciliation or identity-correction
 logic into Relationship itself. Relationship remains subsequent and must still avoid
 a universal trust score. Buyer Role remains aligned with DCRM-07.
+
+
+## Post-DCRM-04E executable consequence — 2026-09-28
+
+DCRM-04E is closed with post-merge CI green. Source Conversation identity is
+idempotent and ActivityParticipant correction/retraction now has deterministic
+current authority, including compatibility with new Commitment promotion.
+
+Relationship is therefore the next canonical memory object.
+
+DCRM-04F is selected as a narrow Relationship Memory Foundation:
+- one durable tenant-to-Person Relationship;
+- accepted Activity membership;
+- explicit reciprocal and meaningful interaction assertions;
+- independent known-time clocks derived from attributable accepted history.
+
+Relationship remains separate from Employment and Account authority so a job change
+does not move old organization context. Buyer Role remains DCRM-07. No trust,
+health, readiness, permission or universal relationship score is introduced.

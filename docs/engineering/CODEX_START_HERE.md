@@ -56,16 +56,16 @@ The active engineering sequence lives in:
 
 That file, not chat history, tells Codex which work package is currently active.
 
-DCRM-02A, DCRM-02B, DCRM-03A, DCRM-04A, DCRM-04B, DCRM-04C and DCRM-04D are closed.
+DCRM-02A, DCRM-02B, DCRM-03A, DCRM-04A, DCRM-04B, DCRM-04C, DCRM-04D and DCRM-04E are closed.
 
-DCRM-04D merged as `b71205d8ee79b8ea2d1ce22cabf31004ad3ac4eb` and its
+DCRM-04E merged as `d36cbe68d30f2ee6cb0dde1b6b9be14b00fe597d` and its
 post-merge CI is green. Live Gmail/OAuth/outbound remains separately gated.
 
-The post-DCRM-04D executable checkpoint is complete.
+The post-DCRM-04E executable checkpoint is complete.
 
 The next queued work package is:
-`docs/work-packages/DCRM-04E-interaction-continuity-hardening.md`.
+`docs/work-packages/DCRM-04F-relationship-memory-foundation.md`.
 
-Do not execute DCRM-04E from foundation. Wait for the explicit owner/ChatGPT handoff
+Do not execute DCRM-04F from foundation. Wait for the explicit owner/ChatGPT handoff
 that creates or switches to its dedicated feature branch. Once that handoff occurs,
-Codex is the sole writer on the DCRM-04E implementation surfaces until review.
+Codex is the sole writer on the DCRM-04F implementation surfaces until review.

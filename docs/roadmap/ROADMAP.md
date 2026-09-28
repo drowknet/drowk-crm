@@ -78,9 +78,10 @@ Selected relationship-memory foundation slices:
 - **DCRM-04D — Commitment Memory Foundation**: attributable request/promise/agreed-next-step
   memory, who owes the next move, date/condition, state and Activity/Evidence/Policy lineage. CLOSED/GREEN.
 - **DCRM-04E — Interaction Continuity Hardening**: idempotent source Conversation claim plus
-  append-only participant correction/retraction before Relationship consumes interaction history.
-- Relationship remains the next canonical relationship-memory object after these interaction
-  continuity gates; Buyer Role remains aligned with DCRM-07.
+  append-only participant correction/retraction before Relationship consumes interaction history. CLOSED/GREEN.
+- **DCRM-04F — Relationship Memory Foundation**: durable tenant-to-Person Relationship plus
+  attributable Activity/reciprocal/meaningful interaction assertions and independent clocks.
+- Buyer Role remains aligned with DCRM-07.
 
 The post-DCRM-04B checkpoint found Conversation/Activity/Participant missing from
 the executable core. DCRM-04C closed that gap. The post-DCRM-04C checkpoint then
@@ -88,8 +89,9 @@ selected Commitment as the next smallest dependency because Work already exists 
 cannot represent the bilateral fact of who promised/requested what and who owes the
 next move. Relationship should consume attributable Activity + Commitment history
 rather than absorb those semantics into a score or giant graph. Before that consumption,
-DCRM-04E closes the source-Conversation idempotency and participant-correction gates
-recorded at DCRM-04C closure.
+DCRM-04E closed the source-Conversation idempotency and participant-correction gates
+recorded at DCRM-04C closure. DCRM-04F can now add Relationship without compensating
+for fragmented Conversation identity or stale participant links.
 
 ## DCRM-05 — AIsa Capability Lab
 Read-only evaluation of:

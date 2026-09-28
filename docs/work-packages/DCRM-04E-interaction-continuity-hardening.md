@@ -1,6 +1,25 @@
 # DCRM-04E — Interaction Continuity Hardening
 
-Status: READY FOR HANDOFF — FEATURE BRANCH PENDING
+Status: CLOSED — MERGED + POST-MERGE CI GREEN
+
+## Closure evidence
+
+- PR #12 merged into `foundation/drowk-crm-00`.
+- Feature head: `0a3be336d075250bb133dac5d605bdb9446324e6`.
+- Merge commit: `d36cbe68d30f2ee6cb0dde1b6b9be14b00fe597d`.
+- Exact-head CI `36441476373`: SUCCESS.
+- Post-merge push CI `36449747837`: SUCCESS.
+- Foundation/PR validation CI `36449754965`: SUCCESS.
+- Deep review: NO BLOCKING FINDING after Commitment current-participant authority correction.
+- Migrations `0010_interaction_continuity.sql` and
+  `0011_commitment_current_participant_authority.sql` are included in the green migration chain.
+- Relationship, BuyerRole, AIsa/model, live Gmail, outbound and deployment remained
+  outside the package.
+
+Non-blocking operational note:
+- source-derived callers should use `claimSourceConversation(...)`; direct
+  `createConversation(...)` remains appropriate for manual/source-less creation,
+  while PostgreSQL uniqueness still prevents duplicate source-derived canonical rows.
 
 ## Why this work package exists
 
