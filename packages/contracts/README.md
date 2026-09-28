@@ -35,3 +35,14 @@ repository creation also starts unlinked. Consumers must allow both fields to
 be null. An explicit link requires a `PERSON`-scoped `MATCHED_SAFE` decision
 selecting that exact Person. IdentityEvidence and EntityMatchDecision remain
 distinct from canonical Identity.
+
+## Accepted interaction compatibility
+
+DCRM-04C adds provider-neutral Conversation, Activity and ActivityParticipant
+contracts without changing SourceObservation, Evidence or the Gmail candidate
+boundary. A Conversation source ref and an unresolved participant ref both
+require a namespace. `occurredAt` remains null when source time is unknown.
+Activity Evidence IDs and a source-scoped `ACCEPT_INTERACTION` PolicyDecision are
+required for accepted promotion. One stable `(tenant, source namespace, native ID)`
+has one accepted Activity in this package; another source revision conflicts
+instead of updating accepted history.

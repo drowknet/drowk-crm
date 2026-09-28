@@ -49,10 +49,15 @@ if (!url) {
           subject: "Changed synthetic subject" }, lineage()));
       assert.equal(revised.status, "inserted");
       assert.equal(revised.observation.sourceRevision, "102");
+      const otherMailbox = await repositories.appendObservation(tenantId,
+        toSourceObservation({ ...source, mailboxRef: "synthetic-other-mailbox" }, lineage()));
+      assert.equal(otherMailbox.status, "inserted");
+      assert.notEqual(otherMailbox.observation.sourceMetadata.sourceNamespace,
+        first.observation.sourceMetadata.sourceNamespace);
       assert.equal((await pool.query(
         `SELECT count(*)::int AS count FROM source_observations
          WHERE tenant_id = $1 AND source_system = 'gmail' AND source_native_id = $2`,
-        [tenantId, source.messageId])).rows[0].count, 2);
+        [tenantId, source.messageId])).rows[0].count, 3);
       assert.deepEqual(await repositories.getObservation(tenantId, first.observation.id),
         first.observation);
     } finally {

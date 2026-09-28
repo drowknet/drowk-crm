@@ -1,11 +1,12 @@
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { mkdtemp, readFile, writeFile, cp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 import { setTimeout } from "node:timers/promises";
-import { applyMigrations, defaultMigrationsDirectory, migrationStatus } from "../dist/index.js";
+import { applyMigrations, defaultMigrationsDirectory, migrationStatus,
+  PostgresRepositories } from "../dist/index.js";
 import { disposableDatabase } from "./disposable.mjs";
 
 const pgTest = process.env.DROWK_TEST_DATABASE_URL ? test : test.skip;
@@ -23,6 +24,8 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
     ["0001_foundation.sql", "pending"], ["0002_source_revision_identity.sql", "pending"],
     ["0003_identity_membership.sql", "pending"], ["0004_work_due_date.sql", "pending"],
     ["0005_human_continuity.sql", "pending"],
+    ["0006_accepted_interactions.sql", "pending"],
+    ["0007_participant_identity_authority.sql", "pending"],
   ]);
   assert.deepEqual((await pool.query(
     "SELECT to_regclass('public.drowk_schema_migrations') AS ledger, to_regclass('public.tenants') AS tenants",
@@ -38,7 +41,7 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
       checksum: createHash("sha256").update(await readFile(join(defaultMigrationsDirectory, file.filename))).digest("hex"),
     });
   }
-  assert.equal(rows.length, 5);
+  assert.equal(rows.length, 7);
   assert.deepEqual((await pool.query(`
     SELECT data_type, is_nullable FROM information_schema.columns
     WHERE table_schema = 'public' AND table_name = 'work_items' AND column_name = 'due_date'
@@ -60,6 +63,44 @@ pgTest("checksum drift, missing migrations, and non-prefix ledger history fail c
   await assert.rejects(migrationStatus(pool, path), { code: "MIGRATION_HISTORY_INVALID" });
   await pool.query("DELETE FROM public.drowk_schema_migrations WHERE version = '0001'");
   await assert.rejects(applyMigrations(pool), { code: "MIGRATION_HISTORY_INVALID" });
+});
+
+pgTest("0006 preserves legacy Gmail mailbox identity across namespace backfill and replay", async t => {
+  const { pool } = await disposableDatabase(t);
+  const path = await directory(t);
+  await cp(defaultMigrationsDirectory, path, { recursive: true });
+  await rm(join(path, "0006_accepted_interactions.sql"));
+  await rm(join(path, "0007_participant_identity_authority.sql"));
+  await applyMigrations(pool, path);
+  const tenantId = randomUUID();
+  const observationId = randomUUID();
+  const nativeId = randomUUID();
+  const now = "2026-09-28T12:34:56.000Z";
+  const namespace = "gmail:9:connector:7:mailbox";
+  const oldMetadata = { gmail: { connectorRef: "connector", mailboxRef: "mailbox" } };
+  await pool.query(`INSERT INTO tenants (id,slug,name) VALUES ($1,$2,'Legacy synthetic')`,
+    [tenantId, `legacy-${tenantId}`]);
+  await pool.query(`INSERT INTO source_observations
+    (id,tenant_id,run_id,correlation_id,source_system,source_native_id,source_revision,
+     retrieved_at,ingested_at,recorded_at,adapter_version,fingerprint,source_metadata)
+    VALUES ($1,$2,$3,$4,'gmail',$5,NULL,$6,$6,$6,'legacy-v1','sha256:legacy',$7::jsonb)`,
+  [observationId, tenantId, randomUUID(), randomUUID(), nativeId, now,
+    JSON.stringify(oldMetadata)]);
+  assert.deepEqual(await applyMigrations(pool), { applied: [
+    "0006_accepted_interactions.sql", "0007_participant_identity_authority.sql",
+  ] });
+  assert.equal((await pool.query(`SELECT source_namespace FROM source_observations WHERE id=$1`,
+    [observationId])).rows[0].source_namespace, namespace);
+  const replay = await new PostgresRepositories(pool).appendObservation(tenantId, {
+    id: randomUUID(), runId: randomUUID(), correlationId: randomUUID(),
+    sourceSystem: "gmail", sourceNativeId: nativeId, sourceRevision: null,
+    observedAt: null, effectiveAt: null, retrievedAt: now, ingestedAt: now,
+    recordedAt: now, sourceWatermark: null, adapterVersion: "legacy-v1",
+    fingerprint: "sha256:legacy", rawArtifactRef: null,
+    sourceMetadata: { ...oldMetadata, sourceNamespace: namespace },
+  });
+  assert.equal(replay.status, "already_exists");
+  assert.equal(replay.observation.id, observationId);
 });
 
 pgTest("wrapped failed migration rolls back DDL and ledger; retry can succeed", async t => {
