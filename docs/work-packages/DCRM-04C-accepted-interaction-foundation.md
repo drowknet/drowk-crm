@@ -1,6 +1,27 @@
 # DCRM-04C — Accepted Interaction Foundation
 
-Status: READY FOR HANDOFF — FEATURE BRANCH PENDING
+Status: CLOSED — MERGED + POST-MERGE CI GREEN
+
+## Closure evidence
+
+- PR #10 merged into `foundation/drowk-crm-00`.
+- Feature head: `af717e1656e8d50ee93607489c7c57e66a11933a`.
+- Merge commit: `136525a8c6443f6a6b3a83d73181d809613527b7`.
+- Exact-head CI `36386478992`: SUCCESS.
+- Post-merge push CI `36386917696`: SUCCESS.
+- Foundation/PR validation CI `36386920548`: SUCCESS.
+- Deep review: NO BLOCKING FINDING after participant-linkage authority correction.
+- Migrations `0006_accepted_interactions.sql` and
+  `0007_participant_identity_authority.sql` are included in the green migration chain.
+- Live Gmail/OAuth, Relationship, BuyerRole, Commitment, AIsa/LLM, outbound and
+  deployment remained outside the package.
+
+Non-blocking later gates recorded at closure:
+- define an explicit idempotent Conversation source-identity strategy before live
+  Gmail/Relationship consumption;
+- prove Gmail `connectorRef` durability semantics before live ingestion;
+- define participant supersession/retraction semantics before richer relationship
+  correction workflows.
 
 ## Why this work package exists
 

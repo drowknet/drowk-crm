@@ -74,14 +74,18 @@ Selected relationship-memory foundation slices:
 - **DCRM-04B — Durable Human Continuity Foundation**: Person + canonical Identity +
   temporal Employment + explicit Contact -> Person linkage. CLOSED/GREEN.
 - **DCRM-04C — Accepted Interaction Foundation**: Conversation + Activity +
-  ActivityParticipant + evidence/policy-controlled accepted interaction projection.
-- Relationship, Buyer Role and Commitment remain later explicit packages built on
-  those foundations; DCRM-04B/04C must not absorb them.
+  ActivityParticipant + evidence/policy-controlled accepted interaction projection. CLOSED/GREEN.
+- **DCRM-04D — Commitment Memory Foundation**: attributable request/promise/agreed-next-step
+  memory, who owes the next move, date/condition, state and Activity/Evidence/Policy lineage.
+- Relationship remains a later explicit relationship-memory package after Commitment;
+  Buyer Role remains aligned with DCRM-07. DCRM-04B/C/D must not absorb either.
 
 The post-DCRM-04B checkpoint found Conversation/Activity/Participant missing from
-the executable core. This interaction projection is required before Relationship
-recency/reciprocity or communication-derived Commitment state is modeled as
-canonical CRM truth.
+the executable core. DCRM-04C closed that gap. The post-DCRM-04C checkpoint then
+selected Commitment as the next smallest dependency because Work already exists but
+cannot represent the bilateral fact of who promised/requested what and who owes the
+next move. Relationship should consume attributable Activity + Commitment history
+rather than absorb those semantics into a score or giant graph.
 
 ## DCRM-05 — AIsa Capability Lab
 Read-only evaluation of:

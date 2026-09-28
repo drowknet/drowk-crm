@@ -139,3 +139,23 @@ skip this boundary by treating provider message/thread refs as accepted CRM trut
 DCRM-04C is therefore selected as the next foundation:
 Conversation + Activity + ActivityParticipant + explicit evidence/policy-controlled
 promotion. Relationship, Commitment and BuyerRole remain later explicit gates.
+
+
+## Post-DCRM-04C executable consequence — 2026-09-28
+
+DCRM-04C is closed with post-merge CI green and now provides accepted
+Conversation/Activity/ActivityParticipant history with Observation/Evidence/Policy
+lineage and safe source-participant Person linkage.
+
+The next smallest relationship-memory dependency is Commitment.
+
+The Work Engine can already say what should happen next, but without Commitment the
+system cannot preserve who requested/promised what, which side owes the next move,
+the account/facility context, date/condition and confirmation state without
+flattening those facts into Task/Work state.
+
+DCRM-04D is therefore selected as Commitment Memory Foundation.
+
+Relationship remains required after Commitment and must stay attributable,
+explainable and free of a universal trust score. Buyer Role remains aligned with
+DCRM-07 commercial authority/procurement scope.

@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A/B GREEN — DCRM-04C NEXT
+Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A/B/C GREEN — DCRM-04D NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -177,25 +177,47 @@ projection by treating Gmail thread/message refs as CRM truth.
 See:
 `docs/architecture/POST_DCRM04B_INTERACTION_GAP_2026-09-28.md`.
 
-### Next gate — DCRM-04C Accepted Interaction Foundation
+### Completed — DCRM-04C Accepted Interaction Foundation
 
-`docs/work-packages/DCRM-04C-accepted-interaction-foundation.md`
+- [DONE] PR #10 merged into `foundation/drowk-crm-00`;
+- [DONE] feature head `af717e1656e8d50ee93607489c7c57e66a11933a`;
+- [DONE] merge commit `136525a8c6443f6a6b3a83d73181d809613527b7`;
+- [DONE] exact-head CI `36386478992` green;
+- [DONE] post-merge push CI `36386917696` green;
+- [DONE] foundation/PR validation CI `36386920548` green;
+- [DONE] Conversation / Activity / ActivityParticipant accepted projection;
+- [DONE] Observation/Evidence/Policy authority and participant Identity->Person authority;
+- [DONE] migrations 0006/0007 and Gmail namespace compatibility sensors;
+- [CLOSED] live Gmail, Relationship, BuyerRole, Commitment, AIsa/model, outbound and deploy remained outside the package.
+
+### Post-DCRM-04C checkpoint
+
+Accepted interaction history now exists. The next structural gap is bilateral
+Commitment memory: who requested/promised what, which side owes the next move,
+context/date/condition, and confirmation state.
+
+Commitment must remain distinct from Activity, Task and WorkItem.
+
+See:
+`docs/architecture/POST_DCRM04C_COMMITMENT_GAP_2026-09-28.md`.
+
+### Next gate — DCRM-04D Commitment Memory Foundation
+
+`docs/work-packages/DCRM-04D-commitment-memory-foundation.md`
 
 Operator/product outcome:
-- accepted, provider-neutral interaction history can be persisted with exact
-  Observation/Evidence/policy lineage and safe Person/Identity linkage.
+- preserve attributable requests/promises/agreed next steps and who owes the next
+  move without converting internal Work completion into external fulfillment.
 
 Required proof:
-- Conversation / Activity / ActivityParticipant contracts and persistence;
-- namespaced source conversation/thread refs;
-- explicit evidence/policy-controlled accepted promotion;
-- idempotent source replay/conflict behavior;
-- unknown event time preserved;
-- unresolved participants remain unresolved;
-- Person job change does not move historical interaction context;
-- no live Gmail/provider/write/outbound/autonomy expansion.
+- accepted Activity/Evidence/Policy lineage;
+- safe optional counterparty Person linkage through ActivityParticipant authority;
+- date-only and unknown temporal semantics;
+- deterministic replay/conflict and append/supersede history;
+- Commitment != Task != WorkItem;
+- no Relationship/BuyerRole/model/live Gmail/outbound expansion.
 
-Do not execute DCRM-04C from foundation. It requires a dedicated feature branch and
+Do not execute DCRM-04D from foundation. It requires a dedicated feature branch and
 explicit owner/ChatGPT handoff.
 
 ### Foundation release gate
@@ -218,9 +240,10 @@ Current writer state:
 
 - DCRM-03A and DCRM-04A feature implementations are closed and merged;
 - DCRM-04B is closed and merged;
-- DCRM-04C is selected as the next implementation WP but no Codex writer is active yet;
-- ChatGPT may update repo-owned planning/canonical docs before DCRM-04C handoff;
-- DCRM-04C requires an explicit owner/ChatGPT handoff and a dedicated feature branch;
+- DCRM-04C is closed and merged;
+- DCRM-04D is selected as the next implementation WP but no Codex writer is active yet;
+- ChatGPT may update repo-owned planning/canonical docs before DCRM-04D handoff;
+- DCRM-04D requires an explicit owner/ChatGPT handoff and a dedicated feature branch;
 - once Codex starts that future branch, Codex is the sole writer on its implementation surfaces;
 - DROWK CRM remains the canonical implementation surface;
 - PWM local files remain preservation/regression reference only unless a new
