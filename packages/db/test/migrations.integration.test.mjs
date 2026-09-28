@@ -25,6 +25,7 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
     ["0003_identity_membership.sql", "pending"], ["0004_work_due_date.sql", "pending"],
     ["0005_human_continuity.sql", "pending"],
     ["0006_accepted_interactions.sql", "pending"],
+    ["0007_participant_identity_authority.sql", "pending"],
   ]);
   assert.deepEqual((await pool.query(
     "SELECT to_regclass('public.drowk_schema_migrations') AS ledger, to_regclass('public.tenants') AS tenants",
@@ -40,7 +41,7 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
       checksum: createHash("sha256").update(await readFile(join(defaultMigrationsDirectory, file.filename))).digest("hex"),
     });
   }
-  assert.equal(rows.length, 6);
+  assert.equal(rows.length, 7);
   assert.deepEqual((await pool.query(`
     SELECT data_type, is_nullable FROM information_schema.columns
     WHERE table_schema = 'public' AND table_name = 'work_items' AND column_name = 'due_date'
@@ -69,6 +70,7 @@ pgTest("0006 preserves legacy Gmail mailbox identity across namespace backfill a
   const path = await directory(t);
   await cp(defaultMigrationsDirectory, path, { recursive: true });
   await rm(join(path, "0006_accepted_interactions.sql"));
+  await rm(join(path, "0007_participant_identity_authority.sql"));
   await applyMigrations(pool, path);
   const tenantId = randomUUID();
   const observationId = randomUUID();
@@ -84,7 +86,9 @@ pgTest("0006 preserves legacy Gmail mailbox identity across namespace backfill a
     VALUES ($1,$2,$3,$4,'gmail',$5,NULL,$6,$6,$6,'legacy-v1','sha256:legacy',$7::jsonb)`,
   [observationId, tenantId, randomUUID(), randomUUID(), nativeId, now,
     JSON.stringify(oldMetadata)]);
-  assert.deepEqual(await applyMigrations(pool), { applied: ["0006_accepted_interactions.sql"] });
+  assert.deepEqual(await applyMigrations(pool), { applied: [
+    "0006_accepted_interactions.sql", "0007_participant_identity_authority.sql",
+  ] });
   assert.equal((await pool.query(`SELECT source_namespace FROM source_observations WHERE id=$1`,
     [observationId])).rows[0].source_namespace, namespace);
   const replay = await new PostgresRepositories(pool).appendObservation(tenantId, {

@@ -204,7 +204,7 @@ if (!url) {
     assert.deepEqual(await repo.listActivitiesForConversation(tenantA, c.id), [accepted.activity]);
   });
 
-  test("goldens 10-11, 13: unresolved participant remains unresolved; linked Identity agrees", async () => {
+  test("goldens 10-11, 13: source participant needs canonical Identity for Person linkage", async () => {
     const { c, o, e, d } = await context();
     const unresolved = participant();
     const input = activity(c.id, o, [e], d);
@@ -215,6 +215,21 @@ if (!url) {
       { id: randomUUID(), displayName: null, recordedAt: now, supersedesId: null });
     const otherPerson = await people.createPerson(tenantA,
       { id: randomUUID(), displayName: null, recordedAt: now, supersedesId: null });
+    const unresolvedContext = await context();
+    const arbitrary = activity(unresolvedContext.c.id, unresolvedContext.o,
+      [unresolvedContext.e], unresolvedContext.d);
+    await assert.rejects(repo.promoteAcceptedActivity(tenantA, arbitrary,
+      [participant({ personId: person.id })]),
+    { code: "PARTICIPANT_LINKAGE_AUTHORITY_REQUIRED" });
+    assert.equal(await repo.getActivity(tenantA, arbitrary.id), null);
+    await assert.rejects(repo.appendParticipant(tenantA, input.id,
+      participant({ personId: person.id })),
+    { code: "PARTICIPANT_LINKAGE_AUTHORITY_REQUIRED" });
+    await assert.rejects(pool.query(`INSERT INTO activity_participants
+      (id,tenant_id,activity_id,role,person_id,source_participant_namespace,
+       source_participant_ref,recorded_at)
+      VALUES ($1,$2,$3,'FROM',$4,'synthetic:mailbox-a','sender@example.invalid',$5)`,
+    [randomUUID(), tenantA, input.id, person.id, now]), { code: "23514" });
     const matchId = randomUUID();
     await pool.query(`INSERT INTO entity_match_decisions
       (id,tenant_id,run_id,correlation_id,subject_key,resolution_scope,status,
@@ -227,6 +242,16 @@ if (!url) {
       effectiveFrom: null, effectiveTo: null, matchDecisionId: matchId,
       recordedAt: now, supersedesId: null,
     });
+    const proven = await repo.promoteAcceptedActivity(tenantA, arbitrary,
+      [participant({ personId: person.id, identityId: identity.id })]);
+    assert.equal(proven.status, "inserted");
+    assert.equal(proven.participants[0].personId, person.id);
+    const mismatchContext = await context();
+    await assert.rejects(repo.promoteAcceptedActivity(tenantA,
+      activity(mismatchContext.c.id, mismatchContext.o,
+        [mismatchContext.e], mismatchContext.d),
+      [participant({ personId: otherPerson.id, identityId: identity.id })]),
+    { code: "23503" });
     const resolved = await repo.appendParticipant(tenantA, input.id,
       participant({ personId: person.id, identityId: identity.id }));
     assert.equal(resolved.personId, person.id);
@@ -271,7 +296,8 @@ if (!url) {
     });
     const valid = activity(b.c.id, b.o, [b.e], b.d);
     await assert.rejects(repo.promoteAcceptedActivity(tenantB, valid,
-      [participant({ personId: pA.id })]), { code: "23503" });
+      [participant({ personId: pA.id, sourceParticipantNamespace: null,
+        sourceParticipantRef: null })]), { code: "23503" });
     await assert.rejects(repo.promoteAcceptedActivity(tenantB, valid,
       [participant({ identityId: identityA.id })]), { code: "23503" });
     assert.equal(await repo.getActivity(tenantB, valid.id), null);

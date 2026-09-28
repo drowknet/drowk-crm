@@ -21,11 +21,13 @@ export function canPromoteInteraction(
     && evidence.length > 0 && evidence.every(item => item.observationId === observationId);
 }
 
-/** Unresolved participants stay unresolved; an Identity cannot disagree with Person. */
+/** Source lineage alone cannot resolve Person; a canonical Identity may prove the link. */
 export function participantLinksAgree(
-  participant: Pick<ActivityParticipant, "identityId" | "personId">,
+  participant: Pick<ActivityParticipant, "identityId" | "personId" | "sourceParticipantRef">,
   identity: Pick<Identity, "id" | "personId"> | null,
 ): boolean {
+  if (participant.sourceParticipantRef !== null && participant.personId !== null
+    && participant.identityId === null) return false;
   if (participant.identityId === null) return identity === null;
   return identity !== null && identity.id === participant.identityId
     && (participant.personId === null || identity.personId === participant.personId);

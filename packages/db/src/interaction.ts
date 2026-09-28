@@ -78,6 +78,12 @@ function participantSemantics(participants: readonly (ParticipantInput | Activit
     p.role, p.personId, p.identityId, p.sourceParticipantNamespace, p.sourceParticipantRef,
   ])).sort();
 }
+function requireParticipantAuthority(participant: ParticipantInput): void {
+  if (participant.sourceParticipantRef !== null && participant.personId !== null
+    && participant.identityId === null) {
+    throw new InteractionPromotionError("PARTICIPANT_LINKAGE_AUTHORITY_REQUIRED");
+  }
+}
 function acceptedPayloadDigest(activity: Omit<Activity, "tenantId">,
   participants: ParticipantInput[]): string {
   return createHash("sha256").update(JSON.stringify([
@@ -158,6 +164,7 @@ export class PostgresInteractionRepository {
 
   async appendParticipant(tenantId: TenantId, activityId: ActivityId,
     participant: ParticipantInput): Promise<ActivityParticipant> {
+    requireParticipantAuthority(participant);
     const result = await query<ParticipantRow>(this.pool,
       `INSERT INTO activity_participants
         (id,tenant_id,activity_id,role,person_id,identity_id,
@@ -179,6 +186,7 @@ export class PostgresInteractionRepository {
     if (new Set(participants.map(p => p.id)).size !== participants.length) {
       throw new InteractionPromotionError("PARTICIPANT_ID_DUPLICATED");
     }
+    participants.forEach(requireParticipantAuthority);
     const client = await this.pool.connect();
     try {
       await client.query("BEGIN");

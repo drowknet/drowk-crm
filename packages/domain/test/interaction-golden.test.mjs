@@ -41,12 +41,14 @@ test("goldens 7-8: replay distinguishes identical and changed source revisions",
 });
 
 test("goldens 10-11, 13: unresolved source participant stays unresolved", () => {
-  assert.equal(participantLinksAgree({ personId: null, identityId: null }, null), true);
-  assert.equal(participantLinksAgree({ personId: "person-a", identityId: "identity-a" },
+  const sourceParticipantRef = "sender@example.invalid";
+  assert.equal(participantLinksAgree({ personId: null, identityId: null, sourceParticipantRef }, null), true);
+  assert.equal(participantLinksAgree({ personId: "person-a", identityId: null, sourceParticipantRef }, null), false);
+  assert.equal(participantLinksAgree({ personId: "person-a", identityId: "identity-a", sourceParticipantRef },
     { id: "identity-a", personId: "person-a" }), true);
-  assert.equal(participantLinksAgree({ personId: "person-b", identityId: "identity-a" },
+  assert.equal(participantLinksAgree({ personId: "person-b", identityId: "identity-a", sourceParticipantRef },
     { id: "identity-a", personId: "person-a" }), false);
-  assert.equal(participantLinksAgree({ personId: null, identityId: "identity-a" }, null), false);
+  assert.equal(participantLinksAgree({ personId: null, identityId: "identity-a", sourceParticipantRef }, null), false);
 });
 
 test("goldens 14-15: direction and job change do not rewrite historical interaction context", () => {

@@ -106,6 +106,11 @@ Evidence links and supplied participants in one transaction. Identical replay
 returns the original Activity; changed payload or source revision returns
 `source_conflict`. Participant refs do not create Person or Identity records.
 The caller must authorize tenant scope and supplied deterministic linkage.
+Migration `0007_participant_identity_authority.sql` closes the source participant
+linkage gate: a source-derived `person_id` requires an already accepted canonical
+`identity_id`. The existing tenant-scoped composite FK requires the Identity to
+belong to the exact Person. Unresolved source participants remain valid; source
+refs alone do not create or resolve Person/Identity.
 The Gmail candidate mapper adds a provider-neutral `sourceNamespace` to its
 existing source metadata using connector and mailbox refs. Migration `0006`
 stores that namespace separately from immutable source metadata. It backfills
