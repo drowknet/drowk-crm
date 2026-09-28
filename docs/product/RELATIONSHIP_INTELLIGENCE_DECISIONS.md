@@ -122,3 +122,20 @@ Identity + temporal Employment, including explicit Contact -> Person linkage.
 Relationship, Buyer Role and Commitment remain required product concepts, but they
 should build on that foundation rather than be scope-smuggled into one giant graph
 package.
+
+
+## Post-DCRM-04B executable consequence — 2026-09-28
+
+DCRM-04B is closed with post-merge CI green and now provides durable Person,
+canonical Identity, temporal Employment and explicit Contact -> Person linkage.
+
+The next executable dependency is accepted interaction history. Conversation,
+Activity and ActivityParticipant are canonical product concepts but are not yet
+implemented. Gmail still correctly stops at Observation/Evidence/candidate state.
+
+Relationship recency/reciprocity and communication-derived Commitment state must not
+skip this boundary by treating provider message/thread refs as accepted CRM truth.
+
+DCRM-04C is therefore selected as the next foundation:
+Conversation + Activity + ActivityParticipant + explicit evidence/policy-controlled
+promotion. Relationship, Commitment and BuyerRole remain later explicit gates.

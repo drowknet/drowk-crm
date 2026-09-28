@@ -1,6 +1,19 @@
 # DCRM-04B — Durable Human Continuity Foundation
 
-Status: READY FOR HANDOFF — FEATURE BRANCH PENDING
+Status: CLOSED — MERGED + POST-MERGE CI GREEN
+
+## Closure evidence
+
+- PR #9 merged into `foundation/drowk-crm-00`.
+- Feature head: `806dd9b6b174719c125451bf8daac5faf0298b57`.
+- Merge commit: `84c8de486695fb00497c3f3cb215f2051784b80e`.
+- Exact-head CI `36370602136`: SUCCESS.
+- Post-merge push CI `36371069501`: SUCCESS.
+- Foundation/PR validation CI `36371072200`: SUCCESS.
+- `verify`: SUCCESS.
+- `postgres-foundation`: SUCCESS.
+- No Relationship, BuyerRole, Commitment, live Gmail/provider, outbound,
+  deployment or higher-autonomy scope entered the package.
 
 ## Why this work package exists
 

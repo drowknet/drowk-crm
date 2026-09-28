@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A GREEN — DCRM-04B NEXT
+Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A/B GREEN — DCRM-04C NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -153,31 +153,50 @@ Not yet executable as canonical objects:
 The minimum next dependency is durable human continuity: Person + canonical Identity
 + temporal Employment, including explicit Contact -> Person linkage.
 
-### Next gate — DCRM-04B Durable Human Continuity Foundation
+### Completed — DCRM-04B Durable Human Continuity Foundation
 
-Selected from the completed post-parity checkpoint:
+- [DONE] PR #9 merged into `foundation/drowk-crm-00`;
+- [DONE] feature head `806dd9b6b174719c125451bf8daac5faf0298b57`;
+- [DONE] merge commit `84c8de486695fb00497c3f3cb215f2051784b80e`;
+- [DONE] exact-head CI `36370602136` green;
+- [DONE] post-merge CI `36371069501` green;
+- [DONE] foundation/PR validation `36371072200` green;
+- [DONE] Person, canonical Identity, temporal Employment and explicit Contact -> Person linkage;
+- [DONE] MATCHED_SAFE/exact-target and tenant isolation fail closed;
+- [CLOSED] Relationship/BuyerRole/Commitment and live-provider scope remained outside the package.
 
-`docs/work-packages/DCRM-04B-durable-human-continuity-foundation.md`
+### Post-DCRM-04B checkpoint
 
-Operator/product outcome:
-- one durable Person can survive Contact, identity and employer changes without
-  historical reattribution or unsafe automatic linking.
+The executable model now has durable human continuity, but canonical
+Conversation/Activity/ActivityParticipant objects are still absent.
 
-Required proof:
-- tenant-scoped Person / Identity / Employment contracts and persistence;
-- explicit Contact -> Person linkage;
-- MATCHED_SAFE-only canonical identity/link promotion;
-- unknown temporal boundaries preserved;
-- job-change history preserved across Accounts;
-- cross-tenant and ambiguous links fail closed;
-- no Relationship/BuyerRole/Commitment scope smuggling;
-- no Gmail/live-provider/write/autonomy expansion.
-
-Do not execute DCRM-04B from foundation. A dedicated feature branch and explicit
-owner/ChatGPT handoff are required before Codex becomes the implementation writer.
+The Gmail connector remains correctly observation/candidate-only. Relationship and
+communication-derived Commitment should not bypass the accepted interaction
+projection by treating Gmail thread/message refs as CRM truth.
 
 See:
-`docs/architecture/RELATIONSHIP_MEMORY_EXECUTABLE_GAP_2026-09-28.md`.
+`docs/architecture/POST_DCRM04B_INTERACTION_GAP_2026-09-28.md`.
+
+### Next gate — DCRM-04C Accepted Interaction Foundation
+
+`docs/work-packages/DCRM-04C-accepted-interaction-foundation.md`
+
+Operator/product outcome:
+- accepted, provider-neutral interaction history can be persisted with exact
+  Observation/Evidence/policy lineage and safe Person/Identity linkage.
+
+Required proof:
+- Conversation / Activity / ActivityParticipant contracts and persistence;
+- namespaced source conversation/thread refs;
+- explicit evidence/policy-controlled accepted promotion;
+- idempotent source replay/conflict behavior;
+- unknown event time preserved;
+- unresolved participants remain unresolved;
+- Person job change does not move historical interaction context;
+- no live Gmail/provider/write/outbound/autonomy expansion.
+
+Do not execute DCRM-04C from foundation. It requires a dedicated feature branch and
+explicit owner/ChatGPT handoff.
 
 ### Foundation release gate
 
@@ -198,9 +217,10 @@ No independent legacy feature development is allowed.
 Current writer state:
 
 - DCRM-03A and DCRM-04A feature implementations are closed and merged;
-- DCRM-04B is selected as the next implementation WP but no Codex writer is active yet;
-- ChatGPT may update repo-owned planning/canonical docs before DCRM-04B handoff;
-- DCRM-04B requires an explicit owner/ChatGPT handoff and a dedicated feature branch;
+- DCRM-04B is closed and merged;
+- DCRM-04C is selected as the next implementation WP but no Codex writer is active yet;
+- ChatGPT may update repo-owned planning/canonical docs before DCRM-04C handoff;
+- DCRM-04C requires an explicit owner/ChatGPT handoff and a dedicated feature branch;
 - once Codex starts that future branch, Codex is the sole writer on its implementation surfaces;
 - DROWK CRM remains the canonical implementation surface;
 - PWM local files remain preservation/regression reference only unless a new

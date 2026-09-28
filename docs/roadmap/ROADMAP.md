@@ -70,11 +70,18 @@ This checkpoint must preserve:
 Do not turn this checkpoint into a giant social graph, omnichannel capture project
 or learned-scoring program.
 
-Selected first implementation slice after the checkpoint:
+Selected relationship-memory foundation slices:
 - **DCRM-04B — Durable Human Continuity Foundation**: Person + canonical Identity +
-  temporal Employment + explicit Contact -> Person linkage.
+  temporal Employment + explicit Contact -> Person linkage. CLOSED/GREEN.
+- **DCRM-04C — Accepted Interaction Foundation**: Conversation + Activity +
+  ActivityParticipant + evidence/policy-controlled accepted interaction projection.
 - Relationship, Buyer Role and Commitment remain later explicit packages built on
-  that foundation; DCRM-04B must not absorb them.
+  those foundations; DCRM-04B/04C must not absorb them.
+
+The post-DCRM-04B checkpoint found Conversation/Activity/Participant missing from
+the executable core. This interaction projection is required before Relationship
+recency/reciprocity or communication-derived Commitment state is modeled as
+canonical CRM truth.
 
 ## DCRM-05 — AIsa Capability Lab
 Read-only evaluation of:
