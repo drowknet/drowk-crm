@@ -22,6 +22,7 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
   assert.deepEqual(plan.migrations.map(m => [m.filename, m.state]), [
     ["0001_foundation.sql", "pending"], ["0002_source_revision_identity.sql", "pending"],
     ["0003_identity_membership.sql", "pending"], ["0004_work_due_date.sql", "pending"],
+    ["0005_human_continuity.sql", "pending"],
   ]);
   assert.deepEqual((await pool.query(
     "SELECT to_regclass('public.drowk_schema_migrations') AS ledger, to_regclass('public.tenants') AS tenants",
@@ -37,7 +38,7 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
       checksum: createHash("sha256").update(await readFile(join(defaultMigrationsDirectory, file.filename))).digest("hex"),
     });
   }
-  assert.equal(rows.length, 4);
+  assert.equal(rows.length, 5);
   assert.deepEqual((await pool.query(`
     SELECT data_type, is_nullable FROM information_schema.columns
     WHERE table_schema = 'public' AND table_name = 'work_items' AND column_name = 'due_date'

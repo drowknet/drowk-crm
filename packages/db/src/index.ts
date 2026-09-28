@@ -14,6 +14,8 @@ import pg, { type Pool, type PoolClient, type QueryResult, type QueryResultRow }
 export { applyMigrations, defaultMigrationsDirectory, MigrationError, migrationStatus } from "./migrations.js";
 export type { MigrationStatus } from "./migrations.js";
 export { PostgresIdentityRepository } from "./auth.js";
+export { PostgresHumanContinuityRepository } from "./human-continuity.js";
+export type { ContactLinkResult } from "./human-continuity.js";
 
 type Connection = Pool | PoolClient;
 

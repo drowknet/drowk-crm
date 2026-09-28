@@ -77,6 +77,20 @@ disposable test server and remove only those generated databases. The test user
 therefore needs database creation rights. They prove exact ledger checksums,
 idempotence, lock contention, drift rejection, and rollback of failed wrapped DDL.
 
+Migration `0005_human_continuity.sql` adds tenant-scoped `persons`,
+`person_identities` and `employments`, plus nullable Contact link and decision
+attribution. Composite foreign keys require a `PERSON` / `MATCHED_SAFE` decision
+selecting the exact Person for canonical Identity and Contact promotion. Contacts
+cannot be relinked after their first accepted link. Identity values have a lookup
+index without a uniqueness constraint; shared or recycled values require their
+own safe decisions. Date columns preserve unknown boundaries as null.
+
+`PostgresHumanContinuityRepository` exposes tenant-scoped create/read/list
+operations and an atomic `linkContactToPerson` compare-and-set. It creates no
+People from Contacts or provider data. Callers authorize tenant scope separately.
+Stopping new repository calls leaves additive schema and history intact; a
+schema correction requires a later forward migration.
+
 Rules:
 - PostgreSQL is canonical storage infrastructure, not the domain layer;
 - provider-native IDs never become canonical identity by database convenience;
