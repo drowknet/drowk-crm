@@ -20,6 +20,8 @@ export { PostgresInteractionRepository, InteractionPromotionError } from "./inte
 export type { AcceptedActivityResult, SourceConversationResult } from "./interaction.js";
 export { PostgresCommitmentRepository, CommitmentPromotionError } from "./commitment.js";
 export type { AcceptedCommitmentResult } from "./commitment.js";
+export { PostgresRelationshipRepository, RelationshipPromotionError } from "./relationship.js";
+export type { RelationshipClaimResult, RelationshipInteractionResult } from "./relationship.js";
 
 type Connection = Pool | PoolClient;
 
