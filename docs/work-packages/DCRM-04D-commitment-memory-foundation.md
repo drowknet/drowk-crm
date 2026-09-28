@@ -1,6 +1,25 @@
 # DCRM-04D — Commitment Memory Foundation
 
-Status: READY FOR HANDOFF — FEATURE BRANCH PENDING
+Status: CLOSED — MERGED + POST-MERGE CI GREEN
+
+## Closure evidence
+
+- PR #11 merged into `foundation/drowk-crm-00`.
+- Feature head: `504ae86102fa81f82d04cfe3a83087df0ea59189`.
+- Merge commit: `b71205d8ee79b8ea2d1ce22cabf31004ad3ac4eb`.
+- Exact-head CI `36432687225`: SUCCESS.
+- Post-merge push CI `36433066848`: SUCCESS.
+- Foundation/PR validation CI `36433073983`: SUCCESS.
+- Deep review: NO BLOCKING FINDING after deterministic single-successor correction.
+- Migrations `0008_commitment_memory.sql` and
+  `0009_commitment_single_successor.sql` are included in the green migration chain.
+- Relationship, BuyerRole, AIsa/model, live Gmail, outbound, Work persistence and
+  deployment remained outside the package.
+
+Non-blocking clarification carried forward:
+- `commitmentKey` identifies one accepted logical version/claim; continuity across
+  accepted corrections is represented by `supersedesId`. Future consumers must not
+  reinterpret the key as the whole supersession chain.
 
 ## Why this work package exists
 

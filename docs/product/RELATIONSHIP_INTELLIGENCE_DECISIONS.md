@@ -159,3 +159,20 @@ DCRM-04D is therefore selected as Commitment Memory Foundation.
 Relationship remains required after Commitment and must stay attributable,
 explainable and free of a universal trust score. Buyer Role remains aligned with
 DCRM-07 commercial authority/procurement scope.
+
+
+## Post-DCRM-04D executable consequence — 2026-09-28
+
+DCRM-04D is closed with post-merge CI green and now provides attributable
+Commitment memory distinct from Activity, Task and Work.
+
+Relationship is the next missing canonical memory object, but accepted interaction
+history must first be safe to consume as durable relationship input.
+
+DCRM-04E therefore closes two gates already recorded at DCRM-04C closure:
+idempotent namespaced source Conversation identity and append-only
+ActivityParticipant correction/retraction with deterministic current projection.
+
+This avoids pushing duplicate-conversation reconciliation or identity-correction
+logic into Relationship itself. Relationship remains subsequent and must still avoid
+a universal trust score. Buyer Role remains aligned with DCRM-07.

@@ -18,6 +18,7 @@ This index routes humans and agents to the current repository-owned context.
 - [Relationship-memory executable gap — 2026-09-28](architecture/RELATIONSHIP_MEMORY_EXECUTABLE_GAP_2026-09-28.md) — post-DCRM-04A inspection of what the executable core has versus the canonical Person/Identity/Employment/Relationship/BuyerRole/Commitment model.
 - [Post-DCRM-04B interaction gap — 2026-09-28](architecture/POST_DCRM04B_INTERACTION_GAP_2026-09-28.md) — executable checkpoint showing that canonical Conversation/Activity/Participant must precede richer Relationship/communication-derived Commitment state.
 - [Post-DCRM-04C commitment gap — 2026-09-28](architecture/POST_DCRM04C_COMMITMENT_GAP_2026-09-28.md) — executable checkpoint selecting bilateral Commitment memory before richer Relationship state.
+- [Post-DCRM-04D interaction continuity gap — 2026-09-28](architecture/POST_DCRM04D_INTERACTION_CONTINUITY_GAP_2026-09-28.md) — checkpoint closing source Conversation idempotency and participant-correction prerequisites before Relationship.
 
 - [System Architecture](architecture/SYSTEM_ARCHITECTURE.md) — canonical product layers and runtime direction.
 - [Canonical Data Model](architecture/CANONICAL_DATA_MODEL.md) — draft domain/evidence/control objects.
@@ -47,7 +48,8 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-04A Work Engine Contract Parity](work-packages/DCRM-04A-work-engine-contract-parity.md) — completed/merged with exact-head and post-merge CI green.
 - [DCRM-04B Durable Human Continuity Foundation](work-packages/DCRM-04B-durable-human-continuity-foundation.md) — completed/merged with post-merge CI green.
 - [DCRM-04C Accepted Interaction Foundation](work-packages/DCRM-04C-accepted-interaction-foundation.md) — completed/merged with post-merge CI green.
-- [DCRM-04D Commitment Memory Foundation](work-packages/DCRM-04D-commitment-memory-foundation.md) — next selected gate for attributable requests/promises/agreed next steps distinct from Task/Work.
+- [DCRM-04D Commitment Memory Foundation](work-packages/DCRM-04D-commitment-memory-foundation.md) — completed/merged with post-merge CI green.
+- [DCRM-04E Interaction Continuity Hardening](work-packages/DCRM-04E-interaction-continuity-hardening.md) — next selected gate for source Conversation idempotency and append-only participant correction before Relationship.
 
 ## Migration
 

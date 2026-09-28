@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A/B/C GREEN — DCRM-04D NEXT
+Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A/B/C/D GREEN — DCRM-04E NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -201,23 +201,47 @@ Commitment must remain distinct from Activity, Task and WorkItem.
 See:
 `docs/architecture/POST_DCRM04C_COMMITMENT_GAP_2026-09-28.md`.
 
-### Next gate — DCRM-04D Commitment Memory Foundation
+### Completed — DCRM-04D Commitment Memory Foundation
 
-`docs/work-packages/DCRM-04D-commitment-memory-foundation.md`
+- [DONE] PR #11 merged into `foundation/drowk-crm-00`;
+- [DONE] feature head `504ae86102fa81f82d04cfe3a83087df0ea59189`;
+- [DONE] merge commit `b71205d8ee79b8ea2d1ce22cabf31004ad3ac4eb`;
+- [DONE] exact-head CI `36432687225` green;
+- [DONE] post-merge push CI `36433066848` green;
+- [DONE] foundation/PR validation CI `36433073983` green;
+- [DONE] Commitment remains distinct from Activity/Task/Work;
+- [DONE] Activity/Evidence/Policy authority, counterparty participant authority,
+  calendar-date semantics and immutable supersession history;
+- [DONE] single-successor correction in migration 0009;
+- [CLOSED] Relationship/BuyerRole/model/live Gmail/outbound/deploy remained outside the package.
+
+### Post-DCRM-04D checkpoint
+
+Relationship is the next missing canonical memory object, but DCRM-04C closure
+already required two interaction continuity gates before Relationship consumes the
+history: idempotent source Conversation identity and participant correction history.
+
+See:
+`docs/architecture/POST_DCRM04D_INTERACTION_CONTINUITY_GAP_2026-09-28.md`.
+
+### Next gate — DCRM-04E Interaction Continuity Hardening
+
+`docs/work-packages/DCRM-04E-interaction-continuity-hardening.md`
 
 Operator/product outcome:
-- preserve attributable requests/promises/agreed next steps and who owes the next
-  move without converting internal Work completion into external fulfillment.
+- prevent duplicate source Conversation containers and preserve attributable,
+  correctable participant history before Relationship depends on it.
 
 Required proof:
-- accepted Activity/Evidence/Policy lineage;
-- safe optional counterparty Person linkage through ActivityParticipant authority;
-- date-only and unknown temporal semantics;
-- deterministic replay/conflict and append/supersede history;
-- Commitment != Task != WorkItem;
+- namespaced/channel-scoped source Conversation claim is idempotent;
+- conflicting source Conversation context fails closed;
+- manual/source-less Conversation remains supported;
+- participant correction/retraction is append-only and single-successor;
+- current participant projection is deterministic;
+- Person correction still requires canonical Identity authority;
 - no Relationship/BuyerRole/model/live Gmail/outbound expansion.
 
-Do not execute DCRM-04D from foundation. It requires a dedicated feature branch and
+Do not execute DCRM-04E from foundation. It requires a dedicated feature branch and
 explicit owner/ChatGPT handoff.
 
 ### Foundation release gate
@@ -241,9 +265,10 @@ Current writer state:
 - DCRM-03A and DCRM-04A feature implementations are closed and merged;
 - DCRM-04B is closed and merged;
 - DCRM-04C is closed and merged;
-- DCRM-04D is selected as the next implementation WP but no Codex writer is active yet;
-- ChatGPT may update repo-owned planning/canonical docs before DCRM-04D handoff;
-- DCRM-04D requires an explicit owner/ChatGPT handoff and a dedicated feature branch;
+- DCRM-04D is closed and merged;
+- DCRM-04E is selected as the next implementation WP but no Codex writer is active yet;
+- ChatGPT may update repo-owned planning/canonical docs before DCRM-04E handoff;
+- DCRM-04E requires an explicit owner/ChatGPT handoff and a dedicated feature branch;
 - once Codex starts that future branch, Codex is the sole writer on its implementation surfaces;
 - DROWK CRM remains the canonical implementation surface;
 - PWM local files remain preservation/regression reference only unless a new
