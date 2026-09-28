@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A/B/C/D/E GREEN — DCRM-04F NEXT
+Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A/B/C/D/E/F GREEN — DCRM-05A NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -245,24 +245,46 @@ next missing canonical relationship-memory object.
 See:
 `docs/architecture/POST_DCRM04E_RELATIONSHIP_GAP_2026-09-28.md`.
 
-### Next gate — DCRM-04F Relationship Memory Foundation
+### Completed — DCRM-04F Relationship Memory Foundation
 
-`docs/work-packages/DCRM-04F-relationship-memory-foundation.md`
+- [DONE] PR #13 merged into `foundation/drowk-crm-00`;
+- [DONE] feature head `ee9e76b8418f1e2ebdf309d436451fcaeda8b029`;
+- [DONE] merge commit `a9690e8ff8ff898b2769eac378dde44838794bc5`;
+- [DONE] exact-head CI `36454614415` green;
+- [DONE] post-merge push CI `36461840856` green;
+- [DONE] foundation/PR validation CI `36461846945` green;
+- [DONE] durable tenant-to-Person Relationship root;
+- [DONE] ACTIVITY / RECIPROCAL / MEANINGFUL attributable interaction memory;
+- [DONE] independent known-time clocks and current participant authority;
+- [CLOSED] BuyerRole/score/model/live provider/outbound/deploy remained outside the package.
+
+### Post-DCRM-04F checkpoint
+
+The relationship-memory foundation series is complete. The roadmap now returns to
+DCRM-05 AIsa Capability Lab.
+
+See:
+`docs/architecture/POST_DCRM04F_CAPABILITY_LAB_GAP_2026-09-28.md`.
+
+### Next gate — DCRM-05A Capability Lab Harness
+
+`docs/work-packages/DCRM-05A-capability-lab-harness.md`
 
 Operator/product outcome:
-- preserve a durable tenant-to-Person relationship and distinguish accepted activity,
-  explicit reciprocity and meaningful interaction without an opaque score.
+- make provider-neutral ResearchRun/ProviderRun evaluation executable and auditable
+  before any live provider credentials or network calls.
 
 Required proof:
-- one deterministic tenant + Person Relationship;
-- current participant authority for new Activity attribution;
-- historical accepted assertions survive later participant correction;
-- reciprocal/meaningful assertions require exact policy/evidence authority;
-- unknown event time stays unknown;
-- outbound does not imply reciprocity;
-- no BuyerRole/trust/health/readiness/model/live Gmail/outbound expansion.
+- synthetic READ-only adapter/harness;
+- deterministic request/response fingerprints;
+- durable ResearchRun/ProviderRun persistence;
+- exact result-state and cost-known semantics;
+- budget/tool-call/stop-condition enforcement;
+- no LIVE_VALIDATED promotion from synthetic fixtures;
+- no universal provider score;
+- no canonical CRM mutation or live provider authority.
 
-Do not execute DCRM-04F from foundation. It requires a dedicated feature branch and
+Do not execute DCRM-05A from foundation. It requires a dedicated feature branch and
 explicit owner/ChatGPT handoff.
 
 ### Foundation release gate
@@ -288,9 +310,10 @@ Current writer state:
 - DCRM-04C is closed and merged;
 - DCRM-04D is closed and merged;
 - DCRM-04E is closed and merged;
-- DCRM-04F is selected as the next implementation WP but no Codex writer is active yet;
-- ChatGPT may update repo-owned planning/canonical docs before DCRM-04F handoff;
-- DCRM-04F requires an explicit owner/ChatGPT handoff and a dedicated feature branch;
+- DCRM-04F is closed and merged;
+- DCRM-05A is selected as the next implementation WP but no Codex writer is active yet;
+- ChatGPT may update repo-owned planning/canonical docs before DCRM-05A handoff;
+- DCRM-05A requires an explicit owner/ChatGPT handoff and a dedicated feature branch;
 - once Codex starts that future branch, Codex is the sole writer on its implementation surfaces;
 - DROWK CRM remains the canonical implementation surface;
 - PWM local files remain preservation/regression reference only unless a new

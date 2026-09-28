@@ -156,3 +156,18 @@ It may become:
 - evidence gap closure.
 
 It never silently becomes Account/Contact/Facility truth.
+
+
+## Post-DCRM-04F executable consequence — 2026-09-28
+
+The core CRM relationship-memory foundation is now executable through Relationship.
+
+DCRM-05 begins with a synthetic provider-neutral harness rather than live credentials.
+DCRM-05A must make ResearchRun/ProviderRun persistence, fingerprints, result states,
+cost-known semantics and bounded stopping behavior executable.
+
+Synthetic fixtures validate the DROWK lab, not the external provider. They must never
+be labeled `LIVE_VALIDATED_CAPABILITY`.
+
+Selected-provider live validation remains a later explicit DCRM-05 gate after rights,
+credentials, security and cost boundaries are approved.

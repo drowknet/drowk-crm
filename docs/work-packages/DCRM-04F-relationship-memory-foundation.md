@@ -1,6 +1,19 @@
 # DCRM-04F — Relationship Memory Foundation
 
-Status: READY FOR HANDOFF — FEATURE BRANCH PENDING
+Status: CLOSED — MERGED + POST-MERGE CI GREEN
+
+## Closure evidence
+
+- PR #13 merged into `foundation/drowk-crm-00`.
+- Feature head: `ee9e76b8418f1e2ebdf309d436451fcaeda8b029`.
+- Merge commit: `a9690e8ff8ff898b2769eac378dde44838794bc5`.
+- Exact-head CI `36454614415`: SUCCESS.
+- Post-merge push CI `36461840856`: SUCCESS.
+- Foundation/PR validation CI `36461846945`: SUCCESS.
+- Deep review: NO BLOCKING FINDING.
+- Migration `0012_relationship_memory.sql` is included in the green migration chain.
+- BuyerRole, trust/health/readiness/permission scoring, live Gmail, AIsa/model,
+  outbound and deployment remained outside the package.
 
 ## Why this work package exists
 

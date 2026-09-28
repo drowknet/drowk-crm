@@ -80,7 +80,7 @@ Selected relationship-memory foundation slices:
 - **DCRM-04E — Interaction Continuity Hardening**: idempotent source Conversation claim plus
   append-only participant correction/retraction before Relationship consumes interaction history. CLOSED/GREEN.
 - **DCRM-04F — Relationship Memory Foundation**: durable tenant-to-Person Relationship plus
-  attributable Activity/reciprocal/meaningful interaction assertions and independent clocks.
+  attributable Activity/reciprocal/meaningful interaction assertions and independent clocks. CLOSED/GREEN.
 - Buyer Role remains aligned with DCRM-07.
 
 The post-DCRM-04B checkpoint found Conversation/Activity/Participant missing from
@@ -94,6 +94,10 @@ recorded at DCRM-04C closure. DCRM-04F can now add Relationship without compensa
 for fragmented Conversation identity or stale participant links.
 
 ## DCRM-05 — AIsa Capability Lab
+
+Selected first slice:
+- **DCRM-05A — Capability Lab Harness**: provider-neutral synthetic READ-only ResearchRun/ProviderRun harness, deterministic fingerprints, budgets, cost/result semantics and evaluation facts before live provider validation.
+
 Read-only evaluation of:
 - Apollo
 - LinkedIn
