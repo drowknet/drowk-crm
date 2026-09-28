@@ -62,6 +62,7 @@ This index routes humans and agents to the current repository-owned context.
 ## Current research
 
 - [Auth / Session Provider Revalidation — 2026-09-27](research/AUTH_SESSION_REVALIDATION_2026-09-27.md) — current official-source comparison and DCRM-02B alpha decision input.
+- [External Repository Candidates — 2026-09-28](research/EXTERNAL_REPOSITORY_CANDIDATES_2026-09-28.md) — disposition of 11 external repositories as capability candidates, engineering/design references or deferred options; explicitly does not broaden DCRM-04A.
 
 ## Cross-repository harvest
 
