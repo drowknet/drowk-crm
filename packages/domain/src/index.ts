@@ -43,3 +43,4 @@ export function actionAttemptRequiresReconciliation(
 export * from "./work.js";
 export * from "./human-continuity.js";
 export * from "./interaction.js";
+export * from "./commitment.js";

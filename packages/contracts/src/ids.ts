@@ -15,6 +15,7 @@ export type EmploymentId = Brand<string, "EmploymentId">;
 export type ConversationId = Brand<string, "ConversationId">;
 export type ActivityId = Brand<string, "ActivityId">;
 export type ActivityParticipantId = Brand<string, "ActivityParticipantId">;
+export type CommitmentId = Brand<string, "CommitmentId">;
 export type ObservationId = Brand<string, "ObservationId">;
 export type EvidenceId = Brand<string, "EvidenceId">;
 export type RunId = Brand<string, "RunId">;

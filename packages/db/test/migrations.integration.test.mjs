@@ -26,6 +26,7 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
     ["0005_human_continuity.sql", "pending"],
     ["0006_accepted_interactions.sql", "pending"],
     ["0007_participant_identity_authority.sql", "pending"],
+    ["0008_commitment_memory.sql", "pending"],
   ]);
   assert.deepEqual((await pool.query(
     "SELECT to_regclass('public.drowk_schema_migrations') AS ledger, to_regclass('public.tenants') AS tenants",
@@ -41,7 +42,7 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
       checksum: createHash("sha256").update(await readFile(join(defaultMigrationsDirectory, file.filename))).digest("hex"),
     });
   }
-  assert.equal(rows.length, 7);
+  assert.equal(rows.length, 8);
   assert.deepEqual((await pool.query(`
     SELECT data_type, is_nullable FROM information_schema.columns
     WHERE table_schema = 'public' AND table_name = 'work_items' AND column_name = 'due_date'
@@ -71,6 +72,7 @@ pgTest("0006 preserves legacy Gmail mailbox identity across namespace backfill a
   await cp(defaultMigrationsDirectory, path, { recursive: true });
   await rm(join(path, "0006_accepted_interactions.sql"));
   await rm(join(path, "0007_participant_identity_authority.sql"));
+  await rm(join(path, "0008_commitment_memory.sql"));
   await applyMigrations(pool, path);
   const tenantId = randomUUID();
   const observationId = randomUUID();
@@ -88,6 +90,7 @@ pgTest("0006 preserves legacy Gmail mailbox identity across namespace backfill a
     JSON.stringify(oldMetadata)]);
   assert.deepEqual(await applyMigrations(pool), { applied: [
     "0006_accepted_interactions.sql", "0007_participant_identity_authority.sql",
+    "0008_commitment_memory.sql",
   ] });
   assert.equal((await pool.query(`SELECT source_namespace FROM source_observations WHERE id=$1`,
     [observationId])).rows[0].source_namespace, namespace);

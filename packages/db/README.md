@@ -125,6 +125,19 @@ Rules:
 - migrations must be reviewable and testable;
 - tenant isolation requires both application authorization and database defense.
 
+## Commitment memory
+
+Migration `0008_commitment_memory.sql` stores Commitment separately from Activity
+and Work. Promotion requires an accepted Activity, Evidence already linked to that
+Activity, and an exact `ACCEPT_COMMITMENT` / `ALLOW` / complete PolicyDecision.
+Optional counterparty Person is backed by a participant of that Activity with a
+canonical Identity. `commitment_key` is unique per tenant; corrections use a new
+key and `supersedes_id`, retaining the prior record. `due_date` is a PostgreSQL
+calendar date and remains null when unknown. Repository replay returns the same
+record for an identical payload and reports conflicts without rewriting history.
+The accepted Evidence count is fixed at promotion, so later SQL inserts cannot
+change the returned Evidence set without a new Commitment record.
+
 ## Identity and membership
 
 Migration `0003_identity_membership.sql` adds global `users` and `auth_identities`

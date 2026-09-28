@@ -7,6 +7,7 @@ export * from "./evidence.js";
 export * from "./identity.js";
 export * from "./human-continuity.js";
 export * from "./interaction.js";
+export * from "./commitment.js";
 export * from "./research.js";
 export * from "./policy.js";
 export * from "./work.js";

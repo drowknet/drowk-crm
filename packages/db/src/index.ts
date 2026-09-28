@@ -18,6 +18,8 @@ export { PostgresHumanContinuityRepository } from "./human-continuity.js";
 export type { ContactLinkResult } from "./human-continuity.js";
 export { PostgresInteractionRepository, InteractionPromotionError } from "./interaction.js";
 export type { AcceptedActivityResult } from "./interaction.js";
+export { PostgresCommitmentRepository, CommitmentPromotionError } from "./commitment.js";
+export type { AcceptedCommitmentResult } from "./commitment.js";
 
 type Connection = Pool | PoolClient;
 
