@@ -39,3 +39,5 @@ export function actionAttemptRequiresReconciliation(
 ): boolean {
   return attempt.state === "UNKNOWN" || attempt.state === "DISPATCHING";
 }
+
+export * from "./work.js";

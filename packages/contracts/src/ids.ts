@@ -18,6 +18,7 @@ export type WorkItemId = Brand<string, "WorkItemId">;
 export type ActionAttemptId = Brand<string, "ActionAttemptId">;
 export type OutcomeId = Brand<string, "OutcomeId">;
 export type IsoDateTime = Brand<string, "IsoDateTime">;
+export type IsoDate = Brand<string, "IsoDate">;
 export type Sha256Digest = Brand<string, "Sha256Digest">;
 export type CapabilityId = Brand<string, "CapabilityId">;
 
