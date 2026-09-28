@@ -1,5 +1,6 @@
 import type {
   EntityId,
+  IsoDate,
   IsoDateTime,
   PolicyVersion,
   RunScoped,
@@ -58,6 +59,8 @@ export interface WorkItem extends TenantScoped, RunScoped {
   ownerRef: string | null;
   priority: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW";
   dueAt: IsoDateTime | null;
+  /** Operational calendar date; never synthesize a clock time to populate dueAt. */
+  dueDate: IsoDate | null;
   waitingOn: "OWNER" | "CUSTOMER" | "THIRD_PARTY" | "DATE" | "NONE";
   state: WorkState;
   attentionClass: AttentionClass;

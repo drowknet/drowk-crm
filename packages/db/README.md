@@ -67,6 +67,11 @@ There is no rollback command. Recovery uses a corrected unapplied migration or a
 new forward migration after inspecting the failure. If a commit response is lost,
 inspect the ledger before retrying; it remains the durable record of application.
 
+Migration `0004_work_due_date.sql` adds a nullable calendar `due_date` to
+`work_items`. It preserves existing rows and keeps `due_at` for obligations with
+an actual time. DCRM-04A compilation is pure; this migration does not introduce a
+Work writer or change the existing `(tenant_id, work_key)` uniqueness rule.
+
 The additional integration sensors create temporary databases under the guarded
 disposable test server and remove only those generated databases. The test user
 therefore needs database creation rights. They prove exact ledger checksums,
