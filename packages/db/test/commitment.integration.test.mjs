@@ -118,9 +118,39 @@ pgTest("DCRM-04D commitment promotion, history and authority goldens", async t =
     assert.equal(promoted.status, "inserted");
     assert.equal(promoted.commitment.dueDate, "2026-10-31");
     assert.equal(promoted.commitment.state, "CONFIRMED");
+    const successorReplay = await repo.promoteCommitment(tenantA, {
+      ...second, id: randomUUID(), recordedAt: "2026-10-01T00:00:00.000Z",
+    });
+    assert.equal(successorReplay.status, "already_exists");
+    assert.equal(successorReplay.commitment.id, second.id);
+    const sibling = commitment(source.activity.id, [source.evidenceId], decision,
+      { supersedesId: first.id, state: "DECLINED" });
+    await assert.rejects(repo.promoteCommitment(tenantA, sibling),
+      { code: "COMMITMENT_ID_CONFLICT" });
+    assert.equal(await repo.getCommitment(tenantA, sibling.id), null);
+    await assert.rejects(pool.query(`INSERT INTO commitments
+      (id,tenant_id,commitment_key,kind,state,statement,source_activity_id,
+       source_observation_id,account_id,facility_id,counterparty_person_id,
+       counterparty_participant_id,counterparty_identity_id,owed_by,due_date,
+       condition_text,recorded_at,promotion_policy_decision_id,evidence_count,
+       accepted_payload_digest,supersedes_id)
+      SELECT $1,tenant_id,$2,kind,state,statement,source_activity_id,
+       source_observation_id,account_id,facility_id,counterparty_person_id,
+       counterparty_participant_id,counterparty_identity_id,owed_by,due_date,
+       condition_text,recorded_at,promotion_policy_decision_id,evidence_count,
+       accepted_payload_digest,supersedes_id
+      FROM commitments WHERE tenant_id=$3 AND id=$4`,
+    [randomUUID(), `synthetic:${randomUUID()}`, tenantA, second.id]), { code: "23505" });
+    const otherTenantSource = await acceptedActivity(tenantB);
+    const otherTenantDecision = await policy(tenantB, otherTenantSource.activity.id,
+      "ACCEPT_COMMITMENT");
+    const crossTenantSuccessor = commitment(otherTenantSource.activity.id,
+      [otherTenantSource.evidenceId], otherTenantDecision, { supersedesId: first.id });
+    await assert.rejects(repo.promoteCommitment(tenantB, crossTenantSuccessor), { code: "23503" });
+    assert.equal(await repo.getCommitment(tenantB, crossTenantSuccessor.id), null);
     assert.deepEqual(await repo.listForActivity(tenantA, source.activity.id),
       [accepted.commitment, promoted.commitment]);
-    assert.equal((await repo.getCommitment(tenantA, first.id)).state, "SUGGESTED");
+    assert.deepEqual(await repo.getCommitment(tenantA, first.id), accepted.commitment);
     const third = commitment(source.activity.id, [source.evidenceId], decision,
       { kind: "AGREED_NEXT_STEP", owedBy: "MUTUAL" });
     assert.equal((await repo.promoteCommitment(tenantA, third)).commitment.kind, "AGREED_NEXT_STEP");
