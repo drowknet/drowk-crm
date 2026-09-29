@@ -1,10 +1,10 @@
 # DCRM-05C — AIsa/DataForSEO Business Listings Live READ Validation
 
-Status: LIVE VALIDATION PASSED — OWNER ACCEPTED — LIVE_VALIDATED_CAPABILITY — MERGE PENDING
+Status: CLOSED — MERGED TO MAIN — POST-MERGE CI GREEN — LIVE_VALIDATED_CAPABILITY
 
 The owner authorized one bounded READ request, accepted its technical PASS on
 2026-09-29, and authorized docs/canon promotion of only the exact selected cell.
-The branch remains `feat/dcrm-05c-aisa-dataforseo-live-validation`.
+PR #15 merged to `main` as `93cca53023c75ee52d86a3df1d7cdb4749c019eb`; post-merge CI `36535730059` is green.
 
 ## Accepted live evidence — 2026-09-29
 
@@ -25,8 +25,8 @@ The branch remains `feat/dcrm-05c-aisa-dataforseo-live-validation`.
 
 Only this exact workload/tuple is promoted. This does not validate other AIsa tools,
 providers or capability cells, or establish universal superiority for AIsa or
-DataForSEO. No new live request is authorized. Merge requires a separate explicit
-owner gate; post-merge CI remains pending. Deployment and DCRM-06 remain closed.
+DataForSEO. No new live request is authorized. PR #15 is merged and post-merge CI is green.
+Deployment remains closed, and DCRM-06 still requires a separate owner-authorized work package.
 
 ## Purpose
 
@@ -77,8 +77,8 @@ The separately authorized implementation scope was:
 10. capture safe provider evidence needed to determine whether this capability cell
     may become `LIVE_VALIDATED_CAPABILITY`.
 
-Implementation and the single live request are complete on the feature branch.
-The owner accepted the live evidence; merge and post-merge CI remain pending.
+Implementation and the single live request are complete and merged to `main`.
+The owner accepted the live evidence; post-merge CI `36535730059` completed successfully.
 
 ## Repo-owned one-shot and reconciliation procedure
 
@@ -175,16 +175,15 @@ PASS and formal owner acceptance. Promotion criteria for the accepted run were:
 
 ## Completion contract
 
-Live validation and exact-cell promotion are accepted. Full work-package closure
-still requires the pending owner merge gate and successful post-merge CI.
-The completion contract remains:
-- implementation is reviewed on a dedicated branch;
-- exact-head GitHub CI is green;
-- owner explicitly authorizes the bounded live execution;
-- exactly the authorized live request is executed;
-- ProviderRun/ResearchRun evidence is reviewed;
+DCRM-05C is closed. The completion contract is satisfied:
+- implementation was reviewed on a dedicated branch;
+- exact-head GitHub CI was green;
+- owner explicitly authorized the bounded live execution;
+- exactly the authorized live request executed;
+- ProviderRun/ResearchRun evidence was reviewed;
 - no unauthorized side effect occurred;
-- owner explicitly authorizes merge;
-- post-merge CI is green.
+- owner explicitly authorized merge;
+- PR #15 merged to `main` as `93cca53023c75ee52d86a3df1d7cdb4749c019eb`;
+- post-merge CI `36535730059` is green.
 
-No deployment is included.
+No deployment was performed or authorized.
