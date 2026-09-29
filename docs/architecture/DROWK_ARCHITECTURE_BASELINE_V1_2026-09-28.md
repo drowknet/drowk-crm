@@ -1,6 +1,6 @@
 # DROWK Architecture Baseline v1 — 2026-09-28
 
-Status: OWNER-APPROVED ARCHITECTURE BASELINE / IMPLEMENTATION GATES REMAIN EXPLICIT
+Status: OWNER-APPROVED ARCHITECTURE BASELINE / RECONCILED AFTER DCRM-05C CLOSURE / IMPLEMENTATION GATES REMAIN EXPLICIT
 
 This document freezes the current architecture baseline so future implementation does not
 re-litigate settled boundaries merely because a new framework, model, cloud service or agent
@@ -303,11 +303,14 @@ rather than assumed closed.
 
 ## 7. Execution Foundation — next architecture phase
 
-DCRM-05C remains the active engineering stream until its pre-live hardening and bounded
-validation gate are closed.
+DCRM-05C is closed and released to `main` with post-merge CI green. Its exact
+`AIsa REST -> DataForSEO Business Listings Search Live -> FACILITY_LOCATION_DISCOVERY`
+cell is `LIVE_VALIDATED_CAPABILITY`; that validation does not generalize to other AIsa
+capabilities or providers.
 
-After DCRM-05C closure, the next architecture phase should prioritize Execution Foundation
-before broad product expansion.
+The next architecture phase should prioritize Execution Foundation before broad product
+expansion. Execution Foundation is the next approved architecture direction, but each
+implementation package still requires its own explicit owner gate.
 
 Execution Foundation should prove, in bounded slices:
 
