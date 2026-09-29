@@ -71,11 +71,12 @@ DCRM-05B provider selection is closed.
 Selected path:
 `AIsa REST -> DataForSEO Business Listings Search Live -> FACILITY_LOCATION_DISCOVERY`.
 
-The next possible work package is:
+DCRM-05C live validation was executed exactly once and accepted by the owner:
 `docs/work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md`.
 
-DCRM-05C is **not yet authorized**.
+The exact cell is `LIVE_VALIDATED_CAPABILITY`; its full tuple and safe audit are in
+[the accepted evidence](../research/DCRM-05C_LIVE_VALIDATION_EVIDENCE_2026-09-29.md). No other AIsa cell is promoted.
 
-Codex must not create a branch, add credentials, make a live provider request,
-enable Gmail live, outbound, deployment or begin DCRM-06 until an explicit
-owner/ChatGPT handoff authorizes DCRM-05C.
+No new live call or credential use is authorized. Merge still requires a separate
+owner gate; post-merge CI remains pending. Deployment, Gmail live, outbound,
+reconciliation and DCRM-06 remain closed. `Provider output != CRM truth`.
