@@ -1,0 +1,22 @@
+{
+  "name": "@drowk/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test test/*.test.mjs",
+    "start": "node dist/main.js"
+  },
+  "dependencies": {
+    "@drowk/contracts": "workspace:*",
+    "@drowk/domain": "workspace:*",
+    "@drowk/db": "workspace:*",
+    "pg": "^8.16.0",
+    "jose": "6.1.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.15.0"
+  }
+}

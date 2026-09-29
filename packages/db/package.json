@@ -1,0 +1,29 @@
+{
+  "name": "@drowk/db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "PostgreSQL schema and persistence boundary for DROWK CRM",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "pnpm --filter @drowk/db... build && node --test test/*.test.mjs",
+    "migrate": "node dist/migrate-cli.js"
+  },
+  "dependencies": {
+    "@drowk/contracts": "workspace:*",
+    "@drowk/domain": "workspace:*",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.15.0"
+  }
+}

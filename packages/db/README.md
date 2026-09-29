@@ -1,0 +1,158 @@
+# Database
+
+PostgreSQL persistence boundary.
+
+Expected responsibilities:
+- forward-only migrations;
+- schema ownership;
+- repositories/query adapters;
+- transaction helpers;
+- tenant isolation helpers;
+- idempotency/outbox primitives;
+- append/supersede history;
+- integration-test fixtures.
+
+## First persistence slice
+
+`PostgresRepositories` accepts a `pg` Pool (or a transaction client). Every
+operation takes `tenantId` explicitly. The caller must authorize that tenant
+scope before calling a repository method. Missing tenant-scoped reads return
+`null`; PostgreSQL rejects cross-tenant parent links. SourceObservation append
+returns `inserted`, `already_exists` for the same source identity/revision and
+fingerprint, `fingerprint_conflict` for changed source state at the same revision,
+or `id_conflict` for an unrelated UUID collision. Other duplicate inserts raise
+the PostgreSQL uniqueness error without overwriting the stored row.
+
+`withTransaction(pool, async (repositories) => ...)` uses one client and rolls
+back on failure. Keep external provider effects outside the callback.
+
+For the integration sensor, use the migration runner below on disposable PostgreSQL 16, set
+`DROWK_TEST_DATABASE_URL` to a database ending in `_test` or `_ci`, set
+`DROWK_TEST_DISPOSABLE=1`, and run `pnpm --filter @drowk/db test`. The sensor
+inserts synthetic rows and requires a disposable database. Without the URL,
+the integration test is skipped during ordinary workspace verification.
+
+## Migration runner
+
+Build the workspace with `pnpm build`, then set `APP_ENV` and `DATABASE_URL`
+for the intended database. Available commands:
+
+```text
+pnpm --filter @drowk/db migrate plan
+pnpm --filter @drowk/db migrate status
+pnpm --filter @drowk/db migrate apply
+```
+
+`plan` and `status` are read-only and return the same JSON report, including
+`current` and each migration's applied/pending state. Pending migrations do not
+make those commands exit unsuccessfully. Invalid history, checksum drift, lock
+contention, and database failures exit nonzero. `apply` reports applied filenames;
+repeating it on a current database returns an empty list.
+
+Files use `NNNN_name.sql` names with unique four-digit versions and execute in
+lexical order. The global `public.drowk_schema_migrations` ledger records filename,
+version, raw file SHA-256, and application time. Package the SQL directory alongside
+`dist`; deploy identical file bytes. Git attributes keep SQL checkouts at LF.
+Missing files, changed checksums, and history that is not a prefix of the files
+are rejected. Existing manually migrated databases are not silently adopted.
+
+One checked-out PostgreSQL session holds an advisory lock for the entire apply.
+Read-only status uses a shared lock and refuses to report current during an apply.
+Each migration and its ledger entry commit atomically; earlier successful migrations
+remain recorded if a later migration fails. The existing `0002` transaction wrapper
+is removed only in memory. Other transaction control is rejected so SQL cannot
+commit ahead of its ledger entry. No applied SQL file is rewritten.
+
+There is no rollback command. Recovery uses a corrected unapplied migration or a
+new forward migration after inspecting the failure. If a commit response is lost,
+inspect the ledger before retrying; it remains the durable record of application.
+
+Migration `0004_work_due_date.sql` adds a nullable calendar `due_date` to
+`work_items`. It preserves existing rows and keeps `due_at` for obligations with
+an actual time. DCRM-04A compilation is pure; this migration does not introduce a
+Work writer or change the existing `(tenant_id, work_key)` uniqueness rule.
+
+The additional integration sensors create temporary databases under the guarded
+disposable test server and remove only those generated databases. The test user
+therefore needs database creation rights. They prove exact ledger checksums,
+idempotence, lock contention, drift rejection, and rollback of failed wrapped DDL.
+
+Migration `0005_human_continuity.sql` adds tenant-scoped `persons`,
+`person_identities` and `employments`, plus nullable Contact link and decision
+attribution. Composite foreign keys require a `PERSON` / `MATCHED_SAFE` decision
+selecting the exact Person for canonical Identity and Contact promotion. Contacts
+cannot be relinked after their first accepted link. Identity values have a lookup
+index without a uniqueness constraint; shared or recycled values require their
+own safe decisions. Date columns preserve unknown boundaries as null.
+
+`PostgresHumanContinuityRepository` exposes tenant-scoped create/read/list
+operations and an atomic `linkContactToPerson` compare-and-set. It creates no
+People from Contacts or provider data. Callers authorize tenant scope separately.
+Stopping new repository calls leaves additive schema and history intact; a
+schema correction requires a later forward migration.
+
+Migration `0006_accepted_interactions.sql` adds tenant-scoped conversations,
+activities, evidence links and participants. The exact SourceObservation is
+mandatory. Evidence must belong to that observation; the PolicyDecision must
+name it as subject and have action `ACCEPT_INTERACTION`, `ALLOW` disposition and
+complete evidence. Composite FKs and a deferred evidence-presence constraint
+also guard direct SQL writes. Source namespace scopes native IDs; a second
+revision of an already accepted native source fails closed. Accepted interaction
+and Conversation context is immutable; a later correction needs a new
+attributable record and a forward migration if the schema must change.
+
+`PostgresInteractionRepository.promoteAcceptedActivity` inserts Activity,
+Evidence links and supplied participants in one transaction. Identical replay
+returns the original Activity; changed payload or source revision returns
+`source_conflict`. Participant refs do not create Person or Identity records.
+The caller must authorize tenant scope and supplied deterministic linkage.
+Migration `0007_participant_identity_authority.sql` closes the source participant
+linkage gate: a source-derived `person_id` requires an already accepted canonical
+`identity_id`. The existing tenant-scoped composite FK requires the Identity to
+belong to the exact Person. Unresolved source participants remain valid; source
+refs alone do not create or resolve Person/Identity.
+The Gmail candidate mapper adds a provider-neutral `sourceNamespace` to its
+existing source metadata using connector and mailbox refs. Migration `0006`
+stores that namespace separately from immutable source metadata. It backfills
+older Gmail rows from their recorded connector/mailbox refs and falls back to
+`source_system` for other legacy observations. The source-revision uniqueness
+index then uses the namespace. The connector still has no accepted CRM writer.
+
+Rules:
+- PostgreSQL is canonical storage infrastructure, not the domain layer;
+- provider-native IDs never become canonical identity by database convenience;
+- current projections must not destroy attributable history;
+- migrations must be reviewable and testable;
+- tenant isolation requires both application authorization and database defense.
+
+## Commitment memory
+
+Migration `0008_commitment_memory.sql` stores Commitment separately from Activity
+and Work. Promotion requires an accepted Activity, Evidence already linked to that
+Activity, and an exact `ACCEPT_COMMITMENT` / `ALLOW` / complete PolicyDecision.
+Optional counterparty Person is backed by a participant of that Activity with a
+canonical Identity. `commitment_key` is unique per tenant; corrections use a new
+key and `supersedes_id`, retaining the prior record. `due_date` is a PostgreSQL
+calendar date and remains null when unknown. Repository replay returns the same
+record for an identical payload and reports conflicts without rewriting history.
+The accepted Evidence count is fixed at promotion, so later SQL inserts cannot
+change the returned Evidence set without a new Commitment record.
+
+## Identity and membership
+
+Migration `0003_identity_membership.sql` adds global `users` and `auth_identities`
+plus tenant-scoped `tenant_memberships`. It creates no users or tenant data and
+does not modify earlier migrations. `PostgresIdentityRepository` accepts a pool
+or transaction client. Users receive application-generated user and actor UUIDs.
+The unique external identity key is `(issuer, subject)`; duplicate binds raise a
+uniqueness error without overwriting even when email metadata matches.
+
+Membership create/read/revoke/active resolution all require tenant + user. Creation
+and the first revocation retain actor, run, correlation and policy attribution.
+Repeated revocation preserves its first timestamp and audit; reactivation is not
+supported in this slice. Provisioning methods are internal persistence operations,
+not HTTP capabilities; callers must separately authorize any use.
+
+Rollback path: revert the application slice to disable the protected route and
+leave the additive tables and historical records intact. Applied migrations are
+never edited or reversed; any schema correction requires a new forward migration.

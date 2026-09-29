@@ -1,0 +1,270 @@
+{
+  "harvest_version": "2026-09-27.3",
+  "target_repository": "drowknet/drowk-crm",
+  "write_boundary": "ONLY_TARGET_REPOSITORY",
+  "sources": [
+    {
+      "repository": "drowknet/drowk-platform",
+      "visibility_at_harvest": "private",
+      "observed_main_head": "9e3ac79ad80598e6df1e5d56ef0e5a2937d4b1ea",
+      "role": "READ_ONLY_ENGINEERING_PRIOR_ART",
+      "selected_files": [
+        {
+          "path": "AGENTS.md",
+          "blob_sha": "781916cefe505155cfcb21ef24ef1c3cf6809e18"
+        },
+        {
+          "path": "docs/architecture/foundation-v0.1.md",
+          "blob_sha": "4455f8d22def398877e211a31f7a29add75b9758"
+        },
+        {
+          "path": "docs/architecture/external-data-governance.md",
+          "blob_sha": "9eb5e720debe1c4d25e3786a95d8e9ccb7278be1"
+        },
+        {
+          "path": "docs/architecture/market-authority-observation-boundary.md",
+          "blob_sha": "f60a0913e70503705144f88e93a8b93cb27042e9"
+        },
+        {
+          "path": "docs/architecture/external-pattern-harvest-agent-memory-growth.md",
+          "blob_sha": "c14be168e0374a3969a326edd822616573cefcf3"
+        },
+        {
+          "path": "docs/architecture/pwm-reality-baseline-data-contract-v0.1.md",
+          "blob_sha": "7d5131845a79033dcaaf16e9e53966b05190b07c"
+        },
+        {
+          "path": "docs/architecture/external-facility-intelligence-fabric.md",
+          "blob_sha": "bdb28e9a13a6c4d47a5cbeb844fd3be02843d534"
+        },
+        {
+          "path": "docs/adr/0001-canonical-postgres-domain-api.md",
+          "blob_sha": "65b687308e17f663812cf66bcb72dc8afdc0dcfb"
+        },
+        {
+          "path": "docs/adr/0002-deterministic-vs-ai-execution.md",
+          "blob_sha": "14c830942e13f589f1ad57198bbcad600c60f3db"
+        },
+        {
+          "path": "docs/adr/0003-agent-runtime-neutrality.md",
+          "blob_sha": "5cee03a9ecb2ce0bdba9f17117c77aa9777c378a"
+        },
+        {
+          "path": "docs/adr/0004-artifact-intake-gate.md",
+          "blob_sha": "4f4097da279b9abb2491170d48966d547e89f56e"
+        },
+        {
+          "path": "docs/adr/0006-identity-claims-trusted-evidence-boundary.md",
+          "blob_sha": "6c90226ee2102b9d250f8d94b4c44b2a41c50667"
+        },
+        {
+          "path": "docs/harness/README.md",
+          "blob_sha": "4a83acf4c861e76c184b1d9eb1450b7701ccf798"
+        },
+        {
+          "path": "docs/harness/controls.json",
+          "blob_sha": "949ec899573c6bc72f4e136d439edbd5b5996dfb"
+        },
+        {
+          "path": "docs/harness/market-authority-benchmark.md",
+          "blob_sha": "1442de443bf5fa3df020d4d9a574259814b31d9d"
+        },
+        {
+          "path": "packages/database/migrations/0001_canonical_core.sql",
+          "blob_sha": "ad99e2d3a6c9742bafc8b37bd033b59f9ae09e2d"
+        },
+        {
+          "path": "packages/events/event-envelope.schema.json",
+          "blob_sha": "4435b35feb3382dcd1b7319c042defecd6bac587"
+        },
+        {
+          "path": "packages/events/event-types.json",
+          "blob_sha": "a2a7f7ae5a4635e0ad81aa5aa8b69a8da5b4a7dd"
+        },
+        {
+          "path": "services/domain-api/pyproject.toml",
+          "blob_sha": "dc3ee24d780ca25e97dd926e571215523533121e"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "blob_sha": "019b6154e6fc413d7e588bc15bb312820d1e79cc"
+        },
+        {
+          "path": ".github/workflows/security.yml",
+          "blob_sha": "15abd8cd304f69f2c08f541b24504bde0d536c03"
+        },
+        {
+          "path": "SECURITY.md",
+          "blob_sha": "77c6c58406fb22c2822cc1eb980c25cb036bac5e"
+        },
+        {
+          "path": "docs/architecture/identity-claims-and-evidence.md",
+          "blob_sha": "e6319e6b4a9879b871f6f69a28c1d2318d29771a"
+        },
+        {
+          "path": "docs/architecture/entity-resolution-v0.1.md",
+          "blob_sha": "f12cf95f08f22c49a3bcc5a4ea140d0a30dcb6e7"
+        },
+        {
+          "path": "docs/architecture/signal-normalization-v0.1.md",
+          "blob_sha": "f5769594790c86a391401b24cd5c464541754e1f"
+        },
+        {
+          "path": "docs/architecture/anticipatory-intelligence-v0.1.md",
+          "blob_sha": "5eb78d5353ec5ace314b6a31588c7f5e719ea3dc"
+        },
+        {
+          "path": "docs/harness/applied-migrations.json",
+          "blob_sha": "31275d7f43e4871d0709148dad936b2b57db1d97"
+        },
+        {
+          "path": "packages/database/AGENTS.md",
+          "blob_sha": "41b85e91578d57242671e7d84f80750002f1e725"
+        },
+        {
+          "path": "packages/database/migrations/0003_assessment_intake_idempotency.sql",
+          "blob_sha": "441be6379872f3566e40426eeb4c56c06d181cc0"
+        },
+        {
+          "path": "packages/database/migrations/0004_identity_claims_and_evidence.sql",
+          "blob_sha": "774a60987ed39df769d5cca82ca354ae0ce6ffe0"
+        },
+        {
+          "path": "packages/database/migrations/0005_entity_match_decisions.sql",
+          "blob_sha": "5f7f1fe006fbd2a9aa69022d209ef95dd89d299e"
+        },
+        {
+          "path": "packages/database/migrations/0006_signal_normalization.sql",
+          "blob_sha": "8962da71a75dfd15076586f58bf4f3521c7dfee9"
+        },
+        {
+          "path": "packages/database/migrations/0007_anticipatory_intelligence.sql",
+          "blob_sha": "a2d9fd7017ba0121170a167fa41de1b9ad446320"
+        }
+      ],
+      "notable_commits": [
+        "04a47ba79e1efc09bab8ed5ddddb49df402fac88",
+        "31754d0fcf471aa012b8a7d579f1f00527c91612",
+        "410f42bc29405293b6b526c58745a6d59da9ac40",
+        "659caccf4fdbe002b86d1016f70aec16af39acff",
+        "70410b13f87b1a4b66c613767395eb0a854c391a",
+        "69b4be9d857a7e7438fc5e979147041ae7fee74c",
+        "6250d749d2ab182a19f618092e64aa99c7552efa",
+        "9e3ac79ad80598e6df1e5d56ef0e5a2937d4b1ea"
+      ],
+      "branch_snapshots": [
+        {
+          "branch": "wp-osci-01-stage0-offline",
+          "state_vs_main_at_harvest": {
+            "ahead_by": 13,
+            "behind_by": 0
+          },
+          "role": "UNMERGED_READ_ONLY_OPEN_SOURCE_BENCHMARK_REFERENCE",
+          "selected_files": [
+            {
+              "path": "docs/exec-plans/wp-osci-01-stage0-offline.md",
+              "blob_sha": "0cd311a823c9069678e9b2ca2c2aac6300f129a1"
+            },
+            {
+              "path": "docs/harness/wp-osci-01-stage0.md",
+              "blob_sha": "0ff65952834f3df56e943f73cb426baa60d9930e"
+            },
+            {
+              "path": "scripts/wp_osci_stage0.py",
+              "blob_sha": "9ed65ad139131fff054dec02745c9c472b7f580b"
+            },
+            {
+              "path": "scripts/wp_osci_stage0_dlt.py",
+              "blob_sha": "3c47600863c737ab31f199a21af501b3d43d2615"
+            },
+            {
+              "path": "tests/test_wp_osci_stage0.py",
+              "blob_sha": "419d673a82a6cde891c893e574eb94159ae96f32"
+            },
+            {
+              "path": "tests/test_wp_osci_stage0_dlt.py",
+              "blob_sha": "2259f7799d94f8645a016d0823c2bba5921f93c3"
+            }
+          ],
+          "measured_dispositions": {
+            "dlt_1_30_0": "PATTERN_ONLY",
+            "splink": "UNASSESSED_NOT_MEASURED_IN_HARVESTED_RESULT",
+            "libpostal": "UNASSESSED_NOT_MEASURED_IN_HARVESTED_RESULT",
+            "overture_maps": "NO_LIVE_READ_STAGE0",
+            "openaddresses": "NO_LIVE_READ_STAGE0"
+          }
+        }
+      ]
+    },
+    {
+      "repository": "drowknet/invoice-builder",
+      "visibility_at_harvest": "public",
+      "observed_main_head": "0821f43d7dd7f901486473ead92944ff0a71ad1c",
+      "role": "READ_ONLY_APPLICATION_PATTERN_REFERENCE",
+      "selected_files": [
+        {
+          "path": "README.md",
+          "blob_sha": "6826a0f36e52cb8d27c2ffb8700fa8c8a73e338e"
+        },
+        {
+          "path": "docker-compose.standalone.yml",
+          "blob_sha": "64d91d18171e7d89127274163510c9dbc10ac5ea"
+        },
+        {
+          "path": "scripts/nginx.conf.template",
+          "blob_sha": "60043179bb50759c7bdf6c23fb8ddcd20c6906ff"
+        },
+        {
+          "path": "src/backend/webserver/session.ts",
+          "blob_sha": "b269c90c2ed106e53a9a171c2b381dd15ba36303"
+        },
+        {
+          "path": "src/backend/webserver/database.ts",
+          "blob_sha": "d5e0594d05a311e15eef07be4e4717c400d1dc0d"
+        }
+      ],
+      "notable_commits": [
+        "5e6db94130c2a30d12a3770d7da69d652115664e",
+        "d4ad9e97e5bdb962d5b6c88b84b7365932001a0b",
+        "a56431142131ae111adcaf2538ddc42fef374783",
+        "0821f43d7dd7f901486473ead92944ff0a71ad1c"
+      ]
+    },
+    {
+      "repository": "drowknet/hds",
+      "visibility_at_harvest": "public",
+      "state_at_harvest": "empty_repository",
+      "role": "READ_ONLY_NO_CONTENT_TO_TRANSFER"
+    }
+  ],
+  "branch_audit": {
+    "drowk_platform": {
+      "relevant_ahead_branches": [
+        {
+          "branch": "wp-osci-01-stage0-offline",
+          "ahead_by": 13,
+          "behind_by": 0,
+          "harvested": true
+        }
+      ],
+      "non_product_ahead_branches": [
+        {
+          "branch": "dependabot/github_actions/actions/checkout-7",
+          "ahead_by": 1,
+          "reason": "dependency maintenance only"
+        },
+        {
+          "branch": "dependabot/github_actions/actions/setup-python-7",
+          "ahead_by": 1,
+          "reason": "dependency maintenance only"
+        }
+      ],
+      "other_inspected_branches": "behind main / no unique ahead content at harvest"
+    },
+    "invoice_builder": {
+      "branch": "feature/3",
+      "ahead_by": 11,
+      "relevance": "renderer/UI/RTK refactor; no unique CRM architecture harvested"
+    }
+  }
+}
