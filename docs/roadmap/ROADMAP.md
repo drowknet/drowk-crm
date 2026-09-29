@@ -98,9 +98,11 @@ for fragmented Conversation identity or stale participant links.
 Selected slices:
 - **DCRM-05A — Capability Lab Harness**: provider-neutral synthetic READ-only ResearchRun/ProviderRun harness, deterministic fingerprints, budgets, cost/result semantics and evaluation facts before live provider validation. CLOSED/GREEN.
 - **DCRM-05B — Provider Selection & Live Validation Readiness**: selected `AIsa REST -> DataForSEO Business Listings Search Live` for `FACILITY_LOCATION_DISCOVERY`; bounded READ-only envelope documented. CLOSED/SELECTED, NO LIVE CALL.
-- **DCRM-05C — AIsa/DataForSEO Business Listings Live READ Validation**: implement and run one owner-authorized bounded live call under the selected tuple. OWNER GATE NEXT.
+- **DCRM-05C — AIsa/DataForSEO Business Listings Live READ Validation**: one bounded owner-authorized call completed, exact cell promoted to `LIVE_VALIDATED_CAPABILITY`, merged to `main`, post-merge CI green. CLOSED/GREEN.
 
-The accumulated foundation through DCRM-05A passed its dedicated release review and was merged to `main`. The next DCRM-05 gate is provider/capability-cell selection and live-validation readiness before any external request is authorized.
+The accumulated foundation through DCRM-05C is released to `main`. Broader AIsa capability
+discovery/evaluation remains workload-specific and does not inherit authority from the single
+validated cell.
 
 Read-only evaluation of:
 - Apollo
@@ -121,6 +123,36 @@ Measure:
 - cost
 - failure modes
 - evidence quality
+
+## Execution Foundation — cross-cutting prerequisite before DCRM-06 expansion
+
+Execution Foundation is deliberately outside the DCRM product numbering so DCRM-06 remains
+Territory + Target Universe.
+
+Selected sequence:
+- **EF-01A — Executable Engineering Harness, Reproducible CI & Secret Safety**:
+  executable harness modes, real lint gate, frozen lockfile CI, immutable action pins and
+  redacted secret sensors. ACTIVE / OWNER AUTHORIZED / NO DEPLOY.
+- **EF-01B — Repository Governance & Branch Protection**:
+  required checks, protected `main`, merge governance and repository-admin enforcement.
+  PLANNED; requires a separate owner/admin gate.
+- **EF-02 — Reproducible Runtime Packaging**:
+  non-root API/worker containers, runtime config validation, graceful shutdown, local Compose,
+  immutable image identity. PLANNED.
+- **EF-03 — Staging Boundary**:
+  Cloudflare Access/Tunnel, managed PostgreSQL, runtime secret injection and explicit rollback.
+  PLANNED; deployment requires a separate owner gate.
+- **EF-04 — Durable Execution**:
+  PostgreSQL-first vs Cloudflare Workflows bounded spike, ActionAttempt
+  PREPARED -> DISPATCHING -> ACCEPTED|FAILED|UNKNOWN -> RECONCILED semantics. PLANNED.
+- **EF-05 — Observability & Recovery**:
+  structured correlation/tenant/run telemetry, data minimization, backup/PITR/restore drill,
+  operator runbooks. PLANNED.
+- **EF-06 — Bounded Agent Runtime Integration**:
+  read-only Hermes x DROWK MCP/API spike behind DROWK policy/identity, no direct DB authority.
+  PLANNED.
+
+No later EF package is implicitly authorized by EF-01A.
 
 ## DCRM-06 — Territory + Target Universe
 - serviceable geography;

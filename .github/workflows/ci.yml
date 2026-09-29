@@ -19,23 +19,26 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
 
       - name: Set up pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
         with:
           version: 10.17.1
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 22
 
       - name: Install
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Verify
-        run: pnpm verify
+        run: pnpm harness:ci
 
   postgres-foundation:
     runs-on: ubuntu-latest
@@ -69,7 +72,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
 
       - name: Install PostgreSQL client
         run: |
@@ -77,38 +83,19 @@ jobs:
           sudo apt-get install -y postgresql-client
 
       - name: Set up pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
         with:
           version: 10.17.1
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 22
 
       - name: Install
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
-      - name: Build repositories
-        run: pnpm build
-
-      - name: Plan migrations
-        run: pnpm --filter @drowk/db migrate plan
-
-      - name: Apply migrations through runner
-        run: pnpm --filter @drowk/db migrate apply
-
-      - name: Check migration status
-        run: pnpm --filter @drowk/db migrate status
-
-      - name: Verify tenant isolation
-        run: psql -v ON_ERROR_STOP=1 -f packages/db/test/0001_foundation.integration.sql
-
-      - name: Verify migrations and repository persistence
-        run: pnpm --filter @drowk/db test
-
-      - name: Verify Gmail observation persistence boundary
-        run: node --test connectors/gmail/test/persistence.integration.test.mjs
-
-      - name: Verify runtime readiness
-        run: pnpm --filter @drowk/api test
+      # Same build, migration plan/apply/status, tenant SQL, DB persistence,
+      # Gmail observation persistence and API/readiness sensors, now guarded.
+      - name: Verify disposable PostgreSQL foundation
+        run: pnpm harness:integration

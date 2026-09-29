@@ -8,10 +8,22 @@
     "check": "pnpm -r --if-present check",
     "typecheck": "pnpm build && pnpm -r --if-present typecheck",
     "test": "pnpm build && pnpm -r --if-present test",
-    "lint": "pnpm -r --if-present lint",
-    "verify": "pnpm typecheck && pnpm test"
+    "lint": "node tooling/harness/lint.mjs",
+    "verify": "pnpm lint && pnpm typecheck && pnpm test",
+    "secrets:scan": "node tooling/harness/secrets.mjs all",
+    "secrets:tree": "node tooling/harness/secrets.mjs tree",
+    "secrets:history": "node tooling/harness/secrets.mjs history",
+    "harness:test": "node --test tooling/harness/*.test.mjs",
+    "harness:preflight": "node tooling/harness/run.mjs preflight",
+    "harness:fast": "node tooling/harness/run.mjs fast",
+    "harness:full": "node tooling/harness/run.mjs full",
+    "harness:ci": "node tooling/harness/run.mjs ci",
+    "harness:integration": "node tooling/harness/run.mjs integration"
   },
   "devDependencies": {
-    "typescript": "^5.9.0"
-  }
+    "typescript": "^5.9.0",
+    "eslint": "10.11.0",
+    "@typescript-eslint/parser": "8.71.0"
+  },
+  "packageManager": "pnpm@10.17.1"
 }

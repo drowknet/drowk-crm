@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: FOUNDATION THROUGH DCRM-05C RELEASED TO MAIN — LIVE_VALIDATED_CAPABILITY — POST-MERGE CI GREEN
+Status: EXECUTION FOUNDATION OPEN — EF-01A ACTIVE — ENGINEERING HARNESS / REPRODUCIBLE CI / SECRET SAFETY — NO DEPLOY
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -333,6 +333,33 @@ and [safe evidence](../research/DCRM-05C_LIVE_VALIDATION_EVIDENCE_2026-09-29.md)
 Promotion is limited to the evidence's exact tuple now released on `main`.
 `Provider output != CRM truth`.
 
+### Active gate — EF-01A Execution Foundation: Engineering Harness, Reproducible CI & Secret Safety
+
+[Work package](../work-packages/EF-01A-executable-engineering-harness-ci-secret-safety.md)
+and [Execution Foundation plan](EXECUTION_FOUNDATION_PLAN.md).
+
+Owner authorization:
+- base `main`: `4a86eac14a209cd47617285d88419db2fe49a365`;
+- branch: `feat/ef-01a-engineering-harness-ci-secrets`;
+- implementation authorized for engineering harness, CI and secret safety only;
+- no deploy.
+
+Current executable gaps selected for EF-01A:
+- CI installs with `--no-frozen-lockfile`;
+- root `verify` does not execute lint;
+- no linter is configured;
+- `tooling/harness` has planned modes but no executable runner;
+- no executable repository secret sensor exists;
+- GitHub Actions use mutable action tags rather than immutable commit SHAs.
+
+EF-01A must close those gaps without modifying CRM/runtime behavior, provider adapters,
+database migrations, Gmail live behavior, outbound authority, or deployment configuration.
+
+Repository governance/branch protection is tracked as EF-01B because the current
+`main` branch is not technically protected and the connected GitHub surface does not
+provide administration writes. This gap remains visible and must be closed before any
+production deployment gate.
+
 ### Foundation release gate — CLOSED
 
 PR #1 was reviewed and merged into `main` as `99c3900aa2e9aa074c2d9f97ccce811557be922f`.
@@ -360,6 +387,8 @@ Current writer state:
 - DCRM-05C is closed and released to `main` through PR #15;
 - DCRM-05B provider selection/research is closed;
 - DCRM-05C exact cell is `LIVE_VALIDATED_CAPABILITY`;
+- EF-01A is the sole active implementation work package;
+- Codex is the sole implementation writer on `feat/ef-01a-engineering-harness-ci-secrets`;
 - no additional live request or credential use is authorized;
 - post-merge CI is green; deployment remains closed;
 - DROWK CRM remains the canonical implementation surface;
