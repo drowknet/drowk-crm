@@ -77,9 +77,21 @@ The docs-only closure PR #21 merged as
 Read [the work package](../work-packages/EF-01B-repository-governance-branch-protection.md)
 and [the governance runbook](REPOSITORY_GOVERNANCE.md) for the frozen policy and evidence.
 
-No implementation work package is currently authorized. EF-02 Reproducible Runtime Packaging
-is next in sequence and requires a separate owner gate. No deployment, provider live call,
-Gmail live, outbound, database migration or CRM behavior change is authorized.
+EF-02 Reproducible Runtime Packaging is the currently authorized implementation work package:
+
+`docs/work-packages/EF-02-reproducible-runtime-packaging.md`
+
+Authorized branch:
+`feat/ef-02-reproducible-runtime-packaging`
+
+Authorized base:
+`8e4a290b9336005b31e32b02bea8d8deeb542074`
+
+Read `docs/engineering/RUNTIME_PACKAGING.md` before implementation.
+
+Scope is local/reproducible packaging, runtime config/lifecycle hardening and deterministic
+container sensors only. No deployment, staging, image push, provider live call, Gmail live,
+outbound, queue/orchestrator selection, DB migration or CRM business-semantics change is authorized.
 
 DCRM-05B provider selection is closed.
 

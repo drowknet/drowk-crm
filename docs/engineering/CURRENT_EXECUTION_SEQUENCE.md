@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 NEXT / NOT YET AUTHORIZED — NO DEPLOY
+Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 ACTIVE / OWNER AUTHORIZED — NO DEPLOY
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -380,8 +380,35 @@ Closed EF-01B governance evidence:
 - closure post-merge CI `36590845123`: verify SUCCESS and postgres-foundation SUCCESS;
 - no open PR remains after EF-01B closure.
 
-EF-01B is no longer an active gap. EF-02 is the next planned Execution Foundation package
-and remains NOT YET AUTHORIZED. Production deployment remains separately gated.
+EF-01B is no longer an active gap.
+
+### Active gate — EF-02 Reproducible Runtime Packaging
+
+Status: ACTIVE / OWNER AUTHORIZED / NO DEPLOY.
+
+Authorized base:
+`8e4a290b9336005b31e32b02bea8d8deeb542074`
+
+Authorized branch:
+`feat/ef-02-reproducible-runtime-packaging`
+
+Canonical work package:
+`docs/work-packages/EF-02-reproducible-runtime-packaging.md`
+
+Runtime packaging runbook:
+`docs/engineering/RUNTIME_PACKAGING.md`
+
+Opening audit:
+- no Dockerfile or Compose file exists in the product runtime;
+- API is buildable/startable and already owns `/health`, `/ready`, runtime config and signal handlers;
+- API graceful shutdown is not yet proven as a container/lifecycle sensor;
+- worker is not a runnable service yet: it has no `start`, runtime config or process lifecycle;
+- CI required check `verify` does not currently build or smoke-test runtime images;
+- no immutable image revision label ties an image to Git SHA.
+
+EF-02 may package the existing API and add only a bounded inert worker runtime shell.
+It must NOT introduce queueing, pg-boss, Cloudflare Workflows, provider execution, Gmail live,
+outbound, staging or deployment. Those remain later gates.
 
 ### Foundation release gate — CLOSED
 
@@ -412,8 +439,8 @@ Current writer state:
 - DCRM-05C exact cell is `LIVE_VALIDATED_CAPABILITY`;
 - EF-01A is closed and released to `main` through PR #18;
 - EF-01B is closed and released through protected `main`;
-- no implementation work package is currently active;
-- EF-02 is next but NOT YET AUTHORIZED;
+- EF-02 is the sole active implementation work package;
+- Codex is the sole implementation writer on `feat/ef-02-reproducible-runtime-packaging`;
 - no additional live request or credential use is authorized;
 - post-merge CI is green; deployment remains closed;
 - DROWK CRM remains the canonical implementation surface;

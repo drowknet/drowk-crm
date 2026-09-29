@@ -1,6 +1,6 @@
 # Execution Foundation Plan
 
-Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 NEXT / NOT YET AUTHORIZED
+Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 ACTIVE / OWNER AUTHORIZED — NO DEPLOY
 
 Base architecture:
 `docs/architecture/DROWK_ARCHITECTURE_BASELINE_V1_2026-09-28.md`
@@ -63,7 +63,13 @@ deployment is authorized by EF-01B closure.
 
 ### EF-02 — Reproducible Runtime Packaging
 
-Status: PLANNED / NOT YET AUTHORIZED.
+Status: ACTIVE / OWNER AUTHORIZED / NO DEPLOY.
+
+Work package:
+`docs/work-packages/EF-02-reproducible-runtime-packaging.md`
+
+Runbook:
+`docs/engineering/RUNTIME_PACKAGING.md`
 
 Required outcomes:
 - non-root API and worker container images;
