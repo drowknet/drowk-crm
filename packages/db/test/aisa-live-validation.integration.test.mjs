@@ -77,6 +77,11 @@ pgTest("DCRM-05C claimed fake transport persists only a bounded audit", async t 
   assert.equal(provider.providerCid, "synthetic-cid");
   assert.equal(provider.providerFeatureId, "synthetic-feature");
   assert.equal(provider.observedAt, null);
+  assert.deepEqual((await lab.getLiveDispatchStatus(tenant, research.id)), {
+    researchRunId: research.id, researchStatus: "EXHAUSTED", claimAt: now,
+    disposition: "RECORDED", providerRunId: provider.id,
+    reconciliationOutcome: null, reviewedAt: null,
+  });
   assert.equal(JSON.stringify(provider).includes(secret), false);
   assert.equal(JSON.stringify(provider).includes("forbidden"), false);
   assert.deepEqual(await lab.getSelectedLiveProviderRun(tenant, provider.id), provider);
@@ -104,7 +109,7 @@ pgTest("DCRM-05C claimed fake transport persists only a bounded audit", async t 
 
   const sqlRun = await run();
   await lab.claimSelectedLiveValidation(tenant, sqlRun.id, selected(), now);
-  await assert.rejects(pool.query(`INSERT INTO provider_runs
+  const directInsert = (overrides = {}) => pool.query(`INSERT INTO provider_runs
     (id,tenant_id,run_id,correlation_id,research_run_id,case_id,workload_cell,
      adapter_version,normalized_input,lab_case,latency_ms,provenance_complete,synthetic,
      capability,provider,operation,interface,access_class,request_fingerprint,
@@ -114,12 +119,94 @@ pgTest("DCRM-05C claimed fake transport persists only a bounded audit", async t 
     SELECT $2,p.tenant_id,r.run_id,r.correlation_id,$3,p.case_id,p.workload_cell,
       p.adapter_version,p.normalized_input,p.lab_case,p.latency_ms,p.provenance_complete,
       p.synthetic,p.capability,p.provider,p.operation,p.interface,p.access_class,
-      p.request_fingerprint,p.response_fingerprint,p.result_state,p.estimated_cost_usd_micros,
-      p.actual_cost_usd_micros,p.actual_cost_known,p.retrieved_at,p.observed_at,p.rights_class,
+      p.request_fingerprint,p.response_fingerprint,$5,p.estimated_cost_usd_micros,
+      $6::numeric,$7,p.retrieved_at,p.observed_at,p.rights_class,
       p.transport,p.provider_task_id,p.provider_cid,p.provider_feature_id,$4::jsonb,
-      p.safe_status_codes,p.safe_error_category
+      $8::jsonb,$9
     FROM provider_runs p JOIN research_runs r ON r.id=$3 WHERE p.id=$1`,
-    [provider.id, randomUUID(), sqlRun.id, JSON.stringify(unsafeSummary)]), { code: "P0001" });
+    [provider.id, randomUUID(), sqlRun.id,
+      JSON.stringify(overrides.safeSummary ?? provider.safeSummary),
+      overrides.resultState ?? "PRESENT",
+      overrides.actualCostUsdMicros ?? 13800,
+      true, JSON.stringify(overrides.safeStatusCodes ?? provider.safeStatusCodes),
+      overrides.safeErrorCategory ?? null]);
+  await assert.rejects(directInsert({ safeSummary: unsafeSummary }), { code: "P0001" });
+  for (const invalid of [
+    { resultState: "ERROR" },
+    { safeErrorCategory: "TIMEOUT" },
+    { resultState: "ERROR", safeErrorCategory: "UNRECOGNIZED" },
+    { actualCostUsdMicros: 16000 },
+    { resultState: "ERROR", actualCostUsdMicros: 16000,
+      safeErrorCategory: "HTTP_SERVER" },
+    { safeStatusCodes: { unexpected: 200 } },
+    { safeStatusCodes: { http: "200" } },
+    { safeStatusCodes: { http: 200.5 } },
+    { safeStatusCodes: { http: -1 } },
+    { safeStatusCodes: { http: 2147483648 } },
+    { safeStatusCodes: [200] },
+  ]) await assert.rejects(directInsert(invalid), { code: "23514" });
+  for (const resultState of ["UNKNOWN", "PARTIAL", "PENDING"]) {
+    await assert.rejects(directInsert({ resultState }), { code: "P0001" });
+  }
   assert.equal((await pool.query("SELECT count(*)::int AS n FROM provider_runs WHERE research_run_id=$1",
     [sqlRun.id])).rows[0].n, 0);
+  await directInsert({ resultState: "ERROR", actualCostUsdMicros: 16000,
+    safeErrorCategory: "COST_ENVELOPE", safeStatusCodes: { http: 200, provider: 20000,
+      task: 20000, tasksError: 0 } });
+
+  const stranded = await run();
+  await lab.claimSelectedLiveValidation(tenant, stranded.id, selected(), now);
+  const pending = await lab.getLiveDispatchStatus(tenant, stranded.id);
+  assert.equal(pending.disposition, "UNKNOWN");
+  assert.equal(pending.researchStatus, "RUNNING");
+  assert.equal(pending.providerRunId, null);
+  await assert.rejects(lab.claimSelectedLiveValidation(tenant, stranded.id,
+    selected(), now), { code: "LIVE_RESEARCH_NOT_AUTHORIZED" });
+  const unknown = await lab.markClaimedLiveDispatchUnknown(tenant, stranded.id, now);
+  assert.equal(unknown.disposition, "UNKNOWN");
+  assert.equal(unknown.researchStatus, "BLOCKED");
+  assert.equal(unknown.providerRunId, null);
+  assert.equal((await lab.getResearchRun(tenant, stranded.id)).status, "BLOCKED");
+  await assert.rejects(pool.query(`UPDATE research_runs SET live_dispatch_claimed_at=NULL,
+    live_dispatch_state=NULL WHERE id=$1`, [stranded.id]), { code: "P0001" });
+  const review = { id: randomUUID(), actorRef: randomUUID(),
+    evidenceDigest: `sha256:${"a".repeat(64)}`,
+    outcome: "UNKNOWN_AFTER_REVIEW", reviewedAt: now };
+  const reconciled = await lab.reconcileUnknownLiveDispatch(tenant, stranded.id, review);
+  assert.equal(reconciled.disposition, "RECONCILED");
+  assert.equal(reconciled.reconciliationOutcome, "UNKNOWN_AFTER_REVIEW");
+  assert.equal(reconciled.providerRunId, null);
+  await assert.rejects(lab.claimSelectedLiveValidation(tenant, stranded.id,
+    selected(), now));
+  await assert.rejects(pool.query(`UPDATE aisa_live_dispatch_reconciliations
+    SET outcome='CONFIRMED_NO_DISPATCH' WHERE id=$1`, [review.id]), { code: "P0001" });
+  assert.equal(await lab.getLiveDispatchStatus(otherTenant, stranded.id), null);
+
+  const timed = await run();
+  const timedProvider = await executeSelectedBusinessListings({
+    tenantId: tenant, researchRunId: timed.id, providerRunId: randomUUID(),
+    labCase: selected(), config: { liveValidationEnabled: true, apiKey: secret },
+    store: lab, now: () => now,
+    transport: { async send() {
+      throw Object.assign(new Error("synthetic timeout"), { name: "AbortError" });
+    } },
+  });
+  assert.equal(timedProvider.resultState, "ERROR");
+  assert.equal(timedProvider.safeErrorCategory, "TIMEOUT");
+  const timedStatus = await lab.getLiveDispatchStatus(tenant, timed.id);
+  assert.equal(timedStatus.disposition, "UNKNOWN");
+  assert.equal(timedStatus.researchStatus, "BLOCKED");
+  assert.equal(timedStatus.providerRunId, timedProvider.id);
+  await assert.rejects(lab.claimSelectedLiveValidation(tenant, timed.id, selected(), now));
+  const timedReview = await lab.reconcileUnknownLiveDispatch(tenant, timed.id, {
+    id: randomUUID(), actorRef: randomUUID(),
+    evidenceDigest: `sha256:${"b".repeat(64)}`,
+    outcome: "UNKNOWN_AFTER_REVIEW", reviewedAt: now,
+  });
+  assert.equal(timedReview.disposition, "RECONCILED");
+  assert.equal(timedReview.providerRunId, timedProvider.id);
+  for (const table of ["accounts", "facilities", "persons", "relationships",
+    "commitments", "work_items"]) {
+    assert.equal((await pool.query(`SELECT count(*)::int AS n FROM ${table}`)).rows[0].n, 0);
+  }
 });

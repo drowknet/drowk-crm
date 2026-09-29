@@ -6,7 +6,7 @@ import { join } from "node:path";
 import { test } from "node:test";
 import { setTimeout } from "node:timers/promises";
 import { applyMigrations, defaultMigrationsDirectory, migrationStatus,
-  PostgresRepositories } from "../dist/index.js";
+  PostgresCapabilityLabRepository, PostgresRepositories } from "../dist/index.js";
 import { disposableDatabase } from "./disposable.mjs";
 
 const pgTest = process.env.DROWK_TEST_DATABASE_URL ? test : test.skip;
@@ -34,6 +34,7 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
     ["0013_capability_lab.sql", "pending"],
     ["0014_synthetic_research_budget_contract.sql", "pending"],
     ["0015_aisa_dataforseo_pre_live.sql", "pending"],
+    ["0016_aisa_live_audit_reconciliation.sql", "pending"],
   ]);
   assert.deepEqual((await pool.query(
     "SELECT to_regclass('public.drowk_schema_migrations') AS ledger, to_regclass('public.tenants') AS tenants",
@@ -49,7 +50,7 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
       checksum: createHash("sha256").update(await readFile(join(defaultMigrationsDirectory, file.filename))).digest("hex"),
     });
   }
-  assert.equal(rows.length, 15);
+  assert.equal(rows.length, 16);
   assert.deepEqual((await pool.query(`
     SELECT data_type, is_nullable FROM information_schema.columns
     WHERE table_schema = 'public' AND table_name = 'work_items' AND column_name = 'due_date'
@@ -73,6 +74,40 @@ pgTest("checksum drift, missing migrations, and non-prefix ledger history fail c
   await assert.rejects(applyMigrations(pool), { code: "MIGRATION_HISTORY_INVALID" });
 });
 
+pgTest("0016 backfills an existing claimed/no-result run as durable UNKNOWN", async t => {
+  const { pool } = await disposableDatabase(t);
+  const path = await directory(t);
+  await cp(defaultMigrationsDirectory, path, { recursive: true });
+  await rm(join(path, "0016_aisa_live_audit_reconciliation.sql"));
+  await applyMigrations(pool, path);
+  const tenantId = randomUUID(), id = randomUUID();
+  const at = "2026-09-28T12:00:00.000Z";
+  await pool.query("INSERT INTO tenants(id,slug,name) VALUES ($1,$2,'Synthetic')",
+    [tenantId, `backfill-${tenantId}`]);
+  const lab = new PostgresCapabilityLabRepository(pool);
+  await lab.createResearchRun(tenantId, {
+    id, tenantId, runId: randomUUID(), correlationId: randomUUID(),
+    question: { text: "Legacy claimed call", entityCandidates: [], requiredEvidence: [],
+      freshnessSeconds: null, maxCostUsdMicros: 15000, maxToolCalls: 1,
+      allowedCapabilities: ["DISCOVER_BUSINESS_LISTINGS"],
+      stopCondition: "EVIDENCE_PRESENT" },
+    status: "PLANNED", outputEvidenceIds: [], startedAt: null, completedAt: null,
+  });
+  await lab.startResearchRun(tenantId, id, at);
+  await pool.query("UPDATE research_runs SET live_dispatch_claimed_at=$2 WHERE id=$1",
+    [id, at]);
+  assert.deepEqual(await applyMigrations(pool), {
+    applied: ["0016_aisa_live_audit_reconciliation.sql"],
+  });
+  const status = await lab.getLiveDispatchStatus(tenantId, id);
+  assert.equal(status.disposition, "UNKNOWN");
+  assert.equal(status.providerRunId, null);
+  assert.equal(status.researchStatus, "RUNNING");
+  await assert.rejects(pool.query("UPDATE research_runs SET live_dispatch_claimed_at=NULL WHERE id=$1",
+    [id]), { code: "P0001" });
+  assert.deepEqual(await applyMigrations(pool), { applied: [] });
+});
+
 pgTest("0006 preserves legacy Gmail mailbox identity across namespace backfill and replay", async t => {
   const { pool } = await disposableDatabase(t);
   const path = await directory(t);
@@ -87,6 +122,7 @@ pgTest("0006 preserves legacy Gmail mailbox identity across namespace backfill a
   await rm(join(path, "0013_capability_lab.sql"));
   await rm(join(path, "0014_synthetic_research_budget_contract.sql"));
   await rm(join(path, "0015_aisa_dataforseo_pre_live.sql"));
+  await rm(join(path, "0016_aisa_live_audit_reconciliation.sql"));
   await applyMigrations(pool, path);
   const tenantId = randomUUID();
   const observationId = randomUUID();
@@ -112,6 +148,7 @@ pgTest("0006 preserves legacy Gmail mailbox identity across namespace backfill a
     "0013_capability_lab.sql",
     "0014_synthetic_research_budget_contract.sql",
     "0015_aisa_dataforseo_pre_live.sql",
+    "0016_aisa_live_audit_reconciliation.sql",
   ] });
   assert.equal((await pool.query(`SELECT source_namespace FROM source_observations WHERE id=$1`,
     [observationId])).rows[0].source_namespace, namespace);

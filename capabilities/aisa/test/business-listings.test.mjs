@@ -1,12 +1,15 @@
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { readFile } from "node:fs/promises";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { test } from "node:test";
 import * as adapterExports from "../dist/index.js";
 import {
   AISA_ORIGIN, BUSINESS_LISTINGS_PATH, BUSINESS_LISTINGS_TIMEOUT_MS,
   FIRST_CASE_ID,
   aisaRuntimeConfig, executeSelectedBusinessListings,
+  runSelectedBusinessListingsOnce,
   normalizeBusinessListingsCase, normalizeBusinessListingsResponse,
 } from "../dist/index.js";
 
@@ -21,6 +24,69 @@ const selected = (overrides = {}) => ({
   maxToolCalls: 1, stopCondition: "EVIDENCE_PRESENT",
   rightsClass: "PUBLIC_BUSINESS_LISTING",
   adapterVersion: "aisa-dataforseo-business-listings-v1", ...overrides,
+});
+
+test("versioned runner dry-run, disabled and missing-key exits never dispatch", async () => {
+  let calls = 0;
+  const dry = await runSelectedBusinessListingsOnce({
+    mode: "DRY_RUN", tenantId: randomUUID(),
+    config: { liveValidationEnabled: false, apiKey: null },
+    transport: { async send() { calls++; throw new Error("unexpected"); } },
+    now: () => now,
+  });
+  assert.equal(dry.disposition, "DRY_RUN");
+  assert.equal(dry.researchRunId, null);
+  assert.equal(calls, 0);
+  const baseEnv = { ...process.env, DATABASE_URL: "postgres://invalid.invalid/test",
+    DROWK_TENANT_ID: randomUUID(), APP_ENV: "test" };
+  delete baseEnv.AISA_API_KEY;
+  const cli = fileURLToPath(new URL("../dist/runner-cli.js", import.meta.url));
+  const run = env => spawnSync(process.execPath, [cli, "--live"],
+    { env, encoding: "utf8", timeout: 3000 });
+  const planned = spawnSync(process.execPath, [cli, "--dry-run"],
+    { env: baseEnv, encoding: "utf8", timeout: 3000 });
+  assert.equal(planned.status, 0);
+  assert.equal(JSON.parse(planned.stdout).disposition, "DRY_RUN");
+  const disabled = run(baseEnv);
+  assert.equal(disabled.status, 1);
+  assert.equal(JSON.parse(disabled.stdout).code, "AISA_LIVE_DISABLED");
+  const missing = run({ ...baseEnv, DROWK_AISA_LIVE_VALIDATION_ENABLED: "true" });
+  assert.equal(missing.status, 1);
+  assert.equal(JSON.parse(missing.stdout).code, "AISA_KEY_REQUIRED");
+  assert.equal(calls, 0);
+});
+
+test("one-shot fake dispatch records once; append loss is UNKNOWN without retry", async () => {
+  for (const appendFails of [false, true]) {
+    let calls = 0, run, claim = false, marked = false;
+    const store = {
+      async createResearchRun(_tenant, value) { run = value; return value; },
+      async startResearchRun() { run = { ...run, status: "RUNNING" }; return run; },
+      async getResearchRun() { return run; },
+      async claimSelectedLiveValidation() { claim = true; return run; },
+      async appendClaimedLiveResult(_tenant, _id, audit) {
+        if (appendFails) throw new Error("synthetic append loss");
+        run = { ...run, status: "EXHAUSTED" };
+        return audit;
+      },
+      async getLiveDispatchStatus() { return {
+        disposition: !claim ? "UNCLAIMED" : appendFails ? "UNKNOWN" : "RECORDED",
+        providerRunId: null,
+      }; },
+      async markClaimedLiveDispatchUnknown() { marked = true; run = { ...run, status: "BLOCKED" }; },
+    };
+    const secret = randomUUID();
+    const outcome = await runSelectedBusinessListingsOnce({
+      mode: "LIVE", tenantId: randomUUID(), store,
+      config: { liveValidationEnabled: true, apiKey: secret }, now: () => now,
+      transport: { async send() { calls++; return { status: 200, body: response() }; } },
+    });
+    assert.equal(calls, 1);
+    assert.equal(outcome.disposition, appendFails ? "UNKNOWN" : "RECORDED");
+    assert.equal(outcome.exitCode, appendFails ? 1 : 0);
+    assert.equal(marked, appendFails);
+    assert.equal(JSON.stringify(outcome).includes(secret), false);
+  }
 });
 const response = (overrides = {}) => ({
   status_code: 20000, tasks_error: 0, cost: 0.0138,

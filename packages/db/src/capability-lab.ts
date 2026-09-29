@@ -15,6 +15,7 @@ type ResearchRow = QueryResultRow & {
   question_contract: ResearchRun["question"]; status: ResearchRun["status"];
   output_evidence_ids: EvidenceId[]; started_at: Date | null; completed_at: Date | null;
   live_dispatch_claimed_at: Date | null;
+  live_dispatch_state: "UNKNOWN" | "RECORDED" | null;
 };
 type ProviderRow = QueryResultRow & {
   id: string; tenant_id: TenantId; run_id: ProviderRun["runId"];
@@ -125,6 +126,25 @@ function selectedSafeSummary(value: JsonValue | null): boolean {
         : typeof entry === "string";
     });
   });
+}
+
+function selectedSafeStatusCodes(value: JsonValue | null): boolean {
+  if (value === null) return true;
+  if (Array.isArray(value) || typeof value !== "object") return false;
+  const fields = new Set(["http", "provider", "task", "tasksError"]);
+  return Object.entries(value).every(([key, code]) => fields.has(key) &&
+    (code === null || (typeof code === "number" && Number.isInteger(code) &&
+      code >= 0 && code <= 2_147_483_647)));
+}
+
+export interface LiveDispatchStatus {
+  researchRunId: string;
+  researchStatus: ResearchRun["status"];
+  claimAt: IsoDateTime | null;
+  disposition: "UNCLAIMED" | "UNKNOWN" | "RECORDED" | "RECONCILED";
+  providerRunId: string | null;
+  reconciliationOutcome: "UNKNOWN_AFTER_REVIEW" | "CONFIRMED_NO_DISPATCH" | null;
+  reviewedAt: IsoDateTime | null;
 }
 
 export type SyntheticExecutionResult =
@@ -330,7 +350,7 @@ export class PostgresCapabilityLabRepository {
         throw new CapabilityLabError("LIVE_BUDGET_EXHAUSTED");
       }
       const claimed = await query<ResearchRow>(client,
-        `UPDATE research_runs SET live_dispatch_claimed_at=$3
+        `UPDATE research_runs SET live_dispatch_claimed_at=$3,live_dispatch_state='UNKNOWN'
          WHERE tenant_id=$1 AND id=$2 AND live_dispatch_claimed_at IS NULL RETURNING *`,
         [tenantId, researchRunId, at]);
       if (!claimed.rows[0]) throw new CapabilityLabError("LIVE_ALREADY_CLAIMED");
@@ -357,6 +377,7 @@ export class PostgresCapabilityLabRepository {
     const safeSummary = record.safeSummary === null ? null : normalizeLabJson(record.safeSummary);
     const safeStatusCodes = record.safeStatusCodes === null ? null : normalizeLabJson(record.safeStatusCodes);
     if (!selectedSafeSummary(safeSummary)) throw new CapabilityLabError("UNSAFE_LIVE_SUMMARY");
+    if (!selectedSafeStatusCodes(safeStatusCodes)) throw new CapabilityLabError("UNSAFE_LIVE_STATUS_CODES");
     const allowedErrors = [null, "HTTP_AUTH", "HTTP_PAYMENT", "HTTP_RATE", "HTTP_SERVER",
       "HTTP_OTHER", "TIMEOUT", "NETWORK", "PROVIDER_STATUS", "TASK_STATUS",
       "SCHEMA", "MIXED_RESPONSE", "COST_ENVELOPE"];
@@ -364,6 +385,8 @@ export class PostgresCapabilityLabRepository {
       (record.resultState === "ERROR") !== (record.safeErrorCategory !== null)) {
       throw new CapabilityLabError("INVALID_LIVE_ERROR_CATEGORY");
     }
+    const ambiguous = ["TIMEOUT", "NETWORK", "HTTP_SERVER", "HTTP_OTHER",
+      "SCHEMA", "MIXED_RESPONSE"].includes(record.safeErrorCategory ?? "");
     const client = await this.pool.connect();
     try {
       await client.query("BEGIN");
@@ -399,13 +422,89 @@ export class PostgresCapabilityLabRepository {
           safeStatusCodes === null ? null : JSON.stringify(safeStatusCodes),
           record.safeErrorCategory]);
       await query(client,
-        `UPDATE research_runs SET status=$3,completed_at=$4 WHERE tenant_id=$1 AND id=$2`,
-        [tenantId, researchRunId, record.resultState === "ERROR" ? "FAILED" : "EXHAUSTED",
-          record.retrievedAt]);
+        `UPDATE research_runs SET status=$3,completed_at=$4,live_dispatch_state=$5
+         WHERE tenant_id=$1 AND id=$2`,
+        [tenantId, researchRunId,
+          ambiguous ? "BLOCKED" : record.resultState === "ERROR" ? "FAILED" : "EXHAUSTED",
+          record.retrievedAt, ambiguous ? "UNKNOWN" : "RECORDED"]);
       await client.query("COMMIT");
       return providerFrom(inserted.rows[0]!);
     } catch (error) { await client.query("ROLLBACK"); throw error; }
     finally { client.release(); }
+  }
+
+  async getLiveDispatchStatus(tenantId: TenantId, researchRunId: string): Promise<LiveDispatchStatus | null> {
+    const result = await query<QueryResultRow & {
+      id: string; status: ResearchRun["status"]; live_dispatch_claimed_at: Date | null;
+      live_dispatch_state: "UNKNOWN" | "RECORDED" | null;
+      provider_run_id: string | null;
+      outcome: LiveDispatchStatus["reconciliationOutcome"]; reviewed_at: Date | null;
+    }>(this.pool, `SELECT r.id,r.status,r.live_dispatch_claimed_at,r.live_dispatch_state,
+      p.id AS provider_run_id,x.outcome,x.reviewed_at
+      FROM research_runs r
+      LEFT JOIN provider_runs p ON p.tenant_id=r.tenant_id AND p.research_run_id=r.id
+        AND p.transport='aisa'
+      LEFT JOIN aisa_live_dispatch_reconciliations x ON x.tenant_id=r.tenant_id
+        AND x.research_run_id=r.id
+      WHERE r.tenant_id=$1 AND r.id=$2`, [tenantId, researchRunId]);
+    const row = result.rows[0];
+    if (!row) return null;
+    return {
+      researchRunId: row.id, researchStatus: row.status,
+      claimAt: iso(row.live_dispatch_claimed_at),
+      disposition: row.outcome ? "RECONCILED" : row.live_dispatch_state ?? "UNCLAIMED",
+      providerRunId: row.provider_run_id,
+      reconciliationOutcome: row.outcome, reviewedAt: iso(row.reviewed_at),
+    };
+  }
+
+  /** Closes a stranded claim as UNKNOWN; the immutable claim still forbids redispatch. */
+  async markClaimedLiveDispatchUnknown(tenantId: TenantId, researchRunId: string,
+    at: IsoDateTime): Promise<LiveDispatchStatus> {
+    const client = await this.pool.connect();
+    try {
+      await client.query("BEGIN");
+      const result = await query<ResearchRow>(client,
+        `SELECT * FROM research_runs WHERE tenant_id=$1 AND id=$2 FOR UPDATE`,
+        [tenantId, researchRunId]);
+      const row = result.rows[0];
+      if (!row || row.live_dispatch_state !== "UNKNOWN" ||
+          (row.status !== "RUNNING" && row.status !== "BLOCKED")) {
+        throw new CapabilityLabError("LIVE_UNKNOWN_CLAIM_REQUIRED");
+      }
+      const prior = await query<QueryResultRow>(client,
+        `SELECT id FROM provider_runs WHERE tenant_id=$1 AND research_run_id=$2
+         AND transport='aisa'`, [tenantId, researchRunId]);
+      if (prior.rowCount && row.status === "RUNNING") {
+        throw new CapabilityLabError("LIVE_RESULT_ALREADY_RECORDED");
+      }
+      if (row.status === "RUNNING") await query(client,
+        `UPDATE research_runs SET status='BLOCKED',completed_at=$3
+         WHERE tenant_id=$1 AND id=$2`, [tenantId, researchRunId, at]);
+      await client.query("COMMIT");
+    } catch (error) { await client.query("ROLLBACK"); throw error; }
+    finally { client.release(); }
+    return (await this.getLiveDispatchStatus(tenantId, researchRunId))!;
+  }
+
+  /** Attribution of review does not erase uncertainty or enable a second dispatch. */
+  async reconcileUnknownLiveDispatch(tenantId: TenantId, researchRunId: string,
+    review: { id: string; actorRef: string; evidenceDigest: string;
+      outcome: "UNKNOWN_AFTER_REVIEW" | "CONFIRMED_NO_DISPATCH"; reviewedAt: IsoDateTime }):
+    Promise<LiveDispatchStatus> {
+    if (!/^[0-9a-fA-F-]{36}$/.test(review.id) ||
+        !/^[0-9a-fA-F-]{36}$/.test(review.actorRef) ||
+        !/^sha256:[0-9a-f]{64}$/.test(review.evidenceDigest) ||
+        !["UNKNOWN_AFTER_REVIEW", "CONFIRMED_NO_DISPATCH"].includes(review.outcome)) {
+      throw new CapabilityLabError("INVALID_LIVE_RECONCILIATION");
+    }
+    await this.markClaimedLiveDispatchUnknown(tenantId, researchRunId, review.reviewedAt);
+    await query(this.pool, `INSERT INTO aisa_live_dispatch_reconciliations
+      (id,tenant_id,research_run_id,reviewed_at,actor_ref,evidence_digest,outcome)
+      VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+      [review.id, tenantId, researchRunId, review.reviewedAt, review.actorRef,
+        review.evidenceDigest, review.outcome]);
+    return (await this.getLiveDispatchStatus(tenantId, researchRunId))!;
   }
 
   async getSelectedLiveProviderRun(tenantId: TenantId, id: string): Promise<ProviderRun | null> {

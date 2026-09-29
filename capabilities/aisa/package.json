@@ -14,13 +14,18 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "pnpm build && node --test test/*.test.mjs"
+    "test": "pnpm build && node --test test/*.test.mjs",
+    "prelive:plan": "node dist/runner-cli.js --dry-run",
+    "live:once": "node dist/runner-cli.js --live"
   },
   "dependencies": {
     "@drowk/contracts": "workspace:*",
-    "@drowk/domain": "workspace:*"
+    "@drowk/domain": "workspace:*",
+    "@drowk/db": "workspace:*",
+    "pg": "^8.16.0"
   },
   "devDependencies": {
-    "@types/node": "^22.20.4"
+    "@types/node": "^22.20.4",
+    "@types/pg": "^8.15.0"
   }
 }

@@ -57,7 +57,7 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-04F Relationship Memory Foundation](work-packages/DCRM-04F-relationship-memory-foundation.md) — completed/merged with post-merge CI green.
 - [DCRM-05A Capability Lab Harness](work-packages/DCRM-05A-capability-lab-harness.md) — completed/merged with post-merge CI green.
 - [DCRM-05B Provider Selection & Live Validation Readiness](work-packages/DCRM-05B-provider-selection-live-validation-readiness.md) — completed selection gate; AIsa/DataForSEO Business Listings selected, no live call made.
-- [DCRM-05C AIsa/DataForSEO Business Listings Live READ Validation](work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md) — owner-gated next step; no branch, credential injection or live request authorized yet.
+- [DCRM-05C AIsa/DataForSEO Business Listings Live READ Validation](work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md) — implementation branch and draft PR #15 exist; pre-live hardening is active. No live request, credential injection or capability-state promotion is authorized.
 
 ## Migration
 

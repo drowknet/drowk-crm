@@ -1,6 +1,12 @@
 # DCRM-05C — AIsa/DataForSEO Business Listings Live READ Validation
 
-Status: OWNER AUTHORIZATION REQUIRED — NO BRANCH / NO LIVE CALL YET
+Status: PRE-LIVE IMPLEMENTATION IN DRAFT PR #15 — HARDENING ACTIVE — LIVE REQUEST NOT AUTHORIZED OR EXECUTED
+
+The implementation branch is `feat/dcrm-05c-aisa-dataforseo-live-validation`.
+The owner authorized adapter, migration, runner and synthetic/mock proof only.
+The real provider request remains a separate explicit owner gate after exact-head CI
+and deep review. This work package is not complete and the selected cell is not
+`LIVE_VALIDATED_CAPABILITY`.
 
 ## Purpose
 
@@ -49,6 +55,28 @@ Only after explicit owner authorization:
 9. persist no canonical CRM mutation;
 10. capture safe provider evidence needed to determine whether this capability cell
     may become `LIVE_VALIDATED_CAPABILITY`.
+
+Items 1–7 and the pre-live implementation for item 10 are active in draft PR #15.
+Item 8, the real bounded request, is not authorized in this gate.
+
+## Repo-owned one-shot and reconciliation procedure
+
+`pnpm --filter @drowk/aisa-capability prelive:plan` prints the exact selected
+request fingerprint and budget without database access, key use or transport calls.
+The versioned `live:once` command is for a later separately authorized live gate;
+it requires `DROWK_AISA_LIVE_VALIDATION_ENABLED=true`, runtime `AISA_API_KEY`,
+`DATABASE_URL`, `DROWK_TENANT_ID` and `APP_ENV`. It creates and starts one bounded
+ResearchRun, claims one irreversible dispatch, and emits only safe identifiers,
+result state, known cost and disposition. It exits non-zero on failure or ambiguity.
+No automatic retry exists. Do not run `live:once` under the present authorization.
+
+After a claim, the durable disposition is `UNKNOWN` until a ProviderRun is safely
+recorded. A crash with no ProviderRun leaves `UNKNOWN`; `--status <researchRunId>`
+exposes it without dispatch. The repository can close a stranded run as `BLOCKED`
+while preserving `UNKNOWN`. `--reconcile <researchRunId> <actorUuid>
+<evidenceSha256> <UNKNOWN_AFTER_REVIEW|CONFIRMED_NO_DISPATCH>` appends an immutable,
+attributed review. `RECONCILED` records review, not a license to dispatch again;
+`UNKNOWN_AFTER_REVIEW` preserves uncertainty. The original claim never clears.
 
 ## First fixture
 
