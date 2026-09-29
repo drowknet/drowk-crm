@@ -58,7 +58,7 @@ export interface ProviderRun extends TenantScoped, RunScoped {
   capability: CapabilityId;
   provider: string;
   operation: string;
-  interface: "DIRECT_API" | "MCP" | "NATIVE" | "OTHER";
+  interface: "DIRECT_API" | "MCP" | "NATIVE" | "OTHER" | "AISA_REST";
   accessClass: "READ" | "WRITE";
   requestFingerprint: Sha256Digest;
   responseFingerprint: Sha256Digest | null;
@@ -69,6 +69,14 @@ export interface ProviderRun extends TenantScoped, RunScoped {
   retrievedAt: IsoDateTime;
   observedAt: IsoDateTime | null;
   rightsClass: string | null;
+  /** Present only for an explicitly claimed live validation. */
+  transport?: string | null;
+  providerTaskId?: string | null;
+  providerCid?: string | null;
+  providerFeatureId?: string | null;
+  safeSummary?: JsonValue | null;
+  safeStatusCodes?: JsonValue | null;
+  safeErrorCategory?: string | null;
 }
 
 export type JsonValue = null | boolean | number | string | JsonValue[] |
@@ -84,6 +92,7 @@ export interface CapabilityLabCase {
   capabilityId: CapabilityId;
   workloadCell: string;
   provider: string;
+  transport?: string;
   operation: string;
   interface: ProviderRun["interface"];
   accessClass: ProviderRun["accessClass"];
@@ -107,4 +116,26 @@ export interface SyntheticCapabilityFixture {
   observedAt: IsoDateTime | null;
   latencyMs: number | null;
   provenanceComplete: boolean;
+}
+
+/** A safe audit candidate; the adapter never supplies raw provider responses. */
+export interface LiveProviderAuditInput {
+  id: string;
+  labCase: CapabilityLabCase;
+  requestFingerprint: Sha256Digest;
+  responseFingerprint: Sha256Digest | null;
+  resultState: ProviderResultState;
+  estimatedCostUsdMicros: number;
+  actualCostUsdMicros: number | null;
+  actualCostKnown: boolean;
+  retrievedAt: IsoDateTime;
+  observedAt: IsoDateTime | null;
+  latencyMs: number | null;
+  provenanceComplete: boolean;
+  providerTaskId: string | null;
+  providerCid: string | null;
+  providerFeatureId: string | null;
+  safeSummary: JsonValue | null;
+  safeStatusCodes: JsonValue | null;
+  safeErrorCategory: string | null;
 }

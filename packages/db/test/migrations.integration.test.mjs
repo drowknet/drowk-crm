@@ -33,6 +33,7 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
     ["0012_relationship_memory.sql", "pending"],
     ["0013_capability_lab.sql", "pending"],
     ["0014_synthetic_research_budget_contract.sql", "pending"],
+    ["0015_aisa_dataforseo_pre_live.sql", "pending"],
   ]);
   assert.deepEqual((await pool.query(
     "SELECT to_regclass('public.drowk_schema_migrations') AS ledger, to_regclass('public.tenants') AS tenants",
@@ -48,7 +49,7 @@ pgTest("fresh plan is read-only; apply is ordered and idempotent with exact ledg
       checksum: createHash("sha256").update(await readFile(join(defaultMigrationsDirectory, file.filename))).digest("hex"),
     });
   }
-  assert.equal(rows.length, 14);
+  assert.equal(rows.length, 15);
   assert.deepEqual((await pool.query(`
     SELECT data_type, is_nullable FROM information_schema.columns
     WHERE table_schema = 'public' AND table_name = 'work_items' AND column_name = 'due_date'
@@ -85,6 +86,7 @@ pgTest("0006 preserves legacy Gmail mailbox identity across namespace backfill a
   await rm(join(path, "0012_relationship_memory.sql"));
   await rm(join(path, "0013_capability_lab.sql"));
   await rm(join(path, "0014_synthetic_research_budget_contract.sql"));
+  await rm(join(path, "0015_aisa_dataforseo_pre_live.sql"));
   await applyMigrations(pool, path);
   const tenantId = randomUUID();
   const observationId = randomUUID();
@@ -109,6 +111,7 @@ pgTest("0006 preserves legacy Gmail mailbox identity across namespace backfill a
     "0012_relationship_memory.sql",
     "0013_capability_lab.sql",
     "0014_synthetic_research_budget_contract.sql",
+    "0015_aisa_dataforseo_pre_live.sql",
   ] });
   assert.equal((await pool.query(`SELECT source_namespace FROM source_observations WHERE id=$1`,
     [observationId])).rows[0].source_namespace, namespace);
