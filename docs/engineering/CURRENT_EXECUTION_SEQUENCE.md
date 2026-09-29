@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: FOUNDATION THROUGH DCRM-05A RELEASED TO MAIN — DCRM-05B SELECTED — DCRM-05C PRE-LIVE HARDENING IN DRAFT PR #15
+Status: FOUNDATION THROUGH DCRM-05A RELEASED TO MAIN — DCRM-05B SELECTED — DCRM-05C LIVE VALIDATION PASSED — OWNER ACCEPTED — LIVE_VALIDATED_CAPABILITY — MERGE PENDING
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -317,17 +317,21 @@ See:
 Research:
 `docs/research/DCRM-05B_PROVIDER_SELECTION_2026-09-28.md`
 
-### Active gate — DCRM-05C AIsa/DataForSEO pre-live hardening
+### Active gate — DCRM-05C accepted live validation; merge pending
 
-`docs/work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md`
+[Work package](../work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md)
+and [safe evidence](../research/DCRM-05C_LIVE_VALIDATION_EVIDENCE_2026-09-29.md).
 
-The implementation branch `feat/dcrm-05c-aisa-dataforseo-live-validation` exists
-and PR #15 remains draft. The adapter, bounded ResearchRun/ProviderRun audit,
-forward-only migrations, mock sensors and one-shot runner are under pre-live
-review. The PR #15 deep review B1–B4 corrections are active on this branch.
-No live AIsa/DataForSEO request has occurred. Credential injection, real provider
-dispatch, `LIVE_VALIDATED_CAPABILITY`, merge and deployment remain separately
-owner-gated.
+- [DONE] live gate executed exactly once at `1432d2ab1042c7a8fcc5f200c411315cb55b45df`;
+- [DONE] technical PASS: `PRESENT`, `RECORDED`, actual cost `$0.01308`;
+- [DONE] formal owner acceptance; exact cell promoted to `LIVE_VALIDATED_CAPABILITY`;
+- [DONE] zero retries, reconciliation or canonical CRM mutation;
+- [CLOSED] no new live call authorized; deployment, Gmail, outbound and DCRM-06 closed;
+- [PENDING] separate owner merge gate for PR #15 and subsequent post-merge CI.
+
+Promotion is limited to the evidence's exact tuple on branch
+`feat/dcrm-05c-aisa-dataforseo-live-validation`.
+`Provider output != CRM truth`.
 
 ### Foundation release gate — CLOSED
 
@@ -353,11 +357,11 @@ Current writer state:
 - DCRM-04E is closed and merged;
 - DCRM-04F is closed and merged;
 - DCRM-05A is closed and released to `main` through PR #1;
-- DCRM-05C pre-live hardening is active on its sole-writer feature branch;
+- DCRM-05C docs/canon records accepted live validation on its sole-writer feature branch;
 - DCRM-05B provider selection/research is closed;
-- DCRM-05C implementation is in draft PR #15; live execution is not authorized;
-- do not inject credentials or make an external provider request until the owner
-  explicitly authorizes the separate live gate;
+- DCRM-05C exact cell is `LIVE_VALIDATED_CAPABILITY`; PR #15 merge remains owner-gated;
+- no additional live request or credential use is authorized;
+- post-merge CI remains pending; deployment remains closed;
 - DROWK CRM remains the canonical implementation surface;
 - PWM local files remain preservation/regression reference only unless a new
   explicit extraction gate is opened.

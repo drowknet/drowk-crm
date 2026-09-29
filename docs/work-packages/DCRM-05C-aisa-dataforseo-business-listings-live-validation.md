@@ -1,12 +1,32 @@
 # DCRM-05C — AIsa/DataForSEO Business Listings Live READ Validation
 
-Status: PRE-LIVE IMPLEMENTATION IN DRAFT PR #15 — HARDENING ACTIVE — LIVE REQUEST NOT AUTHORIZED OR EXECUTED
+Status: LIVE VALIDATION PASSED — OWNER ACCEPTED — LIVE_VALIDATED_CAPABILITY — MERGE PENDING
 
-The implementation branch is `feat/dcrm-05c-aisa-dataforseo-live-validation`.
-The owner authorized adapter, migration, runner and synthetic/mock proof only.
-The real provider request remains a separate explicit owner gate after exact-head CI
-and deep review. This work package is not complete and the selected cell is not
-`LIVE_VALIDATED_CAPABILITY`.
+The owner authorized one bounded READ request, accepted its technical PASS on
+2026-09-29, and authorized docs/canon promotion of only the exact selected cell.
+The branch remains `feat/dcrm-05c-aisa-dataforseo-live-validation`.
+
+## Accepted live evidence — 2026-09-29
+
+- Executed HEAD: `1432d2ab1042c7a8fcc5f200c411315cb55b45df`
+- ResearchRun ID: `94bf1347-f5ac-47e8-bb02-56cb6565b9f2`
+- ResearchRun status: `EXHAUSTED`
+- ProviderRun ID: `6e9ad9ab-e416-4a5b-8046-e85899db6d13`
+- Exit code: `0`; resultState: `PRESENT`; dispatch disposition: `RECORDED`
+- estimatedCostUsdMicros: `13800`
+- actualCostUsdMicros: `13080`; actualCostKnown: `true`
+- Live requests executed: `1`; retries: `0`; reconcile: `0`
+- Canonical CRM mutation: `0`
+- Final counts: `research_runs=1`, `provider_runs=1`
+
+[Safe live evidence](../research/DCRM-05C_LIVE_VALIDATION_EVIDENCE_2026-09-29.md) records provenance and owner acceptance.
+
+`Provider output != CRM truth`.
+
+Only this exact workload/tuple is promoted. This does not validate other AIsa tools,
+providers or capability cells, or establish universal superiority for AIsa or
+DataForSEO. No new live request is authorized. Merge requires a separate explicit
+owner gate; post-merge CI remains pending. Deployment and DCRM-06 remain closed.
 
 ## Purpose
 
@@ -32,6 +52,7 @@ Required values:
   `POST /apis/v1/dataforseo/business_data/business_listings/search/live`;
 - interface: `AISA_REST`;
 - accessClass: `READ`;
+- geography/locale: `US` / `en-US`;
 - maxCostUsdMicros per call: `15000`;
 - maxCostUsdMicros per ResearchRun: `15000`;
 - maxToolCalls: `1`;
@@ -40,9 +61,9 @@ Required values:
 - retries: 0;
 - adapterVersion: `aisa-dataforseo-business-listings-v1`.
 
-## Implementation scope after owner authorization
+## Authorized implementation scope (historical)
 
-Only after explicit owner authorization:
+The separately authorized implementation scope was:
 
 1. create a dedicated feature branch from the exact current `main`;
 2. add a minimal provider-neutral live adapter behind the DCRM-05A contracts;
@@ -56,19 +77,20 @@ Only after explicit owner authorization:
 10. capture safe provider evidence needed to determine whether this capability cell
     may become `LIVE_VALIDATED_CAPABILITY`.
 
-Items 1–7 and the pre-live implementation for item 10 are active in draft PR #15.
-Item 8, the real bounded request, is not authorized in this gate.
+Implementation and the single live request are complete on the feature branch.
+The owner accepted the live evidence; merge and post-merge CI remain pending.
 
 ## Repo-owned one-shot and reconciliation procedure
 
 `pnpm --filter @drowk/aisa-capability prelive:plan` prints the exact selected
 request fingerprint and budget without database access, key use or transport calls.
-The versioned `live:once` command is for a later separately authorized live gate;
+The versioned `live:once` command was used once under the owner-authorized live gate;
 it requires `DROWK_AISA_LIVE_VALIDATION_ENABLED=true`, runtime `AISA_API_KEY`,
 `DATABASE_URL`, `DROWK_TENANT_ID` and `APP_ENV`. It creates and starts one bounded
 ResearchRun, claims one irreversible dispatch, and emits only safe identifiers,
 result state, known cost and disposition. It exits non-zero on failure or ambiguity.
-No automatic retry exists. Do not run `live:once` under the present authorization.
+No automatic retry exists. The one-call authorization is consumed. Do not run
+`live:once` again. No new live request or reconciliation is authorized.
 
 After a claim, the durable disposition is `UNKNOWN` until a ProviderRun is safely
 recorded. A crash with no ProviderRun leaves `UNKNOWN`; `--status <researchRunId>`
@@ -139,9 +161,8 @@ Forbidden:
 
 ## Capability-state gate
 
-The selected cell remains `DOCUMENTED_CAPABILITY` / lab-validated before the run.
-
-It may become `LIVE_VALIDATED_CAPABILITY` only if the actual run proves:
+The exact selected cell is now `LIVE_VALIDATED_CAPABILITY`, following technical
+PASS and formal owner acceptance. Promotion criteria for the accepted run were:
 - request executed under the approved tuple;
 - cost ceiling respected;
 - provenance IDs captured;
@@ -154,7 +175,9 @@ It may become `LIVE_VALIDATED_CAPABILITY` only if the actual run proves:
 
 ## Completion contract
 
-DCRM-05C may close only after:
+Live validation and exact-cell promotion are accepted. Full work-package closure
+still requires the pending owner merge gate and successful post-merge CI.
+The completion contract remains:
 - implementation is reviewed on a dedicated branch;
 - exact-head GitHub CI is green;
 - owner explicitly authorizes the bounded live execution;

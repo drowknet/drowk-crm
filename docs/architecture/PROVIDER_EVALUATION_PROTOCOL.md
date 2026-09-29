@@ -215,5 +215,30 @@ The selection is based on current public facts recorded in
 Selection does not establish provider preference outside this capability cell and
 does not establish `LIVE_VALIDATED_CAPABILITY`.
 
-The selected cell remains non-live until DCRM-05C receives explicit owner
-authorization and executes one bounded READ-only run.
+At selection time, the cell remained non-live pending the DCRM-05C owner gate.
+The accepted result below supersedes that pre-live state.
+
+## Post-DCRM-05C accepted live validation — 2026-09-29
+
+`AIsa REST → DataForSEO Business Listings Search Live → FACILITY_LOCATION_DISCOVERY`
+is now `LIVE_VALIDATED_CAPABILITY` following one owner-authorized request,
+technical PASS and formal owner acceptance. The promotion is limited to:
+
+- capabilityId: `DISCOVER_BUSINESS_LISTINGS`
+- workloadCell: `FACILITY_LOCATION_DISCOVERY`
+- provider: `dataforseo`
+- transport: `aisa`
+- operation: `POST /apis/v1/dataforseo/business_data/business_listings/search/live`
+- interface: `AISA_REST`
+- accessClass: `READ`
+- geography/locale: `US` / `en-US`
+- adapterVersion: `aisa-dataforseo-business-listings-v1`
+
+[Accepted safe evidence](../research/DCRM-05C_LIVE_VALIDATION_EVIDENCE_2026-09-29.md) records the bounded fixture and audit.
+
+`Provider output != CRM truth`.
+
+Only this exact workload/tuple is promoted. This does not validate other AIsa tools,
+providers or capability cells, or establish universal superiority for AIsa or
+DataForSEO. No new live request is authorized. Merge requires a separate explicit
+owner gate; post-merge CI remains pending. Deployment and DCRM-06 remain closed.
