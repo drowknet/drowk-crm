@@ -64,7 +64,19 @@ post-merge CI is green.
 The foundation release was merged into `main` as
 `99c3900aa2e9aa074c2d9f97ccce811557be922f` with post-merge CI green.
 
-No implementation WP is currently authorized.
+EF-01A is the currently authorized implementation work package:
+
+`docs/work-packages/EF-01A-executable-engineering-harness-ci-secret-safety.md`
+
+Authorized branch:
+`feat/ef-01a-engineering-harness-ci-secrets`
+
+Authorized base:
+`4a86eac14a209cd47617285d88419db2fe49a365`
+
+Scope is engineering harness, reproducible CI and secret safety only. No deployment,
+provider live call, Gmail live, outbound, database migration, CRM behavior change or
+GitHub administration change is authorized.
 
 DCRM-05B provider selection is closed.
 

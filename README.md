@@ -25,12 +25,19 @@ The product is intentionally provider-independent. Gmail, AIsa, LinkedIn, Apollo
 
 ## Status
 
-**DCRM-00 — Foundation / architecture extraction.**
+**Execution Foundation — EF-01A active.**
 
-The repository is intentionally architecture-first. Runtime/framework choices remain open until preservation and extraction contracts are complete.
+The core foundation through DCRM-05C is released to `main`. One exact
+AIsa/DataForSEO `FACILITY_LOCATION_DISCOVERY` cell is `LIVE_VALIDATED_CAPABILITY`;
+that validation does not generalize to other provider/capability cells.
+
+EF-01A is the first post-05C operational hardening slice: executable engineering harness,
+reproducible CI and secret safety. No production deployment is authorized.
 
 Start with:
 - [Knowledge Index](docs/index.md)
+- [Architecture Baseline v1](docs/architecture/DROWK_ARCHITECTURE_BASELINE_V1_2026-09-28.md)
+- [Execution Foundation Plan](docs/engineering/EXECUTION_FOUNDATION_PLAN.md)
 - [System Architecture](docs/architecture/SYSTEM_ARCHITECTURE.md)
 - [Canonical Data Model](docs/architecture/CANONICAL_DATA_MODEL.md)
 - [Roadmap](docs/roadmap/ROADMAP.md)
@@ -49,7 +56,7 @@ Other DROWK repositories may inform design but are not implementation targets or
 - `drowk.net` — DROWK systems namespace.
 - `crm.drowk.net` — approved production namespace direction for DROWK CRM.
 - GitHub — engineering/version canon.
-- PostgreSQL — intended canonical business datastore, pending DCRM-00 stack confirmation.
+- PostgreSQL — canonical durable business datastore.
 - Cloudflare — intended edge/deployment/access layer; no CRM application has been deployed yet.
 - Apps Script/Gmail — migration/source connector, not long-term system of record.
 
