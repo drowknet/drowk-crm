@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B ACTIVE / LIVE PROTECTION PASS / MERGE GATE PENDING — NO DEPLOY
+Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 NEXT / NOT YET AUTHORIZED — NO DEPLOY
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -348,7 +348,7 @@ Closure evidence:
 
 ### Active gate - EF-01B Repository Governance & Branch Protection
 
-Status: ACTIVE - REPO-OWNED IMPLEMENTATION COMPLETE - LIVE PROTECTION PASS / MERGE GATE PENDING.
+Status: ACTIVE - REPO-OWNED IMPLEMENTATION COMPLETE - CLOSED/GREEN.
 
 Authorized branch: `feat/ef-01b-repository-governance`; base:
 `c74cb8415fee6e550661d5a64645e5320763110d`. The exact policy, GET-only verifier
@@ -359,6 +359,15 @@ No GitHub administration state has been changed by this implementation.
 [Work package](../work-packages/EF-01B-repository-governance-branch-protection.md) and
 [owner runbook](REPOSITORY_GOVERNANCE.md). Owner admin apply, live verification,
 independent metadata review, protected merge and post-merge CI remain pending.
+
+Closed EF-01B evidence:
+- PR #20 final head `563e2043bcdf4e2eb94bb1916c430f91b5659905`;
+- merge commit `c70ba3e0a68794a4dadae7568107ba29eb4cfce1`;
+- post-merge CI `36589368723`: verify SUCCESS and postgres-foundation SUCCESS;
+- `main.protected=true` remains active after merge;
+- required checks `verify` and `postgres-foundation` remain bound to GitHub Actions app id `15368`;
+- merged head branch auto-deleted;
+- no deploy/provider/Gmail/outbound action occurred.
 
 Live EF-01B evidence:
 - owner-side `governance:verify` PASS;
@@ -400,7 +409,7 @@ Current writer state:
 - DCRM-05B provider selection/research is closed;
 - DCRM-05C exact cell is `LIVE_VALIDATED_CAPABILITY`;
 - EF-01A is closed and released to `main` through PR #18;
-- EF-01B is ACTIVE; repo-owned implementation complete, LIVE PROTECTION PASS / MERGE GATE PENDING;
+- EF-01B is ACTIVE; repo-owned implementation complete, CLOSED/GREEN;
 - Codex is the sole implementation writer; no GitHub admin mutation is authorized;
 - no additional live request or credential use is authorized;
 - post-merge CI is green; deployment remains closed;

@@ -1,7 +1,7 @@
 # Repository governance verifier
 
-EF-01B: ACTIVE. Repo-owned implementation complete; LIVE PROTECTION PASS; MERGE GATE PENDING.
-Live admin apply and the repo-owned verifier now establish that `main` matches the frozen policy; merge remains owner-gated.
+EF-01B: CLOSED/GREEN. Repo-owned implementation, live admin apply, protected-main merge and post-merge CI are complete.
+The live verifier establishes that `main` matches the frozen policy; EF-02 remains separately owner-gated.
 
 `main-protection-policy.json` records the exact owner-approved target for
 `drowknet/drowk-crm`, branch `main`. It is a comparison contract, not an admin payload
@@ -65,6 +65,6 @@ authorize a merge or deployment.
 
 The [canonical runbook](../../docs/engineering/REPOSITORY_GOVERNANCE.md) contains
 the separately gated owner-side administration procedure. Codex does not execute
-it. After review, the owner must apply the policy, the live verifier and independent
-metadata review must pass, and merge/post-merge CI gates must complete before
-EF-01B can be CLOSED/GREEN. EF-02 and DCRM-06 remain unauthorized.
+it. The policy is applied, the live verifier and independent metadata review passed, PR #20 merged
+through protected `main`, and post-merge CI is green. EF-01B is CLOSED/GREEN. EF-02 and DCRM-06
+remain unauthorized until separate owner gates.

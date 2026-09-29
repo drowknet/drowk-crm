@@ -1,6 +1,6 @@
 # Repository Governance — EF-01B
 
-Status: LIVE PROTECTION PASS — MERGE GATE PENDING — NO DEPLOY
+Status: CLOSED/GREEN — PROTECTED MAIN ACTIVE — POST-MERGE CI GREEN — NO DEPLOY
 
 Canonical repository: `drowknet/drowk-crm`
 
@@ -148,13 +148,15 @@ does not bypass protected `main`; no open PR currently targets them.
 
 ## Completion evidence
 
-EF-01B closes only when:
-1. repo-owned verifier implementation is reviewed and exact-head CI green;
-2. owner applies the exact admin policy;
-3. `main.protected = true` is independently observed;
-4. detailed admin verification matches the frozen policy;
-5. the EF-01B PR merges through the protected path;
-6. post-merge CI is green;
-7. repository canon records EF-01B CLOSED/GREEN.
+EF-01B completion contract is satisfied:
+1. repo-owned verifier implementation reviewed and exact-head CI green;
+2. owner applied the exact admin policy;
+3. `main.protected = true` independently observed;
+4. detailed admin verification matched the frozen policy;
+5. PR #20 merged through protected `main` at head `563e2043bcdf4e2eb94bb1916c430f91b5659905`;
+6. merge commit `c70ba3e0a68794a4dadae7568107ba29eb4cfce1`;
+7. post-merge CI `36589368723`: `verify` SUCCESS and `postgres-foundation` SUCCESS;
+8. merged PR head branch was automatically deleted under `delete_branch_on_merge=true`;
+9. repository canon records EF-01B CLOSED/GREEN.
 
 No deployment is authorized by this policy.
