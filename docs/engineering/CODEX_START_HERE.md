@@ -77,6 +77,7 @@ DCRM-05C live validation was executed exactly once and accepted by the owner:
 The exact cell is `LIVE_VALIDATED_CAPABILITY`; its full tuple and safe audit are in
 [the accepted evidence](../research/DCRM-05C_LIVE_VALIDATION_EVIDENCE_2026-09-29.md). No other AIsa cell is promoted.
 
-No new live call or credential use is authorized. Merge still requires a separate
-owner gate; post-merge CI remains pending. Deployment, Gmail live, outbound,
-reconciliation and DCRM-06 remain closed. `Provider output != CRM truth`.
+DCRM-05C merged to `main` as `93cca53023c75ee52d86a3df1d7cdb4749c019eb`, and post-merge CI `36535730059` is green.
+No new live call or credential use is authorized. Deployment, Gmail live, outbound,
+reconciliation and DCRM-06 remain closed pending separate owner-authorized work packages.
+`Provider output != CRM truth`.
