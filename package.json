@@ -13,12 +13,14 @@
     "secrets:scan": "node tooling/harness/secrets.mjs all",
     "secrets:tree": "node tooling/harness/secrets.mjs tree",
     "secrets:history": "node tooling/harness/secrets.mjs history",
-    "harness:test": "node --test tooling/harness/*.test.mjs",
+    "harness:test": "node --test tooling/harness/*.test.mjs tooling/governance/*.test.mjs",
     "harness:preflight": "node tooling/harness/run.mjs preflight",
     "harness:fast": "node tooling/harness/run.mjs fast",
     "harness:full": "node tooling/harness/run.mjs full",
     "harness:ci": "node tooling/harness/run.mjs ci",
-    "harness:integration": "node tooling/harness/run.mjs integration"
+    "harness:integration": "node tooling/harness/run.mjs integration",
+    "governance:test": "node --test tooling/governance/verify-main-protection.test.mjs",
+    "governance:verify": "node tooling/governance/verify-main-protection.mjs"
   },
   "devDependencies": {
     "typescript": "^5.9.0",

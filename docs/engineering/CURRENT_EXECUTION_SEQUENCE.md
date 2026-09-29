@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B NEXT OWNER-GATED — NO DEPLOY
+Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B ACTIVE / LIVE PROTECTION PASS / MERGE GATE PENDING — NO DEPLOY
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -346,7 +346,26 @@ Closure evidence:
 - executable harness modes, real lint, frozen-lockfile CI, immutable Action commit pins and redacted tree/history secret sensors are released on `main`;
 - no deploy, external provider call, Gmail live or outbound occurred.
 
-EF-01B remains the next planned Execution Foundation package and requires a separate owner/admin gate.
+### Active gate - EF-01B Repository Governance & Branch Protection
+
+Status: ACTIVE - REPO-OWNED IMPLEMENTATION COMPLETE - LIVE PROTECTION PASS / MERGE GATE PENDING.
+
+Authorized branch: `feat/ef-01b-repository-governance`; base:
+`c74cb8415fee6e550661d5a64645e5320763110d`. The exact policy, GET-only verifier
+and synthetic governance tests are implemented under `tooling/governance/`.
+`harness:test` includes these offline tests; CI never invokes remote governance APIs.
+No GitHub administration state has been changed by this implementation.
+
+[Work package](../work-packages/EF-01B-repository-governance-branch-protection.md) and
+[owner runbook](REPOSITORY_GOVERNANCE.md). Owner admin apply, live verification,
+independent metadata review, protected merge and post-merge CI remain pending.
+
+Live EF-01B evidence:
+- owner-side `governance:verify` PASS;
+- independent GitHub metadata: `main.protected=true`;
+- required checks `verify` and `postgres-foundation` enforced for everyone and bound to GitHub Actions app id `15368`;
+- `allow_update_branch=true` and `delete_branch_on_merge=true`;
+- PR #20 remains unmerged pending exact-head docs-correction CI and explicit owner merge gate.
 
 Repository governance/branch protection is tracked as EF-01B because the current
 `main` branch is not technically protected and the connected GitHub surface does not
@@ -381,7 +400,8 @@ Current writer state:
 - DCRM-05B provider selection/research is closed;
 - DCRM-05C exact cell is `LIVE_VALIDATED_CAPABILITY`;
 - EF-01A is closed and released to `main` through PR #18;
-- no implementation work package is currently active;
+- EF-01B is ACTIVE; repo-owned implementation complete, LIVE PROTECTION PASS / MERGE GATE PENDING;
+- Codex is the sole implementation writer; no GitHub admin mutation is authorized;
 - no additional live request or credential use is authorized;
 - post-merge CI is green; deployment remains closed;
 - DROWK CRM remains the canonical implementation surface;
