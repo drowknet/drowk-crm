@@ -70,7 +70,7 @@ EF-01A is closed and merged to `main` through PR #18 as
 EF-01B Repository Governance & Branch Protection is ACTIVE on
 `feat/ef-01b-repository-governance`, from base
 `c74cb8415fee6e550661d5a64645e5320763110d`. The repo-owned policy, read-only
-verifier and offline test wiring are implemented. ADMIN APPLY PENDING.
+verifier and offline test wiring are implemented. LIVE PROTECTION PASS / MERGE GATE PENDING.
 
 Read [the work package](../work-packages/EF-01B-repository-governance-branch-protection.md)
 and [the governance runbook](REPOSITORY_GOVERNANCE.md). Only repo-owned work is

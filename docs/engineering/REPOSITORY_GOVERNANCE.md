@@ -1,6 +1,6 @@
 # Repository Governance — EF-01B
 
-Status: TARGET POLICY FROZEN — OWNER ADMIN APPLY REQUIRED — NO DEPLOY
+Status: LIVE PROTECTION PASS — MERGE GATE PENDING — NO DEPLOY
 
 Canonical repository: `drowknet/drowk-crm`
 
@@ -64,7 +64,6 @@ $policy = @'
 {
   "required_status_checks": {
     "strict": true,
-    "contexts": [],
     "checks": [
       { "context": "verify", "app_id": 15368 },
       { "context": "postgres-foundation", "app_id": 15368 }
@@ -97,6 +96,26 @@ $policy | gh api --silent --method PUT `
 
 After apply, run the repo-owned `governance:verify` command. Merge remains forbidden until
 the local verifier and an independent GitHub metadata review both pass.
+
+## Live apply evidence — 2026-09-29
+
+The owner applied the frozen repository settings and branch policy after GitHub Pro was enabled.
+
+Observed sequence:
+- repository settings `allow_update_branch=true` and `delete_branch_on_merge=true` applied successfully;
+- first protected-branch attempt was blocked by plan entitlement before GitHub Pro;
+- second attempt reached the API but failed schema validation because `contexts` and `checks`
+  were sent together;
+- canonical payload was corrected to app-bound `checks` only;
+- final protection PUT succeeded;
+- repo-owned `governance:verify` returned `{"status":"PASS","issues":[]}`;
+- independent GitHub branch metadata reports `main.protected=true`;
+- required check enforcement is `everyone`;
+- required checks are `verify` and `postgres-foundation`, each bound to GitHub Actions app id `15368`;
+- repository metadata reports `allow_update_branch=true` and `delete_branch_on_merge=true`.
+
+The failed attempts did not create partial branch protection. No deploy, provider call, Gmail
+live action or outbound execution occurred.
 
 ## Emergency rollback
 

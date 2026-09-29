@@ -1,7 +1,7 @@
 # Repository governance verifier
 
-EF-01B: ACTIVE. Repo-owned implementation complete; ADMIN APPLY PENDING.
-This implementation does not establish that `main` is protected.
+EF-01B: ACTIVE. Repo-owned implementation complete; LIVE PROTECTION PASS; MERGE GATE PENDING.
+Live admin apply and the repo-owned verifier now establish that `main` matches the frozen policy; merge remains owner-gated.
 
 `main-protection-policy.json` records the exact owner-approved target for
 `drowknet/drowk-crm`, branch `main`. It is a comparison contract, not an admin payload

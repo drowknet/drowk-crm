@@ -38,7 +38,7 @@ This index routes humans and agents to the current repository-owned context.
 
 ## Engineering execution
 
-- [Repository Governance](engineering/REPOSITORY_GOVERNANCE.md) - frozen owner policy; ADMIN APPLY PENDING.
+- [Repository Governance](engineering/REPOSITORY_GOVERNANCE.md) - live protection verified; merge gate pending.
 - [Governance verifier](../tooling/governance/README.md) - implemented GET-only policy verification and offline tests; no admin writes.
 
 - [Codex Start Here](engineering/CODEX_START_HERE.md) — concise local entrypoint for Codex sessions.
@@ -66,7 +66,7 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-05C AIsa/DataForSEO Business Listings Live READ Validation](work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md) — closed/merged with post-merge CI green; exact cell is `LIVE_VALIDATED_CAPABILITY`; no new live call authorized.
 - [EF-01A Executable Engineering Harness, Reproducible CI & Secret Safety](work-packages/EF-01A-executable-engineering-harness-ci-secret-safety.md) — closed/merged with post-merge CI green; no deploy.
 
-- [EF-01B Repository Governance & Branch Protection](work-packages/EF-01B-repository-governance-branch-protection.md) - ACTIVE; repo-owned implementation complete; ADMIN APPLY PENDING. Main protection is not claimed.
+- [EF-01B Repository Governance & Branch Protection](work-packages/EF-01B-repository-governance-branch-protection.md) - ACTIVE; live protection verified; merge gate pending; no deploy.
 
 ## Migration
 

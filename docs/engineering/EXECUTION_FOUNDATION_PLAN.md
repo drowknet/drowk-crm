@@ -1,6 +1,6 @@
 # Execution Foundation Plan
 
-Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B ACTIVE / ADMIN APPLY PENDING
+Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B ACTIVE / LIVE PROTECTION PASS / MERGE GATE PENDING
 
 Base architecture:
 `docs/architecture/DROWK_ARCHITECTURE_BASELINE_V1_2026-09-28.md`
@@ -33,11 +33,11 @@ Work package:
 
 ### EF-01B — Repository Governance & Branch Protection
 
-Status: ACTIVE / REPO-OWNED IMPLEMENTATION COMPLETE / ADMIN APPLY PENDING.
+Status: ACTIVE / LIVE PROTECTION PASS / MERGE GATE PENDING / NO DEPLOY.
 
 The exact policy, read-only verifier and offline tests are implemented in
-`tooling/governance/`. Owner-side admin apply remains separate; this code does not
-mean main is protected. See [the runbook](REPOSITORY_GOVERNANCE.md).
+`tooling/governance/`. Owner-side admin apply and local verifier passed; independent GitHub
+metadata confirms protected `main` and exact required checks. See [the runbook](REPOSITORY_GOVERNANCE.md).
 
 Required outcomes:
 - protect `main`;

@@ -1,6 +1,6 @@
 # EF-01B — Repository Governance & Branch Protection
 
-Status: ACTIVE — OWNER AUTHORIZED — ADMIN APPLY PENDING — NO DEPLOY
+Status: ACTIVE — LIVE PROTECTION PASS — MERGE GATE PENDING — NO DEPLOY
 
 Authorized base: `c74cb8415fee6e550661d5a64645e5320763110d`
 
@@ -87,14 +87,18 @@ Repository:
 
 ## Review/apply sequence
 
-1. Codex implements the repo-owned verifier.
-2. Exact-head CI and deep review pass.
-3. Owner executes the frozen admin commands.
-4. Local `governance:verify` passes.
-5. ChatGPT independently verifies live GitHub metadata.
-6. Only then may the PR enter owner merge gate.
-7. Merge must occur through newly protected `main`.
-8. Post-merge CI green.
-9. Canon closure records CLOSED/GREEN.
+Completed before merge gate:
+1. Codex implemented the repo-owned verifier.
+2. Exact-head CI and deep review passed.
+3. Owner applied repository settings and the corrected checks-only branch-protection payload.
+4. Local `governance:verify` passed.
+5. Independent GitHub metadata confirmed protected `main`, exact required checks/app id and repository settings.
+
+Remaining:
+6. exact-head CI after the docs-only live-evidence correction must pass;
+7. PR #20 enters the explicit owner merge gate;
+8. merge must occur through protected `main`;
+9. post-merge CI green;
+10. canon closure records CLOSED/GREEN.
 
 No deployment is included.
