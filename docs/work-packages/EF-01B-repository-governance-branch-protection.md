@@ -1,6 +1,6 @@
 # EF-01B — Repository Governance & Branch Protection
 
-Status: ACTIVE — LIVE PROTECTION PASS — MERGE GATE PENDING — NO DEPLOY
+Status: CLOSED/GREEN — MERGED TO PROTECTED MAIN — POST-MERGE CI GREEN — NO DEPLOY
 
 Authorized base: `c74cb8415fee6e550661d5a64645e5320763110d`
 
@@ -94,11 +94,15 @@ Completed before merge gate:
 4. Local `governance:verify` passed.
 5. Independent GitHub metadata confirmed protected `main`, exact required checks/app id and repository settings.
 
-Remaining:
-6. exact-head CI after the docs-only live-evidence correction must pass;
-7. PR #20 enters the explicit owner merge gate;
-8. merge must occur through protected `main`;
-9. post-merge CI green;
-10. canon closure records CLOSED/GREEN.
+Completed after live apply:
+6. final exact-head CI after the docs-only live-evidence correction passed;
+7. PR #20 entered the explicit owner merge gate;
+8. PR #20 merged through protected `main` as `c70ba3e0a68794a4dadae7568107ba29eb4cfce1`;
+9. post-merge CI `36589368723` is green;
+10. merged head branch was automatically deleted;
+11. this closure records EF-01B CLOSED/GREEN.
+
+No implementation work package is currently active. EF-02 is next in the Execution Foundation
+sequence but requires a separate owner gate.
 
 No deployment is included.

@@ -1,6 +1,6 @@
 # Execution Foundation Plan
 
-Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B ACTIVE / LIVE PROTECTION PASS / MERGE GATE PENDING
+Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 NEXT / NOT YET AUTHORIZED
 
 Base architecture:
 `docs/architecture/DROWK_ARCHITECTURE_BASELINE_V1_2026-09-28.md`
@@ -33,11 +33,13 @@ Work package:
 
 ### EF-01B — Repository Governance & Branch Protection
 
-Status: ACTIVE / LIVE PROTECTION PASS / MERGE GATE PENDING / NO DEPLOY.
+Status: CLOSED / MERGED TO PROTECTED MAIN / POST-MERGE CI GREEN / NO DEPLOY.
 
 The exact policy, read-only verifier and offline tests are implemented in
 `tooling/governance/`. Owner-side admin apply and local verifier passed; independent GitHub
-metadata confirms protected `main` and exact required checks. See [the runbook](REPOSITORY_GOVERNANCE.md).
+metadata confirms protected `main` and exact required checks. PR #20 merged as
+`c70ba3e0a68794a4dadae7568107ba29eb4cfce1`; post-merge CI `36589368723` is green. See
+[the runbook](REPOSITORY_GOVERNANCE.md).
 
 Required outcomes:
 - protect `main`;
