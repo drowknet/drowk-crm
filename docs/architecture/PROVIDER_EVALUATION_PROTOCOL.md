@@ -171,3 +171,18 @@ be labeled `LIVE_VALIDATED_CAPABILITY`.
 
 Selected-provider live validation remains a later explicit DCRM-05 gate after rights,
 credentials, security and cost boundaries are approved.
+
+
+## Post-DCRM-05A release consequence — 2026-09-28
+
+DCRM-05A is closed with post-merge CI green.
+
+The synthetic lab now proves provider-neutral audit, result/cost semantics and
+bounded stopping behavior. It still does not prove any external provider.
+
+Before a live provider capability can be validated, the accumulated foundation
+release candidate must pass the dedicated `foundation/drowk-crm-00 -> main`
+release review and explicit owner merge gate already required by the execution
+sequence.
+
+No provider is live-validated by DCRM-05A.

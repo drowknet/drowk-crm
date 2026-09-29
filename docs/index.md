@@ -21,6 +21,7 @@ This index routes humans and agents to the current repository-owned context.
 - [Post-DCRM-04D interaction continuity gap — 2026-09-28](architecture/POST_DCRM04D_INTERACTION_CONTINUITY_GAP_2026-09-28.md) — checkpoint closing source Conversation idempotency and participant-correction prerequisites before Relationship.
 - [Post-DCRM-04E relationship gap — 2026-09-28](architecture/POST_DCRM04E_RELATIONSHIP_GAP_2026-09-28.md) — checkpoint selecting the canonical Relationship memory root after interaction continuity is proven.
 - [Post-DCRM-04F capability-lab gap — 2026-09-28](architecture/POST_DCRM04F_CAPABILITY_LAB_GAP_2026-09-28.md) — checkpoint closing the relationship-memory foundation and returning the roadmap to provider-neutral AIsa evaluation.
+- [Post-DCRM-05A foundation release gate — 2026-09-28](architecture/POST_DCRM05A_FOUNDATION_RELEASE_GATE_2026-09-28.md) — checkpoint closing the synthetic Capability Lab and activating the existing foundation-to-main release review before live providers.
 
 - [System Architecture](architecture/SYSTEM_ARCHITECTURE.md) — canonical product layers and runtime direction.
 - [Canonical Data Model](architecture/CANONICAL_DATA_MODEL.md) — draft domain/evidence/control objects.
@@ -53,7 +54,7 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-04D Commitment Memory Foundation](work-packages/DCRM-04D-commitment-memory-foundation.md) — completed/merged with post-merge CI green.
 - [DCRM-04E Interaction Continuity Hardening](work-packages/DCRM-04E-interaction-continuity-hardening.md) — completed/merged with post-merge CI green.
 - [DCRM-04F Relationship Memory Foundation](work-packages/DCRM-04F-relationship-memory-foundation.md) — completed/merged with post-merge CI green.
-- [DCRM-05A Capability Lab Harness](work-packages/DCRM-05A-capability-lab-harness.md) — next selected gate for synthetic provider-neutral ResearchRun/ProviderRun evaluation before live provider validation.
+- [DCRM-05A Capability Lab Harness](work-packages/DCRM-05A-capability-lab-harness.md) — completed/merged with post-merge CI green.
 
 ## Migration
 

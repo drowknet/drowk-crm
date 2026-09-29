@@ -56,16 +56,14 @@ The active engineering sequence lives in:
 
 That file, not chat history, tells Codex which work package is currently active.
 
-DCRM-02A, DCRM-02B, DCRM-03A, DCRM-04A, DCRM-04B, DCRM-04C, DCRM-04D, DCRM-04E and DCRM-04F are closed.
+DCRM-02A, DCRM-02B, DCRM-03A, DCRM-04A, DCRM-04B, DCRM-04C, DCRM-04D, DCRM-04E, DCRM-04F and DCRM-05A are closed.
 
-DCRM-04F merged as `a9690e8ff8ff898b2769eac378dde44838794bc5` and its
-post-merge CI is green. Live Gmail/OAuth/outbound remains separately gated.
+DCRM-05A merged as `d6f89e40ede689a23508ba3a3accda07d0bd6810` and its
+post-merge CI is green.
 
-The post-DCRM-04F checkpoint returns the roadmap to DCRM-05 AIsa Capability Lab.
+No implementation WP is currently authorized.
 
-The next queued work package is:
-`docs/work-packages/DCRM-05A-capability-lab-harness.md`.
-
-Do not execute DCRM-05A from foundation. Wait for the explicit owner/ChatGPT handoff
-that creates or switches to its dedicated feature branch. Once that handoff occurs,
-Codex is the sole writer on the DCRM-05A implementation surfaces until review.
+The next canonical gate is the GitHub foundation-to-main release review of PR #1.
+ChatGPT owns that review. Codex must not start a new feature branch, live provider
+adapter, Gmail live path, outbound path or deployment work until a later explicit
+owner/ChatGPT handoff names the next WP.

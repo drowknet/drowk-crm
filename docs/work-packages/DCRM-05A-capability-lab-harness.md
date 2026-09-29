@@ -1,6 +1,21 @@
 # DCRM-05A — Capability Lab Harness
 
-Status: READY FOR HANDOFF — FEATURE BRANCH PENDING
+Status: CLOSED — MERGED + POST-MERGE CI GREEN
+
+## Closure evidence
+
+- PR #14 merged into `foundation/drowk-crm-00`.
+- Feature head: `c1b8183fae7b117b2540d064e4d0ad58c8d3f078`.
+- Merge commit: `d6f89e40ede689a23508ba3a3accda07d0bd6810`.
+- Exact-head CI `36513834498`: SUCCESS.
+- Post-merge push CI `36514783019`: SUCCESS.
+- Foundation/PR validation CI `36514788600`: SUCCESS.
+- Deep review: NO BLOCKING FINDING after the synthetic ResearchRun budget-contract correction.
+- Migrations `0013_capability_lab.sql` and
+  `0014_synthetic_research_budget_contract.sql` are included in the green migration chain.
+- Synthetic harness remained READ-only and provider-neutral.
+- No live provider credential/network call, CRM truth mutation, universal provider score,
+  Gmail live path, outbound or deployment entered the package.
 
 ## Why this work package exists
 

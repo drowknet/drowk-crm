@@ -96,7 +96,9 @@ for fragmented Conversation identity or stale participant links.
 ## DCRM-05 — AIsa Capability Lab
 
 Selected first slice:
-- **DCRM-05A — Capability Lab Harness**: provider-neutral synthetic READ-only ResearchRun/ProviderRun harness, deterministic fingerprints, budgets, cost/result semantics and evaluation facts before live provider validation.
+- **DCRM-05A — Capability Lab Harness**: provider-neutral synthetic READ-only ResearchRun/ProviderRun harness, deterministic fingerprints, budgets, cost/result semantics and evaluation facts before live provider validation. CLOSED/GREEN.
+
+Before live provider validation, the accumulated `foundation/drowk-crm-00` release candidate must pass the dedicated foundation-to-main release review already defined in the execution sequence.
 
 Read-only evaluation of:
 - Apollo

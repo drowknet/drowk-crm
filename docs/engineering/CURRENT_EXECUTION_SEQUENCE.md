@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A/B/C/D/E/F GREEN — DCRM-05A NEXT
+Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A/B/C/D/E/F + DCRM-05A GREEN — FOUNDATION RELEASE REVIEW NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -266,26 +266,35 @@ DCRM-05 AIsa Capability Lab.
 See:
 `docs/architecture/POST_DCRM04F_CAPABILITY_LAB_GAP_2026-09-28.md`.
 
-### Next gate — DCRM-05A Capability Lab Harness
+### Completed — DCRM-05A Capability Lab Harness
 
-`docs/work-packages/DCRM-05A-capability-lab-harness.md`
+- [DONE] PR #14 merged into `foundation/drowk-crm-00`;
+- [DONE] feature head `c1b8183fae7b117b2540d064e4d0ad58c8d3f078`;
+- [DONE] merge commit `d6f89e40ede689a23508ba3a3accda07d0bd6810`;
+- [DONE] exact-head CI `36513834498` green;
+- [DONE] post-merge push CI `36514783019` green;
+- [DONE] foundation/PR validation CI `36514788600` green;
+- [DONE] synthetic provider-neutral ResearchRun/ProviderRun harness;
+- [DONE] deterministic fingerprints, immutable ProviderRun history, result/cost semantics;
+- [DONE] bounded cost/tool-call/stop-condition enforcement including direct-SQL fail-closed correction;
+- [CLOSED] live providers/credentials/CRM mutation/universal score/outbound/deploy remained outside the package.
 
-Operator/product outcome:
-- make provider-neutral ResearchRun/ProviderRun evaluation executable and auditable
-  before any live provider credentials or network calls.
+### Post-DCRM-05A checkpoint
 
-Required proof:
-- synthetic READ-only adapter/harness;
-- deterministic request/response fingerprints;
-- durable ResearchRun/ProviderRun persistence;
-- exact result-state and cost-known semantics;
-- budget/tool-call/stop-condition enforcement;
-- no LIVE_VALIDATED promotion from synthetic fixtures;
-- no universal provider score;
-- no canonical CRM mutation or live provider authority.
+The synthetic capability-lab substrate is complete.
 
-Do not execute DCRM-05A from foundation. It requires a dedicated feature branch and
-explicit owner/ChatGPT handoff.
+Before any live provider connector, execute the already-defined dedicated
+foundation-to-main release review.
+
+See:
+`docs/architecture/POST_DCRM05A_FOUNDATION_RELEASE_GATE_2026-09-28.md`.
+
+### Next gate — Foundation -> main release review (PR #1)
+
+- PR #1 remains DRAFT and UNMERGED;
+- review `foundation/drowk-crm-00` as the accumulated release candidate against `main`;
+- no live provider/network credential gate may open before this review is clean;
+- owner authorization is required separately for any PR #1 merge.
 
 ### Foundation release gate
 
@@ -311,10 +320,10 @@ Current writer state:
 - DCRM-04D is closed and merged;
 - DCRM-04E is closed and merged;
 - DCRM-04F is closed and merged;
-- DCRM-05A is selected as the next implementation WP but no Codex writer is active yet;
-- ChatGPT may update repo-owned planning/canonical docs before DCRM-05A handoff;
-- DCRM-05A requires an explicit owner/ChatGPT handoff and a dedicated feature branch;
-- once Codex starts that future branch, Codex is the sole writer on its implementation surfaces;
+- DCRM-05A is closed and merged;
+- no Codex implementation WP is active while the foundation-to-main release review is pending;
+- ChatGPT owns the GitHub release review surface;
+- do not start live provider implementation or a new Codex feature branch until the release review selects the next explicit gate;
 - DROWK CRM remains the canonical implementation surface;
 - PWM local files remain preservation/regression reference only unless a new
   explicit extraction gate is opened.
