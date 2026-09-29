@@ -19,5 +19,5 @@ test("interaction continuity has no Relationship, BuyerRole, Commitment, provide
   }
   const dbDependencies = JSON.parse(readFileSync(
     new URL("../../db/package.json", import.meta.url), "utf8")).dependencies;
-  assert.deepEqual(Object.keys(dbDependencies).sort(), ["@drowk/contracts", "pg"]);
+  assert.deepEqual(Object.keys(dbDependencies).sort(), ["@drowk/contracts", "@drowk/domain", "pg"]);
 });

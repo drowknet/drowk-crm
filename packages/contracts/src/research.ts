@@ -22,6 +22,7 @@ export interface ResearchQuestion {
   requiredEvidence: string[];
   freshnessSeconds: number | null;
   maxCostUsdMicros: number;
+  maxToolCalls: number;
   allowedCapabilities: CapabilityId[];
   stopCondition: string;
 }
@@ -45,6 +46,15 @@ export type ProviderResultState =
 
 export interface ProviderRun extends TenantScoped, RunScoped {
   id: string;
+  researchRunId: string;
+  caseId: string;
+  workloadCell: string;
+  adapterVersion: string;
+  normalizedInput: JsonValue;
+  labCase: CapabilityLabCase;
+  latencyMs: number | null;
+  provenanceComplete: boolean;
+  synthetic: boolean;
   capability: CapabilityId;
   provider: string;
   operation: string;
@@ -59,4 +69,42 @@ export interface ProviderRun extends TenantScoped, RunScoped {
   retrievedAt: IsoDateTime;
   observedAt: IsoDateTime | null;
   rightsClass: string | null;
+}
+
+export type JsonValue = null | boolean | number | string | JsonValue[] |
+  { [key: string]: JsonValue };
+
+export type CapabilityState =
+  | "DOCUMENTED_CAPABILITY" | "LIVE_VALIDATED_CAPABILITY"
+  | "UNSUPPORTED" | "UNASSESSED" | "TEMPORARILY_UNAVAILABLE" | "RIGHTS_BLOCKED";
+
+/** The 05A executable boundary accepts only synthetic READ requests. */
+export interface CapabilityLabCase {
+  caseId: string;
+  capabilityId: CapabilityId;
+  workloadCell: string;
+  provider: string;
+  operation: string;
+  interface: ProviderRun["interface"];
+  accessClass: ProviderRun["accessClass"];
+  normalizedInput: JsonValue;
+  locale: string | null;
+  geography: string | null;
+  maxCostUsdMicros: number;
+  maxToolCalls: number;
+  stopCondition: "EVIDENCE_PRESENT";
+  rightsClass: string | null;
+  adapterVersion: string;
+}
+
+export interface SyntheticCapabilityFixture {
+  resultState: ProviderResultState;
+  output: JsonValue;
+  estimatedCostUsdMicros: number | null;
+  actualCostUsdMicros: number | null;
+  actualCostKnown: boolean;
+  retrievedAt: IsoDateTime;
+  observedAt: IsoDateTime | null;
+  latencyMs: number | null;
+  provenanceComplete: boolean;
 }
