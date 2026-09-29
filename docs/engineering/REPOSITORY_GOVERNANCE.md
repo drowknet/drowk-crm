@@ -1,0 +1,141 @@
+# Repository Governance — EF-01B
+
+Status: TARGET POLICY FROZEN — OWNER ADMIN APPLY REQUIRED — NO DEPLOY
+
+Canonical repository: `drowknet/drowk-crm`
+
+Protected branch target: `main`
+
+## Opening facts
+
+Observed at base `c74cb8415fee6e550661d5a64645e5320763110d`:
+- `main.protected = false`;
+- `allow_update_branch = false`;
+- `delete_branch_on_merge = false`;
+- `allow_auto_merge = false`;
+- merge, squash and rebase merge methods are enabled;
+- open pull requests = 0;
+- current CI checks are `verify` and `postgres-foundation`;
+- both checks are emitted by GitHub Actions app id `15368`.
+
+The connected ChatGPT GitHub surface does not expose repository-administration writes.
+EF-01B therefore uses a repo-owned contract/verifier plus one explicit owner-side admin apply.
+
+## Canonical target policy
+
+For `main`:
+- strict/up-to-date required checks;
+- require `verify` from GitHub Actions app id `15368`;
+- require `postgres-foundation` from GitHub Actions app id `15368`;
+- require pull requests, but `required_approving_review_count = 0` while there is one owner;
+- apply protection to administrators;
+- require conversation resolution;
+- disable force pushes and branch deletion;
+- no PR bypass allowance;
+- do not require linear history;
+- do not lock the branch;
+- do not enable fork syncing;
+- do not introduce signed-commit enforcement in EF-01B.
+
+Repository settings:
+- keep merge commit, squash and rebase methods enabled;
+- keep auto-merge disabled;
+- enable `allow_update_branch`;
+- enable `delete_branch_on_merge` for future merged PR branches.
+
+Zero mandatory approvals is deliberate: requiring one approval would deadlock a single-owner
+repository when the owner authored the PR. Raising approval count requires a later governance gate.
+
+## Owner-side admin apply
+
+Run only after EF-01B implementation review is green.
+
+```powershell
+gh auth status
+
+gh api --silent --method PATCH `
+  -H 'Accept: application/vnd.github+json' `
+  -H 'X-GitHub-Api-Version: 2026-03-10' `
+  repos/drowknet/drowk-crm `
+  -F allow_update_branch=true `
+  -F delete_branch_on_merge=true
+
+$policy = @'
+{
+  "required_status_checks": {
+    "strict": true,
+    "contexts": [],
+    "checks": [
+      { "context": "verify", "app_id": 15368 },
+      { "context": "postgres-foundation", "app_id": 15368 }
+    ]
+  },
+  "enforce_admins": true,
+  "required_pull_request_reviews": {
+    "dismiss_stale_reviews": true,
+    "require_code_owner_reviews": false,
+    "required_approving_review_count": 0,
+    "require_last_push_approval": false
+  },
+  "restrictions": null,
+  "required_linear_history": false,
+  "allow_force_pushes": false,
+  "allow_deletions": false,
+  "block_creations": false,
+  "required_conversation_resolution": true,
+  "lock_branch": false,
+  "allow_fork_syncing": false
+}
+'@
+
+$policy | gh api --silent --method PUT `
+  -H 'Accept: application/vnd.github+json' `
+  -H 'X-GitHub-Api-Version: 2026-03-10' `
+  repos/drowknet/drowk-crm/branches/main/protection `
+  --input -
+```
+
+After apply, run the repo-owned `governance:verify` command. Merge remains forbidden until
+the local verifier and an independent GitHub metadata review both pass.
+
+## Emergency rollback
+
+Opening state was unprotected `main`, `allow_update_branch=false`,
+`delete_branch_on_merge=false`. If the new policy causes a governance deadlock, the owner may
+restore that exact prior state:
+
+```powershell
+gh api --silent --method DELETE `
+  -H 'Accept: application/vnd.github+json' `
+  -H 'X-GitHub-Api-Version: 2026-03-10' `
+  repos/drowknet/drowk-crm/branches/main/protection
+
+gh api --silent --method PATCH `
+  -H 'Accept: application/vnd.github+json' `
+  -H 'X-GitHub-Api-Version: 2026-03-10' `
+  repos/drowknet/drowk-crm `
+  -F allow_update_branch=false `
+  -F delete_branch_on_merge=false
+```
+
+Emergency rollback is not a routine bypass. Record the reason and reopen EF-01B before
+subsequent merges.
+
+## Historical branches
+
+EF-01B enables automatic deletion for future merged PR head branches. Existing historical
+branches are intentionally retained as audit/reference refs during this package. Their presence
+does not bypass protected `main`; no open PR currently targets them.
+
+## Completion evidence
+
+EF-01B closes only when:
+1. repo-owned verifier implementation is reviewed and exact-head CI green;
+2. owner applies the exact admin policy;
+3. `main.protected = true` is independently observed;
+4. detailed admin verification matches the frozen policy;
+5. the EF-01B PR merges through the protected path;
+6. post-merge CI is green;
+7. repository canon records EF-01B CLOSED/GREEN.
+
+No deployment is authorized by this policy.
