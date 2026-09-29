@@ -1,6 +1,6 @@
 # Execution Foundation Plan
 
-Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B NEXT / NOT YET AUTHORIZED
+Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B ACTIVE / ADMIN APPLY PENDING
 
 Base architecture:
 `docs/architecture/DROWK_ARCHITECTURE_BASELINE_V1_2026-09-28.md`
@@ -33,7 +33,11 @@ Work package:
 
 ### EF-01B — Repository Governance & Branch Protection
 
-Status: PLANNED / NOT YET AUTHORIZED.
+Status: ACTIVE / REPO-OWNED IMPLEMENTATION COMPLETE / ADMIN APPLY PENDING.
+
+The exact policy, read-only verifier and offline tests are implemented in
+`tooling/governance/`. Owner-side admin apply remains separate; this code does not
+mean main is protected. See [the runbook](REPOSITORY_GOVERNANCE.md).
 
 Required outcomes:
 - protect `main`;

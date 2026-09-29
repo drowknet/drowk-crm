@@ -135,7 +135,8 @@ Selected sequence:
   redacted secret sensors. CLOSED/GREEN; merged through PR #18 with post-merge CI green; no deploy.
 - **EF-01B — Repository Governance & Branch Protection**:
   required checks, protected `main`, merge governance and repository-admin enforcement.
-  PLANNED; requires a separate owner/admin gate.
+  ACTIVE; repo-owned implementation complete; ADMIN APPLY PENDING. No claim that
+  main is protected until the owner applies the policy and live verification passes.
 - **EF-02 — Reproducible Runtime Packaging**:
   non-root API/worker containers, runtime config validation, graceful shutdown, local Compose,
   immutable image identity. PLANNED.

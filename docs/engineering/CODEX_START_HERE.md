@@ -67,8 +67,15 @@ The foundation release was merged into `main` as
 EF-01A is closed and merged to `main` through PR #18 as
 `1d7e4453e101c8ac79d9084c1a25547b4b917b7f`; post-merge CI `36581115791` is green.
 
-No implementation work package is currently authorized. EF-01B Repository Governance &
-Branch Protection is the next planned package and requires a separate owner/admin gate.
+EF-01B Repository Governance & Branch Protection is ACTIVE on
+`feat/ef-01b-repository-governance`, from base
+`c74cb8415fee6e550661d5a64645e5320763110d`. The repo-owned policy, read-only
+verifier and offline test wiring are implemented. ADMIN APPLY PENDING.
+
+Read [the work package](../work-packages/EF-01B-repository-governance-branch-protection.md)
+and [the governance runbook](REPOSITORY_GOVERNANCE.md). Only repo-owned work is
+authorized; the owner must separately apply the admin policy. Do not claim main
+is protected before live verification passes.
 No deployment, provider live call, Gmail live, outbound, database migration, CRM behavior
 change or GitHub administration change is authorized by EF-01A closure.
 
