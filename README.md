@@ -25,14 +25,15 @@ The product is intentionally provider-independent. Gmail, AIsa, LinkedIn, Apollo
 
 ## Status
 
-**Execution Foundation — EF-01A active.**
+**Execution Foundation — EF-01A closed; EF-01B next and separately gated.**
 
 The core foundation through DCRM-05C is released to `main`. One exact
 AIsa/DataForSEO `FACILITY_LOCATION_DISCOVERY` cell is `LIVE_VALIDATED_CAPABILITY`;
 that validation does not generalize to other provider/capability cells.
 
-EF-01A is the first post-05C operational hardening slice: executable engineering harness,
-reproducible CI and secret safety. No production deployment is authorized.
+EF-01A is released on `main`: executable engineering harness, reproducible CI and secret
+safety are green after merge/post-merge CI. EF-01B repository governance/branch protection
+is next but not yet authorized. No production deployment is authorized.
 
 Start with:
 - [Knowledge Index](docs/index.md)

@@ -1,6 +1,6 @@
 # EF-01A — Executable Engineering Harness, Reproducible CI & Secret Safety
 
-Status: ACTIVE — OWNER AUTHORIZED — NO DEPLOY
+Status: CLOSED — MERGED TO MAIN — POST-MERGE CI GREEN — NO DEPLOY
 
 Authorized base:
 `4a86eac14a209cd47617285d88419db2fe49a365`
@@ -170,19 +170,21 @@ Do not paste the value into chat, logs, PR comments or GitHub issues.
 
 ## Completion contract
 
-EF-01A is complete only when:
-- implementation remains within the authorized surfaces;
+EF-01A completion contract is satisfied:
+- implementation remained within the authorized surfaces;
 - executable harness modes exist and match the specified semantics;
 - lint is real and part of `verify`;
 - frozen-lockfile CI is enforced;
-- action references are immutable;
+- third-party Action references are immutable commit SHAs;
 - secret sensor + redaction tests pass;
 - existing deterministic suites remain green;
-- exact-head GitHub CI is green;
-- independent review finds no blocker;
-- owner separately authorizes merge.
+- exact-head CI `36580017403` was green;
+- independent review found no blocker;
+- owner authorized merge of PR #18 at `051cfd91c0eeeb87dd8f451e5d5310f02fd361ec`;
+- PR #18 merged to `main` as `1d7e4453e101c8ac79d9084c1a25547b4b917b7f`;
+- post-merge CI `36581115791` is green.
 
-Merge does not authorize deployment.
+No deployment or external provider call was performed or authorized.
 
 ## Rollback
 
