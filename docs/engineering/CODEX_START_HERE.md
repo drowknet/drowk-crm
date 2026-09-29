@@ -66,8 +66,16 @@ The foundation release was merged into `main` as
 
 No implementation WP is currently authorized.
 
-The next canonical gate is DCRM-05B Provider Selection & Live Validation Readiness.
-It is a ChatGPT-owned research/selection gate. Codex must not create a branch, add
-credentials, call a live provider, enable Gmail live, outbound, deployment or begin
-DCRM-06 until a later explicit owner/ChatGPT handoff names the selected provider
-tuple and implementation WP.
+DCRM-05B provider selection is closed.
+
+Selected path:
+`AIsa REST -> DataForSEO Business Listings Search Live -> FACILITY_LOCATION_DISCOVERY`.
+
+The next possible work package is:
+`docs/work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md`.
+
+DCRM-05C is **not yet authorized**.
+
+Codex must not create a branch, add credentials, make a live provider request,
+enable Gmail live, outbound, deployment or begin DCRM-06 until an explicit
+owner/ChatGPT handoff authorizes DCRM-05C.

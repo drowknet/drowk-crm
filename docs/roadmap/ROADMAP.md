@@ -97,7 +97,8 @@ for fragmented Conversation identity or stale participant links.
 
 Selected slices:
 - **DCRM-05A — Capability Lab Harness**: provider-neutral synthetic READ-only ResearchRun/ProviderRun harness, deterministic fingerprints, budgets, cost/result semantics and evaluation facts before live provider validation. CLOSED/GREEN.
-- **DCRM-05B — Provider Selection & Live Validation Readiness**: select one exact provider/capability cell and bounded READ-only live-validation envelope using current rights/cost/auth/security evidence. RESEARCH/SELECTION NEXT.
+- **DCRM-05B — Provider Selection & Live Validation Readiness**: selected `AIsa REST -> DataForSEO Business Listings Search Live` for `FACILITY_LOCATION_DISCOVERY`; bounded READ-only envelope documented. CLOSED/SELECTED, NO LIVE CALL.
+- **DCRM-05C — AIsa/DataForSEO Business Listings Live READ Validation**: implement and run one owner-authorized bounded live call under the selected tuple. OWNER GATE NEXT.
 
 The accumulated foundation through DCRM-05A passed its dedicated release review and was merged to `main`. The next DCRM-05 gate is provider/capability-cell selection and live-validation readiness before any external request is authorized.
 

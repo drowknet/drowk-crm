@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: FOUNDATION THROUGH DCRM-05A RELEASED TO MAIN — DCRM-05B PROVIDER SELECTION NEXT
+Status: FOUNDATION THROUGH DCRM-05A RELEASED TO MAIN — DCRM-05B SELECTED — DCRM-05C OWNER GATE NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -300,19 +300,31 @@ See:
 - [DONE] post-merge main CI `36519721659` green;
 - [CLOSED] deployment/live Gmail/live providers/provider WRITE/outbound remained separately gated.
 
-### Next gate — DCRM-05B Provider Selection & Live Validation Readiness
+### Completed — DCRM-05B Provider Selection & Live Validation Readiness
 
-`docs/work-packages/DCRM-05B-provider-selection-live-validation-readiness.md`
+- [DONE] public/current provider research performed;
+- [DONE] one exact capability cell selected;
+- [DONE] selected path:
+  `AIsa REST -> DataForSEO Business Listings Search Live`;
+- [DONE] workload cell:
+  `FACILITY_LOCATION_DISCOVERY`;
+- [DONE] READ-only cost/auth/rights/retention/result-state envelope documented;
+- [DONE] first request bounded to one call and $0.015;
+- [DONE] credentials remain external to Git;
+- [DONE] no live request was made;
+- [DONE] no Codex implementation branch was created.
 
-This is a research/selection gate only.
+Research:
+`docs/research/DCRM-05B_PROVIDER_SELECTION_2026-09-28.md`
 
-Required output:
-- one exact provider + capability/workload cell + operation/interface tuple;
-- current rights/retention/cost/auth/security facts;
-- bounded READ-only live validation envelope;
-- explicit credential injection and kill boundary.
+### Next gate — DCRM-05C AIsa/DataForSEO Business Listings Live READ Validation
 
-No live provider request and no Codex implementation branch are authorized yet.
+`docs/work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md`
+
+**OWNER AUTHORIZATION REQUIRED.**
+
+No branch, credential injection or external provider request may occur until the
+owner explicitly authorizes DCRM-05C.
 
 ### Foundation release gate — CLOSED
 
@@ -339,8 +351,9 @@ Current writer state:
 - DCRM-04F is closed and merged;
 - DCRM-05A is closed and released to `main` through PR #1;
 - no Codex implementation WP is active;
-- DCRM-05B provider selection/research is the next gate and is owned by ChatGPT;
-- do not start a live provider implementation or create a new Codex feature branch until the owner explicitly authorizes the selected READ-only live-validation tuple;
+- DCRM-05B provider selection/research is closed;
+- DCRM-05C is the next possible gate but is not yet authorized;
+- do not start a live provider implementation, create a Codex feature branch, inject credentials or make an external provider request until the owner explicitly authorizes DCRM-05C;
 - DROWK CRM remains the canonical implementation surface;
 - PWM local files remain preservation/regression reference only unless a new
   explicit extraction gate is opened.

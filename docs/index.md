@@ -56,7 +56,8 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-04E Interaction Continuity Hardening](work-packages/DCRM-04E-interaction-continuity-hardening.md) — completed/merged with post-merge CI green.
 - [DCRM-04F Relationship Memory Foundation](work-packages/DCRM-04F-relationship-memory-foundation.md) — completed/merged with post-merge CI green.
 - [DCRM-05A Capability Lab Harness](work-packages/DCRM-05A-capability-lab-harness.md) — completed/merged with post-merge CI green.
-- [DCRM-05B Provider Selection & Live Validation Readiness](work-packages/DCRM-05B-provider-selection-live-validation-readiness.md) — research/selection gate; no live provider call or implementation branch authorized.
+- [DCRM-05B Provider Selection & Live Validation Readiness](work-packages/DCRM-05B-provider-selection-live-validation-readiness.md) — completed selection gate; AIsa/DataForSEO Business Listings selected, no live call made.
+- [DCRM-05C AIsa/DataForSEO Business Listings Live READ Validation](work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md) — owner-gated next step; no branch, credential injection or live request authorized yet.
 
 ## Migration
 
@@ -79,6 +80,7 @@ This index routes humans and agents to the current repository-owned context.
 
 - [Auth / Session Provider Revalidation — 2026-09-27](research/AUTH_SESSION_REVALIDATION_2026-09-27.md) — current official-source comparison and DCRM-02B alpha decision input.
 - [External Repository Candidates — 2026-09-28](research/EXTERNAL_REPOSITORY_CANDIDATES_2026-09-28.md) — disposition of 11 external repositories as capability candidates, engineering/design references or deferred options; explicitly does not broaden DCRM-04A.
+- [DCRM-05B Provider Selection Research — 2026-09-28](research/DCRM-05B_PROVIDER_SELECTION_2026-09-28.md) — current public-source comparison and selected AIsa/DataForSEO Business Listings live-validation tuple; no live request made.
 
 ## Cross-repository harvest
 

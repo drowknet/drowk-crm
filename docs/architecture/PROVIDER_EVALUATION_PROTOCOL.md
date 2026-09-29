@@ -199,3 +199,21 @@ provenance and credential injection.
 
 No external provider request is authorized until that selection receives a separate
 owner gate.
+
+
+## DCRM-05B selected first live-validation cell — 2026-09-28
+
+Selected path:
+`AIsa REST -> DataForSEO Business Listings Search Live`.
+
+Selected workload cell:
+`FACILITY_LOCATION_DISCOVERY`.
+
+The selection is based on current public facts recorded in
+`docs/research/DCRM-05B_PROVIDER_SELECTION_2026-09-28.md`.
+
+Selection does not establish provider preference outside this capability cell and
+does not establish `LIVE_VALIDATED_CAPABILITY`.
+
+The selected cell remains non-live until DCRM-05C receives explicit owner
+authorization and executes one bounded READ-only run.

@@ -1,6 +1,15 @@
 # DCRM-05B — Provider Selection & Live Validation Readiness
 
-Status: RESEARCH/SELECTION GATE — NO LIVE CALL AUTHORIZED
+Status: CLOSED — TUPLE SELECTED, NO LIVE CALL MADE
+
+Selected tuple:
+`AIsa REST -> DataForSEO Business Listings Search Live -> FACILITY_LOCATION_DISCOVERY`
+
+Research note:
+`docs/research/DCRM-05B_PROVIDER_SELECTION_2026-09-28.md`
+
+No provider call, credential injection, account enablement or implementation branch
+was created in DCRM-05B.
 
 ## Purpose
 
