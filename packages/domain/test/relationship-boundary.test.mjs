@@ -19,5 +19,5 @@ test("Relationship memory has no BuyerRole, score, Commitment writer or live pro
   }
   const dependencies = JSON.parse(readFileSync(
     new URL("../../db/package.json", import.meta.url), "utf8")).dependencies;
-  assert.deepEqual(Object.keys(dependencies).sort(), ["@drowk/contracts", "pg"]);
+  assert.deepEqual(Object.keys(dependencies).sort(), ["@drowk/contracts", "@drowk/domain", "pg"]);
 });

@@ -22,6 +22,8 @@ export { PostgresCommitmentRepository, CommitmentPromotionError } from "./commit
 export type { AcceptedCommitmentResult } from "./commitment.js";
 export { PostgresRelationshipRepository, RelationshipPromotionError } from "./relationship.js";
 export type { RelationshipClaimResult, RelationshipInteractionResult } from "./relationship.js";
+export { PostgresCapabilityLabRepository } from "./capability-lab.js";
+export type { SyntheticExecutionResult, CapabilityCellFacts } from "./capability-lab.js";
 
 type Connection = Pool | PoolClient;
 

@@ -19,7 +19,7 @@ test("goldens 17-18: human continuity has no model, provider or execution call p
   }
   const dbDependencies = JSON.parse(readFileSync(
     new URL("../../db/package.json", import.meta.url), "utf8")).dependencies;
-  assert.deepEqual(Object.keys(dbDependencies).sort(), ["@drowk/contracts", "pg"]);
+  assert.deepEqual(Object.keys(dbDependencies).sort(), ["@drowk/contracts", "@drowk/domain", "pg"]);
   const domainDependencies = JSON.parse(readFileSync(
     new URL("../package.json", import.meta.url), "utf8")).dependencies;
   assert.deepEqual(Object.keys(domainDependencies), ["@drowk/contracts"]);
