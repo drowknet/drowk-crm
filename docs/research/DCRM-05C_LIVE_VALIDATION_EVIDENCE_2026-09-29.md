@@ -1,6 +1,6 @@
 # DCRM-05C Live Validation Evidence — 2026-09-29
 
-Status: LIVE VALIDATION PASSED — OWNER ACCEPTED — LIVE_VALIDATED_CAPABILITY — MERGE PENDING
+Status: CLOSED — OWNER ACCEPTED — LIVE_VALIDATED_CAPABILITY — MERGED + POST-MERGE CI GREEN
 
 ## Owner authorization and acceptance
 
@@ -46,16 +46,16 @@ PASS and authorized docs/canon promotion of the exact cell below to
 - AIsa usage corroboration, supplied in the owner acceptance handoff:
   `1 request`; `success`; charged usage `$0.01308`.
 
-## Boundaries and pending gates
+## Boundaries and closure
 
 No retry; no reconcile; no secret leak observed in captured output, 11 recent npm
 logs checked, or inspected database persistence. No canonical CRM mutation:
 before/after counts and hashes of all other database tables were unchanged.
-No deploy; no merge. This docs/canon handoff executes zero live requests.
+No deploy occurred. PR #15 merged to `main` as `93cca53023c75ee52d86a3df1d7cdb4749c019eb`; post-merge CI `36535730059` completed successfully. The docs/canon promotion handoff executed zero live requests.
 
 `Provider output != CRM truth`.
 
 Only this exact workload/tuple is promoted. This does not validate other AIsa tools,
 providers or capability cells, or establish universal superiority for AIsa or
-DataForSEO. No new live request is authorized. Merge requires a separate explicit
-owner gate; post-merge CI remains pending. Deployment and DCRM-06 remain closed.
+DataForSEO. No new live request is authorized. Merge and post-merge CI are complete.
+Deployment remains closed, and DCRM-06 requires a separate owner-authorized work package.

@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: FOUNDATION THROUGH DCRM-05A RELEASED TO MAIN — DCRM-05B SELECTED — DCRM-05C LIVE VALIDATION PASSED — OWNER ACCEPTED — LIVE_VALIDATED_CAPABILITY — MERGE PENDING
+Status: FOUNDATION THROUGH DCRM-05C RELEASED TO MAIN — LIVE_VALIDATED_CAPABILITY — POST-MERGE CI GREEN
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -317,7 +317,7 @@ See:
 Research:
 `docs/research/DCRM-05B_PROVIDER_SELECTION_2026-09-28.md`
 
-### Active gate — DCRM-05C accepted live validation; merge pending
+### Completed — DCRM-05C accepted live validation
 
 [Work package](../work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md)
 and [safe evidence](../research/DCRM-05C_LIVE_VALIDATION_EVIDENCE_2026-09-29.md).
@@ -326,11 +326,11 @@ and [safe evidence](../research/DCRM-05C_LIVE_VALIDATION_EVIDENCE_2026-09-29.md)
 - [DONE] technical PASS: `PRESENT`, `RECORDED`, actual cost `$0.01308`;
 - [DONE] formal owner acceptance; exact cell promoted to `LIVE_VALIDATED_CAPABILITY`;
 - [DONE] zero retries, reconciliation or canonical CRM mutation;
-- [CLOSED] no new live call authorized; deployment, Gmail, outbound and DCRM-06 closed;
-- [PENDING] separate owner merge gate for PR #15 and subsequent post-merge CI.
+- [DONE] PR #15 merged to `main` as `93cca53023c75ee52d86a3df1d7cdb4749c019eb`;
+- [DONE] post-merge CI `36535730059` green;
+- [CLOSED] no new live call authorized; deployment, Gmail, outbound and DCRM-06 remain separately gated.
 
-Promotion is limited to the evidence's exact tuple on branch
-`feat/dcrm-05c-aisa-dataforseo-live-validation`.
+Promotion is limited to the evidence's exact tuple now released on `main`.
 `Provider output != CRM truth`.
 
 ### Foundation release gate — CLOSED
@@ -357,11 +357,11 @@ Current writer state:
 - DCRM-04E is closed and merged;
 - DCRM-04F is closed and merged;
 - DCRM-05A is closed and released to `main` through PR #1;
-- DCRM-05C docs/canon records accepted live validation on its sole-writer feature branch;
+- DCRM-05C is closed and released to `main` through PR #15;
 - DCRM-05B provider selection/research is closed;
-- DCRM-05C exact cell is `LIVE_VALIDATED_CAPABILITY`; PR #15 merge remains owner-gated;
+- DCRM-05C exact cell is `LIVE_VALIDATED_CAPABILITY`;
 - no additional live request or credential use is authorized;
-- post-merge CI remains pending; deployment remains closed;
+- post-merge CI is green; deployment remains closed;
 - DROWK CRM remains the canonical implementation surface;
 - PWM local files remain preservation/regression reference only unless a new
   explicit extraction gate is opened.
