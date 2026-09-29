@@ -15,6 +15,8 @@ This index routes humans and agents to the current repository-owned context.
 
 ## Architecture
 
+- [DROWK Architecture Baseline v1 — 2026-09-28](architecture/DROWK_ARCHITECTURE_BASELINE_V1_2026-09-28.md) — owner-approved authority/component baseline for Cloudflare, PostgreSQL, Hermes, AIsa, Gemini, JEV and the post-05C Execution Foundation.
+
 - [Relationship-memory executable gap — 2026-09-28](architecture/RELATIONSHIP_MEMORY_EXECUTABLE_GAP_2026-09-28.md) — post-DCRM-04A inspection of what the executable core has versus the canonical Person/Identity/Employment/Relationship/BuyerRole/Commitment model.
 - [Post-DCRM-04B interaction gap — 2026-09-28](architecture/POST_DCRM04B_INTERACTION_GAP_2026-09-28.md) — executable checkpoint showing that canonical Conversation/Activity/Participant must precede richer Relationship/communication-derived Commitment state.
 - [Post-DCRM-04C commitment gap — 2026-09-28](architecture/POST_DCRM04C_COMMITMENT_GAP_2026-09-28.md) — executable checkpoint selecting bilateral Commitment memory before richer Relationship state.
