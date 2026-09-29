@@ -208,4 +208,72 @@ pgTest("DCRM-05A synthetic Capability Lab goldens", async t => {
     assert.deepEqual(crm, { accounts: 0, persons: 0, relationships: 0,
       commitments: 0, work_items: 0 });
   });
+
+  await t.test("PR #14: direct SQL synthetic inserts require a complete bounded 05A parent", async () => {
+    async function sqlParent(contract) {
+      const parent = { id: randomUUID(), runId: randomUUID(), correlationId: randomUUID() };
+      await pool.query(`INSERT INTO research_runs
+        (id,tenant_id,run_id,correlation_id,question,question_contract,status)
+        VALUES ($1,$2,$3,$4,'Legacy synthetic',$5::jsonb,'PLANNED')`,
+      [parent.id, tenantA, parent.runId, parent.correlationId, JSON.stringify(contract)]);
+      await pool.query(`UPDATE research_runs SET status='RUNNING',started_at=$2 WHERE id=$1`,
+        [parent.id, now]);
+      return parent;
+    }
+    async function sqlProvider(parent, extra = {}) {
+      const id = randomUUID();
+      const result = await pool.query(`INSERT INTO provider_runs
+        (id,tenant_id,run_id,correlation_id,research_run_id,case_id,workload_cell,
+         adapter_version,normalized_input,lab_case,synthetic,capability,provider,
+         operation,interface,access_class,request_fingerprint,result_state,
+         estimated_cost_usd_micros,actual_cost_usd_micros,actual_cost_known,retrieved_at)
+        VALUES ($1,$2,$3,$4,$5,'synthetic-case','search:us','fixture-v1',
+          '{}'::jsonb,'{}'::jsonb,true,'SEARCH_WEB','synthetic-alpha','search',
+          'OTHER','READ','sha256:synthetic','PRESENT',$6,$7,$8,$9)
+        RETURNING id,actual_cost_usd_micros,actual_cost_known`,
+      [id, extra.tenantId ?? tenantA, extra.runId ?? parent.runId,
+        extra.correlationId ?? parent.correlationId, parent.id,
+        extra.estimated ?? 2, extra.actual ?? null, extra.actualKnown ?? false, now]);
+      return result.rows[0];
+    }
+    const valid = { maxCostUsdMicros: 2, maxToolCalls: 1,
+      stopCondition: "EVIDENCE_PRESENT" };
+    for (const [label, contract] of [
+      ["empty legacy contract", {}],
+      ["missing max cost", { maxToolCalls: 1, stopCondition: "EVIDENCE_PRESENT" }],
+      ["missing max calls", { maxCostUsdMicros: 2, stopCondition: "EVIDENCE_PRESENT" }],
+      ["null max cost", { ...valid, maxCostUsdMicros: null }],
+      ["string max cost", { ...valid, maxCostUsdMicros: "2" }],
+      ["fractional max cost", { ...valid, maxCostUsdMicros: 1.5 }],
+      ["negative max cost", { ...valid, maxCostUsdMicros: -1 }],
+      ["unsafe max cost", { ...valid, maxCostUsdMicros: 9007199254740992 }],
+      ["null max calls", { ...valid, maxToolCalls: null }],
+      ["string max calls", { ...valid, maxToolCalls: "1" }],
+      ["fractional max calls", { ...valid, maxToolCalls: 1.5 }],
+      ["negative max calls", { ...valid, maxToolCalls: -1 }],
+      ["out-of-range max calls", { ...valid, maxToolCalls: 2147483648 }],
+      ["missing stop", { maxCostUsdMicros: 2, maxToolCalls: 1 }],
+      ["wrong stop", { ...valid, stopCondition: "ALWAYS" }],
+      ["zero max calls", { ...valid, maxToolCalls: 0 }],
+      ["insufficient max cost", { ...valid, maxCostUsdMicros: 1 }],
+    ]) {
+      const parent = await sqlParent(contract);
+      await assert.rejects(sqlProvider(parent), { code: "P0001" }, label);
+      assert.equal((await pool.query(`SELECT count(*)::int AS n FROM provider_runs
+        WHERE research_run_id=$1`, [parent.id])).rows[0].n, 0, label);
+    }
+    const parent = await sqlParent(valid);
+    await assert.rejects(sqlProvider(parent, { runId: randomUUID() }), { code: "P0001" });
+    await assert.rejects(sqlProvider(parent, { correlationId: randomUUID() }), { code: "P0001" });
+    await assert.rejects(sqlProvider(parent, { tenantId: tenantB }), { code: "P0001" });
+    const accepted = await sqlProvider(parent);
+    assert.equal(accepted.actual_cost_usd_micros, null);
+    assert.equal(accepted.actual_cost_known, false);
+    await assert.rejects(sqlProvider(parent), { code: "P0001" });
+    const knownZero = await sqlParent(valid);
+    const zero = await sqlProvider(knownZero,
+      { estimated: 0, actual: 0, actualKnown: true });
+    assert.equal(zero.actual_cost_usd_micros, "0");
+    assert.equal(zero.actual_cost_known, true);
+  });
 });
