@@ -48,12 +48,18 @@ Required outcomes:
 - document emergency/admin bypass authority;
 - align GitHub rules with the owner-gated merge process.
 
-Current observed gap: the GitHub branch metadata reports `main` as unprotected. The connected
-GitHub surface does not provide repository-administration writes, so this cannot be silently
-claimed as closed.
+Closure evidence:
+- `main.protected=true`;
+- strict `verify` and `postgres-foundation` checks are enforced and bound to GitHub Actions app id `15368`;
+- `allow_update_branch=true`;
+- `delete_branch_on_merge=true`;
+- PR #20 merged through protected `main` as `c70ba3e0a68794a4dadae7568107ba29eb4cfce1`;
+- post-merge CI `36589368723` is green;
+- docs-only closure PR #21 merged as `154b34b61c7f6082f7fa5aa4ba1c5347cfa49efd`;
+- closure post-merge CI `36590845123` is green.
 
-Hard gate: no production deployment while this governance gap remains open unless the owner
-explicitly accepts the risk.
+The repository-governance blocker is closed. EF-02 remains a separate owner gate; no production
+deployment is authorized by EF-01B closure.
 
 ### EF-02 — Reproducible Runtime Packaging
 

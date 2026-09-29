@@ -369,17 +369,19 @@ Closed EF-01B evidence:
 - merged head branch auto-deleted;
 - no deploy/provider/Gmail/outbound action occurred.
 
-Live EF-01B evidence:
+Closed EF-01B governance evidence:
 - owner-side `governance:verify` PASS;
 - independent GitHub metadata: `main.protected=true`;
 - required checks `verify` and `postgres-foundation` enforced for everyone and bound to GitHub Actions app id `15368`;
 - `allow_update_branch=true` and `delete_branch_on_merge=true`;
-- PR #20 remains unmerged pending exact-head docs-correction CI and explicit owner merge gate.
+- PR #20 merged through protected `main` as `c70ba3e0a68794a4dadae7568107ba29eb4cfce1`;
+- post-merge CI `36589368723`: verify SUCCESS and postgres-foundation SUCCESS;
+- docs-only closure PR #21 merged as `154b34b61c7f6082f7fa5aa4ba1c5347cfa49efd`;
+- closure post-merge CI `36590845123`: verify SUCCESS and postgres-foundation SUCCESS;
+- no open PR remains after EF-01B closure.
 
-Repository governance/branch protection is tracked as EF-01B because the current
-`main` branch is not technically protected and the connected GitHub surface does not
-provide administration writes. This gap remains visible and must be closed before any
-production deployment gate.
+EF-01B is no longer an active gap. EF-02 is the next planned Execution Foundation package
+and remains NOT YET AUTHORIZED. Production deployment remains separately gated.
 
 ### Foundation release gate — CLOSED
 
@@ -409,8 +411,9 @@ Current writer state:
 - DCRM-05B provider selection/research is closed;
 - DCRM-05C exact cell is `LIVE_VALIDATED_CAPABILITY`;
 - EF-01A is closed and released to `main` through PR #18;
-- EF-01B is ACTIVE; repo-owned implementation complete, CLOSED/GREEN;
-- Codex is the sole implementation writer; no GitHub admin mutation is authorized;
+- EF-01B is closed and released through protected `main`;
+- no implementation work package is currently active;
+- EF-02 is next but NOT YET AUTHORIZED;
 - no additional live request or credential use is authorized;
 - post-merge CI is green; deployment remains closed;
 - DROWK CRM remains the canonical implementation surface;

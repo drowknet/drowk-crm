@@ -67,17 +67,19 @@ The foundation release was merged into `main` as
 EF-01A is closed and merged to `main` through PR #18 as
 `1d7e4453e101c8ac79d9084c1a25547b4b917b7f`; post-merge CI `36581115791` is green.
 
-EF-01B Repository Governance & Branch Protection is ACTIVE on
-`feat/ef-01b-repository-governance`, from base
-`c74cb8415fee6e550661d5a64645e5320763110d`. The repo-owned policy, read-only
-verifier and offline test wiring are implemented. CLOSED/GREEN.
+EF-01B Repository Governance & Branch Protection is CLOSED/GREEN.
+
+PR #20 merged through protected `main` as
+`c70ba3e0a68794a4dadae7568107ba29eb4cfce1`; post-merge CI `36589368723` is green.
+The docs-only closure PR #21 merged as
+`154b34b61c7f6082f7fa5aa4ba1c5347cfa49efd`; post-merge CI `36590845123` is green.
 
 Read [the work package](../work-packages/EF-01B-repository-governance-branch-protection.md)
-and [the governance runbook](REPOSITORY_GOVERNANCE.md). Only repo-owned work is
-authorized; the owner must separately apply the admin policy. Do not claim main
-is protected before live verification passes.
-No deployment, provider live call, Gmail live, outbound, database migration, CRM behavior
-change or GitHub administration change is authorized by EF-01A closure.
+and [the governance runbook](REPOSITORY_GOVERNANCE.md) for the frozen policy and evidence.
+
+No implementation work package is currently authorized. EF-02 Reproducible Runtime Packaging
+is next in sequence and requires a separate owner gate. No deployment, provider live call,
+Gmail live, outbound, database migration or CRM behavior change is authorized.
 
 DCRM-05B provider selection is closed.
 
