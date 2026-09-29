@@ -240,5 +240,6 @@ technical PASS and formal owner acceptance. The promotion is limited to:
 
 Only this exact workload/tuple is promoted. This does not validate other AIsa tools,
 providers or capability cells, or establish universal superiority for AIsa or
-DataForSEO. No new live request is authorized. Merge requires a separate explicit
-owner gate; post-merge CI remains pending. Deployment and DCRM-06 remain closed.
+DataForSEO. No new live request is authorized. PR #15 merged to `main` as
+`93cca53023c75ee52d86a3df1d7cdb4749c019eb`, and post-merge CI `36535730059`
+is green. Deployment remains closed, and DCRM-06 requires a separate owner-authorized work package.
