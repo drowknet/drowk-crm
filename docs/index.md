@@ -61,7 +61,7 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-05A Capability Lab Harness](work-packages/DCRM-05A-capability-lab-harness.md) — completed/merged with post-merge CI green.
 - [DCRM-05B Provider Selection & Live Validation Readiness](work-packages/DCRM-05B-provider-selection-live-validation-readiness.md) — completed selection gate; AIsa/DataForSEO Business Listings selected, no live call made.
 - [DCRM-05C AIsa/DataForSEO Business Listings Live READ Validation](work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md) — closed/merged with post-merge CI green; exact cell is `LIVE_VALIDATED_CAPABILITY`; no new live call authorized.
-- [EF-01A Executable Engineering Harness, Reproducible CI & Secret Safety](work-packages/EF-01A-executable-engineering-harness-ci-secret-safety.md) — active post-05C Execution Foundation slice; no deploy.
+- [EF-01A Executable Engineering Harness, Reproducible CI & Secret Safety](work-packages/EF-01A-executable-engineering-harness-ci-secret-safety.md) — closed/merged with post-merge CI green; no deploy.
 
 ## Migration
 

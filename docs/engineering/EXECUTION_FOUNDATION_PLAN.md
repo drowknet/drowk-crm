@@ -1,6 +1,6 @@
 # Execution Foundation Plan
 
-Status: ACTIVE SEQUENCE — EF-01A OWNER AUTHORIZED — LATER PACKAGES REQUIRE SEPARATE GATES
+Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B NEXT / NOT YET AUTHORIZED
 
 Base architecture:
 `docs/architecture/DROWK_ARCHITECTURE_BASELINE_V1_2026-09-28.md`
@@ -22,10 +22,11 @@ lab work and broad DCRM-06 product expansion. It does not renumber the product r
 
 ### EF-01A — Executable Engineering Harness, Reproducible CI & Secret Safety
 
-Status: ACTIVE / OWNER AUTHORIZED / NO DEPLOY.
+Status: CLOSED / MERGED / POST-MERGE CI GREEN / NO DEPLOY.
 
-Closes the current executable gaps in harness modes, lint, frozen lockfile CI, immutable
-GitHub Action pins and redacted secret scanning.
+Closed executable gaps in harness modes, lint, frozen-lockfile CI, immutable GitHub Action
+commit pins and redacted secret scanning. PR #18 merged to `main` as
+`1d7e4453e101c8ac79d9084c1a25547b4b917b7f`; post-merge CI `36581115791` is green.
 
 Work package:
 `docs/work-packages/EF-01A-executable-engineering-harness-ci-secret-safety.md`

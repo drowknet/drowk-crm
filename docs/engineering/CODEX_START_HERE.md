@@ -64,19 +64,13 @@ post-merge CI is green.
 The foundation release was merged into `main` as
 `99c3900aa2e9aa074c2d9f97ccce811557be922f` with post-merge CI green.
 
-EF-01A is the currently authorized implementation work package:
+EF-01A is closed and merged to `main` through PR #18 as
+`1d7e4453e101c8ac79d9084c1a25547b4b917b7f`; post-merge CI `36581115791` is green.
 
-`docs/work-packages/EF-01A-executable-engineering-harness-ci-secret-safety.md`
-
-Authorized branch:
-`feat/ef-01a-engineering-harness-ci-secrets`
-
-Authorized base:
-`4a86eac14a209cd47617285d88419db2fe49a365`
-
-Scope is engineering harness, reproducible CI and secret safety only. No deployment,
-provider live call, Gmail live, outbound, database migration, CRM behavior change or
-GitHub administration change is authorized.
+No implementation work package is currently authorized. EF-01B Repository Governance &
+Branch Protection is the next planned package and requires a separate owner/admin gate.
+No deployment, provider live call, Gmail live, outbound, database migration, CRM behavior
+change or GitHub administration change is authorized by EF-01A closure.
 
 DCRM-05B provider selection is closed.
 

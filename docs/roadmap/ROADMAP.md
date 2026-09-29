@@ -132,7 +132,7 @@ Territory + Target Universe.
 Selected sequence:
 - **EF-01A — Executable Engineering Harness, Reproducible CI & Secret Safety**:
   executable harness modes, real lint gate, frozen lockfile CI, immutable action pins and
-  redacted secret sensors. ACTIVE / OWNER AUTHORIZED / NO DEPLOY.
+  redacted secret sensors. CLOSED/GREEN; merged through PR #18 with post-merge CI green; no deploy.
 - **EF-01B — Repository Governance & Branch Protection**:
   required checks, protected `main`, merge governance and repository-admin enforcement.
   PLANNED; requires a separate owner/admin gate.
