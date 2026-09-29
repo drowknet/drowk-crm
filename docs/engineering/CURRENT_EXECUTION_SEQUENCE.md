@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: DCRM-01A/B/C + DCRM-02A/B + DCRM-03A + DCRM-04A/B/C/D/E/F + DCRM-05A GREEN — FOUNDATION RELEASE REVIEW NEXT
+Status: FOUNDATION THROUGH DCRM-05A RELEASED TO MAIN — DCRM-05B PROVIDER SELECTION NEXT
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -289,19 +289,36 @@ foundation-to-main release review.
 See:
 `docs/architecture/POST_DCRM05A_FOUNDATION_RELEASE_GATE_2026-09-28.md`.
 
-### Next gate — Foundation -> main release review (PR #1)
+### Completed — Foundation -> main release review
 
-- PR #1 remains DRAFT and UNMERGED;
-- review `foundation/drowk-crm-00` as the accumulated release candidate against `main`;
-- no live provider/network credential gate may open before this review is clean;
-- owner authorization is required separately for any PR #1 merge.
+- [DONE] PR #1 dedicated deep release review: NO BLOCKING FINDING for source merge;
+- [DONE] owner explicitly authorized merge;
+- [DONE] reviewed foundation head `c0a2b9ceff01dbda5308d15b76eb1db1e77aa9c7`;
+- [DONE] merge commit on `main` `99c3900aa2e9aa074c2d9f97ccce811557be922f`;
+- [DONE] release-head CI `36515107336` green;
+- [DONE] release-head PR validation `36515110766` green;
+- [DONE] post-merge main CI `36519721659` green;
+- [CLOSED] deployment/live Gmail/live providers/provider WRITE/outbound remained separately gated.
 
-### Foundation release gate
+### Next gate — DCRM-05B Provider Selection & Live Validation Readiness
 
-PR #1 (`foundation/drowk-crm-00` -> `main`) remains intentionally draft and unmerged.
-It has accumulated multiple work packages. Before any production deployment or live
-provider connector, perform a dedicated foundation-to-main release review and obtain
-an explicit owner merge gate.
+`docs/work-packages/DCRM-05B-provider-selection-live-validation-readiness.md`
+
+This is a research/selection gate only.
+
+Required output:
+- one exact provider + capability/workload cell + operation/interface tuple;
+- current rights/retention/cost/auth/security facts;
+- bounded READ-only live validation envelope;
+- explicit credential injection and kill boundary.
+
+No live provider request and no Codex implementation branch are authorized yet.
+
+### Foundation release gate — CLOSED
+
+PR #1 was reviewed and merged into `main` as `99c3900aa2e9aa074c2d9f97ccce811557be922f`.
+This closes the source-code foundation release gate only. Production deployment and
+live provider/Gmail/outbound authority remain separate explicit gates.
 
 ### Coupling rule for DCRM-03A / DCRM-04A
 
@@ -320,10 +337,10 @@ Current writer state:
 - DCRM-04D is closed and merged;
 - DCRM-04E is closed and merged;
 - DCRM-04F is closed and merged;
-- DCRM-05A is closed and merged;
-- no Codex implementation WP is active while the foundation-to-main release review is pending;
-- ChatGPT owns the GitHub release review surface;
-- do not start live provider implementation or a new Codex feature branch until the release review selects the next explicit gate;
+- DCRM-05A is closed and released to `main` through PR #1;
+- no Codex implementation WP is active;
+- DCRM-05B provider selection/research is the next gate and is owned by ChatGPT;
+- do not start a live provider implementation or create a new Codex feature branch until the owner explicitly authorizes the selected READ-only live-validation tuple;
 - DROWK CRM remains the canonical implementation surface;
 - PWM local files remain preservation/regression reference only unless a new
   explicit extraction gate is opened.

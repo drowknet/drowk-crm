@@ -186,3 +186,16 @@ release review and explicit owner merge gate already required by the execution
 sequence.
 
 No provider is live-validated by DCRM-05A.
+
+
+## Post-foundation release consequence — 2026-09-28
+
+The foundation through DCRM-05A is now released to `main`.
+
+The next provider step is not an implementation branch. DCRM-05B must first select
+one exact provider/capability cell and document the live READ-only envelope:
+rights, retention, authentication, cost ceilings, timeouts, result semantics,
+provenance and credential injection.
+
+No external provider request is authorized until that selection receives a separate
+owner gate.

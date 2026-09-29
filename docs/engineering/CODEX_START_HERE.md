@@ -61,9 +61,13 @@ DCRM-02A, DCRM-02B, DCRM-03A, DCRM-04A, DCRM-04B, DCRM-04C, DCRM-04D, DCRM-04E, 
 DCRM-05A merged as `d6f89e40ede689a23508ba3a3accda07d0bd6810` and its
 post-merge CI is green.
 
+The foundation release was merged into `main` as
+`99c3900aa2e9aa074c2d9f97ccce811557be922f` with post-merge CI green.
+
 No implementation WP is currently authorized.
 
-The next canonical gate is the GitHub foundation-to-main release review of PR #1.
-ChatGPT owns that review. Codex must not start a new feature branch, live provider
-adapter, Gmail live path, outbound path or deployment work until a later explicit
-owner/ChatGPT handoff names the next WP.
+The next canonical gate is DCRM-05B Provider Selection & Live Validation Readiness.
+It is a ChatGPT-owned research/selection gate. Codex must not create a branch, add
+credentials, call a live provider, enable Gmail live, outbound, deployment or begin
+DCRM-06 until a later explicit owner/ChatGPT handoff names the selected provider
+tuple and implementation WP.

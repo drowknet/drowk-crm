@@ -95,10 +95,11 @@ for fragmented Conversation identity or stale participant links.
 
 ## DCRM-05 — AIsa Capability Lab
 
-Selected first slice:
+Selected slices:
 - **DCRM-05A — Capability Lab Harness**: provider-neutral synthetic READ-only ResearchRun/ProviderRun harness, deterministic fingerprints, budgets, cost/result semantics and evaluation facts before live provider validation. CLOSED/GREEN.
+- **DCRM-05B — Provider Selection & Live Validation Readiness**: select one exact provider/capability cell and bounded READ-only live-validation envelope using current rights/cost/auth/security evidence. RESEARCH/SELECTION NEXT.
 
-Before live provider validation, the accumulated `foundation/drowk-crm-00` release candidate must pass the dedicated foundation-to-main release review already defined in the execution sequence.
+The accumulated foundation through DCRM-05A passed its dedicated release review and was merged to `main`. The next DCRM-05 gate is provider/capability-cell selection and live-validation readiness before any external request is authorized.
 
 Read-only evaluation of:
 - Apollo
