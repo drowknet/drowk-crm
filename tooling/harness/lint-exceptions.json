@@ -1,0 +1,90 @@
+[
+  {
+    "path": "packages/db/test/migrations.integration.test.mjs",
+    "ruleId": "no-unsafe-finally",
+    "line": 204,
+    "column": 23,
+    "sha256": "0e68b2209ace5def7b51a66dbbaab931bf3ccfc0db2f4150c453c0d591c72ff0",
+    "justification": "Existing concurrent migration test rethrows background failure after lock release; may mask a preceding assertion. Preserve sensor behavior in EF-01A, no new finally throws allowed."
+  },
+  {
+    "path": "services/api/src/cloudflare-access.ts",
+    "ruleId": "no-control-regex",
+    "line": 34,
+    "column": 71,
+    "sha256": "b9857ecaa20049307b11689844a81ef576d680d7c44a4fe2bff8377207941da7",
+    "justification": "Intentional rejection of control characters from display names, not an accidental control character regex."
+  },
+  {
+    "path": "services/api/test/authorization.integration.test.mjs",
+    "ruleId": "no-promise-executor-return",
+    "line": 26,
+    "column": 32,
+    "sha256": "1b38f228818b732f76a2c49412aec6b51ec6a13e6a4dae77daf119c7c5cb4c3b",
+    "justification": "Existing Node HTTP listen/close callback wrapper; Promise settles through callback and deliberately ignores the returned Server."
+  },
+  {
+    "path": "services/api/test/authorization.test.mjs",
+    "ruleId": "no-promise-executor-return",
+    "line": 27,
+    "column": 32,
+    "sha256": "78eab24d92a8b325f91bac3b9140837749c725eecd240598358a8d635fafb986",
+    "justification": "Existing Node HTTP listen/close callback wrapper; Promise settles through callback and deliberately ignores the returned Server."
+  },
+  {
+    "path": "services/api/test/authorization.test.mjs",
+    "ruleId": "no-promise-executor-return",
+    "line": 28,
+    "column": 40,
+    "sha256": "78eab24d92a8b325f91bac3b9140837749c725eecd240598358a8d635fafb986",
+    "justification": "Existing Node HTTP listen/close callback wrapper; Promise settles through callback and deliberately ignores the returned Server."
+  },
+  {
+    "path": "services/api/test/cloudflare-access.integration.test.mjs",
+    "ruleId": "no-promise-executor-return",
+    "line": 22,
+    "column": 32,
+    "sha256": "7097fde07624ebb74b6ed97d721fbfadc3a0eddd27deb9a33912bd64335c096c",
+    "justification": "Existing Node HTTP listen/close callback wrapper; Promise settles through callback and deliberately ignores the returned Server."
+  },
+  {
+    "path": "services/api/test/cloudflare-access.test.mjs",
+    "ruleId": "no-promise-executor-return",
+    "line": 67,
+    "column": 32,
+    "sha256": "8e85b6f9bfc26ce16ed46e7d24940389919502b6dd7f0c9c5994083cd54f42b0",
+    "justification": "Existing Node HTTP listen/close callback wrapper; Promise settles through callback and deliberately ignores the returned Server."
+  },
+  {
+    "path": "services/api/test/cloudflare-access.test.mjs",
+    "ruleId": "no-promise-executor-return",
+    "line": 68,
+    "column": 40,
+    "sha256": "8e85b6f9bfc26ce16ed46e7d24940389919502b6dd7f0c9c5994083cd54f42b0",
+    "justification": "Existing Node HTTP listen/close callback wrapper; Promise settles through callback and deliberately ignores the returned Server."
+  },
+  {
+    "path": "services/api/test/probes.test.mjs",
+    "ruleId": "no-promise-executor-return",
+    "line": 18,
+    "column": 40,
+    "sha256": "dff4c3de69cc7e88c684e704ed4db7902344e1dbd52cf331c7d8d90f73bac29a",
+    "justification": "Existing Node HTTP listen/close callback wrapper; Promise settles through callback and deliberately ignores the returned Server."
+  },
+  {
+    "path": "services/api/test/probes.test.mjs",
+    "ruleId": "no-promise-executor-return",
+    "line": 37,
+    "column": 34,
+    "sha256": "dff4c3de69cc7e88c684e704ed4db7902344e1dbd52cf331c7d8d90f73bac29a",
+    "justification": "Existing Node HTTP listen/close callback wrapper; Promise settles through callback and deliberately ignores the returned Server."
+  },
+  {
+    "path": "services/api/test/readiness.integration.test.mjs",
+    "ruleId": "no-promise-executor-return",
+    "line": 11,
+    "column": 32,
+    "sha256": "86334f917b546f1eeca335a3ea0d43ecba6922f9211685c330ec89f8a8b3ab4d",
+    "justification": "Existing Node HTTP listen/close callback wrapper; Promise settles through callback and deliberately ignores the returned Server."
+  }
+]
