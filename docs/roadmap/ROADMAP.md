@@ -139,7 +139,7 @@ Selected sequence:
   protected with exact required checks; no deploy.
 - **EF-02 — Reproducible Runtime Packaging**:
   non-root API/worker containers, runtime config validation, graceful shutdown, local Compose,
-  immutable image identity. ACTIVE / OWNER AUTHORIZED / NO DEPLOY.
+  immutable image identity. CLOSED/GREEN; merged through protected `main` with post-merge CI green; no deploy.
 - **EF-03 — Staging Boundary**:
   Cloudflare Access/Tunnel, managed PostgreSQL, runtime secret injection and explicit rollback.
   PLANNED; deployment requires a separate owner gate.
