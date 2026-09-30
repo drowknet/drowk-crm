@@ -1,6 +1,6 @@
 # Runtime Packaging — EF-02
 
-Status: TARGET CONTRACT FROZEN — IMPLEMENTATION ACTIVE — NO DEPLOY
+Status: CLOSED/GREEN — MERGED TO PROTECTED MAIN — POST-MERGE CI GREEN — NO DEPLOY
 
 Canonical repository:
 `drowknet/drowk-crm`
@@ -254,16 +254,18 @@ the committed HEAD. Image labels contain exactly that 40-character SHA, and veri
 image IDs after build, not mutable application tags. This does not promise byte-for-byte image
 equality across builders. Merge and post-merge closure remain separate owner gates.
 
-EF-02 closes only when:
-1. repo-owned packaging/runtime implementation passes review;
-2. offline runtime tests pass;
-3. Docker-backed local verification passes;
-4. exact-head GitHub `verify` includes and passes packaging verification;
-5. `postgres-foundation` remains green;
-6. image metadata proves non-root + exact Git revision + no baked credentials;
-7. local Compose readiness and cleanup proof pass;
-8. owner separately authorizes merge;
-9. protected-main post-merge CI is green;
-10. canon records EF-02 CLOSED/GREEN.
+EF-02 completion contract is satisfied:
+1. repo-owned packaging/runtime implementation passed deep review;
+2. offline runtime tests passed;
+3. Docker-backed local verification passed;
+4. exact-head GitHub `verify` included and passed packaging verification;
+5. `postgres-foundation` remained green;
+6. image metadata proved non-root + exact Git revision + no baked credentials;
+7. local Compose readiness and cleanup proof passed;
+8. owner authorized merge at `13ffae8901c6d00f727c775aae7ed68981a1f7e1`;
+9. PR #23 merged through protected `main` as `65a03df0aaf42447642e130cccf881cff247799d`;
+10. post-merge CI `36670214400` is green for `verify` and `postgres-foundation`;
+11. merged feature branch was automatically deleted;
+12. repository canon records EF-02 CLOSED/GREEN.
 
-No deployment is included.
+No deployment, staging or image push is included. EF-03 remains a separate owner deployment gate.

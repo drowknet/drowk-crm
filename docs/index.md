@@ -45,7 +45,7 @@ This index routes humans and agents to the current repository-owned context.
 - [Codex Orchestration](engineering/CODEX_ORCHESTRATION.md) — scoped AGENTS, subagent workcells and one-writer discipline.
 - [Current Execution Sequence](engineering/CURRENT_EXECUTION_SEQUENCE.md) — active PWM -> DROWK bridge and next implementation gate.
 - [Execution Foundation Plan](engineering/EXECUTION_FOUNDATION_PLAN.md) — ordered post-05C hardening sequence and explicit deferred gates.
-- [Runtime Packaging](engineering/RUNTIME_PACKAGING.md) — EF-02 container/runtime contract, local Compose boundary and deterministic packaging sensors.
+- [Runtime Packaging](engineering/RUNTIME_PACKAGING.md) — EF-02 closed/green container/runtime contract, local Compose boundary and deterministic packaging sensors.
 - [DCRM-00B Closure](engineering/DCRM-00B_CLOSURE.md) — verified closure of the local PWM WP-03 extraction bridge.
 
 ## Work packages
@@ -68,7 +68,7 @@ This index routes humans and agents to the current repository-owned context.
 - [EF-01A Executable Engineering Harness, Reproducible CI & Secret Safety](work-packages/EF-01A-executable-engineering-harness-ci-secret-safety.md) — closed/merged with post-merge CI green; no deploy.
 
 - [EF-01B Repository Governance & Branch Protection](work-packages/EF-01B-repository-governance-branch-protection.md) - closed/merged through protected `main` with post-merge CI green; no deploy.
-- [EF-02 Reproducible Runtime Packaging](work-packages/EF-02-reproducible-runtime-packaging.md) — ACTIVE / OWNER AUTHORIZED / NO DEPLOY.
+- [EF-02 Reproducible Runtime Packaging](work-packages/EF-02-reproducible-runtime-packaging.md) — closed/merged through protected `main` with post-merge CI green; no deploy.
 
 ## Migration
 

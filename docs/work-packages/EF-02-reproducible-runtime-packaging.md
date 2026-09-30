@@ -1,6 +1,6 @@
 # EF-02 — Reproducible Runtime Packaging
 
-Status: ACTIVE — OWNER AUTHORIZED — NO DEPLOY
+Status: CLOSED/GREEN — MERGED TO PROTECTED MAIN — POST-MERGE CI GREEN — NO DEPLOY
 
 Authorized base:
 `8e4a290b9336005b31e32b02bea8d8deeb542074`
@@ -107,17 +107,21 @@ DO NOT:
 
 ## Completion
 
-Implementation checkpoint (not closure): repo-owned images, local Compose, stdlib runtime
-sensors and Docker-backed verification are implemented. API process config and bounded shutdown
-are proven separately from the unchanged injectable library and authorization contracts. Worker
-remains inert. The runbook records exact image digests and verification operation.
+EF-02 is CLOSED/GREEN.
 
-Local candidate evidence: frozen install on an NTFS worktree (D: is exFAT), offline runtime tests,
-fast/full harnesses and Docker packaging verification pass. An intentional post-Compose failure
-also confirms zero remaining verifier containers/networks/volumes. Exact committed-head evidence
-and CI are reported with the implementation handoff; this checkpoint does not authorize merge,
-deploy, image push or EF-03/EF-04.
+Released evidence:
+- final reviewed head: `13ffae8901c6d00f727c775aae7ed68981a1f7e1`;
+- PR #23 merge commit: `65a03df0aaf42447642e130cccf881cff247799d`;
+- exact-head push CI `36669927727`: verify SUCCESS, postgres-foundation SUCCESS;
+- exact-head PR CI `36669931789`: verify SUCCESS, postgres-foundation SUCCESS;
+- post-merge main CI `36670214400`: verify SUCCESS, postgres-foundation SUCCESS;
+- final `verify` includes Docker-backed runtime packaging verification;
+- API/worker image users: `1000:1000`;
+- exact revision labels match Git HEAD;
+- local Compose migration/readiness and cleanup proofs pass;
+- APP_ENV vocabulary is closed to `development | test | staging | production`;
+- dependency delta zero; lockfile unchanged;
+- no image push, deploy, provider/Gmail/outbound or queue/orchestrator action occurred.
 
-Merge is a separate owner gate after exact-head CI and deep review.
-
-Post-merge CI must pass before EF-02 can be called CLOSED/GREEN.
+No implementation work package is currently active. EF-03 Staging Boundary is next but requires
+a separate owner deployment gate.

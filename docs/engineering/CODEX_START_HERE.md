@@ -77,21 +77,24 @@ The docs-only closure PR #21 merged as
 Read [the work package](../work-packages/EF-01B-repository-governance-branch-protection.md)
 and [the governance runbook](REPOSITORY_GOVERNANCE.md) for the frozen policy and evidence.
 
-EF-02 Reproducible Runtime Packaging is the currently authorized implementation work package:
+EF-02 Reproducible Runtime Packaging is CLOSED/GREEN.
 
-`docs/work-packages/EF-02-reproducible-runtime-packaging.md`
+PR #23 final reviewed head:
+`13ffae8901c6d00f727c775aae7ed68981a1f7e1`
 
-Authorized branch:
-`feat/ef-02-reproducible-runtime-packaging`
+Protected-main merge commit:
+`65a03df0aaf42447642e130cccf881cff247799d`
 
-Authorized base:
-`8e4a290b9336005b31e32b02bea8d8deeb542074`
+Post-merge CI `36670214400` is green for both `verify` and `postgres-foundation`.
+The `verify` job includes Docker-backed runtime packaging verification.
 
-Read `docs/engineering/RUNTIME_PACKAGING.md` before implementation.
+Read `docs/work-packages/EF-02-reproducible-runtime-packaging.md` and
+`docs/engineering/RUNTIME_PACKAGING.md` for the frozen contract and evidence.
 
-Scope is local/reproducible packaging, runtime config/lifecycle hardening and deterministic
-container sensors only. No deployment, staging, image push, provider live call, Gmail live,
-outbound, queue/orchestrator selection, DB migration or CRM business-semantics change is authorized.
+No implementation work package is currently authorized. EF-03 Staging Boundary is next in the
+Execution Foundation sequence and requires a separate owner deployment gate. No deployment,
+staging, image push, provider live call, Gmail live/outbound, queue/orchestrator selection,
+DB migration or CRM business-semantics change is authorized by EF-02 closure.
 
 DCRM-05B provider selection is closed.
 

@@ -1,6 +1,6 @@
 # Execution Foundation Plan
 
-Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 ACTIVE / OWNER AUTHORIZED — NO DEPLOY
+Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 CLOSED/GREEN — EF-03 NEXT / NOT YET AUTHORIZED
 
 Base architecture:
 `docs/architecture/DROWK_ARCHITECTURE_BASELINE_V1_2026-09-28.md`
@@ -58,12 +58,12 @@ Closure evidence:
 - docs-only closure PR #21 merged as `154b34b61c7f6082f7fa5aa4ba1c5347cfa49efd`;
 - closure post-merge CI `36590845123` is green.
 
-The repository-governance blocker is closed. EF-02 remains a separate owner gate; no production
-deployment is authorized by EF-01B closure.
+The repository-governance blocker is closed. EF-02 is also closed/green; no production deployment
+is authorized by EF-01B or EF-02 closure.
 
 ### EF-02 — Reproducible Runtime Packaging
 
-Status: ACTIVE / OWNER AUTHORIZED / NO DEPLOY.
+Status: CLOSED / MERGED TO PROTECTED MAIN / POST-MERGE CI GREEN / NO DEPLOY.
 
 Work package:
 `docs/work-packages/EF-02-reproducible-runtime-packaging.md`
@@ -79,6 +79,17 @@ Required outcomes:
 - local Compose for API/worker/PostgreSQL where appropriate;
 - immutable image identity tied to Git SHA;
 - no credentials baked into images.
+
+Closure evidence:
+- PR #23 final head `13ffae8901c6d00f727c775aae7ed68981a1f7e1`;
+- merge commit `65a03df0aaf42447642e130cccf881cff247799d`;
+- post-merge CI `36670214400` green;
+- required `verify` includes Docker-backed runtime packaging verification;
+- non-root `1000:1000` API/worker images with exact revision labels;
+- pinned Node/PostgreSQL image digests;
+- health/readiness, signal, migration and cleanup sensors green;
+- zero dependency/lockfile delta;
+- no image push or deploy.
 
 ### EF-03 — Staging Boundary
 

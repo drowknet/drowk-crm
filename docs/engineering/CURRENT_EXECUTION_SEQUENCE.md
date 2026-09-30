@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 ACTIVE / OWNER AUTHORIZED — NO DEPLOY
+Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 CLOSED/GREEN — EF-03 NEXT / NOT YET AUTHORIZED — NO DEPLOY
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -382,33 +382,27 @@ Closed EF-01B governance evidence:
 
 EF-01B is no longer an active gap.
 
-### Active gate — EF-02 Reproducible Runtime Packaging
+### Completed — EF-02 Reproducible Runtime Packaging
 
-Status: ACTIVE / OWNER AUTHORIZED / NO DEPLOY.
+Status: CLOSED/GREEN / MERGED TO PROTECTED MAIN / POST-MERGE CI GREEN / NO DEPLOY.
 
-Authorized base:
-`8e4a290b9336005b31e32b02bea8d8deeb542074`
+Closure evidence:
+- authorized base `8e4a290b9336005b31e32b02bea8d8deeb542074`;
+- final reviewed head `13ffae8901c6d00f727c775aae7ed68981a1f7e1`;
+- PR #23 merged through protected `main` as `65a03df0aaf42447642e130cccf881cff247799d`;
+- post-merge CI `36670214400`: `verify` SUCCESS and `postgres-foundation` SUCCESS;
+- required `verify` now includes Docker-backed `runtime:verify`;
+- API/worker final images are non-root `1000:1000` with exact Git-revision labels;
+- Node 22 and PostgreSQL 16-alpine inputs are digest pinned;
+- API no-DB proof remains `/health=200`, `/ready=503`;
+- local Compose migration exits 0 and composed `/ready=200`;
+- API and inert worker signal handling pass;
+- runtime verifier cleanup proves 0 containers / 0 networks / 0 volumes;
+- APP_ENV vocabulary is exactly `development | test | staging | production`;
+- no dependency/lockfile delta;
+- no image push, deploy, provider call, Gmail live/outbound or queue/orchestrator work occurred.
 
-Authorized branch:
-`feat/ef-02-reproducible-runtime-packaging`
-
-Canonical work package:
-`docs/work-packages/EF-02-reproducible-runtime-packaging.md`
-
-Runtime packaging runbook:
-`docs/engineering/RUNTIME_PACKAGING.md`
-
-Opening audit:
-- no Dockerfile or Compose file exists in the product runtime;
-- API is buildable/startable and already owns `/health`, `/ready`, runtime config and signal handlers;
-- API graceful shutdown is not yet proven as a container/lifecycle sensor;
-- worker is not a runnable service yet: it has no `start`, runtime config or process lifecycle;
-- CI required check `verify` does not currently build or smoke-test runtime images;
-- no immutable image revision label ties an image to Git SHA.
-
-EF-02 may package the existing API and add only a bounded inert worker runtime shell.
-It must NOT introduce queueing, pg-boss, Cloudflare Workflows, provider execution, Gmail live,
-outbound, staging or deployment. Those remain later gates.
+EF-03 Staging Boundary is next but NOT YET AUTHORIZED. It is a separate deployment gate.
 
 ### Foundation release gate — CLOSED
 
@@ -439,8 +433,9 @@ Current writer state:
 - DCRM-05C exact cell is `LIVE_VALIDATED_CAPABILITY`;
 - EF-01A is closed and released to `main` through PR #18;
 - EF-01B is closed and released through protected `main`;
-- EF-02 is the sole active implementation work package;
-- Codex is the sole implementation writer on `feat/ef-02-reproducible-runtime-packaging`;
+- EF-02 is closed and released through protected `main` via PR #23;
+- no implementation work package is currently active;
+- EF-03 Staging Boundary is next but NOT YET AUTHORIZED;
 - no additional live request or credential use is authorized;
 - post-merge CI is green; deployment remains closed;
 - DROWK CRM remains the canonical implementation surface;
