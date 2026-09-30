@@ -22,7 +22,12 @@
     "governance:test": "node --test tooling/governance/verify-main-protection.test.mjs",
     "governance:verify": "node tooling/governance/verify-main-protection.mjs",
     "runtime:test": "node --test tooling/runtime/*.test.mjs",
-    "runtime:verify": "node tooling/runtime/verify.mjs"
+    "runtime:verify": "node tooling/runtime/verify.mjs",
+    "staging:test": "node --test tooling/staging/staging.test.mjs",
+    "staging:verify": "node tooling/staging/verify.mjs",
+    "staging:preflight": "node tooling/staging/preflight.mjs",
+    "staging:rollback-plan": "node tooling/staging/cli.mjs rollback-plan",
+    "staging:kill-plan": "node tooling/staging/cli.mjs kill-plan"
   },
   "devDependencies": {
     "typescript": "^5.9.0",

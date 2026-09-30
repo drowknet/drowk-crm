@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 CLOSED/GREEN — EF-03 NEXT / NOT YET AUTHORIZED — NO DEPLOY
+Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 CLOSED/GREEN — EF-03 ACTIVE / REPO IMPLEMENTATION AUTHORIZED / LIVE DEPLOY GATE CLOSED
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -404,6 +404,36 @@ Closure evidence:
 
 EF-03 Staging Boundary is next but NOT YET AUTHORIZED. It is a separate deployment gate.
 
+### Active gate — EF-03 Staging Boundary
+
+Status: ACTIVE / REPO IMPLEMENTATION AUTHORIZED / LIVE PROVISIONING + IMAGE PUSH + DEPLOY NOT YET AUTHORIZED.
+
+Authorized base:
+`d3a9a2360072abe423fca1be8bf945214c2097a2`
+
+Authorized branch:
+`feat/ef-03-staging-boundary`
+
+Canonical work package:
+`docs/work-packages/EF-03-staging-boundary.md`
+
+Staging runbook:
+`docs/engineering/STAGING_BOUNDARY.md`
+
+Current reference staging shape:
+- `crm-staging.drowk.net`;
+- Cloudflare Access self-hosted app created before Tunnel route;
+- remotely managed Cloudflare Tunnel with no public origin HTTP port;
+- replaceable Linux Docker host, vendor-neutral;
+- API + inert worker + cloudflared staging Compose;
+- managed PostgreSQL reference provider: Neon, direct TLS connection, no pooler in the first cell;
+- runtime secrets injected from files, never baked into images or committed;
+- GHCR is the intended image registry once a later live image-push gate is explicitly opened;
+- rollback uses previous immutable image digests; kill path can stop cloudflared/API/worker.
+
+Repository implementation may prepare and test these surfaces but must not create Cloudflare,
+Neon, compute, DNS, registry packages, GitHub deployment secrets or any live staging resource.
+
 ### Foundation release gate — CLOSED
 
 PR #1 was reviewed and merged into `main` as `99c3900aa2e9aa074c2d9f97ccce811557be922f`.
@@ -434,8 +464,9 @@ Current writer state:
 - EF-01A is closed and released to `main` through PR #18;
 - EF-01B is closed and released through protected `main`;
 - EF-02 is closed and released through protected `main` via PR #23;
-- no implementation work package is currently active;
-- EF-03 Staging Boundary is next but NOT YET AUTHORIZED;
+- EF-03 is the sole active repo-owned implementation work package;
+- Codex is the sole implementation writer on `feat/ef-03-staging-boundary`;
+- EF-03 live provisioning/image-push/deployment remains separately owner-gated;
 - no additional live request or credential use is authorized;
 - post-merge CI is green; deployment remains closed;
 - DROWK CRM remains the canonical implementation surface;

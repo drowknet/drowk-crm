@@ -1,6 +1,6 @@
 # Execution Foundation Plan
 
-Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 CLOSED/GREEN — EF-03 NEXT / NOT YET AUTHORIZED
+Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 CLOSED/GREEN — EF-03 ACTIVE / REPO IMPLEMENTATION AUTHORIZED / LIVE DEPLOY GATE CLOSED
 
 Base architecture:
 `docs/architecture/DROWK_ARCHITECTURE_BASELINE_V1_2026-09-28.md`
@@ -93,15 +93,29 @@ Closure evidence:
 
 ### EF-03 — Staging Boundary
 
-Status: PLANNED / NOT YET AUTHORIZED / DEPLOYMENT GATE.
+Status: ACTIVE / REPO IMPLEMENTATION AUTHORIZED / LIVE PROVISIONING + IMAGE PUSH + DEPLOY NOT YET AUTHORIZED.
+
+Work package:
+`docs/work-packages/EF-03-staging-boundary.md`
+
+Runbook:
+`docs/engineering/STAGING_BOUNDARY.md`
+
+Research:
+`docs/research/EF-03_STAGING_PROVIDER_REVALIDATION_2026-09-29.md`
 
 Required outcomes:
-- Cloudflare Access/Tunnel boundary;
-- replaceable compute;
-- managed PostgreSQL;
-- runtime secret injection;
-- staging-only health/readiness;
-- explicit rollback/kill path.
+- Cloudflare Access/Tunnel boundary for `crm-staging.drowk.net`;
+- replaceable vendor-neutral Docker compute host with no public application origin port;
+- managed PostgreSQL reference staging provider: Neon direct TLS connection;
+- runtime secret-file injection for database/tunnel credentials;
+- staging-only health/readiness proof behind Access;
+- immutable image-digest deployment contract;
+- explicit rollback/kill path;
+- deterministic preflight/sensors before any live apply.
+
+A later owner gate is still required before creating Cloudflare/Neon/compute/DNS resources,
+pushing images or executing the first staging deployment.
 
 ### EF-04 — Durable Execution
 

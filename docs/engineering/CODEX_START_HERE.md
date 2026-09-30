@@ -91,10 +91,24 @@ The `verify` job includes Docker-backed runtime packaging verification.
 Read `docs/work-packages/EF-02-reproducible-runtime-packaging.md` and
 `docs/engineering/RUNTIME_PACKAGING.md` for the frozen contract and evidence.
 
-No implementation work package is currently authorized. EF-03 Staging Boundary is next in the
-Execution Foundation sequence and requires a separate owner deployment gate. No deployment,
-staging, image push, provider live call, Gmail live/outbound, queue/orchestrator selection,
-DB migration or CRM business-semantics change is authorized by EF-02 closure.
+EF-03 Staging Boundary is the currently authorized repo-owned implementation work package:
+
+`docs/work-packages/EF-03-staging-boundary.md`
+
+Authorized branch:
+`feat/ef-03-staging-boundary`
+
+Authorized base:
+`d3a9a2360072abe423fca1be8bf945214c2097a2`
+
+Read `docs/engineering/STAGING_BOUNDARY.md` and
+`docs/research/EF-03_STAGING_PROVIDER_REVALIDATION_2026-09-29.md` before implementation.
+
+Scope is staging manifests, secret-file/runtime hardening, deterministic preflight/sensors,
+rollback/kill-path tooling and a provider-neutral replaceable-host contract. Live Cloudflare,
+Neon, compute, DNS, registry push or staging deployment is NOT authorized by this repo-owned phase.
+No provider live call, Gmail live/outbound, queue/orchestrator selection, schema change or DCRM-06
+work is authorized.
 
 DCRM-05B provider selection is closed.
 
