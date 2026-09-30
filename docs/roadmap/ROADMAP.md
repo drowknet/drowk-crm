@@ -142,7 +142,7 @@ Selected sequence:
   immutable image identity. CLOSED/GREEN; merged through protected `main` with post-merge CI green; no deploy.
 - **EF-03 — Staging Boundary**:
   Cloudflare Access/Tunnel, managed PostgreSQL, runtime secret injection and explicit rollback.
-  PLANNED; deployment requires a separate owner gate.
+  ACTIVE for repo-owned staging-boundary implementation; live provisioning/image push/deployment remains a separate owner gate.
 - **EF-04 — Durable Execution**:
   PostgreSQL-first vs Cloudflare Workflows bounded spike, ActionAttempt
   PREPARED -> DISPATCHING -> ACCEPTED|FAILED|UNKNOWN -> RECONCILED semantics. PLANNED.

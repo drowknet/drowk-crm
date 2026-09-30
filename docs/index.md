@@ -46,6 +46,7 @@ This index routes humans and agents to the current repository-owned context.
 - [Current Execution Sequence](engineering/CURRENT_EXECUTION_SEQUENCE.md) — active PWM -> DROWK bridge and next implementation gate.
 - [Execution Foundation Plan](engineering/EXECUTION_FOUNDATION_PLAN.md) — ordered post-05C hardening sequence and explicit deferred gates.
 - [Runtime Packaging](engineering/RUNTIME_PACKAGING.md) — EF-02 closed/green container/runtime contract, local Compose boundary and deterministic packaging sensors.
+- [Staging Boundary](engineering/STAGING_BOUNDARY.md) — EF-03 staging topology, secret injection, live gates, rollback and kill path.
 - [DCRM-00B Closure](engineering/DCRM-00B_CLOSURE.md) — verified closure of the local PWM WP-03 extraction bridge.
 
 ## Work packages
@@ -69,6 +70,7 @@ This index routes humans and agents to the current repository-owned context.
 
 - [EF-01B Repository Governance & Branch Protection](work-packages/EF-01B-repository-governance-branch-protection.md) - closed/merged through protected `main` with post-merge CI green; no deploy.
 - [EF-02 Reproducible Runtime Packaging](work-packages/EF-02-reproducible-runtime-packaging.md) — closed/merged through protected `main` with post-merge CI green; no deploy.
+- [EF-03 Staging Boundary](work-packages/EF-03-staging-boundary.md) — ACTIVE for repo-owned implementation; live provisioning/image push/deployment separately gated.
 
 ## Migration
 
@@ -90,6 +92,7 @@ This index routes humans and agents to the current repository-owned context.
 ## Current research
 
 - [DCRM-05C Live Validation Evidence — 2026-09-29](research/DCRM-05C_LIVE_VALIDATION_EVIDENCE_2026-09-29.md) — safe audit of one accepted live request; exact-cell promotion merged to `main`, post-merge CI green.
+- [EF-03 Staging Provider Revalidation — 2026-09-29](research/EF-03_STAGING_PROVIDER_REVALIDATION_2026-09-29.md) — current Cloudflare/GitHub/managed-Postgres constraints used to freeze the staging boundary.
 
 - [Auth / Session Provider Revalidation — 2026-09-27](research/AUTH_SESSION_REVALIDATION_2026-09-27.md) — current official-source comparison and DCRM-02B alpha decision input.
 - [External Repository Candidates — 2026-09-28](research/EXTERNAL_REPOSITORY_CANDIDATES_2026-09-28.md) — disposition of 11 external repositories as capability candidates, engineering/design references or deferred options; explicitly does not broaden DCRM-04A.
