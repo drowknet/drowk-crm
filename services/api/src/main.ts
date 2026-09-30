@@ -3,7 +3,9 @@ import { installShutdown, readProcessConfig } from "./runtime.mjs";
 
 try {
   // Validate the process boundary without changing the injectable library config contract.
-  const config = { ...readRuntimeConfig(process.env), ...readProcessConfig(process.env) };
+  const resolved = readRuntimeConfig(process.env);
+  const config = { ...resolved, ...readProcessConfig({ ...process.env,
+    DATABASE_URL: resolved.databaseUrl, DATABASE_URL_FILE: undefined }) };
   const runtime = createRuntime(config);
   const stop = installShutdown(runtime.close, {
     exit: code => process.exit(code || Number(process.exitCode) || 0),

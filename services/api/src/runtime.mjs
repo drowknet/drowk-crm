@@ -1,9 +1,12 @@
 import { isIP } from "node:net";
+import { readDatabaseUrl, validateStagingAccess } from "./database-config.mjs";
 
 export function readProcessConfig(env) {
   if (!["development", "test", "staging", "production"].includes(env.APP_ENV)) throw new Error("APP_ENV_INVALID");
+  const databaseUrl = readDatabaseUrl(env);
+  validateStagingAccess(env);
   let url;
-  try { url = new URL(env.DATABASE_URL); } catch { throw new Error("DATABASE_URL_INVALID"); }
+  try { url = new URL(databaseUrl); } catch { throw new Error("DATABASE_URL_INVALID"); }
   if (!["postgres:", "postgresql:"].includes(url.protocol) || !url.hostname || url.pathname.length < 2) {
     throw new Error("DATABASE_URL_INVALID");
   }
@@ -12,7 +15,7 @@ export function readProcessConfig(env) {
   const port = env.PORT ?? "8000";
   if (typeof port !== "string" || port !== port.trim() || !/^\d+$/.test(port)
     || Number(port) < 1 || Number(port) > 65535) throw new Error("PORT_INVALID");
-  return { databaseUrl: env.DATABASE_URL, environment: env.APP_ENV, host, port: Number(port) };
+  return { databaseUrl, environment: env.APP_ENV, host, port: Number(port) };
 }
 
 /** One close operation; always attempt pool shutdown, including listener errors. */

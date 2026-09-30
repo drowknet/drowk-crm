@@ -43,6 +43,9 @@ jobs:
       - name: Verify runtime packaging
         run: pnpm runtime:verify
 
+      - name: Verify staging boundary without live effects
+        run: pnpm staging:verify
+
   postgres-foundation:
     runs-on: ubuntu-latest
     timeout-minutes: 10

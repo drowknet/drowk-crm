@@ -15,7 +15,10 @@ const valid = { DATABASE_URL: "postgresql://localhost/disposable_test", APP_ENV:
 test("API and worker accept only the exact canonical APP_ENV vocabulary", () => {
   const accepted = ["development", "test", "staging", "production"];
   for (const APP_ENV of accepted) {
-    assert.equal(readProcessConfig({ ...valid, APP_ENV }).environment, APP_ENV);
+    const config = APP_ENV === "staging" ? { ...valid,
+      DATABASE_URL: `${valid.DATABASE_URL}?sslmode=verify-full`, AUTH_PROVIDER: "cloudflare-access",
+      CLOUDFLARE_ACCESS_ISSUER: "https://synthetic.invalid", CLOUDFLARE_ACCESS_AUDIENCE: "synthetic" } : valid;
+    assert.equal(readProcessConfig({ ...config, APP_ENV }).environment, APP_ENV);
     assert.equal(readWorkerConfig({ APP_ENV }).environment, APP_ENV);
   }
   const unsupported = [undefined, null, 0, false, "qa", "preview", "prod", "", " ", "\t", "\n", "\r\n",

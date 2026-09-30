@@ -241,7 +241,28 @@ EF-03 does not authorize:
 - broad autonomous deployment;
 - Kubernetes or service mesh.
 
-## Completion contract
+## Repository implementation
+
+The repo-owned bundle is in `infra/staging/`; operational inputs, permissions, TLS policy,
+explicit migration entrypoint and non-executing plans are documented in
+[`infra/staging/README.md`](../../infra/staging/README.md).
+
+- `pnpm staging:test`: offline Node-stdlib contract and failure sensors.
+- `pnpm staging:verify`: synthetic temporary files and local Compose config rendering only;
+  no pull/build/start, registry request or live staging request.
+- `pnpm staging:preflight`: later authorized local release metadata/file validation, including
+  clean selected HEAD and already-present image digest/revision checks; no pull fallback.
+- `pnpm staging:rollback-plan <non-secret-input.json>` and `pnpm staging:kill-plan`: plans only.
+
+Cloudflared is pinned to
+`cloudflare/cloudflared:2026.9.3@sha256:072c067d25ccbe61d46e18f0d0723255f2bb5304f7317caa95b27031520ff92c`.
+The API resolves exactly one env/file DB input once at startup. Staging requires direct PostgreSQL
+TLS with `sslmode=require` or `sslmode=verify-full`, forbids URL parser overrides and requires
+Access configuration. Root EF-02 disposable Compose and DB migrations remain unchanged.
+The existing CI `verify` runs staging verification after `harness:ci` and `runtime:verify`.
+These artifacts do not open the live gate or mark EF-03 CLOSED/GREEN.
+
+## Closure gates
 
 EF-03 closes only after:
 1. repo-owned staging boundary implementation passes deep review;

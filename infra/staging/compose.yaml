@@ -1,0 +1,69 @@
+{
+  "services": {
+    "api": {
+      "image": "${DROWK_STAGING_API_IMAGE:?immutable API digest required}",
+      "user": "1000:1000",
+      "environment": {
+        "APP_ENV": "staging", "HOST": "0.0.0.0", "PORT": "8000",
+        "AUTH_PROVIDER": "cloudflare-access",
+        "CLOUDFLARE_ACCESS_ISSUER": "${DROWK_STAGING_ACCESS_ISSUER:?Access issuer required}",
+        "CLOUDFLARE_ACCESS_AUDIENCE": "${DROWK_STAGING_ACCESS_AUDIENCE:?Access audience required}",
+        "DATABASE_URL_FILE": "/run/secrets/database_url"
+      },
+      "secrets": ["database_url"],
+      "networks": ["ingress"],
+      "restart": "unless-stopped",
+      "read_only": true,
+      "cap_drop": ["ALL"],
+      "security_opt": ["no-new-privileges:true"],
+      "stop_grace_period": "8s",
+      "healthcheck": {
+        "test": ["CMD", "node", "-e", "fetch('http://127.0.0.1:8000/health',{signal:AbortSignal.timeout(2000)}).then(r=>process.exit(r.status===200?0:1)).catch(()=>process.exit(1))"],
+        "interval": "10s", "timeout": "3s", "retries": 3, "start_period": "5s"
+      }
+    },
+    "worker": {
+      "image": "${DROWK_STAGING_WORKER_IMAGE:?immutable worker digest required}",
+      "user": "1000:1000",
+      "environment": {"APP_ENV": "staging"},
+      "network_mode": "none",
+      "restart": "unless-stopped",
+      "read_only": true,
+      "cap_drop": ["ALL"],
+      "security_opt": ["no-new-privileges:true"],
+      "stop_grace_period": "8s"
+    },
+    "cloudflared": {
+      "image": "cloudflare/cloudflared:2026.9.3@sha256:072c067d25ccbe61d46e18f0d0723255f2bb5304f7317caa95b27031520ff92c",
+      "user": "65532:65532",
+      "command": ["tunnel", "--no-autoupdate", "run", "--token-file", "/run/secrets/cloudflare_tunnel_token"],
+      "secrets": ["cloudflare_tunnel_token"],
+      "networks": ["ingress"],
+      "depends_on": {"api": {"condition": "service_healthy"}},
+      "restart": "unless-stopped",
+      "read_only": true,
+      "cap_drop": ["ALL"],
+      "security_opt": ["no-new-privileges:true"],
+      "stop_grace_period": "8s"
+    },
+    "migrate": {
+      "image": "${DROWK_STAGING_API_IMAGE:?immutable API digest required}",
+      "user": "1000:1000",
+      "profiles": ["migration"],
+      "command": ["node", "dist/migrate.mjs", "apply"],
+      "environment": {"APP_ENV": "staging", "DATABASE_URL_FILE": "/run/secrets/database_url"},
+      "secrets": ["database_url"],
+      "networks": ["ingress"],
+      "restart": "no",
+      "read_only": true,
+      "cap_drop": ["ALL"],
+      "security_opt": ["no-new-privileges:true"],
+      "stop_grace_period": "8s"
+    }
+  },
+  "networks": {"ingress": {"driver": "bridge"}},
+  "secrets": {
+    "database_url": {"file": "${DROWK_STAGING_DATABASE_URL_FILE:?database secret file required}"},
+    "cloudflare_tunnel_token": {"file": "${DROWK_STAGING_TUNNEL_TOKEN_FILE:?tunnel secret file required}"}
+  }
+}
