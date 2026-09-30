@@ -1,4 +1,9 @@
-# EF-03 staging bundle — repository phase only
+# EF-03 staging bundle — implementation merged, live proof pending
+
+PR #25 merged the repo-owned implementation into protected `main` at
+`0137e4904758561611c2d3d504a459284657f64d`; post-merge CI `36718588406` was green.
+Full EF-03 remains OPEN. Deployment authority is an exact protected-main SHA with
+exact-head/post-merge CI evidence, never a feature-branch name.
 
 No live provisioning, credential retrieval, image push, deployment or external smoke request is
 authorized. This bundle prepares the boundary for a later exact owner-approved plan. It does not
@@ -15,8 +20,40 @@ structure without another dependency. It is separate from root EF-02 disposable 
 
 `staging.env.example` lists non-secret inputs only. Empty fields deliberately fail validation.
 Use absolute host file paths for the two secret-file inputs, never credential contents.
-The protected-main SHA and API/worker immutable registry digest refs must be selected together at
-the live gate. Tags alone are rejected. No automatic image lookup or pull exists in these tools.
+Freeze the protected-main SHA and exact API/worker image repository names before mutation.
+Gate A generates provider metadata; authorized Gate B publication generates registry digests.
+Only then bind actual API/worker immutable refs to the selected SHA and verify their OCI revisions
+before migration/deploy. Tags alone are rejected. No automatic image lookup or pull exists in these tools.
+
+## Two owner gates
+
+The [canonical live plan](../../docs/engineering/STAGING_BOUNDARY.md#live-gates--explicitly-closed)
+separates frozen inputs (names, SHA, region/plan/cost, PostgreSQL 16, identity intent, direct TLS,
+secret source/path/UID/mode, migration, rollback/kill, smoke and abort/cleanup) from generated outputs.
+Do not invent provider IDs, Access metadata, Tunnel identity or registry digests as preconditions
+to the authorized operations that generate them.
+
+- **Gate A — resource/identity materialization:** explicit owner authorization may create only the
+  minimum PostgreSQL 16 Postgres-only Neon staging project, Access app/owner policy and remotely
+  managed Tunnel identity if needed. Capture safe project/direct-endpoint, Access issuer/audience
+  and Tunnel metadata; STOP for review. No route/DNS publication, application compute, GHCR app
+  image push, app/cloudflared deploy, migration or live staging HTTP smoke.
+- **Gate B — deploy/proof:** accepted Gate A evidence plus new explicit owner authorization is required.
+  Prepare replaceable Linux compute/secrets, build the exact authorized protected-main SHA, publish
+  explicitly named GHCR images, capture digests and authenticate host pulls. Deterministic digest/OCI
+  revision checks and preflight must pass before one-shot migration or deploy; failure stops Gate B.
+  Only then start API/inert worker/cloudflared and publish the route after Access exists, perform
+  authorized smoke, rollback/no-op rollback, kill and desired-state restoration, and record safe evidence.
+
+### Private GHCR host pulls
+
+Do not assume anonymous pull. Before Gate B, freeze a least-privilege package-read credential/identity
+and package scope, source outside Git, host-side storage/injection and a noninteractive login/pull path.
+Only package read is allowed unless another permission is separately justified. The plan must select
+an approved credential helper or private external Docker config/injection path; no token in Compose,
+images, build args, committed env or evidence. Include rotation (replace externally and validate pull),
+revocation of the old credential and removal of helper/config material when the host/access is retired.
+An authenticated pull does not authorize deployment. This WP creates no credential.
 
 Pinned cloudflared input, resolved from public registry metadata:
 
@@ -37,6 +74,7 @@ or created here.
 - API/worker/migrate run as `1000:1000`; cloudflared runs as `65532:65532`.
 - Containers have read-only root filesystems, dropped capabilities, no Docker socket and an
   eight-second stop grace. API/worker/cloudflared restart unless stopped; migrations never restart.
+- `no-new-privileges` remains enabled.
 
 Exactly one of `DATABASE_URL` or `DATABASE_URL_FILE` must be defined, including empty values:
 both or neither fail. The API reads the absolute file once at startup and retains only the resolved
@@ -52,6 +90,14 @@ and `NODE_TLS_REJECT_UNAUTHORIZED=0` fail closed. Known `-pooler` endpoints are 
 arbitrary hostname cannot establish direct-connection semantics: the live owner plan must confirm
 the endpoint is direct. No Neon hostname is hard-coded. Access provider, exact HTTPS issuer and
 nonempty audience are required for staging API configuration.
+
+**FIRST-STAGING-PROOF exception:** API runtime and the explicit one-shot migration container share
+one direct-TLS `DATABASE_URL_FILE` credential. This is not a production security conclusion.
+No schema/privilege redesign or role split is authorized: current migrations lack a separate runtime-role
+grant model, which needs reviewed ownership/GRANT design for database/schema/tables/sequences/functions
+and migration history. Do not add ad hoc provider-side grants. Revisit under a separately authorized
+least-privilege task before production or materially expanded authority. The credential is never printed
+or committed; known `-pooler` endpoints remain rejected and worker has no DB secret/network.
 
 Compose secrets are runtime, read-only file mounts, not encrypted storage. On the Linux host the
 owner must place files outside the checkout/build context. Linux preflight requires the database
@@ -100,7 +146,7 @@ labels. A missing image fails: there is no pull fallback. This does not verify p
 provenance, Access policy, DNS, provider directness, host firewall or the live endpoint. Those
 remain evidence requirements in the exact live plan, not inferred authorization.
 
-## Explicit migrations — later live gate only
+## Explicit migrations — Gate B only
 
 The `migrate` service is excluded from normal startup by the `migration` profile and is not an
 API dependency. Its command is `node dist/migrate.mjs apply` inside the same immutable API image.
@@ -109,6 +155,7 @@ repo migration CLI. Schema and migration SQL are unchanged. The future authorize
 explicitly invoke this one-shot service and review its outcome; app restart does not invoke it.
 
 Host recovery uses the approved immutable image refs, managed DB and independent secret source.
-No canonical CRM data belongs on this replaceable host. The live gate must also freeze provider,
-region, cost ceiling, protected-main SHA, identity policy, registry push scope, secret source,
-rollback refs, kill procedure and exact permitted smoke requests.
+No canonical CRM data belongs on this replaceable host. Freeze the two-gate plan above, including
+rollback by verified immutable refs or an explicit first-deploy no-op. Kill cloudflared first, then
+API/worker with migration quiescent; preserve managed DB and secret source. Cleanup beyond that
+requires explicit authorization. No repo verification performs live side effects.

@@ -1,12 +1,14 @@
 # EF-03 — Staging Boundary
 
-Status: ACTIVE — REPO IMPLEMENTATION AUTHORIZED — LIVE PROVISIONING / IMAGE PUSH / DEPLOY GATE CLOSED
+Status: OPEN — REPO IMPLEMENTATION MERGED — LIVE STAGING GATE PENDING
 
-Authorized base:
-`d3a9a2360072abe423fca1be8bf945214c2097a2`
-
-Authorized branch:
-`feat/ef-03-staging-boundary`
+Repo-owned implementation merged through PR #25, final feature head
+`18f0acea9b20b223209661925f91737207420d48`.
+Protected-main merge: `0137e4904758561611c2d3d504a459284657f64d`.
+Post-merge CI `36718588406` was green for `verify` and `postgres-foundation`.
+The old implementation branch was deleted. Feature branches are never long-lived deployment
+authority; use an exact protected-main SHA and exact-head/post-merge CI evidence.
+Full EF-03 remains OPEN because live staging proof has not happened.
 
 Canonical runbook:
 `docs/engineering/STAGING_BOUNDARY.md`
@@ -28,15 +30,15 @@ crm-staging.drowk.net
       -> replaceable Docker host
           -> cloudflared
           -> drowk-api
-          -> inert drowk-worker
               -> Neon Postgres (direct TLS)
+          -> inert drowk-worker (no network)
 ```
 
 Compute vendor remains intentionally replaceable and is selected only at the live gate.
 
-## Repo-owned implementation scope
+## Merged repo-owned implementation scope
 
-Codex may implement only repository surfaces needed to make the staging bundle deterministic:
+PR #25 implemented the repository surfaces needed to make the staging bundle deterministic:
 - `infra/staging/**`;
 - `tooling/staging/**`;
 - bounded API runtime support/tests for `DATABASE_URL_FILE` and staging TLS config;
@@ -46,7 +48,7 @@ Codex may implement only repository surfaces needed to make the staging bundle d
 
 No new npm dependency is expected.
 
-## Required implementation
+## Preserved implementation contract
 
 Follow `docs/engineering/STAGING_BOUNDARY.md`.
 
@@ -67,7 +69,10 @@ At minimum:
 
 ## Hard boundary
 
-This work package is active, but the live half is NOT.
+The current correction is pre-live hardening and canon synchronization only. It includes the
+approved PostgreSQL 16 service digest in CI and a deterministic staging regression sensor.
+It authorizes no application/domain/schema edits or role split. The following live actions remain
+closed unless separately authorized under the exact Gate A / Gate B plan below.
 
 DO NOT:
 - create Cloudflare resources;
@@ -90,6 +95,7 @@ Required:
 - `git diff --check`;
 - frozen install;
 - `pnpm staging:test`;
+- `pnpm staging:verify`;
 - `pnpm harness:fast`;
 - `pnpm harness:full`;
 - `pnpm runtime:verify`;
@@ -98,20 +104,44 @@ Required:
 - changed-file list;
 - proof that no external mutation or image push happened.
 
+For this bounded workflow/doc/sensor correction, run staging tests/verification and relevant
+CI-safe harness checks. Report environment-blocked Docker checks without repairing Docker/WSL
+or disk/Git maintenance; exact-head GitHub CI must establish the remaining CI evidence after push.
+Required checks remain `verify` and `postgres-foundation`. No dependency/lockfile change is needed.
+
 ## Live gate handoff
 
-After repo implementation review passes, stop.
+Follow the [canonical two-gate runbook](../engineering/STAGING_BOUNDARY.md#live-gates--explicitly-closed).
+Freeze the protected-main SHA/CI evidence, provider/resource/image names, regions, PostgreSQL 16,
+Postgres-only plan/compute class/cost ceiling, hostname, identity-policy intent, direct TLS strategy,
+secret source/path/UID/mode contract, migration, rollback/kill, smoke and abort/cleanup rules before
+mutation. Provider-assigned outputs must never be invented or required before their creation.
 
-ChatGPT will construct an exact live staging plan with:
-- compute provider/region/cost ceiling;
-- Neon plan/region;
-- Cloudflare hostname/Access policy/Tunnel;
-- GitHub staging secret names;
-- exact image/Git SHA;
-- rollback/kill instructions;
-- bounded smoke matrix.
+**Gate A — RESOURCE / IDENTITY MATERIALIZATION:** explicit owner authorization may allow only
+the minimum Neon staging project, Cloudflare Access app/owner policy and remotely managed Tunnel
+identity if needed. Capture metadata-safe project ID/direct endpoint, Access issuer/audience and
+Tunnel identity, then STOP for review. No Tunnel/DNS route, application compute, GHCR image push,
+API/worker/cloudflared deploy, migration or live staging HTTP smoke is allowed in Gate A.
 
-Owner authorization must explicitly cover that live plan before any resource is created.
+**Gate B — DEPLOY / PROOF:** requires accepted Gate A evidence and a new explicit owner authorization.
+It may cover replaceable Linux compute, host secrets, exact protected-main builds, explicitly named
+GHCR publication, resulting digest capture, package-read host authentication, deterministic
+digest/revision validation and preflight, explicit one-shot migration, API/inert worker/cloudflared,
+route publication after Access, smoke, rollback/no-op rollback, kill and desired-state restoration.
+GHCR digests are generated after authorized Gate B push. Artifact identity failure stops before
+deploy; OCI revisions must equal the selected protected-main SHA.
+
+Before Gate B, freeze a least-privilege package-read identity, external credential source,
+host storage/injection and noninteractive login/pull mechanism, plus rotation/revocation/removal.
+Never assume anonymous private-package pull or print/commit a credential. Successful authenticated
+pull does not authorize deploy. No real credential is created during this corrective work.
+
+The first proof keeps a single direct-TLS `DATABASE_URL_FILE` credential shared by API and explicit
+migration as a bounded FIRST-STAGING-PROOF exception, not a production security conclusion.
+Current migrations have no separate runtime-role grant model; database/schema/table/sequence/function
+ownership and migration-history access need separately reviewed design. No ad hoc provider grants
+or new SQL are authorized. Known `-pooler` endpoints stay rejected; worker has no DB secret/network.
+Never print/commit the credential. Revisit least privilege before production or materially expanded authority.
 
 ## Completion
 

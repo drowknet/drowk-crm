@@ -1,6 +1,6 @@
 # Current Execution Sequence — PWM -> DROWK Bridge
 
-Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 CLOSED/GREEN — EF-03 ACTIVE / REPO IMPLEMENTATION AUTHORIZED / LIVE DEPLOY GATE CLOSED
+Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 CLOSED/GREEN — EF-03 OPEN / REPO IMPLEMENTATION MERGED / LIVE STAGING GATE PENDING
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
@@ -402,17 +402,31 @@ Closure evidence:
 - no dependency/lockfile delta;
 - no image push, deploy, provider call, Gmail live/outbound or queue/orchestrator work occurred.
 
-EF-03 Staging Boundary is next but NOT YET AUTHORIZED. It is a separate deployment gate.
+EF-03 repo implementation is merged; live staging proof remains separately gated.
 
 ### Active gate — EF-03 Staging Boundary
 
-Status: ACTIVE / REPO IMPLEMENTATION AUTHORIZED / LIVE PROVISIONING + IMAGE PUSH + DEPLOY NOT YET AUTHORIZED.
+Status: OPEN / REPO IMPLEMENTATION MERGED / LIVE STAGING GATE PENDING.
 
-Authorized base:
-`d3a9a2360072abe423fca1be8bf945214c2097a2`
+PR #25 final feature head: `18f0acea9b20b223209661925f91737207420d48`.
+Protected-main merge: `0137e4904758561611c2d3d504a459284657f64d`.
+Post-merge CI `36718588406` was green for `verify` and `postgres-foundation`.
+The old implementation branch was deleted; it is not a deployment identity.
+Feature-branch names must never become long-lived deployment authority. Engineering
+authority is an exact protected-main SHA plus exact-head/post-merge CI evidence.
+Re-verify that evidence for the selected SHA before a live gate; this historical
+checkpoint does not automatically authorize a later head or deployment.
 
-Authorized branch:
-`feat/ef-03-staging-boundary`
+Current work is limited to pre-live hardening and canon synchronization. Live proof
+has not happened. The runbook freezes two separate owner gates:
+- Gate A: minimum resource/identity materialization, metadata-safe output capture, then STOP for review;
+- Gate B: only after Gate A evidence is accepted and a new explicit owner authorization exists,
+  bounded image publication, deployment and proof.
+
+Freeze plans and names before mutation; capture provider-assigned IDs and Access/Tunnel
+metadata after Gate A, and GHCR digests after authorized Gate B publication. Never invent
+generated outputs or require them before their creating mutation. Artifact digest/revision
+validation must pass before deploy. Both live gates remain closed.
 
 Canonical work package:
 `docs/work-packages/EF-03-staging-boundary.md`
@@ -431,7 +445,7 @@ Current reference staging shape:
 - GHCR is the intended image registry once a later live image-push gate is explicitly opened;
 - rollback uses previous immutable image digests; kill path can stop cloudflared/API/worker.
 
-Repository implementation may prepare and test these surfaces but must not create Cloudflare,
+Repo verification and pre-live hardening may test these surfaces but must not create Cloudflare,
 Neon, compute, DNS, registry packages, GitHub deployment secrets or any live staging resource.
 
 ### Foundation release gate — CLOSED
@@ -464,9 +478,10 @@ Current writer state:
 - EF-01A is closed and released to `main` through PR #18;
 - EF-01B is closed and released through protected `main`;
 - EF-02 is closed and released through protected `main` via PR #23;
-- EF-03 is the sole active repo-owned implementation work package;
-- Codex is the sole implementation writer on `feat/ef-03-staging-boundary`;
-- EF-03 live provisioning/image-push/deployment remains separately owner-gated;
+- EF-03 repo-owned implementation is merged through PR #25; full EF-03 remains OPEN;
+- each bounded follow-up must verify its owner-authorized branch/base and assign one writer;
+- no feature branch is continuing deployment authority after merge;
+- EF-03 Gate A resource/identity materialization and Gate B deploy/proof each require explicit owner authorization;
 - no additional live request or credential use is authorized;
 - post-merge CI is green; deployment remains closed;
 - DROWK CRM remains the canonical implementation surface;
