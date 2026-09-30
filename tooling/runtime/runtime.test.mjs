@@ -12,6 +12,21 @@ import { pack } from "./pack.mjs";
 const read = path => readFileSync(new URL(`../../${path}`, import.meta.url), "utf8");
 const valid = { DATABASE_URL: "postgresql://localhost/disposable_test", APP_ENV: "test" };
 
+test("API and worker accept only the exact canonical APP_ENV vocabulary", () => {
+  const accepted = ["development", "test", "staging", "production"];
+  for (const APP_ENV of accepted) {
+    assert.equal(readProcessConfig({ ...valid, APP_ENV }).environment, APP_ENV);
+    assert.equal(readWorkerConfig({ APP_ENV }).environment, APP_ENV);
+  }
+  const unsupported = [undefined, null, 0, false, "qa", "preview", "prod", "", " ", "\t", "\n", "\r\n",
+    ...accepted.flatMap(value => [value.toUpperCase(), ` ${value}`, `${value} `,
+      `\t${value}`, `${value}\t`, `\n${value}`, `${value}\n`, `${value}\r`, `${value}\r\n`, `${value}\nextra`])];
+  for (const APP_ENV of unsupported) {
+    assert.throws(() => readProcessConfig({ ...valid, APP_ENV }), { message: "APP_ENV_INVALID" });
+    assert.throws(() => readWorkerConfig({ APP_ENV }), { message: "APP_ENV_INVALID" });
+  }
+});
+
 test("runtime configuration rejects invalid input without echoing values", () => {
   assert.deepEqual(readProcessConfig(valid), { databaseUrl: valid.DATABASE_URL, environment: "test", host: "127.0.0.1", port: 8000 });
   for (const changes of [{ DATABASE_URL: "sentinel-secret" }, { DATABASE_URL: "https://localhost/test" },

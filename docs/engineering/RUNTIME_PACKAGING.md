@@ -217,7 +217,11 @@ DB also contains the unchanged migration SQL. Build tools, repository source, fi
 workspaces and Git metadata do not enter the final application tree. Required third-party runtime
 source and package licenses remain available. No new npm dependency or lockfile change is needed.
 
-API process startup validates a PostgreSQL URL, a bounded `APP_ENV`, an IP literal `HOST` and a
+API and worker accept exactly `APP_ENV ∈ {development, test, staging, production}`.
+All other values, including whitespace and newline variants, fail closed. `staging` and
+`production` are configuration vocabulary only; they do not authorize deployment or EF-03.
+
+API process startup validates a PostgreSQL URL, the canonical `APP_ENV`, an IP literal `HOST` and a
 port from 1 through 65535. The existing injectable library config and authorization contract stay
 compatible. API shutdown closes the listener then the pool once, with a five-second process
 deadline and failure exit on timeout. Worker startup validates `APP_ENV`; it only stays alive

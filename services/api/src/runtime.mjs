@@ -1,8 +1,7 @@
 import { isIP } from "node:net";
 
 export function readProcessConfig(env) {
-  if (typeof env.APP_ENV !== "string" || env.APP_ENV !== env.APP_ENV.trim()
-    || !/^[a-z][a-z0-9_-]{0,31}$/.test(env.APP_ENV)) throw new Error("APP_ENV_INVALID");
+  if (!["development", "test", "staging", "production"].includes(env.APP_ENV)) throw new Error("APP_ENV_INVALID");
   let url;
   try { url = new URL(env.DATABASE_URL); } catch { throw new Error("DATABASE_URL_INVALID"); }
   if (!["postgres:", "postgresql:"].includes(url.protocol) || !url.hostname || url.pathname.length < 2) {
