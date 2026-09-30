@@ -20,7 +20,9 @@
     "harness:ci": "node tooling/harness/run.mjs ci",
     "harness:integration": "node tooling/harness/run.mjs integration",
     "governance:test": "node --test tooling/governance/verify-main-protection.test.mjs",
-    "governance:verify": "node tooling/governance/verify-main-protection.mjs"
+    "governance:verify": "node tooling/governance/verify-main-protection.mjs",
+    "runtime:test": "node --test tooling/runtime/*.test.mjs",
+    "runtime:verify": "node tooling/runtime/verify.mjs"
   },
   "devDependencies": {
     "typescript": "^5.9.0",

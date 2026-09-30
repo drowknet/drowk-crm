@@ -25,7 +25,7 @@ The product is intentionally provider-independent. Gmail, AIsa, LinkedIn, Apollo
 
 ## Status
 
-**Execution Foundation - EF-01A and EF-01B closed/green; EF-02 next and separately gated.**
+**Execution Foundation - EF-01A and EF-01B closed/green; EF-02 runtime packaging active.**
 
 The core foundation through DCRM-05C is released to `main`. One exact
 AIsa/DataForSEO `FACILITY_LOCATION_DISCOVERY` cell is `LIVE_VALIDATED_CAPABILITY`;
@@ -34,8 +34,8 @@ that validation does not generalize to other provider/capability cells.
 EF-01A is released on `main`: executable engineering harness, reproducible CI and secret
 safety are green after merge/post-merge CI. EF-01B is also released: `main` is protected,
 exact required checks are enforced, the live verifier passes, and PR #20 merged through the
-protected path with post-merge CI green. EF-02 is next but not yet authorized.
-No production deployment is authorized. See the
+protected path with post-merge CI green. EF-02 is now owner-authorized for reproducible local
+runtime packaging only. No production deployment, staging or image push is authorized. See the
 [governance verifier](tooling/governance/README.md) and
 [owner runbook](docs/engineering/REPOSITORY_GOVERNANCE.md).
 
