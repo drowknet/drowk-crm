@@ -188,6 +188,68 @@ EF-02 does not authorize:
 
 ## Completion contract
 
+### Implemented local workflow
+
+Run from the canonical repository root:
+
+```sh
+npx --yes pnpm@10.17.1 install --frozen-lockfile
+npx --yes pnpm@10.17.1 runtime:test
+npx --yes pnpm@10.17.1 runtime:verify
+```
+
+`runtime:test` uses Node stdlib only, imports source helpers and needs neither Docker nor an
+installed dependency tree. `runtime:verify` runs those sensors, builds locally, rejects missing
+and malformed build revisions, inspects image metadata and runtime files, exercises both service
+signals, verifies migration SQL bytes, and proves Compose readiness and cleanup. Docker output
+is captured; only fixed markers, image IDs, non-root users and revision metadata are emitted.
+No image is pushed. Registry/package downloads during builds are infrastructure reads.
+
+Pinned official multi-platform image indexes:
+- Node: `node:22-bookworm-slim@sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c`
+- PostgreSQL: `postgres:16-alpine@sha256:721873c34ceb9f8d8fc265984940dc982404c105f19ad51be9fdc5970a6080ea`
+
+Both final images run as `1000:1000`. Builds install the frozen graph with lifecycle scripts
+disabled, then compile the service dependency closure. The stdlib packer copies only the service
+and its installed production dependencies (including installed optional dependencies), preserving
+each package's resolution context. Workspace packages contain manifests and compiled artifacts;
+DB also contains the unchanged migration SQL. Build tools, repository source, fixtures, unrelated
+workspaces and Git metadata do not enter the final application tree. Required third-party runtime
+source and package licenses remain available. No new npm dependency or lockfile change is needed.
+
+API process startup validates a PostgreSQL URL, a bounded `APP_ENV`, an IP literal `HOST` and a
+port from 1 through 65535. The existing injectable library config and authorization contract stay
+compatible. API shutdown closes the listener then the pool once, with a five-second process
+deadline and failure exit on timeout. Worker startup validates `APP_ENV`; it only stays alive
+and emits inert lifecycle markers. It has no DB, provider, polling or job-delivery behavior.
+
+The verifier generates a local-only password in memory and passes it through subprocess
+environment, never build arguments, command-line values, log files or committed files. Disposable
+containers necessarily hold their runtime environment until deletion. Inherited provider/DB
+credentials, `NODE_OPTIONS`, Compose overrides and remote `DOCKER_HOST` are not forwarded.
+Only a local Unix-socket/named-pipe Docker context is accepted. Compose uses an internal network,
+an ephemeral loopback API port, an unpublished DB and an independently invoked migration runner.
+All verifier-created containers, networks and volumes are removed and checked for absence in
+`finally`, including ordinary failures and SIGINT/SIGTERM. Host termination/SIGKILL or an
+unavailable Docker daemon cannot be recovered by a running process; the verifier fails closed
+if cleanup cannot be confirmed. Local images/build cache are retained for inspection.
+
+`pnpm runtime:verify --fail-after-compose` deliberately fails immediately after creating the
+Compose stack. Expected evidence is `RUNTIME_CLEANUP_PASS containers=0 networks=0 volumes=0`
+followed by failure exit 1. This separately exercises cleanup of real resources on failure.
+
+For manual Compose inspection, provide `DROWK_API_IMAGE` and `DROWK_WORKER_IMAGE` as the verified
+immutable image IDs, plus `DROWK_LOCAL_DB_PASSWORD` and the corresponding
+`DROWK_LOCAL_DATABASE_URL` targeting `postgres:5432/drowk_runtime_test`. Never print expanded
+Compose configuration or container environments. Finish with the same project's
+`docker compose down --volumes --remove-orphans`. The verifier is the default safe local workflow.
+
+During implementation the verifier identifies dirty input as `WORKTREE_CANDIDATE`; this is not
+exact committed-tree evidence. CI requires a clean checkout. Final evidence must be rerun at
+the committed HEAD. Image labels contain exactly that 40-character SHA, and verification uses
+image IDs after build, not mutable application tags. This does not promise byte-for-byte image
+equality across builders. Merge and post-merge closure remain separate owner gates.
+
 EF-02 closes only when:
 1. repo-owned packaging/runtime implementation passes review;
 2. offline runtime tests pass;

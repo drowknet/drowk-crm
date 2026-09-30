@@ -107,6 +107,17 @@ DO NOT:
 
 ## Completion
 
+Implementation checkpoint (not closure): repo-owned images, local Compose, stdlib runtime
+sensors and Docker-backed verification are implemented. API process config and bounded shutdown
+are proven separately from the unchanged injectable library and authorization contracts. Worker
+remains inert. The runbook records exact image digests and verification operation.
+
+Local candidate evidence: frozen install on an NTFS worktree (D: is exFAT), offline runtime tests,
+fast/full harnesses and Docker packaging verification pass. An intentional post-Compose failure
+also confirms zero remaining verifier containers/networks/volumes. Exact committed-head evidence
+and CI are reported with the implementation handoff; this checkpoint does not authorize merge,
+deploy, image push or EF-03/EF-04.
+
 Merge is a separate owner gate after exact-head CI and deep review.
 
 Post-merge CI must pass before EF-02 can be called CLOSED/GREEN.

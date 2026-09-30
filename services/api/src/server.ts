@@ -4,6 +4,7 @@ import { migrationStatus, PostgresIdentityRepository } from "@drowk/db";
 import { health } from "./index.js";
 import { authorizeRequest, type AuthorizationDependencies, type PrincipalVerifier } from "./authorization.js";
 import { configuredVerifier, readAccessConfig, type AccessConfig } from "./cloudflare-access.js";
+import { createClose } from "./runtime.mjs";
 
 export interface RuntimeConfig {
   databaseUrl: string;
@@ -67,11 +68,6 @@ export function createRuntime(config: RuntimeConfig, verifier: PrincipalVerifier
   });
   return {
     server,
-    close: async () => {
-      if (server.listening) await new Promise<void>((resolve, reject) => {
-        server.close(error => error ? reject(error) : resolve());
-      });
-      await pool.end();
-    },
+    close: createClose(server, pool),
   };
 }
