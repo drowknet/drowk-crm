@@ -32,17 +32,26 @@ export function stagingConfig(input) {
   return env;
 }
 
-export function secretFile(path, platform = process.platform) {
+/** Pure policy over lstat metadata; caller readability cannot establish container readability. */
+export function posixSecretOwnership({ mode, uid }, expectedUid) {
+  if (!Number.isInteger(mode) || !Number.isInteger(uid) || !Number.isInteger(expectedUid)
+    || expectedUid < 0 || uid !== expectedUid || (mode & 0o170000) !== 0o100000
+    || !(mode & 0o400) || (mode & 0o077)) throw new Error("STAGING_SECRET_FILE_INVALID");
+  return "POSIX_PRIVATE";
+}
+
+export function secretFile(path, expectedUid, platform = process.platform) {
   try {
     const info = lstatSync(path);
-    if (!info.isFile() || !info.size || info.size > 16384 || (platform !== "win32" && (info.mode & 0o077))) throw new Error();
+    if (!info.isFile() || info.isSymbolicLink() || !info.size || info.size > 16384) throw new Error();
+    const permissions = platform === "win32" ? "OWNER_ACL_REVIEW_REQUIRED" : posixSecretOwnership(info, expectedUid);
     accessSync(path, constants.R_OK);
-    return platform === "win32" ? "OWNER_ACL_REVIEW_REQUIRED" : "POSIX_PRIVATE";
+    return permissions;
   } catch { throw new Error("STAGING_SECRET_FILE_INVALID"); }
 }
 
 export function checkSecretFiles(env) {
-  const permissions = [secretFile(env.DROWK_STAGING_DATABASE_URL_FILE), secretFile(env.DROWK_STAGING_TUNNEL_TOKEN_FILE)];
+  const permissions = [secretFile(env.DROWK_STAGING_DATABASE_URL_FILE, 1000), secretFile(env.DROWK_STAGING_TUNNEL_TOKEN_FILE, 65532)];
   readDatabaseUrl({ APP_ENV: "staging", DATABASE_URL_FILE: env.DROWK_STAGING_DATABASE_URL_FILE });
   // The Tunnel credential is never read by repo tooling, only checked for presence/permissions.
   return permissions;

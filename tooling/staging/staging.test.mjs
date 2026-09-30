@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
-import { chmodSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { chmodSync, existsSync, mkdirSync, readFileSync, symlinkSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { test } from "node:test";
 import { readDatabaseUrl, validateStagingDatabaseUrl, validateStagingAccess } from "../../services/api/src/database-config.mjs";
 import { readProcessConfig } from "../../services/api/src/runtime.mjs";
-import { checkSecretFiles, cloudflaredImage, imageRef, resolvedManifest, revisionEvidence, secretFile, sourceManifest, stagingConfig, verifyManifest } from "./contract.mjs";
+import { checkSecretFiles, cloudflaredImage, imageRef, posixSecretOwnership, resolvedManifest, revisionEvidence, secretFile, sourceManifest, stagingConfig, verifyManifest } from "./contract.mjs";
 import { renderCompose, releaseIdentity } from "./preflight.mjs";
 import { syntheticConfig, withSyntheticFiles } from "./verify.mjs";
 import { killPlan, rollbackPlan } from "./plans.mjs";
@@ -108,7 +108,6 @@ test("immutable image refs and revision evidence fail closed", () => {
 
 test("staging manifest enforces isolation, explicit migration, secret files and immutable inputs", async () => {
   await withSyntheticFiles(env => {
-    checkSecretFiles(env);
     const manifest = resolvedManifest(env);
     verifyManifest(manifest, env);
     assert.equal(sourceManifest().services.cloudflare, undefined);
@@ -147,19 +146,55 @@ test("render adapter can issue only Compose version/config commands and hides th
   });
 });
 
+test("POSIX secret policy requires the container owner, owner-read and no group/other bits", () => {
+  for (const expectedUid of [1000, 65532]) {
+    for (const permissions of [0o400, 0o600]) {
+      assert.equal(posixSecretOwnership({ uid: expectedUid, mode: 0o100000 | permissions }, expectedUid), "POSIX_PRIVATE");
+      for (const uid of [0, 1001, expectedUid === 1000 ? 65532 : 1000]) {
+        assert.throws(() => posixSecretOwnership({ uid, mode: 0o100000 | permissions }, expectedUid));
+      }
+    }
+    for (const permissions of [0o000, 0o200, 0o100, 0o300, 0o644, 0o640, 0o604,
+      ...[0o040, 0o020, 0o010, 0o004, 0o002, 0o001].map(bit => 0o600 | bit)]) {
+      assert.throws(() => posixSecretOwnership({ uid: expectedUid, mode: 0o100000 | permissions }, expectedUid));
+    }
+    // lstat file types: symlink, directory, FIFO, socket, block/character devices.
+    for (const type of [0o120000, 0o040000, 0o010000, 0o140000, 0o060000, 0o020000]) {
+      assert.throws(() => posixSecretOwnership({ uid: expectedUid, mode: type | 0o600 }, expectedUid));
+    }
+  }
+});
+
+test("real secret checks do not treat synthetic runner ownership as container ownership", async () => {
+  await withSyntheticFiles(env => {
+    if (process.platform === "win32") {
+      assert.deepEqual(checkSecretFiles(env), ["OWNER_ACL_REVIEW_REQUIRED", "OWNER_ACL_REVIEW_REQUIRED"]);
+    } else {
+      // Both fixtures have the same actual owner; they cannot satisfy the two container UIDs.
+      assert.throws(() => checkSecretFiles(env), { message: "STAGING_SECRET_FILE_INVALID" });
+    }
+  });
+});
+
 test("secret-file presence/permissions and temporary cleanup hold on success and failure", async () => {
   let directory;
   await withSyntheticFiles(env => {
     directory = dirname(env.DROWK_STAGING_DATABASE_URL_FILE);
-    assert.ok(secretFile(env.DROWK_STAGING_DATABASE_URL_FILE));
-    assert.throws(() => secretFile(directory));
+    const runnerUid = process.getuid?.();
+    assert.ok(secretFile(env.DROWK_STAGING_DATABASE_URL_FILE, runnerUid));
+    assert.throws(() => secretFile(directory, runnerUid));
     const absent = join(directory, "missing");
-    assert.throws(() => secretFile(absent));
+    assert.throws(() => secretFile(absent, runnerUid));
     mkdirSync(absent);
-    assert.throws(() => secretFile(absent));
+    assert.throws(() => secretFile(absent, runnerUid));
     if (process.platform !== "win32") {
+      const link = join(directory, "linked-input");
+      symlinkSync(env.DROWK_STAGING_DATABASE_URL_FILE, link);
+      assert.throws(() => secretFile(link, runnerUid));
+      chmodSync(env.DROWK_STAGING_DATABASE_URL_FILE, 0o200);
+      assert.throws(() => secretFile(env.DROWK_STAGING_DATABASE_URL_FILE, runnerUid));
       chmodSync(env.DROWK_STAGING_DATABASE_URL_FILE, 0o644);
-      assert.throws(() => secretFile(env.DROWK_STAGING_DATABASE_URL_FILE));
+      assert.throws(() => secretFile(env.DROWK_STAGING_DATABASE_URL_FILE, runnerUid));
     }
   });
   assert.ok(!existsSync(directory));

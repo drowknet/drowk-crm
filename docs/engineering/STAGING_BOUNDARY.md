@@ -262,6 +262,14 @@ Access configuration. Root EF-02 disposable Compose and DB migrations remain unc
 The existing CI `verify` runs staging verification after `harness:ci` and `runtime:verify`.
 These artifacts do not open the live gate or mark EF-03 CLOSED/GREEN.
 
+Linux secret-file preflight requires regular non-symlink files: the database secret must be owned
+by UID **1000**, and the Tunnel token by UID **65532**. Files must be owner-readable only, with
+the owner-read bit present and **no group/other permission bits** (`0400` or `0600`, for example).
+Root-owned `0600` files and files without owner-read permission fail, even when the preflight
+process can read them. Production preflight checks actual filesystem metadata; synthetic CI
+fixtures do not relax this policy. Windows continues to report `OWNER_ACL_REVIEW_REQUIRED` and
+cannot certify the future Linux-host UID mapping.
+
 ## Closure gates
 
 EF-03 closes only after:

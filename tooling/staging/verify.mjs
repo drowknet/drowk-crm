@@ -7,7 +7,8 @@ import { fileURLToPath } from "node:url";
 import { preflight, root } from "../harness/run.mjs";
 import { git } from "../harness/secrets.mjs";
 import { runtimeEnvironment, revision } from "../runtime/verify.mjs";
-import { checkSecretFiles, resolvedManifest, stagingConfig, verifyManifest } from "./contract.mjs";
+import { secretFile, resolvedManifest, stagingConfig, verifyManifest } from "./contract.mjs";
+import { readDatabaseUrl } from "../../services/api/src/database-config.mjs";
 import { renderCompose } from "./preflight.mjs";
 import { killPlan, rollbackPlan } from "./plans.mjs";
 
@@ -26,6 +27,10 @@ export async function withSyntheticFiles(work) {
     const env = syntheticConfig(directory);
     writeFileSync(env.DROWK_STAGING_DATABASE_URL_FILE, "postgresql://synthetic.invalid/staging_test?sslmode=verify-full\n", { mode: 0o600 });
     writeFileSync(env.DROWK_STAGING_TUNNEL_TOKEN_FILE, "synthetic\n", { mode: 0o600 });
+    // Fixtures belong to the test runner, not container UIDs. Real preflight uses checkSecretFiles.
+    secretFile(env.DROWK_STAGING_DATABASE_URL_FILE, process.getuid?.());
+    secretFile(env.DROWK_STAGING_TUNNEL_TOKEN_FILE, process.getuid?.());
+    readDatabaseUrl({ APP_ENV: "staging", DATABASE_URL_FILE: env.DROWK_STAGING_DATABASE_URL_FILE });
     return await work(env);
   } finally {
     rmSync(directory, { recursive: true, force: true });
@@ -45,7 +50,6 @@ export async function main() {
   try {
     await withSyntheticFiles(async input => {
       const env = stagingConfig({ ...input, DROWK_STAGING_SHA: sha });
-      checkSecretFiles(env);
       verifyManifest(resolvedManifest(env), env);
       renderCompose(env);
       rendered = true;

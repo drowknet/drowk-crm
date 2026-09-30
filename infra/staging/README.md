@@ -54,10 +54,15 @@ the endpoint is direct. No Neon hostname is hard-coded. Access provider, exact H
 nonempty audience are required for staging API configuration.
 
 Compose secrets are runtime, read-only file mounts, not encrypted storage. On the Linux host the
-owner must place files outside the checkout/build context with private permissions and ownership
-readable by UID 1000 (DB) or 65532 (Tunnel). Local Compose does not implement secret-file `uid`/
-`mode` remapping: do not rely on those fields to fix host ownership. Preflight checks regular files,
-readability, bounded size and no group/other access on POSIX. Windows reports
+owner must place files outside the checkout/build context. Linux preflight requires the database
+secret to be owned by UID **1000** and the Tunnel token to be owned by UID **65532**. Both must be
+regular non-symlink files, owner-readable only: the owner-read bit must be present and **no group/other
+permission bits** may be set (for example, `0400` or `0600`). Root-owned `0600` files fail for both
+container identities; a missing owner-read bit fails even if preflight runs as root.
+Local Compose does not implement secret-file `uid`/`mode` remapping: do not rely on those fields to
+fix host ownership. Preflight uses actual filesystem metadata and checks bounded size and caller
+readability as well. Synthetic verification checks test-runner-owned fixtures separately and tests
+the container UID/mode policy using pure metadata; it does not certify deployment files. Windows reports
 `OWNER_ACL_REVIEW_REQUIRED`; it cannot certify Windows ACL isolation or Linux container ownership.
 No real file or credential is created by verification.
 
