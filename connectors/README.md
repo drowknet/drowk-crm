@@ -14,3 +14,9 @@ Rules:
 - normalize into Observation/Evidence contracts;
 - do not silently mutate CRM truth;
 - separate read from write capability.
+- bind provider account, source identity and sending identity independently;
+- never infer a commercial sender from the provider/login used for research;
+- a PWM Gmail/Workspace outage must fail closed for Gmail-dependent capability without taking down unrelated DROWK/provider capabilities.
+
+Current owner-confirmed bindings are documented in
+[`docs/architecture/EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md`](../docs/architecture/EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md).
