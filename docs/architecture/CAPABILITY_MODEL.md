@@ -11,6 +11,9 @@ Examples:
 - DISCOVER_LOCATIONS
 - VERIFY_EMPLOYMENT
 - FIND_PROCUREMENT_ROUTE
+- DISCOVER_PUBLIC_PROFESSIONAL_PROFILE
+- FIND_PROFESSIONAL_EMAIL
+- VERIFY_PROFESSIONAL_EMAIL
 - RESEARCH_COMPANY
 - SEARCH_WEB
 - EXTRACT_WEB_PAGE
@@ -98,6 +101,24 @@ In particular:
 These are independent provider/channel bindings. A provider used for research does not select or
 authorize a commercial sender. Provider-account credentials must be independently revocable and
 must not become infrastructure roots of trust.
+
+## Prospecting open-source qualification consequence — 2026-10-01
+
+The prospecting OSS harvest introduces candidate implementations/patterns for search, extraction,
+buyer discovery, company enrichment, professional-email discovery/verification, Employment evidence
+and procurement-route research.
+
+See:
+- [DCRM-05D — Prospecting Open-Source Harvest & Capability Qualification](../work-packages/DCRM-05D-prospecting-oss-harvest-capability-qualification.md)
+- [Prospecting Open-Source Harvest — 2026-10-01](../reference-harvest/PROSPECTING_OSS_HARVEST_2026-10-01.md)
+
+These are capability candidates only. No new cell is `LIVE_VALIDATED_CAPABILITY`, no new provider
+call is authorized, and no open-source project becomes canonical truth or platform authority by
+appearing in the harvest.
+
+Public/indexed LinkedIn discovery, if later qualified, is a low-authority EvidenceCandidate path.
+Authenticated LinkedIn scraping/session-cookie/browser automation remains outside the canonical
+prospecting path.
 
 ## Physical capability isolation
 

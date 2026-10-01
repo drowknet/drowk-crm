@@ -5,6 +5,15 @@ Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
 
+## Parallel research/canon note — DCRM-05D
+
+A separate docs-only prospecting open-source harvest is defined in
+`docs/work-packages/DCRM-05D-prospecting-oss-harvest-capability-qualification.md`.
+
+It records future capability qualification inputs for DCRM-06/07 and does **not** change the active
+Execution Foundation sequence. EF-03 remains OPEN / LIVE STAGING GATE PENDING. DCRM-05D Q1+
+implementation, lab work, provider calls and LinkedIn automation are not authorized by the harvest.
+
 ## Principle
 
 There is one engineering stream, not two independent projects.
