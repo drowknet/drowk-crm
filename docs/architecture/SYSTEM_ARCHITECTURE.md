@@ -6,6 +6,13 @@ Status: FOUNDATION DRAFT
 
 DROWK CRM is a standalone multi-tenant Revenue Intelligence & Prospecting Operating System. It must not depend on any single mailbox, employer domain, SSD, AI provider, enrichment vendor or cloud account for its core intellectual property or business state.
 
+The concrete external identity/dependency rules are canonicalized in
+[External Identity and Dependency Boundary](EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md).
+In particular, the PWM Google Workspace domain `andersonpacificwestinc.net` is a business-channel
+adapter, not a DROWK infrastructure root of trust. Apollo (`drowknet@gmail.com`) and LinkedIn /
+Sales Navigator (`asbrito@proton.me`) are separate provider/network bindings and must not be
+treated as the PWM sending identity or as each other's authentication authority.
+
 ## Canonical layers
 
 ### 1. Source Connectors
