@@ -1,6 +1,6 @@
 # DCRM-05D — Prospecting Open-Source Harvest & Capability Qualification
 
-Status: Q0 CLOSED/GREEN / Q1 OFFLINE CONTRACTS AUTHORIZED / NO LIVE AUTHORITY
+Status: Q0 CLOSED/GREEN / Q1 CLOSED/GREEN / Q2A CRAWL4AI LAB AUTHORIZED / NO LIVE PROVIDER AUTHORITY
 
 Owner outcome:
 reduce dependence on LinkedIn Sales Navigator / Evaboot by qualifying a DROWK-owned, provider-neutral prospecting path based on public-web discovery, open-source extraction/orchestration patterns, existing DROWK Evidence/ProviderRun contracts and replaceable commercial providers.
@@ -125,6 +125,15 @@ Required outputs:
 Q1 should reuse existing DROWK ResearchRun/ProviderRun semantics rather than create provider-owned state.
 
 ### Q2 — Isolated candidate lab
+
+First bounded cell selected and owner-authorized on 2026-10-01:
+
+[DCRM-05D-Q2A — Crawl4AI EXTRACT_WEB_PAGE Isolated Lab](DCRM-05D-Q2A-crawl4ai-extract-web-page-isolated-lab.md)
+
+Q2A is restricted to Crawl4AI 0.9.4 + `EXTRACT_WEB_PAGE`, pinned Docker digest,
+synthetic raw HTML and `--network none`. It does not authorize public-internet crawling,
+LinkedIn, provider credentials or production adoption.
+
 
 Separate owner gate.
 
