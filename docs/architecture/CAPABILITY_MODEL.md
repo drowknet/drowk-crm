@@ -83,6 +83,22 @@ Each research run should have:
 - stopping conditions
 - output evidence IDs
 
+## Provider account and channel identity
+
+Capability bindings must not use one generic email identity for provider access, human identity
+and outbound sender identity.
+
+Current owner-confirmed operational bindings are recorded in
+[External Identity and Dependency Boundary](EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md).
+In particular:
+- Apollo is currently connected through `drowknet@gmail.com`;
+- LinkedIn / Sales Navigator uses `asbrito@proton.me`;
+- PWM commercial Gmail belongs to the `andersonpacificwestinc.net` Google Workspace domain.
+
+These are independent provider/channel bindings. A provider used for research does not select or
+authorize a commercial sender. Provider-account credentials must be independently revocable and
+must not become infrastructure roots of trust.
+
 ## Physical capability isolation
 
 READ and WRITE capabilities must be independently controlled.
