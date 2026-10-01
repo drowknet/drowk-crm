@@ -13,13 +13,26 @@ A separate docs-only prospecting open-source harvest is defined in
 It records future capability qualification inputs for DCRM-06/07 and does **not** change the active
 Execution Foundation sequence. EF-03 remains OPEN / LIVE STAGING GATE PENDING.
 
-DCRM-05D Q0 and Q1 are CLOSED/GREEN. Q2A is separately owner-authorized on
-`feat/dcrm-05d-q2a-crawl4ai-extract-lab` for exactly Crawl4AI 0.9.4 +
-`EXTRACT_WEB_PAGE` against synthetic raw HTML. Candidate execution must use the pinned
-Docker digest and `--network none`.
+DCRM-05D Q0 and Q1 remain CLOSED/GREEN. Q2A branch: `feat/dcrm-05d-q2a-crawl4ai-extract-lab`.
 
-Q2A does not authorize public-internet crawling, provider calls, LinkedIn automation,
-staging/deploy or Q2B/Q3. EF-03 remains OPEN / LIVE STAGING GATE PENDING.
+Q2A static harness is implemented at `2d7eee339ffbcc037b2f71bf0aaffc6ce39f43fe`.
+Exact-head GitHub CI `36862766423` is green in repository-authoritative Node 22:
+verify, runtime packaging, staging boundary without live effects and
+postgres-foundation all SUCCESS. Prior local `corepack pnpm harness:ci` FAILED
+CLOSED on Node 24.19.0 (Node 22 required); it was not PASS. The dedicated static
+sensor `node --test tooling/harness/crawl4ai-lab.test.mjs` passed 8, failed 0.
+
+One valid isolated Crawl4AI 0.9.4 execution after host executor preflight satisfied
+the frozen safety boundary, then exited 1 and normalized to `ERROR` with no facts.
+Outcome: `LAB_BLOCKED`, not `LAB_PASS`, `LAB_PARTIAL` or `LAB_REJECT`. Root cause
+is unresolved because candidate stderr was deliberately discarded, neither
+persisted nor printed. No internal cause is inferred.
+
+The blocked observation is retained in the Q2A work package. No successful lab
+evidence document exists. No boundary weakening or rerun is authorized by this
+documentation update. Q2B/Q3 remain closed. `LAB_BLOCKED` is neither candidate
+rejection, production adoption nor live validation. Crawl4AI is not promoted to a
+DROWK production dependency. EF-03 live remains unrelated and untouched.
 
 ## Principle
 

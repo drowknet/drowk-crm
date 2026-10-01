@@ -1,6 +1,6 @@
 # DCRM-05D — Prospecting Open-Source Harvest & Capability Qualification
 
-Status: Q0 CLOSED/GREEN / Q1 CLOSED/GREEN / Q2A CRAWL4AI LAB AUTHORIZED / NO LIVE PROVIDER AUTHORITY
+Status: Q0 CLOSED/GREEN / Q1 CLOSED/GREEN / Q2A LAB_BLOCKED / STATIC CI GREEN / NO LIVE PROVIDER AUTHORITY
 
 Owner outcome:
 reduce dependence on LinkedIn Sales Navigator / Evaboot by qualifying a DROWK-owned, provider-neutral prospecting path based on public-web discovery, open-source extraction/orchestration patterns, existing DROWK Evidence/ProviderRun contracts and replaceable commercial providers.
@@ -107,7 +107,7 @@ Q0 is satisfied only when this package and harvest are merged to protected `main
 
 ### Q1 — Offline contracts and evaluation fixtures
 
-Owner-authorized on 2026-10-01. Active work package:
+CLOSED/GREEN. Work package:
 [DCRM-05D-Q1 — Offline Prospecting Contracts & Evaluation Fixtures](DCRM-05D-Q1-offline-prospecting-contracts-eval-fixtures.md).
 
 
@@ -134,6 +134,25 @@ Q2A is restricted to Crawl4AI 0.9.4 + `EXTRACT_WEB_PAGE`, pinned Docker digest,
 synthetic raw HTML and `--network none`. It does not authorize public-internet crawling,
 LinkedIn, provider credentials or production adoption.
 
+
+Q2A static harness is implemented at `2d7eee339ffbcc037b2f71bf0aaffc6ce39f43fe`.
+Exact-head GitHub CI `36862766423` is green in repository-authoritative Node 22:
+verify, runtime packaging, staging boundary without live effects and
+postgres-foundation all SUCCESS. Prior local `corepack pnpm harness:ci` FAILED
+CLOSED on Node 24.19.0 (Node 22 required); it was not PASS. The dedicated static
+sensor `node --test tooling/harness/crawl4ai-lab.test.mjs` passed 8, failed 0.
+
+One valid isolated Crawl4AI 0.9.4 execution after host executor preflight satisfied
+the frozen safety boundary, then exited 1 and normalized to `ERROR` with no facts.
+Outcome: `LAB_BLOCKED`, not `LAB_PASS`, `LAB_PARTIAL` or `LAB_REJECT`. Root cause
+is unresolved because candidate stderr was deliberately discarded, neither
+persisted nor printed. No internal cause is inferred.
+
+The blocked observation is retained in the Q2A work package. No successful lab
+evidence document exists. No boundary weakening or rerun is authorized by this
+documentation update. Q2B/Q3 remain closed. `LAB_BLOCKED` is neither candidate
+rejection, production adoption nor live validation. Crawl4AI is not promoted to a
+DROWK production dependency. EF-03 live remains unrelated and untouched.
 
 Separate owner gate.
 

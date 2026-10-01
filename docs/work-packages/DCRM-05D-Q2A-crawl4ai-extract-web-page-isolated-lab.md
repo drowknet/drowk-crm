@@ -1,24 +1,78 @@
 # DCRM-05D-Q2A — Crawl4AI EXTRACT_WEB_PAGE Isolated Lab
 
-Status: STATIC HARNESS IMPLEMENTED / ACTUAL LAB EXECUTION PENDING / NO LIVE PROVIDER AUTHORITY
+Status: STATIC HARNESS IMPLEMENTED / EXACT-HEAD STATIC CI GREEN / LAB_BLOCKED / NO LIVE PROVIDER AUTHORITY
 
-Current stage is static/repo-owned only. The already-pulled image must not be pulled
-again; no Docker commands, container execution or network access are authorized in
-this stage. The later execution gate described below remains closed for this stage.
-No successful lab-evidence document or LAB_PASS is claimed. Q2B/Q3 remain closed.
+## Recorded observation — 2026-10-01
 
+This docs-only stage records owner-supplied observations; no Docker or candidate
+execution is authorized in this stage. Q1 remains CLOSED/GREEN.
+
+Q2A static harness is implemented at `2d7eee339ffbcc037b2f71bf0aaffc6ce39f43fe`.
+Exact-head GitHub CI `36862766423` is green in repository-authoritative Node 22:
+verify, runtime packaging, staging boundary without live effects and
+postgres-foundation all SUCCESS. Prior local `corepack pnpm harness:ci` FAILED
+CLOSED on Node 24.19.0 (Node 22 required); it was not PASS. The dedicated static
+sensor `node --test tooling/harness/crawl4ai-lab.test.mjs` passed 8, failed 0.
+
+One valid isolated Crawl4AI 0.9.4 execution after host executor preflight satisfied
+the frozen safety boundary, then exited 1 and normalized to `ERROR` with no facts.
+Outcome: `LAB_BLOCKED`, not `LAB_PASS`, `LAB_PARTIAL` or `LAB_REJECT`. Root cause
+is unresolved because candidate stderr was deliberately discarded, neither
+persisted nor printed. No internal cause is inferred.
+
+The blocked observation is retained in the Q2A work package. No successful lab
+evidence document exists. No boundary weakening or rerun is authorized by this
+documentation update. Q2B/Q3 remain closed. `LAB_BLOCKED` is neither candidate
+rejection, production adoption nor live validation. Crawl4AI is not promoted to a
+DROWK production dependency. EF-03 live remains unrelated and untouched.
+
+Static implementation commit subject:
+`feat(dcrm-05d): add static Crawl4AI extraction harness`.
 Implementation: `tooling/prospecting-lab/crawl4ai/`; static sensors:
-`tooling/harness/crawl4ai-lab.test.mjs`. The planner has no execution path; synthetic
-output doubles test result handling without claiming candidate execution.
+`tooling/harness/crawl4ai-lab.test.mjs`. The planner has no execution path;
+synthetic output doubles test result handling without claiming candidate execution.
 
-Static-stage validation on 2026-10-01: dedicated lab sensors passed (8 tests);
-combined lab/runtime/staging static tests passed (30 tests); `corepack pnpm
-harness:test` passed (63 tests); `corepack pnpm lint` passed. `corepack pnpm
-harness:ci` executed and failed closed: local Node is 24.19.0, while CI requires
-Node 22. Full `runtime:verify` and `staging:verify` were not executed because their
-implementations invoke Docker, forbidden in this stage. These static results are
-not substitutes for those gates or an actual candidate run. Commit remains pending
-all required gates; push remains blocked by this stage's no-network instruction.
+### Safe candidate observation
+
+```text
+candidate: Crawl4AI
+candidateVersion: 0.9.4
+image: unclecode/crawl4ai:0.9.4@sha256:9021b3cb5c6f12570bbcd5395638495e0a06969b3148e377b953d174af2ebc9b
+imageId: sha256:9021b3cb5c6f12570bbcd5395638495e0a06969b3148e377b953d174af2ebc9b
+platform: linux/amd64
+featureHead: 2d7eee339ffbcc037b2f71bf0aaffc6ce39f43fe
+validatedPlan: true
+dockerArgvCount: 32
+networkMode: none
+pullPolicy: never
+hostPorts: 0
+bindMounts: 3
+bindMountsReadOnly: true
+candidateExitCode: 1
+candidateTimedOut: false
+executorErrorCode: null
+elapsedMs: 1574
+stdoutBytes: 18
+resultState: ERROR
+authority: EVIDENCE_CANDIDATE
+rightsClass: SYNTHETIC_ALLOWED
+synthetic: true
+observedAt: null
+fixtureFingerprint: 2e86f118d283daeb067284cde982baf8f2d152683ed20e42fb425fc25db9cb0f
+selectedFactsFingerprint: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
+selectedFacts: {}
+startedAtUtc: 2026-10-01T12:54:09.395Z
+finishedAtUtc: 2026-10-01T12:54:10.968Z
+publicTargetCrawled: false
+providerCalls: 0
+modelCalls: 0
+linkedinActions: 0
+dbChanges: 0
+```
+
+No repository mutation occurred during candidate execution. No successful run
+occurred, so `docs/research/DCRM-05D_Q2A_CRAWL4AI_LAB_EVIDENCE.md` was not created.
+The successful-artifact rule below remains unchanged.
 
 Parent:
 [DCRM-05D — Prospecting Open-Source Harvest & Capability Qualification](DCRM-05D-prospecting-oss-harvest-capability-qualification.md)
@@ -246,7 +300,7 @@ Do not persist:
 
 ## Implementation surfaces allowed
 
-Codex may modify only:
+The historical implementation-stage allowlist below grants no additional write authority in this docs-only stage:
 
 - `tooling/prospecting-lab/crawl4ai/**` (new);
 - `tooling/harness/crawl4ai-lab.test.mjs` (new static/deterministic sensors);
@@ -286,7 +340,7 @@ Do not vendor/copy Crawl4AI source into DROWK.
 
 ## Execution gate
 
-The owner authorization for Q2A permits:
+The historical owner authorization for the observed execution permitted the following; this documentation update does not renew it or authorize a rerun:
 - pulling the exact pinned Docker image;
 - inspecting its image identity;
 - executing the exact synthetic/raw lab container;
@@ -307,7 +361,7 @@ STOP and report the blocker. Do not weaken the boundary to make the lab pass.
 
 ## Validation
 
-Static/repo validation:
+Historical implementation validation commands (not authorized in this docs-only stage; only `git diff --check` is run for this update):
 
 ```text
 node --test tooling/harness/crawl4ai-lab.test.mjs
@@ -328,7 +382,7 @@ Q2A may end as:
 
 - `LAB_PASS`: candidate executed inside the frozen boundary and produced correct deterministic evidence;
 - `LAB_PARTIAL`: candidate runs but one or more semantics need bounded follow-up;
-- `LAB_BLOCKED`: environment/security boundary prevents safe execution;
+- `LAB_BLOCKED`: successful candidate execution is blocked under the frozen boundary; the observed exit 1 / ERROR does not establish an internal root cause;
 - `LAB_REJECT`: candidate cannot satisfy the required boundary/semantics.
 
 None of these states alone promote Crawl4AI to a production dependency.
