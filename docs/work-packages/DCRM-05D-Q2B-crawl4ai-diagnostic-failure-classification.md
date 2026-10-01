@@ -67,7 +67,7 @@ Future diagnostic execution must preserve:
 - exact pinned Crawl4AI image/digest above and validated platform identity;
 - synthetic raw HTML only; no external fetch;
 - `--network none`, `--pull never`, zero host ports and no host network;
-- the same three read-only mounts unless a future reviewed design proves a strictly safer equivalent;
+- the same three read-only mounts as Q2A, exactly; Q2B grants no authority to substitute, add or broaden mounts;
 - `--cap-drop ALL` and `--security-opt no-new-privileges`;
 - no privileged mode, Docker socket or SSH agent;
 - no browser profile/user-data/session/cookies or credential directories;
@@ -75,6 +75,8 @@ Future diagnostic execution must preserve:
 - existing timeout/resource/content limits and bounded temporary storage;
 - no DB writes, LinkedIn action or public-web crawl;
 - no automatic retry; maximum one diagnostic execution after a separate explicit owner gate.
+
+If later evidence suggests a different mount set is required, STOP. Any such change requires a separate reviewed owner gate before the change; no such change is authorized by Q2B-PREP, Q2B-STATIC or the currently defined Q2B-DIAGNOSTIC-RUN boundary.
 
 No boundary weakening merely to make Crawl4AI pass. An unavailable pinned image or unsafe observability requirement is a blocker, not authority to pull images or add privileges, mounts, credentials or network access.
 

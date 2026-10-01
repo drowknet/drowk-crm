@@ -70,6 +70,7 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-05D Prospecting Open-Source Harvest & Capability Qualification](work-packages/DCRM-05D-prospecting-oss-harvest-capability-qualification.md) — Q0 and Q1 remain CLOSED/GREEN; Q2A static harness implemented, exact-head static CI green, outcome `LAB_BLOCKED`; no live authority.
 - [DCRM-05D-Q1 Offline Prospecting Contracts & Evaluation Fixtures](work-packages/DCRM-05D-Q1-offline-prospecting-contracts-eval-fixtures.md) — CLOSED/GREEN; synthetic/no-network contracts and goldens for 10 prospecting capability cells.
 - [DCRM-05D-Q2A Crawl4AI EXTRACT_WEB_PAGE Isolated Lab](work-packages/DCRM-05D-Q2A-crawl4ai-extract-web-page-isolated-lab.md) — `LAB_BLOCKED` after one valid isolated execution within the frozen safety boundary; exit 1 / `ERROR`, no facts; safe observation retained in the work package.
+- [DCRM-05D-Q2B Crawl4AI Diagnostic Failure Classification](work-packages/DCRM-05D-Q2B-crawl4ai-diagnostic-failure-classification.md) — Q2B-PREP docs-only; Q2A candidate remains `LAB_BLOCKED`; no diagnostic implementation/execution authorized; no live authority.
 - [EF-01A Executable Engineering Harness, Reproducible CI & Secret Safety](work-packages/EF-01A-executable-engineering-harness-ci-secret-safety.md) — closed/merged with post-merge CI green; no deploy.
 
 - [EF-01B Repository Governance & Branch Protection](work-packages/EF-01B-repository-governance-branch-protection.md) - closed/merged through protected `main` with post-merge CI green; no deploy.

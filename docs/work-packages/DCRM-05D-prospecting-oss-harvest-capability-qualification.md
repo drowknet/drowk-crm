@@ -1,6 +1,6 @@
 # DCRM-05D — Prospecting Open-Source Harvest & Capability Qualification
 
-Status: Q0 CLOSED/GREEN / Q1 CLOSED/GREEN / Q2A LAB_BLOCKED / Q2B-PREP DOCS ONLY / STATIC CI GREEN / NO LIVE PROVIDER AUTHORITY
+Status: Q0 CLOSED/GREEN / Q1 CLOSED/GREEN / Q2A ENGINEERING/PROCESS CLOSED/GREEN / Q2A CANDIDATE OUTCOME = LAB_BLOCKED / Q2B-PREP = DOCS ONLY / Q2B-STATIC = NOT OPEN / NOT AUTHORIZED / NO LIVE PROVIDER AUTHORITY
 
 Owner outcome:
 reduce dependence on LinkedIn Sales Navigator / Evaboot by qualifying a DROWK-owned, provider-neutral prospecting path based on public-web discovery, open-source extraction/orchestration patterns, existing DROWK Evidence/ProviderRun contracts and replaceable commercial providers.
