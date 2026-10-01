@@ -68,7 +68,8 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-05B Provider Selection & Live Validation Readiness](work-packages/DCRM-05B-provider-selection-live-validation-readiness.md) — completed selection gate; AIsa/DataForSEO Business Listings selected, no live call made.
 - [DCRM-05C AIsa/DataForSEO Business Listings Live READ Validation](work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md) — closed/merged with post-merge CI green; exact cell is `LIVE_VALIDATED_CAPABILITY`; no new live call authorized.
 - [DCRM-05D Prospecting Open-Source Harvest & Capability Qualification](work-packages/DCRM-05D-prospecting-oss-harvest-capability-qualification.md) — Q0 harvest CLOSED/GREEN; Q1 offline contract/eval implementation authorized; no live authority.
-- [DCRM-05D-Q1 Offline Prospecting Contracts & Evaluation Fixtures](work-packages/DCRM-05D-Q1-offline-prospecting-contracts-eval-fixtures.md) — active synthetic/no-network contract and golden-fixture gate before any OSS/provider lab.
+- [DCRM-05D-Q1 Offline Prospecting Contracts & Evaluation Fixtures](work-packages/DCRM-05D-Q1-offline-prospecting-contracts-eval-fixtures.md) — CLOSED/GREEN; synthetic/no-network contracts and goldens for 10 prospecting capability cells.
+- [DCRM-05D-Q2A Crawl4AI EXTRACT_WEB_PAGE Isolated Lab](work-packages/DCRM-05D-Q2A-crawl4ai-extract-web-page-isolated-lab.md) — active owner-authorized lab for pinned Crawl4AI 0.9.4 against synthetic raw HTML with `--network none`; no public crawling or production adoption.
 - [EF-01A Executable Engineering Harness, Reproducible CI & Secret Safety](work-packages/EF-01A-executable-engineering-harness-ci-secret-safety.md) — closed/merged with post-merge CI green; no deploy.
 
 - [EF-01B Repository Governance & Branch Protection](work-packages/EF-01B-repository-governance-branch-protection.md) - closed/merged through protected `main` with post-merge CI green; no deploy.
