@@ -71,7 +71,7 @@ This index routes humans and agents to the current repository-owned context.
 
 - [EF-01B Repository Governance & Branch Protection](work-packages/EF-01B-repository-governance-branch-protection.md) - closed/merged through protected `main` with post-merge CI green; no deploy.
 - [EF-02 Reproducible Runtime Packaging](work-packages/EF-02-reproducible-runtime-packaging.md) — closed/merged through protected `main` with post-merge CI green; no deploy.
-- [EF-03 Staging Boundary](work-packages/EF-03-staging-boundary.md) — ACTIVE for repo-owned implementation; live provisioning/image push/deployment separately gated.
+- [EF-03 Staging Boundary](work-packages/EF-03-staging-boundary.md) — implementation and pre-live hardening merged/green (PR #25 / #26); OPEN — LIVE STAGING GATE PENDING. Separately authorized read-only provider inspection precedes the frozen Gate A / Gate B plan.
 
 ## Migration
 
@@ -116,7 +116,7 @@ These files make DROWK CRM self-contained after broad GitHub access is narrowed:
 ## Infrastructure
 
 - [Infrastructure direction](../infra/README.md)
-- [Cloudflare checkpoint](../infra/CLOUDFLARE_CHECKPOINT.md)
+- [Historical Cloudflare checkpoint](../infra/CLOUDFLARE_CHECKPOINT.md) — superseded for current EF-03 execution; use the Staging Boundary runbook.
 
 ## Status rule
 

@@ -25,7 +25,7 @@ The product is intentionally provider-independent. Gmail, AIsa, LinkedIn, Apollo
 
 ## Status
 
-**Execution Foundation - EF-01A, EF-01B and EF-02 closed/green; EF-03 staging boundary active, live provisioning still separately gated.**
+**Execution Foundation - EF-01A, EF-01B and EF-02 closed/green; EF-03 implementation and pre-live hardening merged/green; OPEN — LIVE STAGING GATE PENDING.**
 
 The core foundation through DCRM-05C is released to `main`. One exact
 AIsa/DataForSEO `FACILITY_LOCATION_DISCOVERY` cell is `LIVE_VALIDATED_CAPABILITY`;
@@ -36,8 +36,10 @@ safety are green after merge/post-merge CI. EF-01B is also released: `main` is p
 exact required checks are enforced, the live verifier passes, and PR #20 merged through the
 protected path with post-merge CI green. EF-02 is released on `main`: reproducible non-root API/worker
 packaging, runtime lifecycle/config sensors and disposable local Compose are green after protected-main
-merge/post-merge CI. EF-03 is now owner-authorized for repo-owned staging-boundary implementation only.
-Live Cloudflare/Neon/compute provisioning, image push and deployment remain a separate explicit owner gate. See the
+merge/post-merge CI. EF-03 repo implementation (PR #25) and pre-live hardening (PR #26) are merged and post-merge green.
+Gate A, Gate B, live proof and closure evidence remain pending. Next comes separately owner-authorized
+read-only DigitalOcean/Neon/Cloudflare inspection, then an evidence-backed frozen plan and separate
+Gate A / Gate B authorizations. See the [staging runbook](docs/engineering/STAGING_BOUNDARY.md),
 [governance verifier](tooling/governance/README.md) and
 [owner runbook](docs/engineering/REPOSITORY_GOVERNANCE.md).
 

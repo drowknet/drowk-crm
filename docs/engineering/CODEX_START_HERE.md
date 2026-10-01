@@ -99,6 +99,13 @@ Repo-owned implementation merged through PR #25 (final feature head
 `18f0acea9b20b223209661925f91737207420d48`) into protected `main` as
 `0137e4904758561611c2d3d504a459284657f64d`.
 Post-merge CI `36718588406` was green for `verify` and `postgres-foundation`.
+This is historical PR #25 implementation evidence, not the current deployment candidate.
+
+Pre-live hardening PR #26 is merged and post-merge green. The current protected-main
+candidate is `a6f41127de39256b4461a8e75a0bf2119e75afa3`; post-merge CI
+`36802547723` passed `verify` and `postgres-foundation`.
+A later docs-only protected-main merge becomes the candidate only after its green post-merge CI.
+Revalidate the exact selected SHA and CI before any operational stage.
 Live staging proof has not happened. The old implementation branch was deleted;
 feature-branch names are never long-lived deployment authority. Select an exact
 protected-main SHA with exact-head/post-merge CI evidence for any later live plan.
@@ -106,12 +113,14 @@ protected-main SHA with exact-head/post-merge CI evidence for any later live pla
 Read `docs/engineering/STAGING_BOUNDARY.md` and
 `docs/research/EF-03_STAGING_PROVIDER_REVALIDATION_2026-09-29.md` for the staging contract and research.
 
-The current bounded correction is pre-live hardening and canon synchronization only.
+Implementation and pre-live hardening are complete. After canon cleanup merges, revalidate the
+protected-main SHA/CI, then obtain separate owner authorization for read-only DigitalOcean, Neon
+and Cloudflare inspection. Freeze the live plan from that evidence before requesting Gate A.
 The runbook separates pre-mutation frozen inputs from provider-generated outputs:
 Gate A materializes minimum resource/identity metadata, then stops for review;
 Gate B requires accepted Gate A evidence and a new explicit owner authorization for deploy/proof.
 Both live gates remain closed. Live Cloudflare, Neon, compute, DNS, registry push or staging
-deployment is NOT authorized by repo verification or this corrective work.
+deployment is NOT authorized by repo verification or canon cleanup.
 No provider live call, Gmail live/outbound, queue/orchestrator selection, schema change or DCRM-06
 work is authorized.
 

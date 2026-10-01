@@ -9,6 +9,13 @@ Repo-owned implementation merged through PR #25, final feature head
 `18f0acea9b20b223209661925f91737207420d48`, into protected `main` as
 `0137e4904758561611c2d3d504a459284657f64d`.
 Post-merge CI `36718588406` was green for `verify` and `postgres-foundation`.
+This is historical PR #25 implementation evidence, not the current deployment candidate.
+
+Pre-live hardening PR #26 is merged and post-merge green. The current protected-main
+candidate is `a6f41127de39256b4461a8e75a0bf2119e75afa3`; post-merge CI
+`36802547723` passed `verify` and `postgres-foundation`.
+A later docs-only protected-main merge becomes the candidate only after its green post-merge CI.
+Revalidate the exact selected SHA and CI before any operational stage.
 Full EF-03 remains OPEN because live staging proof has not happened.
 The old implementation branch was deleted. Feature branches are not long-lived deployment
 authority: the exact selected protected-main SHA and exact-head/post-merge CI are authoritative.
@@ -36,7 +43,7 @@ Cloudflare edge
 
 Repo-owned implementation is merged; deterministic verification grants no live authority.
 Live work has two separately authorized gates below: Gate A resource/identity materialization,
-then Gate B deploy/proof. Both remain CLOSED during pre-live hardening.
+then Gate B deploy/proof. Both remain CLOSED; implementation and pre-live hardening are complete.
 
 ## Frozen staging decisions
 
@@ -66,8 +73,9 @@ Required host properties:
 - firewall/network posture does not require public API ingress;
 - host loss must be recoverable from immutable image refs + managed DB + secret source.
 
-Compute vendor selection is deferred to the live provisioning gate so account/region/cost facts
-can be reviewed without changing the application contract.
+DigitalOcean is the intended provider to inspect for the first replaceable Linux compute candidate.
+Account, region, size, image and cost decisions remain unset until separately owner-authorized
+read-only inspection provides current evidence; the application contract remains vendor-neutral.
 
 ### Managed PostgreSQL
 
@@ -96,7 +104,8 @@ access. Ad hoc provider-side grants would create unreviewed authority outside re
 Known `-pooler` endpoints remain rejected; the worker has neither DB secret nor network.
 The credential is never printed or committed. Revisit this exception in a separately authorized
 least-privilege hardening task before production or any material expansion of authority.
-This correction adds no migration SQL, CREATE ROLE, GRANT or ALTER OWNER operation.
+No new migration SQL, CREATE ROLE, GRANT or ALTER OWNER operation is authorized.
+Execution of existing migrations remains Gate B only; this docs-only stage executes none.
 
 ### Runtime secrets
 
@@ -218,6 +227,84 @@ Offline `staging:test` must prove at least:
 - manifest would expose a host port;
 - selected staging SHA does not match image revision expectations.
 
+## Current engineering authority
+
+Owner-supplied PR #26 checkpoint (pre-live staging hardening):
+- reviewed feature head: `bbacb2fdff03789ae18d958a141b617c68c4b8c1`;
+- protected-main merge/current candidate: `a6f41127de39256b4461a8e75a0bf2119e75afa3`;
+- exact-head push CI `36801793188`: `verify` SUCCESS, `postgres-foundation` SUCCESS;
+- pull_request CI `36802343313`: both required checks SUCCESS;
+- post-merge main CI `36802547723`: both required checks SUCCESS;
+- main remains protected; required checks remain exactly `verify` and `postgres-foundation`;
+- open PRs after the PR #26 merge: 0 (checkpoint evidence, not a perpetual claim).
+
+PR #25's SHA above is historical implementation evidence. Neither a deleted feature branch nor
+this docs branch is deployment authority. After a later protected-main docs merge, select that
+merge SHA only with green post-merge CI; do not assume the recorded candidate stays current.
+
+## Next operational sequence
+
+After canon cleanup is merged, the next operational work is ordered as follows:
+
+1. Revalidate the exact protected-main SHA and exact-head/post-merge CI evidence.
+2. Obtain separate explicit owner authorization for **READ-ONLY provider inspection**, then inspect:
+   - DigitalOcean account identity, limits, current droplets, regions, sizes, distribution image
+     options and cost-relevant metadata;
+   - Neon current account/project state, region/plan and direct-connection options;
+   - Cloudflare account/zone, Access/Tunnel/DNS assumptions and staging-hostname collision/readiness.
+   Record only safe metadata. This docs stage authorizes no inspection or credential retrieval.
+3. Freeze the exact EF-03 live plan from current provider evidence using the checklist below.
+4. Request fresh explicit owner authorization for Gate A.
+5. Execute Gate A only.
+6. Capture metadata-safe generated outputs and **STOP for review**.
+7. After Gate A evidence is accepted, request separate new Gate B authorization.
+8. Execute Gate B only within its frozen bounds.
+9. Deep-review the live proof and disposition findings; execution alone is not acceptance.
+10. Close EF-03 only after accepted evidence and repository canon/protected-main post-merge closure.
+
+Inspection, Gate A and Gate B are separate authority stages. Dated public research is background,
+not current account readiness. No region, size, cost ceiling or provider ID is selected by this canon.
+
+## Exact live-plan checklist
+
+Freeze each input below from accepted current evidence before requesting Gate A. Generated values
+remain outputs of their authorized operations; the plan freezes how to capture and validate them.
+Any material plan change after Gate A must be reviewed before the separate Gate B authorization.
+
+- **DigitalOcean:** provider/account identity; region; droplet size; Linux distribution/image;
+  CPU architecture; monthly cost ceiling; explicit backups/monitoring decision where relevant;
+  exact host administration method; firewall/inbound posture; no public application origin port.
+- **Neon:** exact staging project name, region, plan/cost ceiling, PostgreSQL 16, Postgres-only
+  first cell, default branch/database naming as appropriate; direct endpoint validation (never a
+  known `-pooler` endpoint); bounded single-role first-staging exception. Define the authorized
+  credential retrieval/handling stage; resource existence alone never authorizes retrieval.
+  No schema change beyond executing existing migrations in Gate B; no role split or privilege SQL.
+- **Cloudflare:** account and `drowk.net` zone identity; `crm-staging.drowk.net` collision/readiness
+  check before route publication; Access app/policy first; exact owner identity-policy intent;
+  Access issuer/audience captured as generated metadata; remotely managed Tunnel identity;
+  Tunnel/DNS route only after Access and only in Gate B; mandatory origin JWT validation;
+  no public origin/API host port.
+- **GHCR:** exact API/worker package and image names; exact build/push executor; source protected-main
+  SHA; OCI revision labels; resulting immutable registry digests captured after authorized Gate B
+  publication; host pull identity with least-privilege package-read scope; external credential source;
+  host-side injection/storage; noninteractive pull/login; rotation/revocation/removal. Authenticated
+  pull does not itself authorize deploy.
+- **Secrets:** exact external source and transport/injection mechanism to the Linux host; exact host
+  paths outside checkout/build context; DB file UID 1000 and Tunnel token UID 65532; regular
+  non-symlink files, owner-readable with no group/other bits, expected `0400`/`0600` policy.
+  Never print, commit or bake credentials into images. Freeze handling authority explicitly.
+- **Execution:** staging preflight; explicit one-shot migration; API + inert worker; cloudflared;
+  route publication after Access; exact bounded smoke URLs and request count; unauthenticated Access
+  denial; authenticated owner access; `/health=200`; `/ready=200`; image digest/revision proof;
+  no public origin port. No unbounded smoke or automatic expansion of the request budget.
+- **Rollback/kill/restore:** previous immutable refs if available; explicit first-deploy no-op rollback
+  if none exist; migration/schema compatibility review before rollback; quiesce migration; stop
+  cloudflared first, API/worker next; preserve managed DB and secret source; desired-state restoration;
+  destructive cleanup requires separate authorization.
+- **Cost/abort:** aggregate staging cost ceiling across providers plus individual ceilings;
+  fail closed on identity or artifact mismatch and failed proof; no retry that silently broadens cost
+  or authority; exact cleanup rules and intentionally preserved resources (managed DB and secret source).
+
 ## Live gates — explicitly CLOSED
 
 ### Pre-mutation frozen inputs
@@ -257,6 +344,7 @@ control-plane resources/identities needed for provider-assigned metadata:
 
 Gate A MUST NOT publish a Tunnel/DNS route, provision application compute, push GHCR application
 images, deploy API/worker/cloudflared, execute a migration or execute live staging HTTP smoke.
+It MUST NOT retrieve/print secrets merely because a resource exists.
 Record metadata-safe generated outputs and STOP for review. Gate A completion does not authorize
 Gate B, credential retrieval beyond separately approved handling, or any deployment.
 
@@ -296,7 +384,8 @@ After the ordered Gate B artifact checks, migration and deployment above:
 2. prove authenticated owner request reaches staging and origin JWT verification remains enforced;
 3. prove `/health=200` and `/ready=200` behind Access;
 4. confirm deployed image digest/revision identity and no public origin/API port;
-5. exercise rollback to prior verified immutable refs or explicit no-op rollback if first deploy, then re-promote;
+5. review migration/schema compatibility, then exercise rollback to prior verified immutable refs
+   or explicit no-op rollback if first deploy, then re-promote;
 6. exercise kill: quiesce migration, stop cloudflared first, then API/worker; prove hostname no longer
    reaches origin while preserving the managed DB and secret source;
 7. restore desired staging state within the authorization;
