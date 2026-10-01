@@ -33,6 +33,7 @@ This index routes humans and agents to the current repository-owned context.
 - [Engineering Harness Model](architecture/ENGINEERING_HARNESS_MODEL.md) — Guides, Sensors, gates and proof-carrying work.
 - [Memory / Agent / Trace Model](architecture/MEMORY_AGENT_TRACE_MODEL.md) — memory classes, trace and durable work.
 - [Auth & Tenancy Boundary](architecture/AUTH_TENANCY_BOUNDARY.md) — user/tenant/session/agent identity separation.
+- [External Identity and Dependency Boundary](architecture/EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md) — owner-confirmed LinkedIn/Apollo/PWM channel bindings and the rule that PWM Gmail is not a DROWK infrastructure root of trust.
 - [DROWK Domain Topology](architecture/DROWK_DOMAIN_TOPOLOGY.md) — drowk.com vs drowk.net vs product/vertical domains.
 - [Repository Structure](architecture/REPOSITORY_STRUCTURE.md) — executable monorepo boundaries and dependency direction.
 
