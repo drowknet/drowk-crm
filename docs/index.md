@@ -67,6 +67,7 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-05A Capability Lab Harness](work-packages/DCRM-05A-capability-lab-harness.md) — completed/merged with post-merge CI green.
 - [DCRM-05B Provider Selection & Live Validation Readiness](work-packages/DCRM-05B-provider-selection-live-validation-readiness.md) — completed selection gate; AIsa/DataForSEO Business Listings selected, no live call made.
 - [DCRM-05C AIsa/DataForSEO Business Listings Live READ Validation](work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md) — closed/merged with post-merge CI green; exact cell is `LIVE_VALIDATED_CAPABILITY`; no new live call authorized.
+- [DCRM-05D Prospecting Open-Source Harvest & Capability Qualification](work-packages/DCRM-05D-prospecting-oss-harvest-capability-qualification.md) — planned qualification gates for public-web prospecting/search/extraction/email capabilities; Q0 research only, no live authority.
 - [EF-01A Executable Engineering Harness, Reproducible CI & Secret Safety](work-packages/EF-01A-executable-engineering-harness-ci-secret-safety.md) — closed/merged with post-merge CI green; no deploy.
 
 - [EF-01B Repository Governance & Branch Protection](work-packages/EF-01B-repository-governance-branch-protection.md) - closed/merged through protected `main` with post-merge CI green; no deploy.
@@ -97,6 +98,7 @@ This index routes humans and agents to the current repository-owned context.
 
 - [Auth / Session Provider Revalidation — 2026-09-27](research/AUTH_SESSION_REVALIDATION_2026-09-27.md) — current official-source comparison and DCRM-02B alpha decision input.
 - [External Repository Candidates — 2026-09-28](research/EXTERNAL_REPOSITORY_CANDIDATES_2026-09-28.md) — disposition of 11 external repositories as capability candidates, engineering/design references or deferred options; explicitly does not broaden DCRM-04A.
+- [Prospecting Open-Source Harvest — 2026-10-01](reference-harvest/PROSPECTING_OSS_HARVEST_2026-10-01.md) — pinned OSS candidates, license/disposition boundaries, prohibited LinkedIn automation surfaces and DCRM-05D capability map.
 - [DCRM-05B Provider Selection Research — 2026-09-28](research/DCRM-05B_PROVIDER_SELECTION_2026-09-28.md) — current public-source comparison and selected AIsa/DataForSEO Business Listings live-validation tuple; no live request made.
 
 ## Cross-repository harvest
