@@ -11,8 +11,11 @@ A separate docs-only prospecting open-source harvest is defined in
 `docs/work-packages/DCRM-05D-prospecting-oss-harvest-capability-qualification.md`.
 
 It records future capability qualification inputs for DCRM-06/07 and does **not** change the active
-Execution Foundation sequence. EF-03 remains OPEN / LIVE STAGING GATE PENDING. DCRM-05D Q1+
-implementation, lab work, provider calls and LinkedIn automation are not authorized by the harvest.
+Execution Foundation sequence. EF-03 remains OPEN / LIVE STAGING GATE PENDING.
+
+DCRM-05D Q0 is CLOSED/GREEN. Q1 offline contract/eval work is separately owner-authorized on
+`feat/dcrm-05d-q1-offline-contracts` and is constrained to synthetic/no-network implementation.
+Q2 lab work, provider calls, LinkedIn automation and any live authority remain unauthorized.
 
 ## Principle
 
