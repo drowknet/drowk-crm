@@ -13,9 +13,13 @@ A separate docs-only prospecting open-source harvest is defined in
 It records future capability qualification inputs for DCRM-06/07 and does **not** change the active
 Execution Foundation sequence. EF-03 remains OPEN / LIVE STAGING GATE PENDING.
 
-DCRM-05D Q0 is CLOSED/GREEN. Q1 offline contract/eval work is separately owner-authorized on
-`feat/dcrm-05d-q1-offline-contracts` and is constrained to synthetic/no-network implementation.
-Q2 lab work, provider calls, LinkedIn automation and any live authority remain unauthorized.
+DCRM-05D Q0 and Q1 are CLOSED/GREEN. Q2A is separately owner-authorized on
+`feat/dcrm-05d-q2a-crawl4ai-extract-lab` for exactly Crawl4AI 0.9.4 +
+`EXTRACT_WEB_PAGE` against synthetic raw HTML. Candidate execution must use the pinned
+Docker digest and `--network none`.
+
+Q2A does not authorize public-internet crawling, provider calls, LinkedIn automation,
+staging/deploy or Q2B/Q3. EF-03 remains OPEN / LIVE STAGING GATE PENDING.
 
 ## Principle
 
