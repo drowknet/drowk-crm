@@ -1,6 +1,6 @@
 # DCRM-05D — Prospecting Open-Source Harvest & Capability Qualification
 
-Status: PLANNED / Q0 HARVEST DOCUMENTED / NO IMPLEMENTATION OR LIVE AUTHORITY
+Status: Q0 CLOSED/GREEN / Q1 OFFLINE CONTRACTS AUTHORIZED / NO LIVE AUTHORITY
 
 Owner outcome:
 reduce dependence on LinkedIn Sales Navigator / Evaboot by qualifying a DROWK-owned, provider-neutral prospecting path based on public-web discovery, open-source extraction/orchestration patterns, existing DROWK Evidence/ProviderRun contracts and replaceable commercial providers.
@@ -107,7 +107,9 @@ Q0 is satisfied only when this package and harvest are merged to protected `main
 
 ### Q1 — Offline contracts and evaluation fixtures
 
-Separate owner-authorized work package/branch.
+Owner-authorized on 2026-10-01. Active work package:
+[DCRM-05D-Q1 — Offline Prospecting Contracts & Evaluation Fixtures](DCRM-05D-Q1-offline-prospecting-contracts-eval-fixtures.md).
+
 
 Required outputs:
 - normalized input/output contract per selected cell;

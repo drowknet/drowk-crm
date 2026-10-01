@@ -46,3 +46,4 @@ export * from "./interaction.js";
 export * from "./commitment.js";
 export * from "./relationship.js";
 export * from "./capability-lab.js";
+export * from "./prospecting-capability.js";

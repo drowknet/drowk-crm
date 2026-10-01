@@ -1,0 +1,1287 @@
+[
+  {
+    "labCase": {
+      "caseId": "search-present",
+      "capabilityId": "SEARCH_WEB",
+      "workloadCell": "SEARCH_WEB",
+      "provider": "synthetic-q1",
+      "operation": "SEARCH_WEB",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "query": "synthetic services",
+        "locale": "en-US",
+        "geography": "US",
+        "maxResults": 3
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "PRESENT",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [
+          {
+            "field": "snippet",
+            "value": "Synthetic snippet",
+            "sourceRef": "https://example.com/source/0",
+            "provider": "synthetic-q1",
+            "method": "PUBLIC_SOURCE",
+            "retrievedAt": "2026-09-30T12:00:00.000Z",
+            "observedAt": null,
+            "rightsClass": "SYNTHETIC_ALLOWED"
+          }
+        ],
+        "gaps": [],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": true
+    },
+    "expectedEvidenceGaps": [],
+    "expectedAssertions": [
+      "search-present"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "search-bounded-empty",
+      "capabilityId": "SEARCH_WEB",
+      "workloadCell": "SEARCH_WEB",
+      "provider": "synthetic-q1",
+      "operation": "SEARCH_WEB",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "query": "synthetic services",
+        "locale": "en-US",
+        "geography": "US",
+        "maxResults": 3
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "EMPTY_WITHIN_RESPONSE",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [],
+        "gaps": [
+          "universal absence unproven"
+        ],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": false
+    },
+    "expectedEvidenceGaps": [
+      "universal absence unproven"
+    ],
+    "expectedAssertions": [
+      "search-bounded-empty"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "search-unknown",
+      "capabilityId": "SEARCH_WEB",
+      "workloadCell": "SEARCH_WEB",
+      "provider": "synthetic-q1",
+      "operation": "SEARCH_WEB",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "query": "synthetic services",
+        "locale": "en-US",
+        "geography": "US",
+        "maxResults": 3
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "UNKNOWN",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [],
+        "gaps": [
+          "coverage unknown"
+        ],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": false
+    },
+    "expectedEvidenceGaps": [
+      "coverage unknown"
+    ],
+    "expectedAssertions": [
+      "search-unknown"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "search-pending",
+      "capabilityId": "SEARCH_WEB",
+      "workloadCell": "SEARCH_WEB",
+      "provider": "synthetic-q1",
+      "operation": "SEARCH_WEB",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "query": "synthetic services",
+        "locale": "en-US",
+        "geography": "US",
+        "maxResults": 3
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "PENDING",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [],
+        "gaps": [
+          "result pending"
+        ],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": false
+    },
+    "expectedEvidenceGaps": [
+      "result pending"
+    ],
+    "expectedAssertions": [
+      "search-pending"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "extract-partial",
+      "capabilityId": "EXTRACT_WEB_PAGE",
+      "workloadCell": "EXTRACT_WEB_PAGE",
+      "provider": "synthetic-q1",
+      "operation": "EXTRACT_WEB_PAGE",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "url": "https://example.com/services",
+        "extractionGoal": "services"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "PARTIAL",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [
+          {
+            "field": "services",
+            "value": "Synthetic services",
+            "sourceRef": "https://example.com/source/0",
+            "provider": "synthetic-q1",
+            "method": "PUBLIC_SOURCE",
+            "retrievedAt": "2026-09-30T12:00:00.000Z",
+            "observedAt": null,
+            "rightsClass": "SYNTHETIC_ALLOWED"
+          }
+        ],
+        "gaps": [
+          "address missing"
+        ],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": true
+    },
+    "expectedEvidenceGaps": [
+      "address missing"
+    ],
+    "expectedAssertions": [
+      "extract-partial"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "extract-error",
+      "capabilityId": "EXTRACT_WEB_PAGE",
+      "workloadCell": "EXTRACT_WEB_PAGE",
+      "provider": "synthetic-q1",
+      "operation": "EXTRACT_WEB_PAGE",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "url": "https://example.com/services",
+        "extractionGoal": "services"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "ERROR",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [],
+        "gaps": [
+          "source unavailable"
+        ],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": false
+    },
+    "expectedEvidenceGaps": [
+      "source unavailable"
+    ],
+    "expectedAssertions": [
+      "extract-error"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "company-candidate",
+      "capabilityId": "DISCOVER_COMPANIES",
+      "workloadCell": "DISCOVER_COMPANIES",
+      "provider": "synthetic-q1",
+      "operation": "DISCOVER_COMPANIES",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "marketQuery": "synthetic services",
+        "geography": "US",
+        "maxResults": 3
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "PRESENT",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [
+          {
+            "field": "companyName",
+            "value": "Synthetic companyName",
+            "sourceRef": "https://example.com/source/0",
+            "provider": "synthetic-q1",
+            "method": "PUBLIC_SOURCE",
+            "retrievedAt": "2026-09-30T12:00:00.000Z",
+            "observedAt": null,
+            "rightsClass": "SYNTHETIC_ALLOWED"
+          }
+        ],
+        "gaps": [],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": true
+    },
+    "expectedEvidenceGaps": [],
+    "expectedAssertions": [
+      "company-candidate"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "public-profile",
+      "capabilityId": "DISCOVER_PUBLIC_PROFESSIONAL_PROFILE",
+      "workloadCell": "DISCOVER_PUBLIC_PROFESSIONAL_PROFILE",
+      "provider": "synthetic-q1",
+      "operation": "DISCOVER_PUBLIC_PROFESSIONAL_PROFILE",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "fullName": "Example Person",
+        "companyDomain": "example.com"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "PRESENT",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [
+          {
+            "field": "publicProfileUrl",
+            "value": "https://example.com/profiles/example-person",
+            "sourceRef": "https://example.com/source/0",
+            "provider": "synthetic-q1",
+            "method": "PUBLIC_INDEX",
+            "retrievedAt": "2026-09-30T12:00:00.000Z",
+            "observedAt": null,
+            "rightsClass": "SYNTHETIC_ALLOWED"
+          }
+        ],
+        "gaps": [
+          "employment unverified"
+        ],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": true
+    },
+    "expectedEvidenceGaps": [
+      "employment unverified"
+    ],
+    "expectedAssertions": [
+      "public-profile"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "buyer-partial",
+      "capabilityId": "FIND_BUYER_CANDIDATES",
+      "workloadCell": "FIND_BUYER_CANDIDATES",
+      "provider": "synthetic-q1",
+      "operation": "FIND_BUYER_CANDIDATES",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "companyName": "Example Company",
+        "companyDomain": "example.com",
+        "roleTerms": [
+          "buyer"
+        ]
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "PARTIAL",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [
+          {
+            "field": "titleClaim",
+            "value": "Synthetic titleClaim",
+            "sourceRef": "https://example.com/source/0",
+            "provider": "synthetic-q1",
+            "method": "PUBLIC_SOURCE",
+            "retrievedAt": "2026-09-30T12:00:00.000Z",
+            "observedAt": null,
+            "rightsClass": "SYNTHETIC_ALLOWED"
+          }
+        ],
+        "gaps": [
+          "BuyerRole unaccepted"
+        ],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": true
+    },
+    "expectedEvidenceGaps": [
+      "BuyerRole unaccepted"
+    ],
+    "expectedAssertions": [
+      "buyer-partial"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "enrich-fields",
+      "capabilityId": "ENRICH_COMPANY",
+      "workloadCell": "ENRICH_COMPANY",
+      "provider": "synthetic-q1",
+      "operation": "ENRICH_COMPANY",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "companyDomain": "example.com",
+        "fields": [
+          "name",
+          "category"
+        ]
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "PRESENT",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [
+          {
+            "field": "name",
+            "value": "Synthetic name",
+            "sourceRef": "https://example.com/source/0",
+            "provider": "synthetic-q1",
+            "method": "PUBLIC_SOURCE",
+            "retrievedAt": "2026-09-30T12:00:00.000Z",
+            "observedAt": null,
+            "rightsClass": "SYNTHETIC_ALLOWED"
+          },
+          {
+            "field": "category",
+            "value": "Synthetic category",
+            "sourceRef": "https://example.com/source/1",
+            "provider": "synthetic-q1",
+            "method": "PUBLIC_SOURCE",
+            "retrievedAt": "2026-09-30T12:00:00.000Z",
+            "observedAt": "2026-09-29T12:00:00.000Z",
+            "rightsClass": "SYNTHETIC_ALLOWED"
+          }
+        ],
+        "gaps": [],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": true
+    },
+    "expectedEvidenceGaps": [],
+    "expectedAssertions": [
+      "enrich-fields"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "generated-email",
+      "capabilityId": "FIND_PROFESSIONAL_EMAIL",
+      "workloadCell": "FIND_PROFESSIONAL_EMAIL",
+      "provider": "synthetic-q1",
+      "operation": "FIND_PROFESSIONAL_EMAIL",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "fullName": "Example Person",
+        "companyDomain": "example.com"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "PRESENT",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [],
+        "gaps": [
+          "mailbox unverified"
+        ],
+        "emailCandidate": {
+          "email": "person@example.com",
+          "state": "UNVERIFIED",
+          "method": "GENERATED_PATTERN"
+        },
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": false
+    },
+    "expectedEvidenceGaps": [
+      "mailbox unverified"
+    ],
+    "expectedAssertions": [
+      "generated-email"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "mailbox-proof",
+      "capabilityId": "VERIFY_PROFESSIONAL_EMAIL",
+      "workloadCell": "VERIFY_PROFESSIONAL_EMAIL",
+      "provider": "synthetic-q1",
+      "operation": "VERIFY_PROFESSIONAL_EMAIL",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "email": "person@example.com"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "PRESENT",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [
+          {
+            "field": "email",
+            "value": "person@example.com",
+            "sourceRef": "https://example.com/source/0",
+            "provider": "synthetic-q1",
+            "method": "MAILBOX_PROOF",
+            "retrievedAt": "2026-09-30T12:00:00.000Z",
+            "observedAt": null,
+            "rightsClass": "SYNTHETIC_ALLOWED"
+          }
+        ],
+        "gaps": [],
+        "emailCandidate": null,
+        "verification": {
+          "state": "VERIFIED",
+          "basis": "MAILBOX_PROOF",
+          "evidenceRef": "https://example.com/source/0"
+        }
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": true
+    },
+    "expectedEvidenceGaps": [],
+    "expectedAssertions": [
+      "mailbox-proof"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "mailbox-rejected",
+      "capabilityId": "VERIFY_PROFESSIONAL_EMAIL",
+      "workloadCell": "VERIFY_PROFESSIONAL_EMAIL",
+      "provider": "synthetic-q1",
+      "operation": "VERIFY_PROFESSIONAL_EMAIL",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "email": "person@example.com"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "PRESENT",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [
+          {
+            "field": "email",
+            "value": "person@example.com",
+            "sourceRef": "https://example.com/source/0",
+            "provider": "synthetic-q1",
+            "method": "MAILBOX_PROOF",
+            "retrievedAt": "2026-09-30T12:00:00.000Z",
+            "observedAt": null,
+            "rightsClass": "SYNTHETIC_ALLOWED"
+          }
+        ],
+        "gaps": [],
+        "emailCandidate": null,
+        "verification": {
+          "state": "REJECTED",
+          "basis": "MAILBOX_PROOF",
+          "evidenceRef": "https://example.com/source/0"
+        }
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": true
+    },
+    "expectedEvidenceGaps": [],
+    "expectedAssertions": [
+      "mailbox-rejected"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "mx-only",
+      "capabilityId": "VERIFY_PROFESSIONAL_EMAIL",
+      "workloadCell": "VERIFY_PROFESSIONAL_EMAIL",
+      "provider": "synthetic-q1",
+      "operation": "VERIFY_PROFESSIONAL_EMAIL",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "email": "person@example.com"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "UNKNOWN",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [],
+        "gaps": [
+          "verification unresolved"
+        ],
+        "emailCandidate": null,
+        "verification": {
+          "state": "UNKNOWN",
+          "basis": "MX_ONLY",
+          "evidenceRef": null
+        }
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": false
+    },
+    "expectedEvidenceGaps": [
+      "verification unresolved"
+    ],
+    "expectedAssertions": [
+      "mx-only"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "domain-only",
+      "capabilityId": "VERIFY_PROFESSIONAL_EMAIL",
+      "workloadCell": "VERIFY_PROFESSIONAL_EMAIL",
+      "provider": "synthetic-q1",
+      "operation": "VERIFY_PROFESSIONAL_EMAIL",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "email": "person@example.com"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "UNKNOWN",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [],
+        "gaps": [
+          "verification unresolved"
+        ],
+        "emailCandidate": null,
+        "verification": {
+          "state": "UNKNOWN",
+          "basis": "DOMAIN_ONLY",
+          "evidenceRef": null
+        }
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": false
+    },
+    "expectedEvidenceGaps": [
+      "verification unresolved"
+    ],
+    "expectedAssertions": [
+      "domain-only"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "syntax-only",
+      "capabilityId": "VERIFY_PROFESSIONAL_EMAIL",
+      "workloadCell": "VERIFY_PROFESSIONAL_EMAIL",
+      "provider": "synthetic-q1",
+      "operation": "VERIFY_PROFESSIONAL_EMAIL",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "email": "person@example.com"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "UNKNOWN",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [],
+        "gaps": [
+          "verification unresolved"
+        ],
+        "emailCandidate": null,
+        "verification": {
+          "state": "UNKNOWN",
+          "basis": "SYNTAX_ONLY",
+          "evidenceRef": null
+        }
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": false
+    },
+    "expectedEvidenceGaps": [
+      "verification unresolved"
+    ],
+    "expectedAssertions": [
+      "syntax-only"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "catch-all",
+      "capabilityId": "VERIFY_PROFESSIONAL_EMAIL",
+      "workloadCell": "VERIFY_PROFESSIONAL_EMAIL",
+      "provider": "synthetic-q1",
+      "operation": "VERIFY_PROFESSIONAL_EMAIL",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "email": "person@example.com"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "PRESENT",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [
+          {
+            "field": "email",
+            "value": "person@example.com",
+            "sourceRef": "https://example.com/source/0",
+            "provider": "synthetic-q1",
+            "method": "CATCH_ALL",
+            "retrievedAt": "2026-09-30T12:00:00.000Z",
+            "observedAt": null,
+            "rightsClass": "SYNTHETIC_ALLOWED"
+          }
+        ],
+        "gaps": [],
+        "emailCandidate": null,
+        "verification": {
+          "state": "CATCH_ALL",
+          "basis": "CATCH_ALL",
+          "evidenceRef": "https://example.com/source/0"
+        }
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": true
+    },
+    "expectedEvidenceGaps": [],
+    "expectedAssertions": [
+      "catch-all"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "unavailable",
+      "capabilityId": "VERIFY_PROFESSIONAL_EMAIL",
+      "workloadCell": "VERIFY_PROFESSIONAL_EMAIL",
+      "provider": "synthetic-q1",
+      "operation": "VERIFY_PROFESSIONAL_EMAIL",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "email": "person@example.com"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "UNKNOWN",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [],
+        "gaps": [
+          "verification unresolved"
+        ],
+        "emailCandidate": null,
+        "verification": {
+          "state": "UNKNOWN",
+          "basis": "UNAVAILABLE",
+          "evidenceRef": null
+        }
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": false
+    },
+    "expectedEvidenceGaps": [
+      "verification unresolved"
+    ],
+    "expectedAssertions": [
+      "unavailable"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "service-error",
+      "capabilityId": "VERIFY_PROFESSIONAL_EMAIL",
+      "workloadCell": "VERIFY_PROFESSIONAL_EMAIL",
+      "provider": "synthetic-q1",
+      "operation": "VERIFY_PROFESSIONAL_EMAIL",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "email": "person@example.com"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "ERROR",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [],
+        "gaps": [
+          "verification unresolved"
+        ],
+        "emailCandidate": null,
+        "verification": {
+          "state": "ERROR",
+          "basis": "SERVICE_ERROR",
+          "evidenceRef": null
+        }
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": false
+    },
+    "expectedEvidenceGaps": [
+      "verification unresolved"
+    ],
+    "expectedAssertions": [
+      "service-error"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "employment-unknown",
+      "capabilityId": "VERIFY_EMPLOYMENT",
+      "workloadCell": "VERIFY_EMPLOYMENT",
+      "provider": "synthetic-q1",
+      "operation": "VERIFY_EMPLOYMENT",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "fullName": "Example Person",
+        "companyName": "Example Company"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "UNKNOWN",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [],
+        "gaps": [
+          "employment unknown"
+        ],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": false
+    },
+    "expectedEvidenceGaps": [
+      "employment unknown"
+    ],
+    "expectedAssertions": [
+      "employment-unknown"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "employment-conflict",
+      "capabilityId": "VERIFY_EMPLOYMENT",
+      "workloadCell": "VERIFY_EMPLOYMENT",
+      "provider": "synthetic-q1",
+      "operation": "VERIFY_EMPLOYMENT",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "fullName": "Example Person",
+        "companyName": "Example Company"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "PARTIAL",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [
+          {
+            "field": "employmentClaim",
+            "value": "Synthetic employmentClaim",
+            "sourceRef": "https://example.com/source/0",
+            "provider": "synthetic-q1",
+            "method": "PUBLIC_SOURCE",
+            "retrievedAt": "2026-09-30T12:00:00.000Z",
+            "observedAt": null,
+            "rightsClass": "SYNTHETIC_ALLOWED"
+          },
+          {
+            "field": "employmentClaim",
+            "value": "Synthetic conflicting claim",
+            "sourceRef": "https://example.com/source/1",
+            "provider": "synthetic-q1",
+            "method": "PUBLIC_SOURCE",
+            "retrievedAt": "2026-09-30T12:00:00.000Z",
+            "observedAt": null,
+            "rightsClass": "SYNTHETIC_ALLOWED"
+          }
+        ],
+        "gaps": [
+          "conflicting employment sources"
+        ],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": true
+    },
+    "expectedEvidenceGaps": [
+      "conflicting employment sources"
+    ],
+    "expectedAssertions": [
+      "employment-conflict"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "procurement-present",
+      "capabilityId": "FIND_PROCUREMENT_ROUTE",
+      "workloadCell": "FIND_PROCUREMENT_ROUTE",
+      "provider": "synthetic-q1",
+      "operation": "FIND_PROCUREMENT_ROUTE",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "companyName": "Example Company",
+        "companyDomain": "example.com",
+        "serviceCategory": "synthetic services"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "PRESENT",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [
+          {
+            "field": "route",
+            "value": "Synthetic route",
+            "sourceRef": "https://example.com/source/0",
+            "provider": "synthetic-q1",
+            "method": "PUBLIC_SOURCE",
+            "retrievedAt": "2026-09-30T12:00:00.000Z",
+            "observedAt": null,
+            "rightsClass": "SYNTHETIC_ALLOWED"
+          }
+        ],
+        "gaps": [],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": true
+    },
+    "expectedEvidenceGaps": [],
+    "expectedAssertions": [
+      "procurement-present"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  },
+  {
+    "labCase": {
+      "caseId": "procurement-unsourced",
+      "capabilityId": "FIND_PROCUREMENT_ROUTE",
+      "workloadCell": "FIND_PROCUREMENT_ROUTE",
+      "provider": "synthetic-q1",
+      "operation": "FIND_PROCUREMENT_ROUTE",
+      "interface": "OTHER",
+      "accessClass": "READ",
+      "normalizedInput": {
+        "companyName": "Example Company",
+        "companyDomain": "example.com",
+        "serviceCategory": "synthetic services"
+      },
+      "locale": null,
+      "geography": null,
+      "maxCostUsdMicros": 10,
+      "maxToolCalls": 1,
+      "stopCondition": "EVIDENCE_PRESENT",
+      "rightsClass": "SYNTHETIC_ALLOWED",
+      "adapterVersion": "prospecting-offline-v1"
+    },
+    "fixture": {
+      "resultState": "UNKNOWN",
+      "output": {
+        "authority": "EVIDENCE_CANDIDATE",
+        "evidence": [],
+        "gaps": [
+          "source missing"
+        ],
+        "emailCandidate": null,
+        "verification": null
+      },
+      "estimatedCostUsdMicros": 0,
+      "actualCostUsdMicros": null,
+      "actualCostKnown": false,
+      "retrievedAt": "2026-09-30T12:00:00.000Z",
+      "observedAt": null,
+      "latencyMs": 0,
+      "provenanceComplete": false
+    },
+    "expectedEvidenceGaps": [
+      "source missing"
+    ],
+    "expectedAssertions": [
+      "procurement-unsourced"
+    ],
+    "maxElapsedMs": 1000,
+    "freshnessSeconds": 3600
+  }
+]
