@@ -30,9 +30,29 @@ persisted nor printed. No internal cause is inferred.
 
 The blocked observation is retained in the Q2A work package. No successful lab
 evidence document exists. No boundary weakening or rerun is authorized by this
-documentation update. Q2B/Q3 remain closed. `LAB_BLOCKED` is neither candidate
+documentation update. Q2B-PREP is docs-only; Q2B implementation/execution and
+Q3/Q4 remain closed. `LAB_BLOCKED` is neither candidate
 rejection, production adoption nor live validation. Crawl4AI is not promoted to a
 DROWK production dependency. EF-03 live remains unrelated and untouched.
+
+Q2A engineering/process is CLOSED/GREEN at protected-main merge
+`175c23e78033aa6705783371cf858044460178f8`; candidate outcome remains `LAB_BLOCKED`.
+[Q2B diagnostic failure classification](../work-packages/DCRM-05D-Q2B-crawl4ai-diagnostic-failure-classification.md) is active at Q2B-PREP only:
+docs/canon, zero Docker execution, no inferred root cause. Q2B-STATIC requires a
+separate reviewed implementation stage; Q2B-DIAGNOSTIC-RUN requires separate explicit
+owner authorization for at most one isolated execution. Q2B-DECISION is unselected.
+Q3 and Q4 remain CLOSED; EF-03 remains OPEN / LIVE STAGING GATE PENDING, separately gated.
+
+Q0 candidate dispositions remain unchanged. SearXNG (`SEARCH_WEB`) has not executed
+Q2 and may receive an independent gate after the Crawl4AI diagnostic is resolved
+or explicitly stopped. OpenEnrich remains algorithm/pattern harvest only pending
+a dedicated license/security gate before runtime qualification or adoption.
+Code/pattern and architecture/source/concept harvest candidates do not inherit
+runtime-lab authority. The Q2B work package preserves the full disposition table.
+The broader Apollo, DataForSEO, Similarweb, Exa, Tavily, Firecrawl, Jina,
+AIsa-routed and research/model challenger universe remains separate from OSS
+harvest dispositions; no Q2 qualification or provider/public comparative READ is
+implied or authorized by PREP.
 
 ## Principle
 
