@@ -91,22 +91,27 @@ The `verify` job includes Docker-backed runtime packaging verification.
 Read `docs/work-packages/EF-02-reproducible-runtime-packaging.md` and
 `docs/engineering/RUNTIME_PACKAGING.md` for the frozen contract and evidence.
 
-EF-03 Staging Boundary is the currently authorized repo-owned implementation work package:
+EF-03 Staging Boundary remains OPEN — LIVE STAGING GATE PENDING:
 
 `docs/work-packages/EF-03-staging-boundary.md`
 
-Authorized branch:
-`feat/ef-03-staging-boundary`
-
-Authorized base:
-`d3a9a2360072abe423fca1be8bf945214c2097a2`
+Repo-owned implementation merged through PR #25 (final feature head
+`18f0acea9b20b223209661925f91737207420d48`) into protected `main` as
+`0137e4904758561611c2d3d504a459284657f64d`.
+Post-merge CI `36718588406` was green for `verify` and `postgres-foundation`.
+Live staging proof has not happened. The old implementation branch was deleted;
+feature-branch names are never long-lived deployment authority. Select an exact
+protected-main SHA with exact-head/post-merge CI evidence for any later live plan.
 
 Read `docs/engineering/STAGING_BOUNDARY.md` and
-`docs/research/EF-03_STAGING_PROVIDER_REVALIDATION_2026-09-29.md` before implementation.
+`docs/research/EF-03_STAGING_PROVIDER_REVALIDATION_2026-09-29.md` for the staging contract and research.
 
-Scope is staging manifests, secret-file/runtime hardening, deterministic preflight/sensors,
-rollback/kill-path tooling and a provider-neutral replaceable-host contract. Live Cloudflare,
-Neon, compute, DNS, registry push or staging deployment is NOT authorized by this repo-owned phase.
+The current bounded correction is pre-live hardening and canon synchronization only.
+The runbook separates pre-mutation frozen inputs from provider-generated outputs:
+Gate A materializes minimum resource/identity metadata, then stops for review;
+Gate B requires accepted Gate A evidence and a new explicit owner authorization for deploy/proof.
+Both live gates remain closed. Live Cloudflare, Neon, compute, DNS, registry push or staging
+deployment is NOT authorized by repo verification or this corrective work.
 No provider live call, Gmail live/outbound, queue/orchestrator selection, schema change or DCRM-06
 work is authorized.
 

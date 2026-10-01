@@ -229,5 +229,8 @@ test("CI keeps existing checks and runs staging verification after runtime verif
   const ci = read(".github/workflows/ci.yml");
   assert.match(ci, /run: pnpm harness:ci[\s\S]*run: pnpm runtime:verify[\s\S]*run: pnpm staging:verify/);
   assert.match(ci, /^  verify:/m); assert.match(ci, /^  postgres-foundation:/m);
+  const foundation = ci.match(/^  postgres-foundation:\r?\n(?:(?!^  \S)[\s\S])*/m)?.[0];
+  assert.ok(foundation, "postgres-foundation job required");
+  assert.match(foundation, /^    services:\r?\n      postgres:\r?\n        image: postgres:16-alpine@sha256:721873c34ceb9f8d8fc265984940dc982404c105f19ad51be9fdc5970a6080ea\r?$/m);
   for (const action of ci.matchAll(/uses: (\S+)/g)) assert.match(action[1], /@[a-f0-9]{40}$/);
 });
