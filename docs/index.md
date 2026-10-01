@@ -67,13 +67,35 @@ This index routes humans and agents to the current repository-owned context.
 - [DCRM-05A Capability Lab Harness](work-packages/DCRM-05A-capability-lab-harness.md) — completed/merged with post-merge CI green.
 - [DCRM-05B Provider Selection & Live Validation Readiness](work-packages/DCRM-05B-provider-selection-live-validation-readiness.md) — completed selection gate; AIsa/DataForSEO Business Listings selected, no live call made.
 - [DCRM-05C AIsa/DataForSEO Business Listings Live READ Validation](work-packages/DCRM-05C-aisa-dataforseo-business-listings-live-validation.md) — closed/merged with post-merge CI green; exact cell is `LIVE_VALIDATED_CAPABILITY`; no new live call authorized.
-- [DCRM-05D Prospecting Open-Source Harvest & Capability Qualification](work-packages/DCRM-05D-prospecting-oss-harvest-capability-qualification.md) — Q0 harvest CLOSED/GREEN; Q1 offline contract/eval implementation authorized; no live authority.
-- [DCRM-05D-Q1 Offline Prospecting Contracts & Evaluation Fixtures](work-packages/DCRM-05D-Q1-offline-prospecting-contracts-eval-fixtures.md) — active synthetic/no-network contract and golden-fixture gate before any OSS/provider lab.
+- [DCRM-05D Prospecting Open-Source Harvest & Capability Qualification](work-packages/DCRM-05D-prospecting-oss-harvest-capability-qualification.md) — Q0 and Q1 remain CLOSED/GREEN; Q2A static harness implemented, exact-head static CI green, outcome `LAB_BLOCKED`; no live authority.
+- [DCRM-05D-Q1 Offline Prospecting Contracts & Evaluation Fixtures](work-packages/DCRM-05D-Q1-offline-prospecting-contracts-eval-fixtures.md) — CLOSED/GREEN; synthetic/no-network contracts and goldens for 10 prospecting capability cells.
+- [DCRM-05D-Q2A Crawl4AI EXTRACT_WEB_PAGE Isolated Lab](work-packages/DCRM-05D-Q2A-crawl4ai-extract-web-page-isolated-lab.md) — `LAB_BLOCKED` after one valid isolated execution within the frozen safety boundary; exit 1 / `ERROR`, no facts; safe observation retained in the work package.
 - [EF-01A Executable Engineering Harness, Reproducible CI & Secret Safety](work-packages/EF-01A-executable-engineering-harness-ci-secret-safety.md) — closed/merged with post-merge CI green; no deploy.
 
 - [EF-01B Repository Governance & Branch Protection](work-packages/EF-01B-repository-governance-branch-protection.md) - closed/merged through protected `main` with post-merge CI green; no deploy.
 - [EF-02 Reproducible Runtime Packaging](work-packages/EF-02-reproducible-runtime-packaging.md) — closed/merged through protected `main` with post-merge CI green; no deploy.
 - [EF-03 Staging Boundary](work-packages/EF-03-staging-boundary.md) — implementation and pre-live hardening merged/green (PR #25 / #26); OPEN — LIVE STAGING GATE PENDING. Separately authorized read-only provider inspection precedes the frozen Gate A / Gate B plan.
+
+### Q2A observed checkpoint
+
+Q2A static harness is implemented at `2d7eee339ffbcc037b2f71bf0aaffc6ce39f43fe`.
+Exact-head GitHub CI `36862766423` is green in repository-authoritative Node 22:
+verify, runtime packaging, staging boundary without live effects and
+postgres-foundation all SUCCESS. Prior local `corepack pnpm harness:ci` FAILED
+CLOSED on Node 24.19.0 (Node 22 required); it was not PASS. The dedicated static
+sensor `node --test tooling/harness/crawl4ai-lab.test.mjs` passed 8, failed 0.
+
+One valid isolated Crawl4AI 0.9.4 execution after host executor preflight satisfied
+the frozen safety boundary, then exited 1 and normalized to `ERROR` with no facts.
+Outcome: `LAB_BLOCKED`, not `LAB_PASS`, `LAB_PARTIAL` or `LAB_REJECT`. Root cause
+is unresolved because candidate stderr was deliberately discarded, neither
+persisted nor printed. No internal cause is inferred.
+
+The blocked observation is retained in the Q2A work package. No successful lab
+evidence document exists. No boundary weakening or rerun is authorized by this
+documentation update. Q2B/Q3 remain closed. `LAB_BLOCKED` is neither candidate
+rejection, production adoption nor live validation. Crawl4AI is not promoted to a
+DROWK production dependency. EF-03 live remains unrelated and untouched.
 
 ## Migration
 
