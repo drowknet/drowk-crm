@@ -10,6 +10,7 @@ export * from "./interaction.js";
 export * from "./commitment.js";
 export * from "./relationship.js";
 export * from "./research.js";
+export * from "./prospecting.js";
 export * from "./policy.js";
 export * from "./work.js";
 export * from "./action.js";
