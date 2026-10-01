@@ -1,6 +1,24 @@
 # DCRM-05D-Q2A — Crawl4AI EXTRACT_WEB_PAGE Isolated Lab
 
-Status: AUTHORIZED / IMPLEMENTATION PENDING / NO LIVE PROVIDER AUTHORITY
+Status: STATIC HARNESS IMPLEMENTED / ACTUAL LAB EXECUTION PENDING / NO LIVE PROVIDER AUTHORITY
+
+Current stage is static/repo-owned only. The already-pulled image must not be pulled
+again; no Docker commands, container execution or network access are authorized in
+this stage. The later execution gate described below remains closed for this stage.
+No successful lab-evidence document or LAB_PASS is claimed. Q2B/Q3 remain closed.
+
+Implementation: `tooling/prospecting-lab/crawl4ai/`; static sensors:
+`tooling/harness/crawl4ai-lab.test.mjs`. The planner has no execution path; synthetic
+output doubles test result handling without claiming candidate execution.
+
+Static-stage validation on 2026-10-01: dedicated lab sensors passed (8 tests);
+combined lab/runtime/staging static tests passed (30 tests); `corepack pnpm
+harness:test` passed (63 tests); `corepack pnpm lint` passed. `corepack pnpm
+harness:ci` executed and failed closed: local Node is 24.19.0, while CI requires
+Node 22. Full `runtime:verify` and `staging:verify` were not executed because their
+implementations invoke Docker, forbidden in this stage. These static results are
+not substitutes for those gates or an actual candidate run. Commit remains pending
+all required gates; push remains blocked by this stage's no-network instruction.
 
 Parent:
 [DCRM-05D — Prospecting Open-Source Harvest & Capability Qualification](DCRM-05D-prospecting-oss-harvest-capability-qualification.md)

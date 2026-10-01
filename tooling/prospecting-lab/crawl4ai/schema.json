@@ -1,0 +1,10 @@
+{
+  "name": "synthetic-company",
+  "baseSelector": "main#synthetic-company[data-synthetic='true']",
+  "fields": [
+    { "name": "companyTitle", "selector": "h1", "type": "text" },
+    { "name": "facility", "selector": "p#facility", "type": "text" },
+    { "name": "service", "selector": "p#service", "type": "text" },
+    { "name": "procurementRoute", "selector": "a#procurement", "type": "attribute", "attribute": "href" }
+  ]
+}
