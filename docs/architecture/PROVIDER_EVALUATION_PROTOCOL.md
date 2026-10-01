@@ -144,6 +144,29 @@ The DROWK CRM adapter should preserve:
 
 Write-capabilities must be separately authorized from read-capabilities.
 
+## Open-source implementation qualification
+
+When the candidate is open-source software rather than a remote provider, the same capability-cell
+discipline applies plus these required facts:
+
+- exact repository and commit/tag/digest;
+- observed license and legal-review status;
+- dependency vs separate-service vs reimplemented-pattern disposition;
+- security posture and exposed egress/filesystem/browser surface;
+- upstream maintenance/release state;
+- resource footprint;
+- uninstall/replacement path;
+- whether the implementation can emit synthetic/guessed values;
+- whether it depends on authenticated browser sessions or prohibited platform automation.
+
+A repository README claim is `DOCUMENTED_CAPABILITY` at most.
+
+An open-source project is not promoted merely because it is self-hosted or free. A local service may
+still have rights, license, data-retention, security and operational obligations.
+
+For prospecting-specific candidates and prohibited LinkedIn surfaces, see
+[DCRM-05D](../work-packages/DCRM-05D-prospecting-oss-harvest-capability-qualification.md).
+
 ## Promotion
 
 Provider output enters Observation/Evidence first.
