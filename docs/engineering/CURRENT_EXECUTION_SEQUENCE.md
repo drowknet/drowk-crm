@@ -411,14 +411,25 @@ Status: OPEN / REPO IMPLEMENTATION MERGED / LIVE STAGING GATE PENDING.
 PR #25 final feature head: `18f0acea9b20b223209661925f91737207420d48`.
 Protected-main merge: `0137e4904758561611c2d3d504a459284657f64d`.
 Post-merge CI `36718588406` was green for `verify` and `postgres-foundation`.
+This is historical PR #25 implementation evidence, not the current deployment candidate.
+
+Pre-live hardening PR #26 is merged and post-merge green. The current protected-main
+candidate is `a6f41127de39256b4461a8e75a0bf2119e75afa3`; post-merge CI
+`36802547723` passed `verify` and `postgres-foundation`.
+A later docs-only protected-main merge becomes the candidate only after its green post-merge CI.
+Revalidate the exact selected SHA and CI before any operational stage.
 The old implementation branch was deleted; it is not a deployment identity.
 Feature-branch names must never become long-lived deployment authority. Engineering
 authority is an exact protected-main SHA plus exact-head/post-merge CI evidence.
 Re-verify that evidence for the selected SHA before a live gate; this historical
 checkpoint does not automatically authorize a later head or deployment.
 
-Current work is limited to pre-live hardening and canon synchronization. Live proof
-has not happened. The runbook freezes two separate owner gates:
+Repo implementation and pre-live hardening are complete/merged/green. After canon cleanup
+merges, revalidate the exact protected-main SHA/CI, perform separately owner-authorized read-only
+DigitalOcean/Neon/Cloudflare inspection, and freeze the exact plan from current provider evidence.
+Follow the runbook's ordered pre-live sequence through live proof, deep review and canon/post-merge
+closure. No inspection is authorized by this documentation stage. Live proof has not happened.
+The runbook freezes two separate owner gates:
 - Gate A: minimum resource/identity materialization, metadata-safe output capture, then STOP for review;
 - Gate B: only after Gate A evidence is accepted and a new explicit owner authorization exists,
   bounded image publication, deployment and proof.
@@ -438,14 +449,15 @@ Current reference staging shape:
 - `crm-staging.drowk.net`;
 - Cloudflare Access self-hosted app created before Tunnel route;
 - remotely managed Cloudflare Tunnel with no public origin HTTP port;
-- replaceable Linux Docker host, vendor-neutral;
+- replaceable Linux Docker host, vendor-neutral; DigitalOcean is the intended candidate to inspect,
+  with region/size/image/cost decisions pending current read-only evidence;
 - API + inert worker + cloudflared staging Compose;
 - managed PostgreSQL reference provider: Neon, direct TLS connection, no pooler in the first cell;
 - runtime secrets injected from files, never baked into images or committed;
 - GHCR is the intended image registry once a later live image-push gate is explicitly opened;
 - rollback uses previous immutable image digests; kill path can stop cloudflared/API/worker.
 
-Repo verification and pre-live hardening may test these surfaces but must not create Cloudflare,
+Repo verification and canon cleanup grant no authority to create Cloudflare,
 Neon, compute, DNS, registry packages, GitHub deployment secrets or any live staging resource.
 
 ### Foundation release gate — CLOSED
@@ -478,7 +490,7 @@ Current writer state:
 - EF-01A is closed and released to `main` through PR #18;
 - EF-01B is closed and released through protected `main`;
 - EF-02 is closed and released through protected `main` via PR #23;
-- EF-03 repo-owned implementation is merged through PR #25; full EF-03 remains OPEN;
+- EF-03 repo-owned implementation (PR #25) and pre-live hardening (PR #26) are merged/green; full EF-03 remains OPEN;
 - each bounded follow-up must verify its owner-authorized branch/base and assign one writer;
 - no feature branch is continuing deployment authority after merge;
 - EF-03 Gate A resource/identity materialization and Gate B deploy/proof each require explicit owner authorization;

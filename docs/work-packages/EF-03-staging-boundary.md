@@ -6,6 +6,13 @@ Repo-owned implementation merged through PR #25, final feature head
 `18f0acea9b20b223209661925f91737207420d48`.
 Protected-main merge: `0137e4904758561611c2d3d504a459284657f64d`.
 Post-merge CI `36718588406` was green for `verify` and `postgres-foundation`.
+This is historical PR #25 implementation evidence, not the current deployment candidate.
+
+Pre-live hardening PR #26 is merged and post-merge green. The current protected-main
+candidate is `a6f41127de39256b4461a8e75a0bf2119e75afa3`; post-merge CI
+`36802547723` passed `verify` and `postgres-foundation`.
+A later docs-only protected-main merge becomes the candidate only after its green post-merge CI.
+Revalidate the exact selected SHA and CI before any operational stage.
 The old implementation branch was deleted. Feature branches are never long-lived deployment
 authority; use an exact protected-main SHA and exact-head/post-merge CI evidence.
 Full EF-03 remains OPEN because live staging proof has not happened.
@@ -34,7 +41,8 @@ crm-staging.drowk.net
           -> inert drowk-worker (no network)
 ```
 
-Compute vendor remains intentionally replaceable and is selected only at the live gate.
+Compute remains replaceable. DigitalOcean is the intended first Linux-host candidate to inspect;
+exact region/size/image/cost choices require future owner-authorized read-only evidence.
 
 ## Merged repo-owned implementation scope
 
@@ -69,9 +77,9 @@ At minimum:
 
 ## Hard boundary
 
-The current correction is pre-live hardening and canon synchronization only. It includes the
-approved PostgreSQL 16 service digest in CI and a deterministic staging regression sensor.
-It authorizes no application/domain/schema edits or role split. The following live actions remain
+Pre-live hardening is complete through PR #26, including the approved PostgreSQL 16 service
+digest in CI and deterministic staging regression sensor. Canon cleanup authorizes only docs,
+with no application/domain/schema edits or role split. The following live actions remain
 closed unless separately authorized under the exact Gate A / Gate B plan below.
 
 DO NOT:
@@ -104,14 +112,16 @@ Required:
 - changed-file list;
 - proof that no external mutation or image push happened.
 
-For this bounded workflow/doc/sensor correction, run staging tests/verification and relevant
-CI-safe harness checks. Report environment-blocked Docker checks without repairing Docker/WSL
-or disk/Git maintenance; exact-head GitHub CI must establish the remaining CI evidence after push.
+For a docs-only canon stage, run diff/changed-file, stale-canon, local-link and secret checks plus
+relevant offline staging sensors. Full runtime checks above remain live-release evidence requirements;
+do not repair Docker/WSL or disk/Git maintenance for docs. Exact-head GitHub CI establishes CI evidence after push.
 Required checks remain `verify` and `postgres-foundation`. No dependency/lockfile change is needed.
 
 ## Live gate handoff
 
-Follow the [canonical two-gate runbook](../engineering/STAGING_BOUNDARY.md#live-gates--explicitly-closed).
+First revalidate protected-main SHA/CI, then perform separately owner-authorized read-only
+DigitalOcean/Neon/Cloudflare inspection and freeze the exact live plan from that evidence.
+Inspection is not authorized by canon cleanup. Follow the [canonical two-gate runbook](../engineering/STAGING_BOUNDARY.md#live-gates--explicitly-closed).
 Freeze the protected-main SHA/CI evidence, provider/resource/image names, regions, PostgreSQL 16,
 Postgres-only plan/compute class/cost ceiling, hostname, identity-policy intent, direct TLS strategy,
 secret source/path/UID/mode contract, migration, rollback/kill, smoke and abort/cleanup rules before
@@ -134,7 +144,7 @@ deploy; OCI revisions must equal the selected protected-main SHA.
 Before Gate B, freeze a least-privilege package-read identity, external credential source,
 host storage/injection and noninteractive login/pull mechanism, plus rotation/revocation/removal.
 Never assume anonymous private-package pull or print/commit a credential. Successful authenticated
-pull does not authorize deploy. No real credential is created during this corrective work.
+pull does not authorize deploy. Canon cleanup creates or retrieves no credential.
 
 The first proof keeps a single direct-TLS `DATABASE_URL_FILE` credential shared by API and explicit
 migration as a bounded FIRST-STAGING-PROOF exception, not a production security conclusion.

@@ -1,6 +1,14 @@
 # Cloudflare Checkpoint — DROWK CRM
 
-Status: OWNER-SUPPLIED INFRASTRUCTURE CHECKPOINT / NO DEPLOYMENT YET
+Status: HISTORICAL / SUPERSEDED FOR CURRENT EF-03 EXECUTION
+
+The owner-observed facts and then-open choices below are preserved as historical evidence,
+not current provider readiness or deployment authority. Current execution follows the
+[Staging Boundary runbook](../docs/engineering/STAGING_BOUNDARY.md),
+[architecture baseline](../docs/architecture/DROWK_ARCHITECTURE_BASELINE_V1_2026-09-28.md)
+and [staging bundle](staging/README.md): Access/Tunnel to replaceable Linux Docker compute
+and Neon direct TLS. Read-only provider inspection and both live gates require separate owner
+authorization. Revalidate current Cloudflare state; this checkpoint proves no current readiness.
 
 ## Observed owner-supplied state
 
@@ -11,7 +19,7 @@ The owner showed the Cloudflare dashboard for `drowk.net` with:
 - Cloudflare repository selection able to see `drowk-crm`;
 - no DROWK CRM app created/deployed yet.
 
-## Current decision
+## Historical decision at this checkpoint
 
 Do not create the Cloudflare application merely because repository access is configured.
 
@@ -36,7 +44,7 @@ Cloudflare may later own edge/web deployment, DNS/TLS and Access gates.
 
 Canonical CRM business state must not live in Cloudflare deployment configuration.
 
-## Architecture options still open
+## Architecture options then open
 
 A. Cloudflare frontend only + backend elsewhere.
 

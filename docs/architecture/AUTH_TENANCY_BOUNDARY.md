@@ -12,6 +12,20 @@ Tenant != User != Actor != Agent/Service Identity != Session != Run
 
 Do not collapse them into one generic user/session field.
 
+External operational identities are also separate from DROWK authentication identity.
+A provider login, professional-network login or commercial mailbox may belong to the same
+human without becoming interchangeable authority. See
+[External Identity and Dependency Boundary](EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md).
+
+Current owner-confirmed examples are intentionally distinct:
+- LinkedIn / Sales Navigator login: `asbrito@proton.me`;
+- Apollo account/connection: `drowknet@gmail.com`;
+- PWM commercial Google Workspace domain: `andersonpacificwestinc.net`.
+
+The exact PWM mailbox/sender address is connector configuration and is not inferred from the
+domain. None of these bindings, by itself, defines the DROWK User, tenant membership, CRM Person,
+sending authority or infrastructure ownership.
+
 ## Tenant
 
 A Tenant is a business/security/data boundary.

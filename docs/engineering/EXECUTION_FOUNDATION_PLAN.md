@@ -1,6 +1,6 @@
 # Execution Foundation Plan
 
-Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 CLOSED/GREEN — EF-03 ACTIVE / REPO IMPLEMENTATION AUTHORIZED / LIVE DEPLOY GATE CLOSED
+Status: ACTIVE SEQUENCE — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 CLOSED/GREEN — EF-03 OPEN / IMPLEMENTATION + PRE-LIVE HARDENING MERGED/GREEN / LIVE STAGING GATE PENDING
 
 Base architecture:
 `docs/architecture/DROWK_ARCHITECTURE_BASELINE_V1_2026-09-28.md`
@@ -93,7 +93,13 @@ Closure evidence:
 
 ### EF-03 — Staging Boundary
 
-Status: ACTIVE / REPO IMPLEMENTATION AUTHORIZED / LIVE PROVISIONING + IMAGE PUSH + DEPLOY NOT YET AUTHORIZED.
+Status: OPEN — LIVE STAGING GATE PENDING. Repo implementation (PR #25) and pre-live hardening (PR #26) are merged/green.
+
+Pre-live hardening PR #26 is merged and post-merge green. The current protected-main
+candidate is `a6f41127de39256b4461a8e75a0bf2119e75afa3`; post-merge CI
+`36802547723` passed `verify` and `postgres-foundation`.
+A later docs-only protected-main merge becomes the candidate only after its green post-merge CI.
+Revalidate the exact selected SHA and CI before any operational stage.
 
 Work package:
 `docs/work-packages/EF-03-staging-boundary.md`
@@ -114,8 +120,11 @@ Required outcomes:
 - explicit rollback/kill path;
 - deterministic preflight/sensors before any live apply.
 
-A later owner gate is still required before creating Cloudflare/Neon/compute/DNS resources,
-pushing images or executing the first staging deployment.
+Next: revalidate protected-main SHA/CI, then separately owner-authorized read-only
+DigitalOcean/Neon/Cloudflare inspection and freeze the exact live plan. Gate A resource/identity
+materialization requires fresh owner authorization and stops for evidence review. Gate B deploy/proof
+requires accepted Gate A evidence and separate new authorization. Live proof and canon/post-merge
+closure remain pending; follow the runbook for the complete sequence.
 
 ### EF-04 — Durable Execution
 
