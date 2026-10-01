@@ -99,7 +99,7 @@ Selected slices:
 - **DCRM-05A — Capability Lab Harness**: provider-neutral synthetic READ-only ResearchRun/ProviderRun harness, deterministic fingerprints, budgets, cost/result semantics and evaluation facts before live provider validation. CLOSED/GREEN.
 - **DCRM-05B — Provider Selection & Live Validation Readiness**: selected `AIsa REST -> DataForSEO Business Listings Search Live` for `FACILITY_LOCATION_DISCOVERY`; bounded READ-only envelope documented. CLOSED/SELECTED, NO LIVE CALL.
 - **DCRM-05C — AIsa/DataForSEO Business Listings Live READ Validation**: one bounded owner-authorized call completed, exact cell promoted to `LIVE_VALIDATED_CAPABILITY`, merged to `main`, post-merge CI green. CLOSED/GREEN.
-- **DCRM-05D — Prospecting Open-Source Harvest & Capability Qualification**: Q0 source/license harvest CLOSED/GREEN. Q1 offline contracts + synthetic evaluation fixtures are owner-authorized on a dedicated feature branch; no network/provider execution, dependency install, LinkedIn automation or live authority. Q2+ remain gated.
+- **DCRM-05D — Prospecting Open-Source Harvest & Capability Qualification**: Q0 source/license harvest CLOSED/GREEN; Q1 offline contracts/evals CLOSED/GREEN. Q2A Crawl4AI 0.9.4 + `EXTRACT_WEB_PAGE` isolated synthetic/raw Docker lab is owner-authorized with pinned digest and `--network none`; no public web crawl, LinkedIn, provider credential or production adoption authority. Q2B/Q3+ remain gated.
 
 The accumulated foundation through DCRM-05C is released to `main`. Broader AIsa capability
 discovery/evaluation remains workload-specific and does not inherit authority from the single
