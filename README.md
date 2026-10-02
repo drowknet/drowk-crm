@@ -1,10 +1,28 @@
 # DROWK CRM
 
-**Revenue Intelligence & Prospecting Operating System**
+**Evidence-first revenue intelligence and prospecting infrastructure for human-governed AI workflows.**
 
-DROWK CRM is a standalone CRM and prospecting platform designed around evidence, identity, signals, deterministic policy, human control, and auditable AI assistance.
+> **Project status:** Early alpha. The engineering foundation is active and tested, but the project is not yet a production-ready hosted CRM.
 
-## Core idea
+DROWK CRM is an open-source Revenue Intelligence & Prospecting Operating System built around a simple rule: **model output is not business truth, and model output is not execution authority**.
+
+The platform separates observations, evidence, identity, signals, judgment, policy, accepted CRM state, work, action, outcomes, and learning so AI-assisted workflows remain reviewable, attributable, and controllable.
+
+## Why DROWK CRM
+
+Many AI-assisted CRM workflows collapse research, inference, system-of-record state, and outbound execution into one pipeline. DROWK CRM intentionally keeps those layers separate.
+
+Core properties:
+
+- **Evidence before truth** — provider or model output is preserved as evidence before promotion into accepted CRM state.
+- **Human-governed action** — high-impact actions require deterministic policy authority and, by default, human approval.
+- **Provider independence** — external providers are adapters, not the system of record.
+- **Provenance and freshness** — source lineage and point-in-time knowledge are explicit.
+- **Fail-closed ambiguity** — uncertain identity or external effects do not become guessed success.
+- **Auditable execution** — material decisions and writes preserve actor, policy, run, and outcome lineage.
+- **Tenant isolation** — tenant-owned state and authorization boundaries are first-class.
+
+## Core flow
 
 ```text
 Sources
@@ -14,65 +32,130 @@ Sources
   -> Signals
   -> Judgment
   -> Policy
-  -> CRM Truth
+  -> Accepted CRM State
   -> Work
   -> Human / Bounded Action
   -> Outcomes
   -> Learning
 ```
 
-The product is intentionally provider-independent. Gmail, AIsa, LinkedIn, Apollo, web research, model providers, and future services are adapters and evidence sources — not systems of record.
+## What is implemented
 
-## Status
+The current repository includes:
 
-**Execution Foundation - EF-01A, EF-01B and EF-02 closed/green; EF-03 implementation and pre-live hardening merged/green; OPEN — LIVE STAGING GATE PENDING.**
+- canonical TypeScript contracts and domain models;
+- PostgreSQL persistence and forward-only migrations;
+- tenant and membership authorization foundations;
+- provider-neutral capability and research-run contracts;
+- a Gmail observation boundary with synthetic fixtures;
+- durable interaction, commitment, and relationship foundations;
+- deterministic work-engine behavior with regression tests;
+- provider capability evaluation and bounded live-validation contracts;
+- non-root API/worker runtime packaging;
+- local and staging-boundary verification harnesses;
+- protected-main governance verification;
+- secret-safety checks across tree and history;
+- reproducible CI and PostgreSQL integration tests.
 
-The core foundation through DCRM-05C is released to `main`. One exact
-AIsa/DataForSEO `FACILITY_LOCATION_DISCOVERY` cell is `LIVE_VALIDATED_CAPABILITY`;
-that validation does not generalize to other provider/capability cells.
+See the [knowledge index](docs/index.md) and [roadmap](docs/roadmap/ROADMAP.md) for the engineering detail.
 
-EF-01A is released on `main`: executable engineering harness, reproducible CI and secret
-safety are green after merge/post-merge CI. EF-01B is also released: `main` is protected,
-exact required checks are enforced, the live verifier passes, and PR #20 merged through the
-protected path with post-merge CI green. EF-02 is released on `main`: reproducible non-root API/worker
-packaging, runtime lifecycle/config sensors and disposable local Compose are green after protected-main
-merge/post-merge CI. EF-03 repo implementation (PR #25) and pre-live hardening (PR #26) are merged and post-merge green.
-Gate A, Gate B, live proof and closure evidence remain pending. Next comes separately owner-authorized
-read-only DigitalOcean/Neon/Cloudflare inspection, then an evidence-backed frozen plan and separate
-Gate A / Gate B authorizations. See the [staging runbook](docs/engineering/STAGING_BOUNDARY.md),
-[governance verifier](tooling/governance/README.md) and
-[owner runbook](docs/engineering/REPOSITORY_GOVERNANCE.md).
+## Architecture
 
-Start with:
-- [Knowledge Index](docs/index.md)
-- [Architecture Baseline v1](docs/architecture/DROWK_ARCHITECTURE_BASELINE_V1_2026-09-28.md)
-- [Execution Foundation Plan](docs/engineering/EXECUTION_FOUNDATION_PLAN.md)
+DROWK CRM is a monorepo with explicit dependency and authority boundaries.
+
+```text
+apps/          operator-facing applications
+services/      API and worker runtimes
+packages/      contracts, domain, DB, policy, observability
+connectors/    source/provider adapters
+capabilities/  bounded external capability adapters
+evals/         synthetic evaluation fixtures
+tooling/       harness, governance, runtime and staging verification
+infra/         deployment/staging contracts
+docs/          architecture, ADRs, roadmap and engineering canon
+```
+
+Important architecture references:
+
 - [System Architecture](docs/architecture/SYSTEM_ARCHITECTURE.md)
 - [Canonical Data Model](docs/architecture/CANONICAL_DATA_MODEL.md)
-- [Roadmap](docs/roadmap/ROADMAP.md)
-- [PWM_CRM Extraction Plan](docs/migration/PWM_CRM_EXTRACTION_PLAN.md)
-- [Cross-Repository Reference Harvest](docs/reference-harvest/README.md)
+- [Capability Model](docs/architecture/CAPABILITY_MODEL.md)
+- [Auth & Tenancy Boundary](docs/architecture/AUTH_TENANCY_BOUNDARY.md)
+- [Security Baseline](docs/security/SECURITY_BASELINE.md)
+- [ADRs](docs/adr/)
 
-## Canonical engineering home
+## Quick start
 
-`drowknet/drowk-crm` is the only authorized implementation repository for DROWK CRM.
+### Requirements
 
-Other DROWK repositories may inform design but are not implementation targets or runtime dependencies.
+- Node.js 22
+- pnpm 10.17.1
+- PostgreSQL 16 for integration tests
+- Docker/Compose for documented runtime and staging verification paths
 
-## Infrastructure direction
+Install:
 
-- `drowk.com` — DROWK brand/corporate identity.
-- `drowk.net` — DROWK systems namespace.
-- `crm.drowk.net` — approved production namespace direction for DROWK CRM.
-- GitHub — engineering/version canon.
-- PostgreSQL — canonical durable business datastore.
-- Cloudflare — intended edge/deployment/access layer; no CRM application has been deployed yet.
-- Apps Script/Gmail — migration/source connector, not long-term system of record.
+```bash
+pnpm install --frozen-lockfile
+```
 
-## Safety
+Run the fast repository harness:
 
-- Never commit secrets, tokens, credentials, mailbox exports, CRM exports, customer/prospect datasets, or raw tenant evidence.
-- High-impact actions require explicit policy authority and, by default, human approval.
-- AI models may research, extract, classify, summarize, draft, and recommend; they do not own business truth or execution authority.
-- Source provenance, freshness, idempotency, and auditability are first-class requirements.
-- Model output is not verified output.
+```bash
+pnpm harness:fast
+```
+
+Run the repository-authoritative CI harness:
+
+```bash
+pnpm harness:ci
+```
+
+Run runtime and staging-boundary verification:
+
+```bash
+pnpm runtime:verify
+pnpm staging:verify
+```
+
+The repository intentionally fails closed when required runtime or security conditions are missing.
+
+## Development model
+
+`main` is protected. Material changes should move through pull requests and required checks.
+
+The project uses:
+
+- pinned GitHub Actions;
+- frozen dependency installation in CI;
+- synthetic fixtures rather than tenant data;
+- explicit security and provider boundaries;
+- regression/golden tests for durable behavior;
+- ADRs for material architecture decisions.
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing implementation changes.
+
+## Security
+
+Never commit credentials, OAuth/session material, mailbox exports, CRM exports, production dumps, customer/prospect datasets, or tenant PII.
+
+Security reports should follow [SECURITY.md](SECURITY.md). The project threat model is documented in [docs/security/SECURITY_BASELINE.md](docs/security/SECURITY_BASELINE.md).
+
+## Roadmap
+
+The roadmap is developed incrementally, with each capability required to carry evidence through tests, sensors, or explicit owner gates before promotion.
+
+See [docs/roadmap/ROADMAP.md](docs/roadmap/ROADMAP.md).
+
+## Contributing
+
+Contributions are welcome. Start with:
+
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [GOVERNANCE.md](GOVERNANCE.md)
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- [SUPPORT.md](SUPPORT.md)
+
+## License
+
+Licensed under the [Apache License 2.0](LICENSE).
