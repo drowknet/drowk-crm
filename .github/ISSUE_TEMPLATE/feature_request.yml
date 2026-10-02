@@ -1,0 +1,38 @@
+name: Feature request
+description: Propose a capability or improvement
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user or maintainer problem should be solved?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed outcome
+      description: Describe the desired behavior without assuming a specific implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Security, authority, or data boundaries
+      description: Note any impact on providers, external actions, credentials, tenant isolation, evidence provenance, or accepted CRM state.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: principles
+    attributes:
+      label: Project principles
+      options:
+        - label: The proposal can preserve evidence provenance and auditability.
+          required: true
+        - label: The proposal does not require model output to become execution authority.
+          required: true
