@@ -69,6 +69,7 @@ export function plan(mode) {
   ];
   return [
     ["node", "tooling/harness/secrets.mjs", "all"],
+    ["node", "tooling/harness/public-oss.mjs"],
     ["pnpm", "harness:test"], ["pnpm", "lint"], ["pnpm", "typecheck"],
     ...(mode === "fast" ? [] : [["pnpm", "test"]]),
   ];
