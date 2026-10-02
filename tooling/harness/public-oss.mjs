@@ -14,9 +14,11 @@ export const publicOssPatterns = [
 ];
 
 const textExtensions = new Set([".md", ".json", ".yml", ".yaml", ".mjs", ".js", ".ts", ".sql", ".txt", ".example"]);
+const detectorFixtures = new Set(["tooling/harness/public-oss.mjs", "tooling/harness/public-oss.test.mjs"]);
 
 export function trackedTextPaths(root) {
   return git(root, ["ls-files", "-z"]).split("\0").filter(Boolean)
+    .filter(path => !detectorFixtures.has(path))
     .filter(path => textExtensions.has(extname(path)) || path.endsWith(".env.example"));
 }
 
