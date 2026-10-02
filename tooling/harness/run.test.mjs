@@ -30,6 +30,7 @@ test("plans have no recursive graph; ci is full; integration preserves every fou
   assert.deepEqual(plan("full").slice(0, -1), plan("fast"));
   assert.deepEqual(plan("ci")[0], ["node", "tooling/harness/secrets.mjs", "all"]);
   assert.deepEqual(plan("ci")[1], ["node", "tooling/harness/public-oss.mjs"]);
+  assert.deepEqual(plan("ci")[2], ["node", "tooling/harness/docs-links.mjs"]);
   assert.deepEqual(plan("full").at(-1), ["pnpm", "test"]);
   assert.throws(() => plan("live"));
   for (const mode of ["preflight", "fast", "full", "ci", "integration"]) {
