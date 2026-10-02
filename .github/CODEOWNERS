@@ -1,0 +1,12 @@
+# Default ownership
+* @drowknet
+
+# Security-sensitive areas
+/services/ @drowknet
+/connectors/ @drowknet
+/capabilities/ @drowknet
+/packages/db/ @drowknet
+/packages/policy/ @drowknet
+/tooling/ @drowknet
+/.github/ @drowknet
+/SECURITY.md @drowknet
