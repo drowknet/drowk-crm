@@ -139,6 +139,8 @@ The project uses:
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing implementation changes.
 
+The root workspace remains `private: true` in `package.json` to prevent accidental npm publication. That package-manager safeguard does not change the repository's Apache-2.0 source license.
+
 ## Security
 
 Never commit credentials, OAuth/session material, mailbox exports, CRM exports, production dumps, customer/prospect datasets, or tenant PII.
