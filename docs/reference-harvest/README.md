@@ -21,12 +21,10 @@ Branches were also checked for unique ahead-of-main work. The only materially re
 
 ## Harvest documents
 
-- [Pinned source manifest](source-manifest-2026-09-27.json) — repositories, heads, source files/blob SHAs and branch audit.
 - [DROWK Platform transfer](drowk-platform-transfer.md) — canonical state, identity, signals, idempotency, temporal lineage, harness, CI and provider patterns.
 - [Invoice Builder transfer](invoice-builder-transfer.md) — session/workspace/deployment lessons and explicit non-transfer items.
 - [Open-source pattern transfer](open-source-patterns-transfer.md) — prior-art inventory and adoption boundaries.
 - [OSCI Stage 0 transfer](osci-stage0-transfer.md) — dlt/Splink/libpostal/Overture/OpenAddresses benchmark state.
-- [Access Revocation Handoff](ACCESS_REVOCATION_HANDOFF.md) — what is now safe to lose broad repository access to.
 - [Prospecting Open-Source Harvest — 2026-10-01](PROSPECTING_OSS_HARVEST_2026-10-01.md) — later public-repository harvest for DCRM-05D; exact upstream SHAs/licenses/dispositions and prospecting capability boundaries. This is separate from the original private/internal access-revocation harvest.
 
 ## What was harvested
