@@ -2,7 +2,8 @@
 
 Status: CANONICAL OPERATING BOUNDARY
 
-Owner-confirmed operational bindings: 2026-09-30.
+Identity references originally recorded: 2026-09-30.
+Configuration-state correction: 2026-10-01.
 
 ## Purpose
 
@@ -23,15 +24,23 @@ DROWK User / Actor
 A shared human owner does not make the credentials, permissions, authority or failure domains
 interchangeable.
 
-## Current owner-confirmed external bindings
+## Known external identity references and configuration state
 
-The following bindings are operational facts, not canonical identity equivalence:
+An identity/account reference is not proof that a DROWK connector/provider is configured.
+Use the state vocabulary below and do not infer authentication, scope or authority from an email,
+plugin installation or historical binding.
 
-| Surface | Current identity/binding | Intended role |
-|---|---|---|
-| LinkedIn / Sales Navigator | `asbrito@proton.me` | owner access to LinkedIn and professional-network evidence |
-| Apollo | `drowknet@gmail.com` | current Apollo account/connection used for prospecting-provider access |
-| PWM Google Workspace / Gmail | `andersonpacificwestinc.net` | PWM commercial communication domain and future Gmail evidence/outbound channel |
+| Surface | Known identity/reference | Current DROWK configuration state | Intended role |
+|---|---|---|---|
+| LinkedIn / Sales Navigator | `asbrito@proton.me` | identity reference only; no live automation authority from this document | owner access to professional-network evidence |
+| Apollo | previously recorded: `drowknet@gmail.com` | **UNCONFIGURED** | future prospecting-provider access; separate from EF-03 infrastructure |
+| PWM Google Workspace / Gmail | `andersonpacificwestinc.net` | domain reference only; exact mailbox/configuration not frozen here | PWM commercial communication domain and future Gmail evidence/outbound channel |
+
+Configuration vocabulary:
+- **available/installed**: a tool or integration exists; says nothing about account auth or DROWK setup;
+- **connected**: a bounded connection/authentication has been verified; still does not imply DROWK project configuration or authority;
+- **configured**: DROWK-specific account/project/resource binding has been explicitly established and reviewed;
+- **authorized**: the owner has permitted an exact read/write/live action; configuration alone never grants it.
 
 The exact PWM mailbox/sender address is not frozen in this document because it has not been
 specified here. Do not infer or invent a local-part from the domain.
@@ -140,9 +149,11 @@ Never infer the sender from:
 
 ### Apollo
 
-The current Apollo connection is associated with `drowknet@gmail.com`.
+A previously recorded Apollo account identity is `drowknet@gmail.com`. The DROWK Apollo
+integration is currently **UNCONFIGURED**. The identity reference does not prove an active,
+authenticated or validated provider connection and grants no live provider authority.
 
-This is a provider-account binding only. It does not:
+If Apollo is configured later, that provider-account binding still does not:
 - become the PWM commercial sender;
 - establish the owner's LinkedIn identity;
 - authorize Apollo WRITE/SEND capabilities;

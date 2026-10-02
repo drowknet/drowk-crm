@@ -37,9 +37,12 @@ exact required checks are enforced, the live verifier passes, and PR #20 merged 
 protected path with post-merge CI green. EF-02 is released on `main`: reproducible non-root API/worker
 packaging, runtime lifecycle/config sensors and disposable local Compose are green after protected-main
 merge/post-merge CI. EF-03 repo implementation (PR #25) and pre-live hardening (PR #26) are merged and post-merge green.
-Gate A, Gate B, live proof and closure evidence remain pending. Next comes separately owner-authorized
-read-only DigitalOcean/Neon/Cloudflare inspection, then an evidence-backed frozen plan and separate
-Gate A / Gate B authorizations. See the [staging runbook](docs/engineering/STAGING_BOUNDARY.md),
+Gate A, Gate B, live proof and closure evidence remain pending. DigitalOcean and Neon are currently
+**UNCONFIGURED for DROWK**. Apollo is also **UNCONFIGURED for DROWK** and is not an EF-03
+infrastructure dependency. Plugin/tool availability does not establish account configuration or
+live authority. After canon/process hardening is reviewed and merged, a separate owner gate may
+authorize read-only DigitalOcean/Neon/Cloudflare discovery before an evidence-backed frozen live
+plan and separate Gate A / Gate B authorizations. See the [staging runbook](docs/engineering/STAGING_BOUNDARY.md),
 [governance verifier](tooling/governance/README.md) and
 [owner runbook](docs/engineering/REPOSITORY_GOVERNANCE.md).
 

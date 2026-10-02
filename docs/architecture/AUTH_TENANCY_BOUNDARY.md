@@ -17,10 +17,14 @@ A provider login, professional-network login or commercial mailbox may belong to
 human without becoming interchangeable authority. See
 [External Identity and Dependency Boundary](EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md).
 
-Current owner-confirmed examples are intentionally distinct:
-- LinkedIn / Sales Navigator login: `asbrito@proton.me`;
-- Apollo account/connection: `drowknet@gmail.com`;
+Known external identity references are intentionally distinct from configuration state:
+- LinkedIn / Sales Navigator login reference: `asbrito@proton.me`;
+- previously recorded Apollo account identity: `drowknet@gmail.com`; DROWK Apollo integration is
+  currently **UNCONFIGURED**;
 - PWM commercial Google Workspace domain: `andersonpacificwestinc.net`.
+
+An identity reference, installed plugin or available connector does not prove a configured DROWK
+provider binding or live authority.
 
 The exact PWM mailbox/sender address is connector configuration and is not inferred from the
 domain. None of these bindings, by itself, defines the DROWK User, tenant membership, CRM Person,

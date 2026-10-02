@@ -91,12 +91,16 @@ Each research run should have:
 Capability bindings must not use one generic email identity for provider access, human identity
 and outbound sender identity.
 
-Current owner-confirmed operational bindings are recorded in
+External identity references and provider configuration semantics are recorded in
 [External Identity and Dependency Boundary](EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md).
 In particular:
-- Apollo is currently connected through `drowknet@gmail.com`;
-- LinkedIn / Sales Navigator uses `asbrito@proton.me`;
+- a previously recorded Apollo account identity is `drowknet@gmail.com`, but the DROWK Apollo
+  integration is currently **UNCONFIGURED**;
+- LinkedIn / Sales Navigator uses the recorded login reference `asbrito@proton.me`;
 - PWM commercial Gmail belongs to the `andersonpacificwestinc.net` Google Workspace domain.
+
+Tool/plugin availability and account identifiers do not establish provider configuration, and
+provider configuration does not grant READ/WRITE/live authority.
 
 These are independent provider/channel bindings. A provider used for research does not select or
 authorize a commercial sender. Provider-account credentials must be independently revocable and
