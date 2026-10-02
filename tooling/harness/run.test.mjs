@@ -28,6 +28,8 @@ test("ordinary modes cannot inherit DB integration or live provider authority", 
 test("plans have no recursive graph; ci is full; integration preserves every foundation sensor", () => {
   assert.deepEqual(plan("ci"), plan("full"));
   assert.deepEqual(plan("full").slice(0, -1), plan("fast"));
+  assert.deepEqual(plan("ci")[0], ["node", "tooling/harness/secrets.mjs", "all"]);
+  assert.deepEqual(plan("ci")[1], ["node", "tooling/harness/public-oss.mjs"]);
   assert.deepEqual(plan("full").at(-1), ["pnpm", "test"]);
   assert.throws(() => plan("live"));
   for (const mode of ["preflight", "fast", "full", "ci", "integration"]) {
