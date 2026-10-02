@@ -44,7 +44,7 @@ This index routes humans and agents to the current repository-owned context.
 
 - [Codex Start Here](engineering/CODEX_START_HERE.md) — concise local entrypoint for Codex sessions.
 - [Codex Orchestration](engineering/CODEX_ORCHESTRATION.md) — scoped AGENTS, subagent workcells and one-writer discipline.
-- [Current Execution Sequence](engineering/CURRENT_EXECUTION_SEQUENCE.md) — active PWM -> DROWK bridge and next implementation gate.
+- [Current Execution Sequence](engineering/CURRENT_EXECUTION_SEQUENCE.md) — current DROWK engineering state, authority boundaries and historical execution record.
 - [Execution Foundation Plan](engineering/EXECUTION_FOUNDATION_PLAN.md) — ordered post-05C hardening sequence and explicit deferred gates.
 - [Runtime Packaging](engineering/RUNTIME_PACKAGING.md) — EF-02 closed/green container/runtime contract, local Compose boundary and deterministic packaging sensors.
 - [Staging Boundary](engineering/STAGING_BOUNDARY.md) — EF-03 staging topology, secret injection, live gates, rollback and kill path.
@@ -75,7 +75,7 @@ This index routes humans and agents to the current repository-owned context.
 
 - [EF-01B Repository Governance & Branch Protection](work-packages/EF-01B-repository-governance-branch-protection.md) - closed/merged through protected `main` with post-merge CI green; no deploy.
 - [EF-02 Reproducible Runtime Packaging](work-packages/EF-02-reproducible-runtime-packaging.md) — closed/merged through protected `main` with post-merge CI green; no deploy.
-- [EF-03 Staging Boundary](work-packages/EF-03-staging-boundary.md) — implementation and pre-live hardening merged/green (PR #25 / #26); OPEN — LIVE STAGING GATE PENDING. Separately authorized read-only provider inspection precedes the frozen Gate A / Gate B plan.
+- [EF-03 Staging Boundary](work-packages/EF-03-staging-boundary.md) — implementation and pre-live hardening merged/green (PR #25 / #26); OPEN — LIVE STAGING GATE PENDING. DigitalOcean/Neon are unconfigured for DROWK; provider discovery remains separately owner-authorized and precedes any frozen Gate A / Gate B plan.
 
 ### Q2A observed checkpoint
 

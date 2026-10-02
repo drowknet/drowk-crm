@@ -309,9 +309,10 @@ Downstream dependencies:
 
 DCRM-06/07 remain responsible for product/domain behavior; this package must not absorb BuyerRole, ProcurementRoute, Relationship or outbound authority into provider adapters.
 
-## Relationship to active EF-03 stream
+## Relationship to open EF-03 stream
 
-EF-03 remains the active Execution Foundation live-staging gate.
+EF-03 remains the open Execution Foundation staging stream. Gate A, Gate B and all live provider,
+infrastructure, image-push, DNS and deployment actions remain closed until separately authorized.
 
 DCRM-05D Q0 documentation may be merged independently because it has no live/runtime effect.
 Q1+ implementation/lab work is not implicitly authorized and must not be confused with EF-03 Gate A/B.
