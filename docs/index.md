@@ -33,7 +33,7 @@ This index routes humans and agents to the current repository-owned context.
 - [Engineering Harness Model](architecture/ENGINEERING_HARNESS_MODEL.md) — Guides, Sensors, gates and proof-carrying work.
 - [Memory / Agent / Trace Model](architecture/MEMORY_AGENT_TRACE_MODEL.md) — memory classes, trace and durable work.
 - [Auth & Tenancy Boundary](architecture/AUTH_TENANCY_BOUNDARY.md) — user/tenant/session/agent identity separation.
-- [External Identity and Dependency Boundary](architecture/EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md) — owner-confirmed LinkedIn/Apollo/PWM channel bindings and the rule that PWM Gmail is not a DROWK infrastructure root of trust.
+- [External Identity and Dependency Boundary](architecture/EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md) — owner-confirmed LinkedIn/Apollo/PWM channel bindings and the rule that tenant Gmail is not a DROWK infrastructure root of trust.
 - [DROWK Domain Topology](architecture/DROWK_DOMAIN_TOPOLOGY.md) — drowk.com vs drowk.net vs product/vertical domains.
 - [Repository Structure](architecture/REPOSITORY_STRUCTURE.md) — executable monorepo boundaries and dependency direction.
 
@@ -99,7 +99,7 @@ DROWK production dependency. EF-03 live remains unrelated and untouched.
 
 ## Migration
 
-- [PWM_CRM Extraction Plan](migration/PWM_CRM_EXTRACTION_PLAN.md) — preservation-first extraction from D: source system.
+- [legacy CRM source Extraction Plan](migration/legacy CRM source_EXTRACTION_PLAN.md) — preservation-first extraction from D: source system.
 
 ## Roadmap
 
@@ -149,4 +149,4 @@ Repository documents own DROWK CRM engineering consequences.
 
 External/current provider behavior, pricing, API availability, security advisories and product documentation are time-sensitive and must be revalidated when used.
 
-PWM_CRM live implementation/runtime evidence remains on the owner-controlled D: workspace and is not silently replaced by this documentation.
+legacy CRM source live implementation/runtime evidence remains on the owner-controlled D: workspace and is not silently replaced by this documentation.
