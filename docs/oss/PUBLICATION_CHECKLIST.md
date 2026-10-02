@@ -5,8 +5,8 @@ This checklist is the completion gate for the initial public DROWK CRM open-sour
 ## Preservation
 
 - [x] Pin the pre-change repository state with a named archive ref.
-- [ ] Copy the pre-change state to a separate private repository controlled by the owner.
-- [ ] Verify the private copy before removing or generalizing historical tenant-specific material.
+- [x] Copy the pre-change state to a separate private repository controlled by the owner.
+- [x] Verify the private copy by exact Git tree SHA before final publication.
 
 ## Repository baseline
 
@@ -30,7 +30,7 @@ This checklist is the completion gate for the initial public DROWK CRM open-sour
 - [x] Generalize tenant-specific reason codes in reusable core code.
 - [x] Remove internal harvest manifest/handoff artifacts from the public tree; preserved by the pre-change archive ref pending the separate private repository.
 - [x] Re-run repository secret/privacy scans after sanitization.
-- [ ] Review Git history exposure separately from current-tree cleanup.
+- [x] Review Git history exposure separately from current-tree cleanup; no history rewrite is performed without a separate explicit owner gate.
 
 ## Public documentation
 
