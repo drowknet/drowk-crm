@@ -1,6 +1,6 @@
 # PWM WP-02 -> DCRM-04A deterministic parity
 
-Source oracle (read only): `D:\Workspace\Projects\PWM\PWM_CRM` at
+Source oracle (read only): `<owner-controlled legacy source workspace>` at
 `main` / `775e0a52ceed63c9be9b756a2735e031265358a6`.
 The PWM runtime closure records 131/131 synthetic behavior checks and a 93-item
 read-only runtime verification. DCRM-04A does not invoke Apps Script or reproduce
