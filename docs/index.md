@@ -129,14 +129,12 @@ DROWK production dependency. EF-03 live remains unrelated and untouched.
 These files make DROWK CRM self-contained after broad GitHub access is narrowed:
 
 - [Harvest overview](reference-harvest/README.md)
-- [Pinned source manifest](reference-harvest/source-manifest-2026-09-27.json)
 - [DROWK Platform transfer](reference-harvest/drowk-platform-transfer.md)
 - [Invoice Builder transfer](reference-harvest/invoice-builder-transfer.md)
 - [Open-source pattern transfer](reference-harvest/open-source-patterns-transfer.md)
 - [OSCI Stage 0 transfer](reference-harvest/osci-stage0-transfer.md) — preserved unmerged benchmark findings
 - [Legacy WP-03 Local Audit](reference-harvest/legacy-wp03-local-audit-2026-09-26.md) — reconciled legacy draft against the later checkpoint
 - [Legacy WP-02 Work Engine Transfer](reference-harvest/legacy-wp02-work-engine-transfer.md) — preserved state, authority, precedence and idempotency semantics
-- [Access revocation handoff](reference-harvest/ACCESS_REVOCATION_HANDOFF.md)
 
 ## Infrastructure
 
