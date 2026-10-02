@@ -116,11 +116,12 @@ Repo-owned implementation merged through PR #25 (final feature head
 Post-merge CI `36718588406` was green for `verify` and `postgres-foundation`.
 This is historical PR #25 implementation evidence, not the current deployment candidate.
 
-Pre-live hardening PR #26 is merged and post-merge green. The current protected-main
-candidate is `a6f41127de39256b4461a8e75a0bf2119e75afa3`; post-merge CI
-`36802547723` passed `verify` and `postgres-foundation`.
-A later docs-only protected-main merge becomes the candidate only after its green post-merge CI.
-Revalidate the exact selected SHA and CI before any operational stage.
+Pre-live hardening PR #26 merged as `a6f41127de39256b4461a8e75a0bf2119e75afa3`;
+post-merge CI `36802547723` passed `verify` and `postgres-foundation`. That SHA is the
+last explicitly EF-03-hardened checkpoint, not a current deployment selection. Protected
+`main` has advanced since then. No EF-03 deployment candidate is selected by this document.
+Any later live plan must select an exact protected-main SHA and revalidate exact-head/post-merge
+CI immediately before operational use.
 Live staging proof has not happened. The old implementation branch was deleted;
 feature-branch names are never long-lived deployment authority. Select an exact
 protected-main SHA with exact-head/post-merge CI evidence for any later live plan.
@@ -128,9 +129,10 @@ protected-main SHA with exact-head/post-merge CI evidence for any later live pla
 Read `docs/engineering/STAGING_BOUNDARY.md` and
 `docs/research/EF-03_STAGING_PROVIDER_REVALIDATION_2026-09-29.md` for the staging contract and research.
 
-Implementation and pre-live hardening are complete. After canon cleanup merges, revalidate the
-protected-main SHA/CI, then obtain separate owner authorization for read-only DigitalOcean, Neon
-and Cloudflare inspection. Freeze the live plan from that evidence before requesting Gate A.
+Implementation and pre-live hardening are complete. DigitalOcean and Neon are currently
+UNCONFIGURED for DROWK; tool/plugin availability is not configuration evidence. After the current
+canon/process hardening is accepted and merged, revalidate the protected-main SHA/CI, then obtain
+separate owner authorization before any read-only DigitalOcean, Neon or Cloudflare discovery. Freeze the live plan from that evidence before requesting Gate A.
 The runbook separates pre-mutation frozen inputs from provider-generated outputs:
 Gate A materializes minimum resource/identity metadata, then stops for review;
 Gate B requires accepted Gate A evidence and a new explicit owner authorization for deploy/proof.

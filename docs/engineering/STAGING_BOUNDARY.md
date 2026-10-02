@@ -11,11 +11,11 @@ Repo-owned implementation merged through PR #25, final feature head
 Post-merge CI `36718588406` was green for `verify` and `postgres-foundation`.
 This is historical PR #25 implementation evidence, not the current deployment candidate.
 
-Pre-live hardening PR #26 is merged and post-merge green. The current protected-main
-candidate is `a6f41127de39256b4461a8e75a0bf2119e75afa3`; post-merge CI
-`36802547723` passed `verify` and `postgres-foundation`.
-A later docs-only protected-main merge becomes the candidate only after its green post-merge CI.
-Revalidate the exact selected SHA and CI before any operational stage.
+Pre-live hardening PR #26 merged as `a6f41127de39256b4461a8e75a0bf2119e75afa3`;
+post-merge CI `36802547723` passed `verify` and `postgres-foundation`. That SHA is the
+last explicitly EF-03-hardened checkpoint, not a current deployment selection. Protected `main`
+has advanced since then. No EF-03 deployment candidate is selected by this runbook; a future live
+plan must select an exact protected-main SHA and revalidate exact-head/post-merge CI.
 Full EF-03 remains OPEN because live staging proof has not happened.
 The old implementation branch was deleted. Feature branches are not long-lived deployment
 authority: the exact selected protected-main SHA and exact-head/post-merge CI are authoritative.
@@ -244,10 +244,16 @@ merge SHA only with green post-merge CI; do not assume the recorded candidate st
 
 ## Next operational sequence
 
-After canon cleanup is merged, the next operational work is ordered as follows:
+DigitalOcean and Neon are currently **UNCONFIGURED for DROWK**. Plugin/tool availability,
+authentication experiments or historical provider references do not establish project configuration.
+Apollo is also UNCONFIGURED and is not part of the EF-03 infrastructure dependency chain.
+
+After the current canon/process hardening is accepted and merged, the next operational work is
+ordered as follows:
 
 1. Revalidate the exact protected-main SHA and exact-head/post-merge CI evidence.
-2. Obtain separate explicit owner authorization for **READ-ONLY provider inspection**, then inspect:
+2. Obtain separate explicit owner authorization for **READ-ONLY provider discovery/inspection**,
+   treating DigitalOcean and Neon as unconfigured starting state; then inspect:
    - DigitalOcean account identity, limits, current droplets, regions, sizes, distribution image
      options and cost-relevant metadata;
    - Neon current account/project state, region/plan and direct-connection options;

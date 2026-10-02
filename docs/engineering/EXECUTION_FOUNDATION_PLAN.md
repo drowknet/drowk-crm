@@ -95,11 +95,11 @@ Closure evidence:
 
 Status: OPEN — LIVE STAGING GATE PENDING. Repo implementation (PR #25) and pre-live hardening (PR #26) are merged/green.
 
-Pre-live hardening PR #26 is merged and post-merge green. The current protected-main
-candidate is `a6f41127de39256b4461a8e75a0bf2119e75afa3`; post-merge CI
-`36802547723` passed `verify` and `postgres-foundation`.
-A later docs-only protected-main merge becomes the candidate only after its green post-merge CI.
-Revalidate the exact selected SHA and CI before any operational stage.
+Pre-live hardening PR #26 merged as `a6f41127de39256b4461a8e75a0bf2119e75afa3`;
+post-merge CI `36802547723` passed `verify` and `postgres-foundation`. That SHA is the
+last explicitly EF-03-hardened checkpoint, not a current deployment selection. Protected `main`
+has advanced; no EF-03 deployment candidate is selected here. A future live plan must select and
+revalidate an exact protected-main SHA immediately before use.
 
 Work package:
 `docs/work-packages/EF-03-staging-boundary.md`
@@ -120,8 +120,10 @@ Required outcomes:
 - explicit rollback/kill path;
 - deterministic preflight/sensors before any live apply.
 
-Next: revalidate protected-main SHA/CI, then separately owner-authorized read-only
-DigitalOcean/Neon/Cloudflare inspection and freeze the exact live plan. Gate A resource/identity
+DigitalOcean and Neon are currently UNCONFIGURED for DROWK. Apollo is UNCONFIGURED and is not
+an EF-03 infrastructure dependency. After the current canon/process hardening is accepted and
+merged: revalidate protected-main SHA/CI, then obtain separate owner authorization before any
+read-only DigitalOcean/Neon/Cloudflare discovery and freeze the exact live plan. Gate A resource/identity
 materialization requires fresh owner authorization and stops for evidence review. Gate B deploy/proof
 requires accepted Gate A evidence and separate new authorization. Live proof and canon/post-merge
 closure remain pending; follow the runbook for the complete sequence.

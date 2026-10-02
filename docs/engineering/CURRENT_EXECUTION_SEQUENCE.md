@@ -1,9 +1,29 @@
-# Current Execution Sequence — PWM -> DROWK Bridge
+# Current Execution Sequence — DROWK CRM
 
 Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 CLOSED/GREEN — EF-03 OPEN / REPO IMPLEMENTATION MERGED / LIVE STAGING GATE PENDING
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
 Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
+
+## Current-state reading rule
+
+Only the explicit current-state/authority blocks at the top of this document describe present
+operational state. Completed gates and checkpoints retained below are historical records even if
+their original wording contained "active" or "current". Historical text never grants present
+authority. GitHub remote state, owner-local workspace state, tool availability, provider
+configuration and owner authorization are separate evidence planes; see
+[State & Authority Semantics](STATE_AND_AUTHORITY_SEMANTICS.md).
+
+Current provider readiness confirmed by the owner on 2026-10-01:
+- DigitalOcean: **UNCONFIGURED for DROWK**; no live read/write authority.
+- Neon: **UNCONFIGURED for DROWK**; no live read/write authority.
+- Apollo: **UNCONFIGURED for DROWK**; prospecting/provider stream only, not an EF-03
+  infrastructure dependency; no live provider authority.
+- Cloudflare staging account/resource readiness is not established by this correction; EF-03 live
+  authority remains closed.
+
+The unmerged branch `feat/dcrm-05d-q2b-crawl4ai-diagnostic-lab` is a working branch, not
+protected-main canon. Protected `main` still keeps Q2B/Q3 closed until a later reviewed merge.
 
 ## Parallel research/canon note — DCRM-05D
 
@@ -13,7 +33,8 @@ A separate docs-only prospecting open-source harvest is defined in
 It records future capability qualification inputs for DCRM-06/07 and does **not** change the active
 Execution Foundation sequence. EF-03 remains OPEN / LIVE STAGING GATE PENDING.
 
-DCRM-05D Q0 and Q1 remain CLOSED/GREEN. Q2A branch: `feat/dcrm-05d-q2a-crawl4ai-extract-lab`.
+DCRM-05D Q0 and Q1 remain CLOSED/GREEN. Historical Q2A branch
+`feat/dcrm-05d-q2a-crawl4ai-extract-lab` was deleted after merge and is not current authority.
 
 Q2A static harness is implemented at `2d7eee339ffbcc037b2f71bf0aaffc6ce39f43fe`.
 Exact-head GitHub CI `36862766423` is green in repository-authoritative Node 22:
@@ -160,7 +181,7 @@ ChatGPT then:
 - [CLOSED] JEV/model and Gmail writer paths inside deterministic compilation;
 - [DEFERRED] durable/atomic Work persistence writer remains a later explicit gate.
 
-### Current checkpoint — executable relationship-memory gap
+### Historical checkpoint — executable relationship-memory gap
 
 Repository inspection after DCRM-04A closure shows the product canon is ahead of
 the executable relationship model.
@@ -375,9 +396,9 @@ Closure evidence:
 - executable harness modes, real lint, frozen-lockfile CI, immutable Action commit pins and redacted tree/history secret sensors are released on `main`;
 - no deploy, external provider call, Gmail live or outbound occurred.
 
-### Active gate - EF-01B Repository Governance & Branch Protection
+### Historical gate — EF-01B Repository Governance & Branch Protection
 
-Status: ACTIVE - REPO-OWNED IMPLEMENTATION COMPLETE - CLOSED/GREEN.
+Status: HISTORICAL / CLOSED/GREEN — implementation, governance apply, merge and post-merge evidence completed.
 
 Authorized branch: `feat/ef-01b-repository-governance`; base:
 `c74cb8415fee6e550661d5a64645e5320763110d`. The exact policy, GET-only verifier
@@ -386,8 +407,9 @@ and synthetic governance tests are implemented under `tooling/governance/`.
 No GitHub administration state has been changed by this implementation.
 
 [Work package](../work-packages/EF-01B-repository-governance-branch-protection.md) and
-[owner runbook](REPOSITORY_GOVERNANCE.md). Owner admin apply, live verification,
-independent metadata review, protected merge and post-merge CI remain pending.
+[owner runbook](REPOSITORY_GOVERNANCE.md). The implementation-era "pending" language is
+historical; owner admin apply, live verification, protected merge and post-merge CI were completed
+as recorded in the closed evidence below.
 
 Closed EF-01B evidence:
 - PR #20 final head `563e2043bcdf4e2eb94bb1916c430f91b5659905`;
@@ -433,7 +455,7 @@ Closure evidence:
 
 EF-03 repo implementation is merged; live staging proof remains separately gated.
 
-### Active gate — EF-03 Staging Boundary
+### Current open stream — EF-03 Staging Boundary (live gates closed)
 
 Status: OPEN / REPO IMPLEMENTATION MERGED / LIVE STAGING GATE PENDING.
 
@@ -442,20 +464,21 @@ Protected-main merge: `0137e4904758561611c2d3d504a459284657f64d`.
 Post-merge CI `36718588406` was green for `verify` and `postgres-foundation`.
 This is historical PR #25 implementation evidence, not the current deployment candidate.
 
-Pre-live hardening PR #26 is merged and post-merge green. The current protected-main
-candidate is `a6f41127de39256b4461a8e75a0bf2119e75afa3`; post-merge CI
-`36802547723` passed `verify` and `postgres-foundation`.
-A later docs-only protected-main merge becomes the candidate only after its green post-merge CI.
-Revalidate the exact selected SHA and CI before any operational stage.
+Pre-live hardening PR #26 merged as `a6f41127de39256b4461a8e75a0bf2119e75afa3`;
+post-merge CI `36802547723` passed `verify` and `postgres-foundation`. This is the last
+explicitly EF-03-hardened checkpoint, not a current deployment selection. Protected `main`
+advanced afterward. No EF-03 deployment candidate is selected here; select and revalidate an exact
+protected-main SHA only when a later live plan is explicitly opened.
 The old implementation branch was deleted; it is not a deployment identity.
 Feature-branch names must never become long-lived deployment authority. Engineering
 authority is an exact protected-main SHA plus exact-head/post-merge CI evidence.
 Re-verify that evidence for the selected SHA before a live gate; this historical
 checkpoint does not automatically authorize a later head or deployment.
 
-Repo implementation and pre-live hardening are complete/merged/green. After canon cleanup
-merges, revalidate the exact protected-main SHA/CI, perform separately owner-authorized read-only
-DigitalOcean/Neon/Cloudflare inspection, and freeze the exact plan from current provider evidence.
+Repo implementation and pre-live hardening are complete/merged/green. DigitalOcean and Neon
+are currently UNCONFIGURED for DROWK. After the current canon/process hardening is accepted and
+merged, revalidate the exact protected-main SHA/CI; only then may a separate owner gate authorize
+read-only DigitalOcean/Neon/Cloudflare discovery and a frozen plan from current provider evidence.
 Follow the runbook's ordered pre-live sequence through live proof, deep review and canon/post-merge
 closure. No inspection is authorized by this documentation stage. Live proof has not happened.
 The runbook freezes two separate owner gates:

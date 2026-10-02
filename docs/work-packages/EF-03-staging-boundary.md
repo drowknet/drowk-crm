@@ -8,11 +8,11 @@ Protected-main merge: `0137e4904758561611c2d3d504a459284657f64d`.
 Post-merge CI `36718588406` was green for `verify` and `postgres-foundation`.
 This is historical PR #25 implementation evidence, not the current deployment candidate.
 
-Pre-live hardening PR #26 is merged and post-merge green. The current protected-main
-candidate is `a6f41127de39256b4461a8e75a0bf2119e75afa3`; post-merge CI
-`36802547723` passed `verify` and `postgres-foundation`.
-A later docs-only protected-main merge becomes the candidate only after its green post-merge CI.
-Revalidate the exact selected SHA and CI before any operational stage.
+Pre-live hardening PR #26 merged as `a6f41127de39256b4461a8e75a0bf2119e75afa3`;
+post-merge CI `36802547723` passed `verify` and `postgres-foundation`. This is the last
+explicitly EF-03-hardened checkpoint, not a current deployment selection. Protected `main`
+advanced afterward. No EF-03 deployment candidate is selected by this work package; select and
+revalidate an exact protected-main SHA only inside a later explicitly authorized live plan.
 The old implementation branch was deleted. Feature branches are never long-lived deployment
 authority; use an exact protected-main SHA and exact-head/post-merge CI evidence.
 Full EF-03 remains OPEN because live staging proof has not happened.
@@ -119,8 +119,10 @@ Required checks remain `verify` and `postgres-foundation`. No dependency/lockfil
 
 ## Live gate handoff
 
-First revalidate protected-main SHA/CI, then perform separately owner-authorized read-only
-DigitalOcean/Neon/Cloudflare inspection and freeze the exact live plan from that evidence.
+DigitalOcean and Neon are currently UNCONFIGURED for DROWK; Apollo is UNCONFIGURED and is not
+an EF-03 infrastructure dependency. After the current canon/process hardening is accepted and
+merged, first revalidate protected-main SHA/CI, then perform separately owner-authorized read-only
+DigitalOcean/Neon/Cloudflare discovery/inspection and freeze the exact live plan from that evidence.
 Inspection is not authorized by canon cleanup. Follow the [canonical two-gate runbook](../engineering/STAGING_BOUNDARY.md#live-gates--explicitly-closed).
 Freeze the protected-main SHA/CI evidence, provider/resource/image names, regions, PostgreSQL 16,
 Postgres-only plan/compute class/cost ceiling, hostname, identity-policy intent, direct TLS strategy,
