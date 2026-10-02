@@ -243,7 +243,7 @@ Fixture data must be entirely synthetic/reserved-example data.
 No real:
 - prospect email;
 - LinkedIn profile;
-- PWM contact;
+- legacy reference contact;
 - Apollo response;
 - Gmail content;
 - provider secret;
