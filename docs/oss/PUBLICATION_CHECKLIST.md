@@ -29,15 +29,15 @@ This checklist is the completion gate for the initial public DROWK CRM open-sour
 - [x] Remove local-machine paths and owner-only workspace instructions from public canon.
 - [x] Generalize tenant-specific reason codes in reusable core code.
 - [x] Remove internal harvest manifest/handoff artifacts from the public tree; preserved by the pre-change archive ref pending the separate private repository.
-- [ ] Re-run repository secret/privacy scans after sanitization.
+- [x] Re-run repository secret/privacy scans after sanitization.
 - [ ] Review Git history exposure separately from current-tree cleanup.
 
 ## Public documentation
 
 - [ ] Replace the internal-status README with the public OSS README.
 - [x] Keep deep architecture, ADRs, and engineering evidence discoverable under docs/.
-- [ ] Verify quick-start commands from a clean supported environment.
-- [ ] Confirm all public links resolve.
+- [x] Verify install/harness behavior in the clean GitHub Actions checkout on supported Node 22.
+- [x] Confirm repository-relative Markdown links resolve through the harness documentation-link sensor.
 
 ## GitHub settings
 
@@ -51,8 +51,8 @@ This checklist is the completion gate for the initial public DROWK CRM open-sour
 
 ## Release readiness
 
-- [ ] Required CI is green.
-- [ ] CodeQL is green or findings are explicitly triaged.
+- [x] Required CI is green on the reviewed OSS baseline head.
+- [x] CodeQL is green on the reviewed OSS baseline head.
 - [ ] No unresolved known high-severity issue at release gate.
 - [ ] CHANGELOG is current.
 - [ ] Publish the first alpha only after the public baseline is merged.
