@@ -2,7 +2,7 @@
 
 Status: DESIGN INPUT, not final database schema.
 
-This model intentionally combines PWM_CRM lessons with transferable patterns harvested from earlier DROWK engineering. Names and relationships remain subject to DCRM-00 contract review before database implementation.
+This model intentionally combines legacy CRM source lessons with transferable patterns harvested from earlier DROWK engineering. Names and relationships remain subject to DCRM-00 contract review before database implementation.
 
 ## Point-in-time knowledge
 
