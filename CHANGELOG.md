@@ -1,27 +1,41 @@
 # Changelog
 
-All notable public changes to DROWK CRM will be documented here.
+All notable public changes to DROWK CRM are documented here.
 
-The project intends to follow Semantic Versioning once public versioned releases begin.
+The project follows Semantic Versioning for public versioned releases.
 
 ## [Unreleased]
 
+## [0.1.0-alpha.1] - 2026-10-02
+
 ### Added
 
-- Public open-source community and security baseline.
-- Explicit Apache-2.0 licensing.
-- Contribution, governance, support, and conduct documentation.
-- GitHub issue and pull-request templates.
-- Dependency and security automation baseline.
+- Public open-source community, governance, support, and security baseline.
+- Apache License 2.0 licensing and repository package metadata.
+- Public-facing README and project architecture entrypoints.
+- GitHub issue forms, pull-request template, and CODEOWNERS.
+- Dependabot configuration and CodeQL analysis.
+- Repository-owned public-OSS privacy sensor.
+- Repository-owned internal Markdown-link sensor.
 
 ### Changed
 
-- Public-facing project documentation is being separated from tenant-specific and historical engineering context.
+- Public-facing documentation and reusable domain semantics were generalized away from tenant-specific identifiers and local-machine paths.
+- Tenant-specific migration/reference artifacts were renamed or removed from the public tree where they were not appropriate for OSS consumers.
 
 ### Security
 
-- Public vulnerability reporting and repository threat-model guidance are being formalized.
+- Added public vulnerability-reporting guidance and a repository threat-model entrypoint.
+- Added CodeQL to the review and main-branch workflow.
+- Preserved the pre-OSS file tree in a separately verified private archive before public sanitization.
+- Confirmed protected-main CI, runtime packaging, staging-boundary verification, PostgreSQL foundation, and CodeQL were green for the OSS baseline merge.
+
+### Known limitations
+
+- This is an early alpha engineering checkpoint, not a production-ready hosted CRM.
+- Live provider credentials, tenant data, production deployment, and high-impact external actions remain outside this release.
+- GitHub-hosted Dependency Review remains deferred until Dependency Graph is enabled for the repository.
 
 ## Release policy
 
-Early releases may use prerelease identifiers such as `0.1.0-alpha.1`. A release is not considered stable merely because it has a version tag.
+Prereleases such as `0.1.0-alpha.1` are public engineering checkpoints and are not production-readiness claims.
