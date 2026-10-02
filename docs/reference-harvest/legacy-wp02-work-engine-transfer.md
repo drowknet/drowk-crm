@@ -1,8 +1,8 @@
-# PWM WP-02 Work Engine Transfer
+# Legacy source WP-02 Work Engine Transfer
 
 Status: PRESERVED DOMAIN INPUT
 
-The PWM Work/Next Action Engine is not legacy UI glue. It contains tested domain
+The Legacy source Work/Next Action Engine is not legacy UI glue. It contains tested domain
 semantics that DROWK CRM should preserve unless an explicit later decision changes
 them.
 
@@ -106,7 +106,7 @@ Preserve at least the semantics of:
 - MISSING_SNOOZE_DATE
 - MISSING_CONTACT
 - PURSUIT_BLOCKED
-- COMMERCIAL_EXCLUSION_EXISTING_PWM
+- COMMERCIAL_EXCLUSION_EXISTING_ACCOUNT
 - COMMERCIAL_EXCLUSION_HOLD
 - EXCLUSION_RECONCILIATION
 

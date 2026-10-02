@@ -1,16 +1,16 @@
-# PWM WP-03 Local Audit and Checkpoint Reconciliation — 2026-09-26
+# Legacy source WP-03 Local Audit and Checkpoint Reconciliation — 2026-09-26
 
 Status: AUTHORITATIVE EXTRACTION INPUT FOR DROWK CRM
 
 ## Sources reconciled
 
 This note reconciles:
-1. the committed PWM WP-03 spec at local main `775e0a5`;
+1. the committed Legacy source WP-03 spec at local main `775e0a5`;
 2. the untracked local draft files reported by the read-only Codex audit:
    - `CRM_Gmail_Incremental_A1.js`
-   - `PWM_Gmail_Incremental_Verification_A1.js`
+   - `Legacy source_Gmail_Incremental_Verification_A1.js`
    - `harness/wp03-regression.mjs`;
-3. the later `PWM_CONTINUIDADE_FULL_2026-09-26` checkpoint supplied by the owner.
+3. the later `Legacy source_CONTINUIDADE_FULL_2026-09-26` checkpoint supplied by the owner.
 
 The later checkpoint supersedes older WP-03 assumptions where they conflict.
 
@@ -83,7 +83,7 @@ Gmail
 
 Source capture and Core promotion are separate operations with separate authority.
 
-## PWM source rule
+## Legacy source source rule
 
 Do not rewrite or delete the old local draft while extracting it. Preserve it as
 legacy implementation evidence until DROWK parity/golden tests exist.

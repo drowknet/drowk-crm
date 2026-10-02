@@ -1,12 +1,12 @@
-# DCRM-00B Closure — PWM Extraction Bridge
+# DCRM-00B Closure — legacy reference Extraction Bridge
 
 Status: CLOSED / SOURCE-TARGET ALIGNED
 Closed from owner-supplied local Codex evidence.
 
-## Local PWM state used
+## Local legacy reference state used
 
 Observed source checkout:
-- repository: `D:\Workspace\Projects\PWM\PWM_CRM`
+- repository: `<owner-controlled legacy source workspace>`
 - HEAD before local alignment: `775e0a52ceed63c9be9b756a2735e031265358a6`
 - WP-03 implementation/verifier/regression were local untracked draft artifacts.
 
@@ -62,7 +62,7 @@ The local source and DROWK target now agree on:
 DCRM-00B is closed.
 
 The canonical development stream resumes in `drowknet/drowk-crm`.
-PWM_CRM remains a preservation/regression oracle and must not evolve as a parallel
+legacy CRM source remains a preservation/regression oracle and must not evolve as a parallel
 product.
 
 Next active gate: DCRM-01A PostgreSQL execution and persistence foundation.

@@ -33,7 +33,7 @@ Source: `docs/adr/0002-deterministic-vs-ai-execution.md`.
 
 ### DROWK CRM adoption
 
-This matches the PWM lessons and remains a core invariant.
+This matches the legacy-source lessons and remains a core invariant.
 
 ## 3. Runtime neutrality
 
@@ -121,7 +121,7 @@ Source: `packages/database/migrations/0001_canonical_core.sql`.
 
 ### DROWK CRM adoption
 
-The object families are valuable prior art, but the CRM must not copy this migration as its final schema. It needs additional concepts from PWM:
+The object families are valuable prior art, but the CRM must not copy this migration as its final schema. It needs additional concepts from legacy reference:
 - Tenant/User;
 - Identity/IdentityCandidate;
 - Conversation/ActivityParticipant;
@@ -141,7 +141,7 @@ pgvector must remain optional until a measured retrieval requirement exists.
 
 ### Source-derived
 
-The PWM reality-baseline contract in the platform preserved source-native IDs, source hashes/version, timestamps and exact source semantics while explicitly separating source fact from canonical DROWK truth.
+The legacy reference reality-baseline contract in the platform preserved source-native IDs, source hashes/version, timestamps and exact source semantics while explicitly separating source fact from canonical DROWK truth.
 
 Notable invariants:
 - source-native ID != canonical ID;
@@ -151,11 +151,11 @@ Notable invariants:
 - missing field != negative fact;
 - UNKNOWN != NO.
 
-Source: `docs/architecture/pwm-reality-baseline-data-contract-v0.1.md`.
+Source: `docs/architecture/legacy reference-reality-baseline-data-contract-v0.1.md`.
 
 ### DROWK CRM adoption
 
-This pattern directly informs Gmail/PWM migration and all external provider adapters.
+This pattern directly informs Gmail/legacy reference migration and all external provider adapters.
 
 ## 8. External-data governance
 
@@ -489,7 +489,7 @@ Sources:
 
 ### DROWK CRM adoption
 
-DROWK CRM should use an analogous typed resolution decision for Gmail participants, imported PWM identities, Apollo/LinkedIn candidates and facility/account crosswalks.
+DROWK CRM should use an analogous typed resolution decision for Gmail participants, imported legacy reference identities, Apollo/LinkedIn candidates and facility/account crosswalks.
 
 Preserve:
 - explicit unresolved states;

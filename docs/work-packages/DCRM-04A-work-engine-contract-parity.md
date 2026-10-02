@@ -19,7 +19,7 @@ Non-blocking later gate:
 
 ## Objective
 
-Port the proven deterministic PWM Work Engine semantics into DROWK TypeScript
+Port the proven deterministic Legacy Work Engine semantics into DROWK TypeScript
 without carrying Sheet/App Script implementation details.
 
 ## Product/research guardrails
@@ -40,7 +40,7 @@ A future Commitment may cause Work, but this compiler must not fabricate a
 Commitment from ambiguous communication or mark external fulfillment merely because
 an internal WorkItem/Task completed.
 
-If a PWM golden case proves an obligation/follow-up source, preserve its source,
+If a legacy reference golden case proves an obligation/follow-up source, preserve its source,
 reason, timing and authority semantics in Work without inventing a richer relationship
 object than the fixture proves.
 
@@ -60,7 +60,7 @@ Preserve:
 
 ## Required golden cases
 
-Extract the PWM WP-02 regression suite into synthetic DROWK fixtures, including:
+Extract the Legacy WP-02 regression suite into synthetic DROWK fixtures, including:
 - inbound reply -> REVIEW_REPLY;
 - vendor registration ordering;
 - future known date -> SCHEDULED;
@@ -105,7 +105,7 @@ Already preserved in DROWK contracts/schema:
 Still required before DCRM-04A can close:
 - deterministic Work compiler implementation;
 - explicit source-precedence/conflict behavior;
-- PWM WP-02 golden fixture extraction;
+- Legacy WP-02 golden fixture extraction;
 - idempotency/supersession behavioral sensors;
 - proof that deterministic compilation has no JEV/model or Gmail-write path.
 

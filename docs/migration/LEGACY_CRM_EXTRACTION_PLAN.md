@@ -1,17 +1,17 @@
-# PWM_CRM Extraction and Migration Plan
+# Legacy CRM Source Extraction and Migration Plan
 
 Status: PRESERVATION-FIRST
 
 ## Objective
 
-Use the existing PWM_CRM implementation as a reference implementation and source system while extracting reusable domain logic into DROWK CRM.
+Use the existing legacy CRM source implementation as a reference implementation and source system while extracting reusable domain logic into DROWK CRM.
 
 This is not a rewrite-from-memory project.
 
 ## Preserve first
 
 Before migration or replacement:
-- preserve Git history of the existing PWM_CRM repo;
+- preserve Git history of the existing legacy CRM source repo;
 - preserve current Apps Script source;
 - preserve schemas and column semantics;
 - preserve source IDs;
@@ -47,7 +47,7 @@ The migration should evaluate and preserve, where still valid:
 - autonomy levels
 - Golden Set / regression cases
 
-## Architecture corrections learned from PWM
+## Architecture corrections learned from reference tenant
 
 DROWK CRM should encode these lessons from the start:
 - Draft != Sent.
@@ -72,7 +72,7 @@ Produce a machine-readable inventory of source modules, sheets, globals, runtime
 Classify each source element:
 - reusable domain logic;
 - Google-specific connector logic;
-- tenant/PWM-specific configuration;
+- tenant/tenant-specific configuration;
 - migration-only artifact;
 - obsolete/superseded logic.
 
@@ -82,7 +82,7 @@ Create golden tests that reproduce known good behavior before replacing implemen
 ### Phase D — Evidence-first Gmail connector
 Port Gmail synchronization as a source/evidence connector before Core promotion.
 
-The 2026-09-26 PWM checkpoint is authoritative over the older direct Gmail-to-Core WP-03 draft where they conflict.
+The 2026-09-26 legacy checkpoint is authoritative over the older direct Gmail-to-Core WP-03 draft where they conflict.
 
 Preserve/adapt from the local WP-03 draft:
 - decimal History cursor comparison;
@@ -98,7 +98,7 @@ Do not port unchanged:
 - SPAM exclusion as a relevance rule;
 - From=owned identity as proof of SENT.
 
-See `docs/reference-harvest/pwm-wp03-local-audit-2026-09-26.md`.
+See `docs/reference-harvest/legacy-wp03-local-audit-2026-09-26.md`.
 
 ### Phase E — CRM truth migration
 Migrate canonical entities preserving source IDs and lineage.
@@ -107,7 +107,7 @@ Migrate canonical entities preserving source IDs and lineage.
 Reproduce Work Engine outputs and compare deterministic fingerprints.
 
 ### Phase G — Tenant configuration
-Move PWM-specific:
+Move tenant-specific:
 - service taxonomy;
 - lexicon;
 - commercial exclusion policies;

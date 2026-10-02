@@ -29,7 +29,7 @@ While DCRM-04A is active:
 - do not add new provider/runtime dependencies because of this research;
 - do not replace deterministic Work semantics with agent frameworks;
 - do not open Gmail/live-provider/outbound/deployment authority;
-- keep PWM_CRM as the read-only regression/source oracle already defined by the active WP.
+- keep legacy CRM source as the read-only regression/source oracle already defined by the active WP.
 
 Re-evaluate relevant candidates only after DCRM-04A parity is reviewed and green.
 

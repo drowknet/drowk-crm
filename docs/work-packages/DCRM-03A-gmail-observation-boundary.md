@@ -2,7 +2,7 @@
 
 Status: CLOSED — MERGED + POST-MERGE CI GREEN
 Parent: `foundation/drowk-crm-00`
-Legacy reference: `docs/reference-harvest/pwm-wp03-local-audit-2026-09-26.md`
+Legacy reference: `docs/reference-harvest/legacy-wp03-local-audit-2026-09-26.md`
 
 ## Closure evidence
 
@@ -33,7 +33,7 @@ It does **not** make Gmail live.
 
 ## Objective
 
-Close the remaining synthetic Gmail observation boundary proven by PWM WP-03:
+Close the remaining synthetic Gmail observation boundary proven by Legacy WP-03:
 
 `Gmail source state -> SourceObservation -> technical/relevance candidate -> promotion candidate boundary`
 

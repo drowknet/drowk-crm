@@ -18,11 +18,11 @@ human without becoming interchangeable authority. See
 [External Identity and Dependency Boundary](EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md).
 
 Current owner-confirmed examples are intentionally distinct:
-- LinkedIn / Sales Navigator login: `asbrito@proton.me`;
-- Apollo account/connection: `drowknet@gmail.com`;
-- PWM commercial Google Workspace domain: `andersonpacificwestinc.net`.
+- LinkedIn / Sales Navigator login: `network-account@example.invalid`;
+- Apollo account/connection: `provider-account@example.invalid`;
+- legacy reference commercial Google Workspace domain: `tenant-workspace.example.invalid`.
 
-The exact PWM mailbox/sender address is connector configuration and is not inferred from the
+The exact legacy reference mailbox/sender address is connector configuration and is not inferred from the
 domain. None of these bindings, by itself, defines the DROWK User, tenant membership, CRM Person,
 sending authority or infrastructure ownership.
 
@@ -42,7 +42,7 @@ Tenant owns or scopes:
 - Work;
 - audit/access rules.
 
-Initial reference migration may use PWM/Pacific West as a tenant, subject to actual data ownership and authorization.
+Initial reference migration may use reference tenant as a tenant, subject to actual data ownership and authorization.
 
 ## User / Actor
 

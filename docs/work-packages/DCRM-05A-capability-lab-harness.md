@@ -292,5 +292,5 @@ DCRM-05A may close only when:
 Once handed off on a dedicated feature branch:
 - Codex is sole implementation writer;
 - ChatGPT reviews GitHub and does not edit implementation surfaces;
-- PWM_CRM remains read-only unless a concrete legacy question requires inspection;
+- legacy CRM source remains read-only unless a concrete legacy question requires inspection;
 - no live provider, merge, deploy or outbound action without explicit owner gate.

@@ -306,6 +306,6 @@ Once the dedicated DCRM-04B feature branch is handed to Codex:
 
 - Codex is the sole implementation writer on that branch;
 - ChatGPT reviews GitHub and does not edit the same implementation surfaces;
-- PWM_CRM remains read-only and is not required as an oracle for this package
+- legacy CRM source remains read-only and is not required as an oracle for this package
   unless a concrete legacy behavior question arises;
 - no merge, deploy or live-provider action without explicit owner gate.

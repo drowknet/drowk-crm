@@ -99,7 +99,8 @@ Record at minimum:
 - run ID;
 - failure state.
 
-## Public repo note
+## Public repository note
 
-Whether the repository is private or public may change over time; security controls
-must never depend on repository privacy.
+This repository is public. Security controls must never depend on repository privacy.
+Deployment credentials, tenant data, provider tokens, private operational context, and other
+sensitive material must remain outside the repository even if visibility changes later.

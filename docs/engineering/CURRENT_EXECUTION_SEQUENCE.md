@@ -1,9 +1,9 @@
-# Current Execution Sequence — PWM -> DROWK Bridge
+# Current Execution Sequence — legacy reference -> DROWK Bridge
 
 Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 CLOSED/GREEN — EF-03 OPEN / REPO IMPLEMENTATION MERGED / LIVE STAGING GATE PENDING
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
-Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
+Legacy/source repository: <owner-controlled legacy source workspace> (read-only by default)
 
 ## Parallel research/canon note — DCRM-05D
 
@@ -39,7 +39,7 @@ DROWK production dependency. EF-03 live remains unrelated and untouched.
 There is one engineering stream, not two independent projects.
 
 ```text
-PWM_CRM on D:
+legacy CRM source on D:
   source/reference/extraction
         ↓
 verified Codex local findings
@@ -51,22 +51,22 @@ drowk-crm contracts/tests/migrations
 new executable product
 ```
 
-The local PWM repository is not a second product branch. It exists to preserve,
+The local legacy reference repository is not a second product branch. It exists to preserve,
 audit and extract proven behavior into DROWK CRM.
 
-## Closed gate: DCRM-00B — PWM extraction bridge
+## Closed gate: DCRM-00B — legacy reference extraction bridge
 
 The local WP-03 source ambiguity is closed. See
 `docs/engineering/DCRM-00B_CLOSURE.md`.
 
 The canonical stream has resumed in DROWK CRM.
 
-### Step 1 — Local PWM alignment
+### Step 1 — Local legacy reference alignment
 
 On the owner machine:
 
 1. verify machine/user/path/Git state;
-2. place the authoritative 2026-09-26 WP-03 checkpoint in the PWM repo;
+2. place the authoritative 2026-09-26 WP-03 checkpoint in the legacy reference repo;
 3. give Codex the local rebase/extraction task;
 4. allow only local/static/synthetic edits and tests;
 5. no Gmail/Sheets/Apps Script writer runtime;
@@ -92,7 +92,7 @@ ChatGPT then:
 - compares local evidence to the DROWK WP-03 extraction note;
 - updates DROWK contracts/golden tests where the source proves useful behavior;
 - records any remaining legacy-only behavior;
-- decides whether the PWM local patch should be committed as preservation history;
+- decides whether the legacy reference local patch should be committed as preservation history;
 - closes DCRM-00B when source and target semantics are aligned.
 
 ### Completed — DCRM-01A / DCRM-01B
@@ -153,7 +153,7 @@ ChatGPT then:
 - [DONE] merge commit `79594c5377d779685466c591aab8c0f5200cca12`;
 - [DONE] exact-head CI `36363387085` green;
 - [DONE] post-merge CI `36364058535` green;
-- [DONE] deterministic compiler, source precedence/conflicts, PWM WP-02 goldens,
+- [DONE] deterministic compiler, source precedence/conflicts, Legacy WP-02 goldens,
   idempotency/supersession and authority sensors proven;
 - [DONE] date-only `dueDate` preserves policy calendar dates without invented
   midnight timestamps;
@@ -526,7 +526,7 @@ Current writer state:
 - no additional live request or credential use is authorized;
 - post-merge CI is green; deployment remains closed;
 - DROWK CRM remains the canonical implementation surface;
-- PWM local files remain preservation/regression reference only unless a new
+- legacy reference local files remain preservation/regression reference only unless a new
   explicit extraction gate is opened.
 
 Do not have Codex and ChatGPT edit the same repository/file surface concurrently.
@@ -535,7 +535,7 @@ Do not have Codex and ChatGPT edit the same repository/file surface concurrently
 
 The bridge is aligned when all are true:
 
-- the local PWM checkpoint is explicit;
+- the local legacy reference checkpoint is explicit;
 - old direct Gmail-to-Core tests no longer masquerade as target architecture;
 - reusable cursor/pagination/idempotency mechanics are preserved;
 - Draft/SENT/SPAM/relevance rules match the authoritative checkpoint;

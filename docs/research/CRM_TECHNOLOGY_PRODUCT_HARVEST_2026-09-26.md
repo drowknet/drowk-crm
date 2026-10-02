@@ -359,7 +359,7 @@ Source:
 
 ## Apps Script — TRANSITIONAL CONNECTOR ONLY
 
-Keep existing PWM value during extraction.
+Keep existing legacy reference value during extraction.
 
 Do not add new canonical business logic there. Apps Script quotas are per-user,
 can change, and throw execution exceptions when exceeded.

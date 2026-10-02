@@ -12,7 +12,7 @@ packages should name the operator outcome they unlock or protect.
 
 ## DCRM-00 — Foundation and extraction
 - establish repository constitution;
-- audit existing PWM_CRM;
+- audit existing legacy CRM source;
 - map domain vs Google-specific vs tenant-specific logic;
 - define canonical data contracts;
 - define security and migration gates.

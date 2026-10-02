@@ -6,7 +6,7 @@ import {
   reconcileWork, resolvePursuitWorkAnchor, resolveWorkDueDate,
 } from "../dist/work.js";
 
-// Synthetic equivalents of PWM_CRM/harness/wp02-regression.mjs cases cited below.
+// Synthetic equivalents of legacy CRM source/harness/wp02-regression.mjs cases cited below.
 const context = {
   tenantId: "00000000-0000-4000-8000-000000000001",
   runId: "00000000-0000-4000-8000-000000000002",
@@ -33,7 +33,7 @@ const shadow = (plan, semanticState = "OTHER_OR_UNCLEAR") => ({
 });
 const at2 = "2026-09-26T12:00:00.000Z";
 
-test("PWM cases 1, 14: inbound reply and hard bounce retain explicit action", () => {
+test("legacy reference cases 1, 14: inbound reply and hard bounce retain explicit action", () => {
   const reply = one({});
   assert.equal(reply.nextAction, "REVIEW_REPLY");
   assert.equal(reply.state, "NEEDS_ACTION");
@@ -45,7 +45,7 @@ test("PWM cases 1, 14: inbound reply and hard bounce retain explicit action", ()
     .nextAction, "VERIFY_ALTERNATE_CHANNEL");
 });
 
-test("PWM cases 2-3, 27, 48: eligible Shadow preserves ordered vendor plan only as review candidate", () => {
+test("legacy reference cases 2-3, 27, 48: eligible Shadow preserves ordered vendor plan only as review candidate", () => {
   const vendor = one({ conversation: { ...base().conversation, action: null },
     shadows: [shadow(["COMPLETE_VENDOR_REGISTRATION", "SEND_REQUESTED_INFORMATION"], "VENDOR_PROCESS")] });
   assert.equal(vendor.nextAction, "COMPLETE_VENDOR_REGISTRATION");
@@ -67,7 +67,7 @@ test("PWM cases 2-3, 27, 48: eligible Shadow preserves ordered vendor plan only 
   assert.ok(modelDnc.reasonCodes.includes("SHADOW_DNC_CANDIDATE"));
 });
 
-test("PWM cases 4-5, 10-13: solicitation and relationship suggestions remain reviewable", () => {
+test("legacy reference cases 4-5, 10-13: solicitation and relationship suggestions remain reviewable", () => {
   const noCoreAction = { ...base().conversation, action: null, dueDate: null };
   const activeBid = one({ conversation: noCoreAction,
     shadows: [shadow(["CONTINUE_BID_SUBMISSION"], "ACTIVE_SOLICITATION_INSTRUCTION")] });
@@ -93,7 +93,7 @@ test("PWM cases 4-5, 10-13: solicitation and relationship suggestions remain rev
   }
 });
 
-test("PWM cases 6-8, 15, 28, 38: due policy uses dates and refuses missing source dates", () => {
+test("legacy reference cases 6-8, 15, 28, 38: due policy uses dates and refuses missing source dates", () => {
   const future = one({ conversation: { ...base().conversation, action: "RECONTACT_AT_DATE",
     dueDate: "2026-10-10", waitingOn: "DATE" } });
   assert.equal(future.dueDate, "2026-10-10");
@@ -132,7 +132,7 @@ test("PWM cases 6-8, 15, 28, 38: due policy uses dates and refuses missing sourc
   assert.equal(taskAnchored.blocker, null);
 });
 
-test("PWM cases 16-20, 29, 45, 69, 71: owner due follow-up outranks customer wait", () => {
+test("legacy reference cases 16-20, 29, 45, 69, 71: owner due follow-up outranks customer wait", () => {
   const followup = one({ conversation: { ...base().conversation, action: "FOLLOW_UP_EMAIL",
     dueDate: "2026-10-02", waitingOn: "CUSTOMER" } });
   assert.equal(followup.state, "SCHEDULED");
@@ -169,7 +169,7 @@ test("PWM cases 16-20, 29, 45, 69, 71: owner due follow-up outranks customer wai
   assert.equal(taskWait.state, "WAITING");
 });
 
-test("PWM cases 9, 33, 72-76, 90-94, 114-128: commercial exclusion and identity authority", () => {
+test("legacy reference cases 9, 33, 72-76, 90-94, 114-128: commercial exclusion and identity authority", () => {
   const outbound = { ...base().conversation, action: "FOLLOW_UP_EMAIL", dueDate: context.today };
   const dnc = one({ conversation: outbound, contactDnc: true });
   assert.equal(dnc.nextAction, "NO_ACTION");
@@ -184,7 +184,7 @@ test("PWM cases 9, 33, 72-76, 90-94, 114-128: commercial exclusion and identity 
     assert.equal(item.nextAction, "NO_ACTION");
     assert.equal(item.autonomyLevel, "A5_NEVER_AUTO");
     assert.ok(item.reasonCodes.includes(exclusion === "RED" ?
-      "COMMERCIAL_EXCLUSION_EXISTING_PWM" : "COMMERCIAL_EXCLUSION_HOLD"));
+      "COMMERCIAL_EXCLUSION_EXISTING_ACCOUNT" : "COMMERCIAL_EXCLUSION_HOLD"));
   }
   const unknownDue = one({ conversation: outbound,
     account: { ...base().account, exclusion: "UNKNOWN" } });
@@ -225,7 +225,7 @@ test("PWM cases 9, 33, 72-76, 90-94, 114-128: commercial exclusion and identity 
     account: { ...base().account, exclusion: "AMBER" } }), []);
 });
 
-test("PWM action sets: outbound exclusions and follow-up projection use proven vocabulary", () => {
+test("legacy reference action sets: outbound exclusions and follow-up projection use proven vocabulary", () => {
   for (const action of ["FOLLOW_UP_PROPOSAL", "RECONTACT_AT_DATE"]) {
     const blocked = one({ conversation: { ...base().conversation, action, dueDate: "2026-10-02" },
       account: { ...base().account, exclusion: "RED" } });
@@ -242,7 +242,7 @@ test("PWM action sets: outbound exclusions and follow-up projection use proven v
   assert.equal(projectWorkViews([call], context.today).followUps.length, 0);
 });
 
-test("PWM cases 21-26, 40, 48, 53, 106-107: Task/core/Shadow precedence and conflict audit", () => {
+test("legacy reference cases 21-26, 40, 48, 53, 106-107: Task/core/Shadow precedence and conflict audit", () => {
   const withTask = one({ conversation: { ...base().conversation, action: "FOLLOW_UP_EMAIL" },
     tasks: [{ id: "t1", ref: "Tasks:t1", action: "VERIFY_CONTACT", status: "TODO",
       ownerRef: "owner-a" }], shadows: [shadow(["SEND_INFORMATION"])] });
@@ -273,7 +273,7 @@ test("PWM cases 21-26, 40, 48, 53, 106-107: Task/core/Shadow precedence and conf
   assert.ok(coreConflict.reasonCodes.includes("CORE_ACTION_CONFLICT"));
 });
 
-test("PWM cases 64-68: attributable link precedence and ambiguous link fail closed", () => {
+test("legacy reference cases 64-68: attributable link precedence and ambiguous link fail closed", () => {
   const links = { pursuitRef: "PURSUIT:p1",
     reverseConversationRefs: ["CONVERSATION:c1"],
     threadConversationRefs: ["CONVERSATION:c2"],
@@ -305,7 +305,7 @@ test("PWM cases 64-68: attributable link precedence and ambiguous link fail clos
     current[0].workKey);
 });
 
-test("PWM cases 21-24, 43, 77-78: stable replay, changed fingerprint and supersession", () => {
+test("legacy reference cases 21-24, 43, 77-78: stable replay, changed fingerprint and supersession", () => {
   const first = one({});
   assert.equal(first.workKey, one({}).workKey);
   const initial = reconcileWork([first], [], context.runId, context.at);
@@ -333,7 +333,7 @@ test("PWM cases 21-24, 43, 77-78: stable replay, changed fingerprint and superse
   assert.equal(reappeared.rows[0].workKey, first.workKey);
 });
 
-test("PWM cases 95-102, 104-109: terminal Task history and new cycle remain attributable", () => {
+test("legacy reference cases 95-102, 104-109: terminal Task history and new cycle remain attributable", () => {
   const task = { id: "t1", ref: "Tasks:t1", action: "FOLLOW_UP_EMAIL", status: "DONE",
     completedAt: "2026-09-25T10:00:00Z", createdAt: "2026-09-24T10:00:00Z",
     completionOutcome: "SYNTHETIC_DONE" };
@@ -369,7 +369,7 @@ test("PWM cases 95-102, 104-109: terminal Task history and new cycle remain attr
   assert.equal(orderedTerminal.find(row => row.taskId === "t2").state, "CANCELLED");
 });
 
-test("PWM cases 30, 42, 50-52: missing identity, date and contact fail closed", () => {
+test("legacy reference cases 30, 42, 50-52: missing identity, date and contact fail closed", () => {
   assert.equal(one({ account: { ...base().account, ownerRef: null } }).state, "REVIEW");
   const orphan = one({ anchorRef: "TASK:orphan", account: undefined,
     conversation: undefined, tasks: [{ id: "orphan", ref: "Tasks:orphan",

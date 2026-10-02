@@ -2,7 +2,7 @@
 
 Status: RESEARCH RECORDED / NO IMPLEMENTATION AUTHORITY
 
-Purpose: preserve the exact open-source prospecting/enrichment findings that may reduce DROWK/PWM dependence on LinkedIn Sales Navigator and Evaboot without turning browser automation, provider marketing claims or external repository schemas into DROWK authority.
+Purpose: preserve the exact open-source prospecting/enrichment findings that may reduce DROWK/reference-tenant dependence on LinkedIn Sales Navigator and Evaboot without turning browser automation, provider marketing claims or external repository schemas into DROWK authority.
 
 This document is a source/architecture harvest. It does not authorize:
 - installing a dependency in production;
@@ -346,12 +346,12 @@ This harvest is a dependency input to:
 
 It does not authorize those slices.
 
-## Relationship to Apollo, AIsa, JEV and PWM Gmail
+## Relationship to Apollo, AIsa, JEV and tenant Gmail
 
 - Apollo remains an independent provider binding and potential READ challenger; this harvest does not authorize Apollo calls.
 - AIsa remains a capability fabric and may route approved search/extraction/provider operations; one validated DataForSEO cell does not validate these new cells.
 - JEV remains judgment-only and may later classify bounded research findings; it is not a crawler, identity authority or sender.
-- PWM Gmail remains a business-channel adapter and future evidence/outbound surface; it is not required for search/enrichment infrastructure.
+- tenant Gmail remains a business-channel adapter and future evidence/outbound surface; it is not required for search/enrichment infrastructure.
 
 ## No loose-end rule
 
