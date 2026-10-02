@@ -123,7 +123,7 @@ Not copied:
 - unrelated vertical logic;
 - customer/prospect data;
 - Gmail or LinkedIn exports;
-- PWM operational datasets;
+- tenant operational datasets;
 - secrets or connection strings;
 - Drive documents;
 - third-party proprietary content;
@@ -132,13 +132,13 @@ Not copied:
 
 DROWK CRM retained engineering consequences and pinned provenance, not repository clones.
 
-## PWM_CRM dependency after GitHub narrowing
+## legacy CRM source dependency after GitHub narrowing
 
-PWM_CRM is not a GitHub source in this harvest.
+legacy CRM source is not a GitHub source in this harvest.
 
 Its live repository and project evidence remain on the owner-controlled portable D: workspace:
 
-`D:\Workspace\Projects\PWM\PWM_CRM`
+`<owner-controlled legacy source workspace>`
 
 Future extraction still requires one of:
 1. owner-authorized read-only inspection on the machine with D:;
