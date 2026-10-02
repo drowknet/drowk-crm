@@ -165,8 +165,11 @@ Selected sequence:
 - **EF-03 — Staging Boundary**:
   Cloudflare Access/Tunnel, managed PostgreSQL, runtime secret injection and explicit rollback.
   Implementation and pre-live hardening merged/green through PR #25 / #26.
-  OPEN — LIVE STAGING GATE PENDING: separately owner-authorized read-only provider inspection,
-  frozen live plan, separate Gate A / Gate B authorizations, live proof and closure remain.
+  DigitalOcean and Neon are currently UNCONFIGURED for DROWK; Apollo is UNCONFIGURED and is not
+  an EF-03 infrastructure dependency. OPEN — LIVE STAGING GATE PENDING: only after the current
+  canon/process hardening is accepted may a separate owner gate authorize read-only provider
+  discovery, followed by a frozen live plan, separate Gate A / Gate B authorizations, live proof
+  and closure.
   Follow the [staging runbook](../engineering/STAGING_BOUNDARY.md).
 - **EF-04 — Durable Execution**:
   PostgreSQL-first vs Cloudflare Workflows bounded spike, ActionAttempt

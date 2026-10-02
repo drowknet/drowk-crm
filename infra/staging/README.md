@@ -4,11 +4,11 @@ PR #25 merged the repo-owned implementation into protected `main` at
 `0137e4904758561611c2d3d504a459284657f64d`; post-merge CI `36718588406` was green.
 This is historical PR #25 implementation evidence, not the current deployment candidate.
 
-Pre-live hardening PR #26 is merged and post-merge green. The current protected-main
-candidate is `a6f41127de39256b4461a8e75a0bf2119e75afa3`; post-merge CI
-`36802547723` passed `verify` and `postgres-foundation`.
-A later docs-only protected-main merge becomes the candidate only after its green post-merge CI.
-Revalidate the exact selected SHA and CI before any operational stage.
+Pre-live hardening PR #26 merged as `a6f41127de39256b4461a8e75a0bf2119e75afa3`;
+post-merge CI `36802547723` passed `verify` and `postgres-foundation`. That SHA is the
+last explicitly EF-03-hardened checkpoint, not a current deployment selection. Protected `main`
+has advanced; no EF-03 deployment candidate is selected here. A later live plan must select and
+revalidate an exact protected-main SHA.
 Full EF-03 remains OPEN. Deployment authority is an exact protected-main SHA with
 exact-head/post-merge CI evidence, never a feature-branch name.
 
@@ -34,8 +34,10 @@ before migration/deploy. Tags alone are rejected. No automatic image lookup or p
 
 Before either gate, follow the runbook's [ordered pre-live sequence](../../docs/engineering/STAGING_BOUNDARY.md#next-operational-sequence)
 and [exact live-plan checklist](../../docs/engineering/STAGING_BOUNDARY.md#exact-live-plan-checklist).
-Read-only DigitalOcean/Neon/Cloudflare inspection is a separate future owner-authorized stage;
-DigitalOcean region/size/image/cost and other provider choices remain unset pending that evidence.
+DigitalOcean and Neon are currently UNCONFIGURED for DROWK. Read-only
+DigitalOcean/Neon/Cloudflare discovery is a separate future owner-authorized stage; plugin/tool
+availability does not establish configuration. DigitalOcean region/size/image/cost and other
+provider choices remain unset pending that evidence.
 
 ## Two owner gates
 

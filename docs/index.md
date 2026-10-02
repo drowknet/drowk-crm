@@ -33,7 +33,7 @@ This index routes humans and agents to the current repository-owned context.
 - [Engineering Harness Model](architecture/ENGINEERING_HARNESS_MODEL.md) — Guides, Sensors, gates and proof-carrying work.
 - [Memory / Agent / Trace Model](architecture/MEMORY_AGENT_TRACE_MODEL.md) — memory classes, trace and durable work.
 - [Auth & Tenancy Boundary](architecture/AUTH_TENANCY_BOUNDARY.md) — user/tenant/session/agent identity separation.
-- [External Identity and Dependency Boundary](architecture/EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md) — owner-confirmed LinkedIn/Apollo/PWM channel bindings and the rule that PWM Gmail is not a DROWK infrastructure root of trust.
+- [External Identity and Dependency Boundary](architecture/EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md) — external identity references, provider configuration-state separation, and the rule that PWM Gmail is not a DROWK infrastructure root of trust.
 - [DROWK Domain Topology](architecture/DROWK_DOMAIN_TOPOLOGY.md) — drowk.com vs drowk.net vs product/vertical domains.
 - [Repository Structure](architecture/REPOSITORY_STRUCTURE.md) — executable monorepo boundaries and dependency direction.
 
@@ -43,8 +43,9 @@ This index routes humans and agents to the current repository-owned context.
 - [Governance verifier](../tooling/governance/README.md) - implemented GET-only policy verification and offline tests; no admin writes.
 
 - [Codex Start Here](engineering/CODEX_START_HERE.md) — concise local entrypoint for Codex sessions.
-- [Codex Orchestration](engineering/CODEX_ORCHESTRATION.md) — scoped AGENTS, subagent workcells and one-writer discipline.
-- [Current Execution Sequence](engineering/CURRENT_EXECUTION_SEQUENCE.md) — active PWM -> DROWK bridge and next implementation gate.
+- [Codex Orchestration](engineering/CODEX_ORCHESTRATION.md) — scoped AGENTS, owner-bootstrap boundary, subagent workcells and one-writer discipline.
+- [State & Authority Semantics](engineering/STATE_AND_AUTHORITY_SEMANTICS.md) — canonical meanings for Git/local/tool/provider/authority states and forbidden implications.
+- [Current Execution Sequence](engineering/CURRENT_EXECUTION_SEQUENCE.md) — current DROWK engineering state, authority boundaries and historical execution record.
 - [Execution Foundation Plan](engineering/EXECUTION_FOUNDATION_PLAN.md) — ordered post-05C hardening sequence and explicit deferred gates.
 - [Runtime Packaging](engineering/RUNTIME_PACKAGING.md) — EF-02 closed/green container/runtime contract, local Compose boundary and deterministic packaging sensors.
 - [Staging Boundary](engineering/STAGING_BOUNDARY.md) — EF-03 staging topology, secret injection, live gates, rollback and kill path.
@@ -74,7 +75,8 @@ This index routes humans and agents to the current repository-owned context.
 
 - [EF-01B Repository Governance & Branch Protection](work-packages/EF-01B-repository-governance-branch-protection.md) - closed/merged through protected `main` with post-merge CI green; no deploy.
 - [EF-02 Reproducible Runtime Packaging](work-packages/EF-02-reproducible-runtime-packaging.md) — closed/merged through protected `main` with post-merge CI green; no deploy.
-- [EF-03 Staging Boundary](work-packages/EF-03-staging-boundary.md) — implementation and pre-live hardening merged/green (PR #25 / #26); OPEN — LIVE STAGING GATE PENDING. Separately authorized read-only provider inspection precedes the frozen Gate A / Gate B plan.
+- [EF-03 Staging Boundary](work-packages/EF-03-staging-boundary.md) — implementation and pre-live hardening merged/green (PR #25 / #26); OPEN — LIVE STAGING GATE PENDING. DigitalOcean/Neon are unconfigured for DROWK; any provider discovery remains separately owner-authorized and precedes the frozen Gate A / Gate B plan.
+- [ENG-2026-10-01 Canon / Process / State Hardening](work-packages/ENG-2026-10-01-canon-process-state-hardening.md) — docs-only correction of state semantics, provider readiness, EF-03 deployment identity and Codex bootstrap rules; no live authority.
 
 ### Q2A observed checkpoint
 
