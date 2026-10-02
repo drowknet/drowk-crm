@@ -20,6 +20,6 @@
     "@drowk/contracts": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^22.20.4"
+    "@types/node": "^26.6.3"
   }
 }
