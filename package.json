@@ -27,12 +27,21 @@
     "staging:verify": "node tooling/staging/verify.mjs",
     "staging:preflight": "node tooling/staging/preflight.mjs",
     "staging:rollback-plan": "node tooling/staging/cli.mjs rollback-plan",
-    "staging:kill-plan": "node tooling/staging/cli.mjs kill-plan"
+    "staging:kill-plan": "node tooling/staging/cli.mjs kill-plan",
+    "oss:scan": "node tooling/harness/public-oss.mjs"
   },
   "devDependencies": {
     "typescript": "^5.9.0",
     "eslint": "10.11.0",
     "@typescript-eslint/parser": "8.71.0"
   },
-  "packageManager": "pnpm@10.17.1"
+  "packageManager": "pnpm@10.17.1",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drowknet/drowk-crm.git"
+  },
+  "engines": {
+    "node": "22.x"
+  }
 }
