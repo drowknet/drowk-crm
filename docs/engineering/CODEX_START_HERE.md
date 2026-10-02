@@ -37,8 +37,8 @@ Do not load the entire docs tree by default.
 
 The GitHub repository `drowknet/drowk-crm` is the canonical product source.
 
-`D:\Workspace\Projects\PWM\PWM_CRM` is a legacy/source/regression oracle and is
-read-only by default. Do not propagate DROWK product changes back into PWM_CRM.
+`<owner-controlled legacy source workspace>` is a legacy/source/regression oracle and is
+read-only by default. Do not propagate DROWK product changes back into legacy CRM source.
 
 ## 5. Completion contract
 
