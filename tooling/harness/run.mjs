@@ -70,6 +70,7 @@ export function plan(mode) {
   return [
     ["node", "tooling/harness/secrets.mjs", "all"],
     ["node", "tooling/harness/public-oss.mjs"],
+    ["node", "tooling/harness/docs-links.mjs"],
     ["pnpm", "harness:test"], ["pnpm", "lint"], ["pnpm", "typecheck"],
     ...(mode === "fast" ? [] : [["pnpm", "test"]]),
   ];
@@ -83,7 +84,7 @@ function run(command, env, pm) {
     encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], maxBuffer: 64 * 1024 * 1024 });
   // Child failure messages may contain database connection details. Never relay them.
   // The secret scanner is the one metadata-only exception.
-  const metadataScanner = tool === "node" && ["tooling/harness/secrets.mjs", "tooling/harness/public-oss.mjs"].includes(args[0]);
+  const metadataScanner = tool === "node" && ["tooling/harness/secrets.mjs", "tooling/harness/public-oss.mjs", "tooling/harness/docs-links.mjs"].includes(args[0]);
   const safeDiagnostics = metadataScanner || tool === "pnpm" && args[0] === "harness:test";
   if (metadataScanner) process.stdout.write(result.stdout || "");
   if (result.status !== 0) {
