@@ -1,5 +1,9 @@
 # DROWK CRM
 
+[![CI](https://github.com/drowknet/drowk-crm/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/drowknet/drowk-crm/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/drowknet/drowk-crm/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/drowknet/drowk-crm/actions/workflows/codeql.yml)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+
 **Evidence-first revenue intelligence and prospecting infrastructure for human-governed AI workflows.**
 
 > **Project status:** Early alpha. The engineering foundation is active and tested, but the project is not yet a production-ready hosted CRM.
