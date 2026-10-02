@@ -25,7 +25,7 @@ approval gates explicitly expand it.
 
 ## Legacy WP-03 extraction
 
-The local PWM WP-03 draft is a source of tested mechanics, not the target authority model.
+The local Legacy WP-03 draft is a source of tested mechanics, not the target authority model.
 
 Reusable mechanics:
 - decimal History cursor ordering;
@@ -72,5 +72,5 @@ compare-and-swap on the committed cursor. No live Gmail or cursor writer exists 
 this package.
 
 See:
-- `docs/reference-harvest/pwm-wp03-local-audit-2026-09-26.md`
+- `docs/reference-harvest/legacy-wp03-local-audit-2026-09-26.md`
 - `docs/work-packages/DCRM-03A-gmail-observation-boundary.md`
