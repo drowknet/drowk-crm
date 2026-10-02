@@ -9,7 +9,7 @@ export function relativeLinkTargets(content) {
   for (const match of content.matchAll(markdownLink)) {
     const raw = match[1]?.trim();
     if (!raw || raw.startsWith("#") || /^[a-z][a-z0-9+.-]*:/i.test(raw)) continue;
-    const target = raw.split(/s+/)[0]?.replace(/^<|>$/g, "").split("#")[0]?.split("?")[0];
+    const target = raw.split(/\s+/)[0]?.replace(/^<|>$/g, "").split("#")[0]?.split("?")[0];
     if (target) targets.push(target);
   }
   return targets;
