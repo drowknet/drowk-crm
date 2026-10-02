@@ -73,4 +73,4 @@ DROWK CRM adoption decisions are explicitly separated from source-derived observ
 
 External provider/API/open-source behavior is time-sensitive and should be revalidated when actually used.
 
-PWM_CRM live source remains on the owner-controlled D: workspace and is governed separately by the repository standing orders.
+legacy CRM source live source remains on the owner-controlled D: workspace and is governed separately by the repository standing orders.
