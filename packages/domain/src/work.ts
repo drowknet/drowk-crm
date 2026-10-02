@@ -325,7 +325,7 @@ export function compileWorkCase(context: WorkCompileContext, input: WorkCase): C
   if (dnc) { plan = ["NO_ACTION"]; reasons.push("HARD_STOP"); }
   else if (outboundActions.has(intendedAction) && (exclusion === "RED" || exclusion === "HOLD")) {
     plan = ["NO_ACTION"];
-    reasons.push(exclusion === "RED" ? "COMMERCIAL_EXCLUSION_EXISTING_PWM" :
+    reasons.push(exclusion === "RED" ? "COMMERCIAL_EXCLUSION_EXISTING_ACCOUNT" :
       "COMMERCIAL_EXCLUSION_HOLD");
   } else if (outboundActions.has(intendedAction) && exclusion === "UNKNOWN")
     reasons.push("EXCLUSION_RECONCILIATION");
@@ -389,8 +389,8 @@ export function compileWorkCase(context: WorkCompileContext, input: WorkCase): C
     [reasons.includes("MISSING_SNOOZE_DATE"), "MISSING_SNOOZE_DATE", "SOURCE_DATE"],
     [missingContact, "MISSING_CONTACT", "CONTACT_ID"],
     [reasons.includes("PURSUIT_BLOCKED"), "PURSUIT_BLOCKED", "PREREQUISITE"],
-    [reasons.includes("COMMERCIAL_EXCLUSION_EXISTING_PWM"),
-      "COMMERCIAL_EXCLUSION_EXISTING_PWM", "COMMERCIAL_EXCLUSION_REVIEW"],
+    [reasons.includes("COMMERCIAL_EXCLUSION_EXISTING_ACCOUNT"),
+      "COMMERCIAL_EXCLUSION_EXISTING_ACCOUNT", "COMMERCIAL_EXCLUSION_REVIEW"],
     [reasons.includes("COMMERCIAL_EXCLUSION_HOLD"),
       "COMMERCIAL_EXCLUSION_HOLD", "COMMERCIAL_EXCLUSION_REVIEW"],
     [reasons.includes("EXCLUSION_RECONCILIATION"),
