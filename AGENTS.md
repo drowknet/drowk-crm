@@ -6,7 +6,7 @@ This repository is the canonical engineering source for DROWK CRM.
 
 - The only repository authorized for writes is `drowknet/drowk-crm`.
 - All other repositories are read-only reference sources.
-- `D:\Workspace\Projects\PWM\PWM_CRM` is read-only unless the owner explicitly authorizes a specific write.
+- `<owner-controlled legacy source workspace>` is read-only unless the owner explicitly authorizes a specific write.
 - Before any terminal operation involving the portable PWM workspace, verify machine/user, current path, target path existence and Git state; never assume machine-local auth/config moved with the SSD.
 - Never run destructive Git/disk operations, `clasp push`, Apps Script writer functions, outbound messaging, production deploys, credential rotation, or provider write-capabilities without an explicit owner gate.
 - Never commit secrets, OAuth/session material, raw Gmail/LinkedIn/CRM exports, production dumps, or tenant/customer/prospect PII. Use synthetic or redacted fixtures.
