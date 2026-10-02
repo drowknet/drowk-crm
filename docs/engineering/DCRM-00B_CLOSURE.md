@@ -1,9 +1,9 @@
-# DCRM-00B Closure — PWM Extraction Bridge
+# DCRM-00B Closure — legacy reference Extraction Bridge
 
 Status: CLOSED / SOURCE-TARGET ALIGNED
 Closed from owner-supplied local Codex evidence.
 
-## Local PWM state used
+## Local legacy reference state used
 
 Observed source checkout:
 - repository: `<owner-controlled legacy source workspace>`
