@@ -40,6 +40,6 @@ upstream obligation actually carries a time. `projectWorkViews` uses operational
 date comparisons for Today, Replies and Follow Ups. None of these functions
 create a Commitment, mark customer fulfillment or infer a relationship score.
 
-Synthetic goldens in `test/work-golden.test.mjs` cite the PWM WP-02 harness case
+Synthetic goldens in `test/work-golden.test.mjs` cite the Legacy WP-02 harness case
 numbers used for parity. They are target-domain fixtures, not imports of Apps
 Script or Sheet shapes.
