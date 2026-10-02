@@ -216,7 +216,7 @@ The fixture should contain enough deterministic HTML to prove:
 
 All domains/emails, if any, must use reserved/example data such as `example.com`.
 
-No PWM prospect/company/person data.
+No legacy reference prospect/company/person data.
 
 ## Extraction strategy
 
