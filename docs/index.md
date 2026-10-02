@@ -134,8 +134,8 @@ These files make DROWK CRM self-contained after broad GitHub access is narrowed:
 - [Invoice Builder transfer](reference-harvest/invoice-builder-transfer.md)
 - [Open-source pattern transfer](reference-harvest/open-source-patterns-transfer.md)
 - [OSCI Stage 0 transfer](reference-harvest/osci-stage0-transfer.md) — preserved unmerged benchmark findings
-- [PWM WP-03 Local Audit](reference-harvest/pwm-wp03-local-audit-2026-09-26.md) — reconciled legacy draft against the later checkpoint
-- [PWM WP-02 Work Engine Transfer](reference-harvest/pwm-wp02-work-engine-transfer.md) — preserved state, authority, precedence and idempotency semantics
+- [Legacy WP-03 Local Audit](reference-harvest/legacy-wp03-local-audit-2026-09-26.md) — reconciled legacy draft against the later checkpoint
+- [Legacy WP-02 Work Engine Transfer](reference-harvest/legacy-wp02-work-engine-transfer.md) — preserved state, authority, precedence and idempotency semantics
 - [Access revocation handoff](reference-harvest/ACCESS_REVOCATION_HANDOFF.md)
 
 ## Infrastructure
