@@ -10,7 +10,7 @@ Canonical CI uses Node 22 (22.13+ for ESLint); local Node 24 also works.
 | Command | Behavior |
 | --- | --- |
 | `harness:preflight` | Physical repository/Git root, canonical origin, package identity, branch/HEAD (including CI detached HEAD), pnpm version, lockfile format, forbidden tracked secret files. |
-| `harness:fast` | Preflight + current-tree/history secrets + public-OSS privacy scan + harness tests + lint + typecheck. |
+| `harness:fast` | Preflight + current-tree/history secrets + public-OSS privacy scan + internal-doc link scan + harness tests + lint + typecheck. |
 | `harness:full` | Fast + complete ordinary tests. |
 | `harness:ci` | Non-interactive full gate, additionally requires Node 22; used by GitHub verify. |
 | `harness:integration` | Explicit guarded disposable PostgreSQL sensors described below. |
@@ -38,7 +38,7 @@ line endings), and justification. Any content change invalidates the exception;
 no file-wide or rule-wide disable is used. Synthetic tests prove that changed
 content, different paths/locations and warnings cannot use these exceptions.
 
-## Public OSS privacy sensor\n\nOrdinary harness modes also scan tracked text for repository-specific private account identifiers, tenant domains/local paths, tenant-source IDs, tenant names and tenant-specific reusable reason codes that should not remain in the public OSS tree. Findings report detector, path and line metadata only. The sensor is intentionally narrower than arbitrary privacy classification and complements manual review.\n\n## Secret sensors
+## Public OSS privacy sensor\n\nOrdinary harness modes also scan tracked text for repository-specific private account identifiers, tenant domains/local paths, tenant-source IDs, tenant names and tenant-specific reusable reason codes that should not remain in the public OSS tree. Findings report detector, path and line metadata only. The sensor is intentionally narrower than arbitrary privacy classification and complements manual review.\n\n## Documentation link sensor\n\nOrdinary harness modes verify repository-relative Markdown links against the tracked checkout. External URLs and in-page anchors are ignored; missing local targets and links escaping the repository fail closed with path/target metadata.\n\n## Secret sensors
 
 Tree scanning reads Git-tracked working files, including staged additions. Stage
 new files before scanning. Missing/unreadable files fail closed; symlinks are not
