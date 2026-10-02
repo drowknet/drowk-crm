@@ -11,9 +11,9 @@ test("public OSS scanner flags tenant/account identifiers without echoing values
     "reason: COMMERCIAL_EXCLUSION_EXISTING_" + "PWM",
   ].join("\n");
   const findings = scanPublicOssText("synthetic.md", sample);
-  assert.equal(findings.length, 5);
+  assert.equal(findings.length, 7);
   assert.deepEqual(new Set(findings.map(f => f.detector)), new Set([
-    "OWNER_EMAIL", "PROVIDER_ACCOUNT_EMAIL", "TENANT_DOMAIN", "TENANT_SOURCE_ID", "TENANT_REASON_CODE"
+    "OWNER_EMAIL", "PROVIDER_ACCOUNT_EMAIL", "TENANT_DOMAIN", "TENANT_SOURCE_ID", "TENANT_REASON_CODE", "TENANT_ACRONYM"
   ]));
   assert.ok(findings.every(f => f.path === "synthetic.md" && Number.isInteger(f.line)));
 });
