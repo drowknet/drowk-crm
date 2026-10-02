@@ -1,6 +1,6 @@
 {
   "name": "@drowk/crm",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha.1",
   "private": true,
   "description": "DROWK CRM — Revenue Intelligence & Prospecting Operating System",
   "scripts": {
