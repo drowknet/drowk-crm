@@ -10,7 +10,7 @@ export const publicOssPatterns = [
   ["TENANT_NAME", /\bPacific West\b/gi],
   ["TENANT_SOURCE_ID", /\bPWM_CRM\b/g],
   ["TENANT_REASON_CODE", /COMMERCIAL_EXCLUSION_EXISTING_PWM/g],
-  ["TENANT_ACRONYM", /\\bPWM\\b/gi],
+  ["TENANT_ACRONYM", /\bPWM\b/gi],
 ];
 
 const textExtensions = new Set([".md", ".json", ".yml", ".yaml", ".mjs", ".js", ".ts", ".sql", ".txt", ".example"]);
