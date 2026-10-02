@@ -84,9 +84,13 @@ function run(command, env, pm) {
   // Child failure messages may contain database connection details. Never relay them.
   // The secret scanner is the one metadata-only exception.
   const metadataScanner = tool === "node" && ["tooling/harness/secrets.mjs", "tooling/harness/public-oss.mjs"].includes(args[0]);
+  const safeDiagnostics = metadataScanner || tool === "pnpm" && args[0] === "harness:test";
   if (metadataScanner) process.stdout.write(result.stdout || "");
   if (result.status !== 0) {
-    if (metadataScanner) process.stderr.write(result.stderr || "");
+    if (safeDiagnostics) {
+      process.stdout.write(result.stdout || "");
+      process.stderr.write(result.stderr || "");
+    }
     console.error(`HARNESS_STEP_FAILED ${JSON.stringify(command)}`);
     throw new Error("HARNESS_STEP_FAILED");
   }
