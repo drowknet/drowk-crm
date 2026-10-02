@@ -94,9 +94,9 @@ and outbound sender identity.
 Current owner-confirmed operational bindings are recorded in
 [External Identity and Dependency Boundary](EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md).
 In particular:
-- Apollo is currently connected through `drowknet@gmail.com`;
-- LinkedIn / Sales Navigator uses `asbrito@proton.me`;
-- PWM commercial Gmail belongs to the `andersonpacificwestinc.net` Google Workspace domain.
+- Apollo is currently connected through `provider-account@example.invalid`;
+- LinkedIn / Sales Navigator uses `network-account@example.invalid`;
+- tenant commercial Gmail belongs to the `tenant-workspace.example.invalid` Google Workspace domain.
 
 These are independent provider/channel bindings. A provider used for research does not select or
 authorize a commercial sender. Provider-account credentials must be independently revocable and
