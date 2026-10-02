@@ -3,7 +3,7 @@
 Status: EXECUTION FOUNDATION — EF-01A CLOSED/GREEN — EF-01B CLOSED/GREEN — EF-02 CLOSED/GREEN — EF-03 OPEN / REPO IMPLEMENTATION MERGED / LIVE STAGING GATE PENDING
 Owner gate: explicit
 Canonical product repository: drowknet/drowk-crm
-Legacy/source repository: D:\Workspace\Projects\PWM\PWM_CRM (read-only by default)
+Legacy/source repository: <owner-controlled legacy source workspace> (read-only by default)
 
 ## Parallel research/canon note — DCRM-05D
 
@@ -39,7 +39,7 @@ DROWK production dependency. EF-03 live remains unrelated and untouched.
 There is one engineering stream, not two independent projects.
 
 ```text
-PWM_CRM on D:
+legacy CRM source on D:
   source/reference/extraction
         ↓
 verified Codex local findings
