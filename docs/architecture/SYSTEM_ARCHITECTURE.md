@@ -8,7 +8,7 @@ DROWK CRM is a standalone multi-tenant Revenue Intelligence & Prospecting Operat
 
 The concrete external identity/dependency rules are canonicalized in
 [External Identity and Dependency Boundary](EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md).
-In particular, the PWM Google Workspace domain `tenant-workspace.example.invalid` is a business-channel
+In particular, the tenant Google Workspace domain `tenant-workspace.example.invalid` is a business-channel
 adapter, not a DROWK infrastructure root of trust. Apollo (`provider-account@example.invalid`) and LinkedIn /
 Sales Navigator (`network-account@example.invalid`) are separate provider/network bindings and must not be
 treated as the tenant sending identity or as each other's authentication authority.
