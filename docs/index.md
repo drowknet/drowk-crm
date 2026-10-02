@@ -101,6 +101,10 @@ DROWK production dependency. EF-03 live remains unrelated and untouched.
 
 - [Legacy CRM Source Extraction Plan](migration/LEGACY_CRM_EXTRACTION_PLAN.md) — preservation-first extraction from a legacy reference system.
 
+## Releases
+
+- [v0.1.0-alpha.1](releases/v0.1.0-alpha.1.md) — first public OSS alpha checkpoint and release verification notes.
+
 ## Roadmap
 
 - [DROWK CRM Roadmap](roadmap/ROADMAP.md) — DCRM-00 through higher autonomy.
