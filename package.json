@@ -31,7 +31,7 @@
     "oss:scan": "node tooling/harness/public-oss.mjs"
   },
   "devDependencies": {
-    "typescript": "^5.9.0",
+    "typescript": "^6.0.3",
     "eslint": "10.11.0",
     "@typescript-eslint/parser": "8.71.0"
   },
