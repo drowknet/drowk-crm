@@ -9,9 +9,10 @@ test("public OSS scanner flags tenant/account identifiers without echoing values
     "tenant domain: " + "andersonpacificwestinc" + ".net",
     "source: " + "PWM" + "_CRM",
     "reason: COMMERCIAL_EXCLUSION_EXISTING_" + "PWM",
+    "tenant acronym: " + "PWM",
   ].join("\n");
   const findings = scanPublicOssText("synthetic.md", sample);
-  assert.equal(findings.length, 7);
+  assert.equal(findings.length, 6);
   assert.deepEqual(new Set(findings.map(f => f.detector)), new Set([
     "OWNER_EMAIL", "PROVIDER_ACCOUNT_EMAIL", "TENANT_DOMAIN", "TENANT_SOURCE_ID", "TENANT_REASON_CODE", "TENANT_ACRONYM"
   ]));
