@@ -20,9 +20,9 @@ human without becoming interchangeable authority. See
 Current owner-confirmed examples are intentionally distinct:
 - LinkedIn / Sales Navigator login: `network-account@example.invalid`;
 - Apollo account/connection: `provider-account@example.invalid`;
-- PWM commercial Google Workspace domain: `tenant-workspace.example.invalid`.
+- legacy reference commercial Google Workspace domain: `tenant-workspace.example.invalid`.
 
-The exact PWM mailbox/sender address is connector configuration and is not inferred from the
+The exact legacy reference mailbox/sender address is connector configuration and is not inferred from the
 domain. None of these bindings, by itself, defines the DROWK User, tenant membership, CRM Person,
 sending authority or infrastructure ownership.
 
