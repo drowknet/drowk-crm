@@ -29,9 +29,9 @@ The following bindings are operational facts, not canonical identity equivalence
 
 | Surface | Current identity/binding | Intended role |
 |---|---|---|
-| LinkedIn / Sales Navigator | `asbrito@proton.me` | owner access to LinkedIn and professional-network evidence |
-| Apollo | `drowknet@gmail.com` | current Apollo account/connection used for prospecting-provider access |
-| PWM Google Workspace / Gmail | `andersonpacificwestinc.net` | PWM commercial communication domain and future Gmail evidence/outbound channel |
+| LinkedIn / Sales Navigator | `network-account@example.invalid` | owner access to LinkedIn and professional-network evidence |
+| Apollo | `provider-account@example.invalid` | current Apollo account/connection used for prospecting-provider access |
+| Tenant Google Workspace / Gmail | `tenant-workspace.example.invalid` | PWM commercial communication domain and future Gmail evidence/outbound channel |
 
 The exact PWM mailbox/sender address is not frozen in this document because it has not been
 specified here. Do not infer or invent a local-part from the domain.
@@ -42,8 +42,8 @@ they do not redefine the DROWK User, canonical CRM Person, or tenant ownership m
 ## Non-equivalence rules
 
 1. Apollo account identity does not establish the LinkedIn login identity.
-2. LinkedIn login identity does not establish the PWM sending identity.
-3. PWM Gmail/Workspace identity does not establish DROWK authentication or infrastructure ownership.
+2. LinkedIn login identity does not establish the tenant sending identity.
+3. tenant Gmail/Workspace identity does not establish DROWK authentication or infrastructure ownership.
 4. Matching the same human across external services requires explicit attributable evidence/configuration;
    email equality or operator knowledge must not be silently converted into canonical CRM identity.
 5. A provider login never grants another provider's capabilities.
@@ -51,17 +51,17 @@ they do not redefine the DROWK User, canonical CRM Person, or tenant ownership m
    also supports outbound workflows.
 7. The account used to call a provider is not automatically the sender identity for a commercial action.
 
-## PWM Gmail is a business-channel adapter, not a platform root of trust
+## tenant Gmail is a business-channel adapter, not a platform root of trust
 
-`andersonpacificwestinc.net` is a PWM business communication dependency. It must not become a
+`tenant-workspace.example.invalid` is a tenant business communication dependency. It must not become a
 structural dependency for the DROWK platform.
 
 Loss, revocation or outage of the PWM Google Workspace should be allowed to degrade only the
 capabilities that actually depend on that Workspace, for example:
 
 ```text
-PWM Gmail READ / sync        -> unavailable or degraded
-PWM Gmail DRAFT / SEND       -> unavailable
+tenant Gmail READ / sync        -> unavailable or degraded
+tenant Gmail DRAFT / SEND       -> unavailable
 mail reconciliation         -> pending/retryable under policy
 ```
 
@@ -140,7 +140,7 @@ Never infer the sender from:
 
 ### Apollo
 
-The current Apollo connection is associated with `drowknet@gmail.com`.
+The current Apollo connection is associated with `provider-account@example.invalid`.
 
 This is a provider-account binding only. It does not:
 - become the PWM commercial sender;
@@ -152,15 +152,15 @@ This is a provider-account binding only. It does not:
 
 ### LinkedIn
 
-The current LinkedIn / Sales Navigator login is `asbrito@proton.me`.
+The current LinkedIn / Sales Navigator login is `network-account@example.invalid`.
 
 LinkedIn-derived data remains professional-network evidence subject to source provenance,
 freshness, rights and identity review. The login email must not be treated as the universal
 commercial contact or sending identity.
 
-### PWM Google Workspace / Gmail
+### Tenant Google Workspace / Gmail
 
-The PWM business communication domain is `andersonpacificwestinc.net`.
+The PWM business communication domain is `tenant-workspace.example.invalid`.
 
 The exact mailbox is connector configuration, not platform identity. Gmail capabilities must be
 separately authorized:
