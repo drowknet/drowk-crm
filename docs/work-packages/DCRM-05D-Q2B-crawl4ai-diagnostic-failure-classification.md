@@ -24,12 +24,16 @@ Recorded Q2A facts: platform `linux/amd64`; validated plan `true`; network `none
 
 | Stage | Scope and gate |
 |---|---|
-| Q2B-PREP | Current docs/canon-only stage; zero Docker execution. |
+| Q2B-PREP | Current docs/canon-only stage; zero owner-local Q2B/Crawl4AI candidate execution. Ordinary repository CI may run its existing Docker-backed runtime/staging/PostgreSQL sensors; those are not Q2B candidate execution. |
 | Q2B-STATIC | Later bounded diagnostic instrumentation and deterministic static sensors; no candidate execution. Requires a separate reviewed implementation stage. |
 | Q2B-DIAGNOSTIC-RUN | Separate explicit owner authorization; maximum one isolated execution, frozen boundary, safe classification only. |
 | Q2B-DECISION | Later evidence review; no outcome selected in PREP. |
 
-PREP authorizes no Docker commands, Crawl4AI execution, image pulls, public-web access, provider/model calls, credential use, LinkedIn, Gmail, Apollo, AIsa, runtime/tooling/application changes, successful lab evidence, PR creation or merge.
+PREP authorizes no owner-local/Q2B Docker commands for the candidate, Crawl4AI candidate execution,
+image pulls, public-web access, provider/model calls, credential use, LinkedIn, Gmail, Apollo, AIsa,
+runtime/tooling/application changes, successful lab evidence, PR creation or merge. Existing
+repository CI is not disabled: its previously approved Docker-backed runtime/staging/PostgreSQL
+sensors may run and do not constitute Q2B candidate execution.
 
 ## Candidate diagnostic taxonomy
 
@@ -134,7 +138,7 @@ Only these documentation files may change:
 - `docs/engineering/CURRENT_EXECUTION_SEQUENCE.md`;
 - `docs/index.md`.
 
-Run `git diff --check` and verify all changed/untracked paths against this exact allowlist before staging. Stop on a scope violation. Tooling, packages, apps/services, capabilities/connectors, infra, CI, manifests/lockfiles and DB/migrations must remain unchanged. No Q2A file or evidence document is created or modified. Docker executions, provider calls and LinkedIn actions must each remain zero.
+Run `git diff --check` and verify all changed/untracked paths against this exact allowlist before staging. Stop on a scope violation. Tooling, packages, apps/services, capabilities/connectors, infra, CI, manifests/lockfiles and DB/migrations must remain unchanged. No Q2A file or evidence document is created or modified. Owner-local/Q2B Crawl4AI candidate Docker executions, provider calls and LinkedIn actions must each remain zero. Ordinary repository CI may continue its existing Docker-backed deterministic sensors.
 
 Affected objects are documentation/work-package routing only. Migration, dependency, runtime, provider and security-control changes: none. Rollback is a later reviewed documentation reversal; it cannot erase Q2A observations or grant execution authority.
 

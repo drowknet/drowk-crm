@@ -102,8 +102,9 @@ DROWK production dependency. EF-03 live remains unrelated and untouched.
 Q2A engineering/process is CLOSED/GREEN at protected-main merge
 `175c23e78033aa6705783371cf858044460178f8`; candidate outcome remains `LAB_BLOCKED`.
 [Q2B diagnostic failure classification](work-packages/DCRM-05D-Q2B-crawl4ai-diagnostic-failure-classification.md) is active at Q2B-PREP only:
-docs/canon, zero Docker execution, no inferred root cause. Q2B-STATIC requires a
-separate reviewed implementation stage; Q2B-DIAGNOSTIC-RUN requires separate explicit
+docs/canon, zero owner-local Q2B/Crawl4AI candidate Docker execution; ordinary
+repository CI may continue existing Docker-backed runtime/staging/PostgreSQL sensors; no inferred
+root cause. Q2B-STATIC requires a separate reviewed implementation stage; Q2B-DIAGNOSTIC-RUN requires separate explicit
 owner authorization for at most one isolated execution. Q2B-DECISION is unselected.
 Q3 and Q4 remain CLOSED; EF-03 remains OPEN / LIVE STAGING GATE PENDING, separately gated.
 
