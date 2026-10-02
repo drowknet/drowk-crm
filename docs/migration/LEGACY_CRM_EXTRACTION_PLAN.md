@@ -98,7 +98,7 @@ Do not port unchanged:
 - SPAM exclusion as a relevance rule;
 - From=owned identity as proof of SENT.
 
-See `docs/reference-harvest/pwm-wp03-local-audit-2026-09-26.md`.
+See `docs/reference-harvest/legacy-wp03-local-audit-2026-09-26.md`.
 
 ### Phase E — CRM truth migration
 Migrate canonical entities preserving source IDs and lineage.
