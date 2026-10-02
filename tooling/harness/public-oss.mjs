@@ -5,7 +5,7 @@ import { git } from "./secrets.mjs";
 export const publicOssPatterns = [
   ["OWNER_EMAIL", /asbrito@proton\.me/gi],
   ["PROVIDER_ACCOUNT_EMAIL", /drowknet@gmail\.com/gi],
-  ["TENANT_DOMAIN", /andersonpacificwestinc\.net/gi],
+  ["TENANT_DOMAIN", /^.*andersonpacificwestinc\.net.*$/gi],
   ["LOCAL_TENANT_PATH", /D:\\Workspace\\Projects\\PWM\\PWM_CRM/gi],
   ["TENANT_NAME", /\bPacific West\b/gi],
   ["TENANT_SOURCE_ID", /\bPWM_CRM\b/g],
