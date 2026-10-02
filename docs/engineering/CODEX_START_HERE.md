@@ -13,6 +13,21 @@ Before edits, report:
 
 Do not assume a worktree is current merely because the directory exists.
 
+Owner-local Git bootstrap and Codex writing are separate stages. Before Codex is allowed to
+write, the owner-side stage must establish the expected repository root, branch, HEAD and
+worktree policy. Codex observes and compares that state; it does not repair or bootstrap it.
+
+If repo/branch/HEAD/worktree differs from the authorized task, **STOP and report the mismatch**.
+Unless a separate owner gate explicitly changes this rule, Codex must not fetch, pull, switch,
+checkout, create/delete branches, reset, rebase, merge, stash, clean, run `git gc`, repack,
+maintenance or commit-graph repair. Do not continue into a later operational stage from the same
+pasted command block when the current stage has not been proven.
+
+Native-process stderr or a wrapper warning is not, by itself, proof that a Git mutation failed.
+Before retrying a mutation, revalidate the authoritative Git/GitHub state and actual exit/result.
+
+See [State & Authority Semantics](STATE_AND_AUTHORITY_SEMANTICS.md).
+
 ## 2. Read only the context required for the active task
 
 Always read:

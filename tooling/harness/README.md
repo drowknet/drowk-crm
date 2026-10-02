@@ -19,9 +19,12 @@ Canonical CI uses Node 22 (22.13+ for ESLint); local Node 24 also works.
 | `lint` | Root ESLint correctness rules for TS/JS; warnings fail; no auto-fix or inline suppression. |
 | `verify` | Lint + typecheck + tests. Harness adds preflight/secret gates. |
 
-Preflight verifies lockfile presence/format; frozen install enforces dependency
-consistency without repairing the lockfile. Modes invoke leaf scripts, never
-`verify` or another mode: no recursive script graph.
+Preflight verifies repository/package/Git availability and lockfile expectations; it is a
+repository preflight, **not** proof of owner-local writer bootstrap, expected task branch/HEAD,
+worktree cleanliness policy, writer ownership, merge authority or deployment authority. Those
+belong to the owner/task orchestration layer. Frozen install enforces dependency consistency
+without repairing the lockfile. Modes invoke leaf scripts, never `verify` or another mode:
+no recursive script graph.
 
 Lint excludes only package-generated dist directories and node_modules. Its explicit
 correctness baseline catches unsafe control flow, invalid assignments, duplicate
