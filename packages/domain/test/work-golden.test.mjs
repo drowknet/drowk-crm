@@ -6,7 +6,7 @@ import {
   reconcileWork, resolvePursuitWorkAnchor, resolveWorkDueDate,
 } from "../dist/work.js";
 
-// Synthetic equivalents of PWM_CRM/harness/wp02-regression.mjs cases cited below.
+// Synthetic equivalents of legacy CRM source/harness/wp02-regression.mjs cases cited below.
 const context = {
   tenantId: "00000000-0000-4000-8000-000000000001",
   runId: "00000000-0000-4000-8000-000000000002",
@@ -184,7 +184,7 @@ test("PWM cases 9, 33, 72-76, 90-94, 114-128: commercial exclusion and identity 
     assert.equal(item.nextAction, "NO_ACTION");
     assert.equal(item.autonomyLevel, "A5_NEVER_AUTO");
     assert.ok(item.reasonCodes.includes(exclusion === "RED" ?
-      "COMMERCIAL_EXCLUSION_EXISTING_PWM" : "COMMERCIAL_EXCLUSION_HOLD"));
+      "COMMERCIAL_EXCLUSION_EXISTING_ACCOUNT" : "COMMERCIAL_EXCLUSION_HOLD"));
   }
   const unknownDue = one({ conversation: outbound,
     account: { ...base().account, exclusion: "UNKNOWN" } });
