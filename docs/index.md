@@ -33,7 +33,7 @@ This index routes humans and agents to the current repository-owned context.
 - [Engineering Harness Model](architecture/ENGINEERING_HARNESS_MODEL.md) — Guides, Sensors, gates and proof-carrying work.
 - [Memory / Agent / Trace Model](architecture/MEMORY_AGENT_TRACE_MODEL.md) — memory classes, trace and durable work.
 - [Auth & Tenancy Boundary](architecture/AUTH_TENANCY_BOUNDARY.md) — user/tenant/session/agent identity separation.
-- [External Identity and Dependency Boundary](architecture/EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md) — owner-confirmed LinkedIn/Apollo/PWM channel bindings and the rule that tenant Gmail is not a DROWK infrastructure root of trust.
+- [External Identity and Dependency Boundary](architecture/EXTERNAL_IDENTITY_DEPENDENCY_BOUNDARY.md) — provider/network/tenant-channel separation and the rule that a tenant messaging channel is not a DROWK infrastructure root of trust.
 - [DROWK Domain Topology](architecture/DROWK_DOMAIN_TOPOLOGY.md) — drowk.com vs drowk.net vs product/vertical domains.
 - [Repository Structure](architecture/REPOSITORY_STRUCTURE.md) — executable monorepo boundaries and dependency direction.
 
@@ -44,11 +44,11 @@ This index routes humans and agents to the current repository-owned context.
 
 - [Codex Start Here](engineering/CODEX_START_HERE.md) — concise local entrypoint for Codex sessions.
 - [Codex Orchestration](engineering/CODEX_ORCHESTRATION.md) — scoped AGENTS, subagent workcells and one-writer discipline.
-- [Current Execution Sequence](engineering/CURRENT_EXECUTION_SEQUENCE.md) — active PWM -> DROWK bridge and next implementation gate.
+- [Current Execution Sequence](engineering/CURRENT_EXECUTION_SEQUENCE.md) — current engineering sequence and next implementation gate.
 - [Execution Foundation Plan](engineering/EXECUTION_FOUNDATION_PLAN.md) — ordered post-05C hardening sequence and explicit deferred gates.
 - [Runtime Packaging](engineering/RUNTIME_PACKAGING.md) — EF-02 closed/green container/runtime contract, local Compose boundary and deterministic packaging sensors.
 - [Staging Boundary](engineering/STAGING_BOUNDARY.md) — EF-03 staging topology, secret injection, live gates, rollback and kill path.
-- [DCRM-00B Closure](engineering/DCRM-00B_CLOSURE.md) — verified closure of the local PWM WP-03 extraction bridge.
+- [DCRM-00B Closure](engineering/DCRM-00B_CLOSURE.md) — verified closure of the legacy-source extraction bridge.
 
 ## Work packages
 
@@ -99,7 +99,7 @@ DROWK production dependency. EF-03 live remains unrelated and untouched.
 
 ## Migration
 
-- [legacy CRM source Extraction Plan](migration/legacy CRM source_EXTRACTION_PLAN.md) — preservation-first extraction from D: source system.
+- [Legacy CRM Source Extraction Plan](migration/LEGACY_CRM_EXTRACTION_PLAN.md) — preservation-first extraction from a legacy reference system.
 
 ## Roadmap
 
